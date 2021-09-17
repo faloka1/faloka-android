@@ -8,7 +8,7 @@ import android.os.Handler;
 import android.view.WindowManager;
 
 public class SplashScreen extends AppCompatActivity {
-    //testt
+    //DONE
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
