@@ -19,7 +19,7 @@
             android:layout_marginTop="40dp"
             android:layout_weight="1"
             android:fontFamily="@font/josefin_sans"
-            android:text="FALOKA"
+            android:text="Faloka"
             android:textAlignment="center"
             android:textColor="#ECECEC"
             android:textSize="48sp" />
@@ -45,14 +45,14 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_title_login"
+                android:id="@+id/tv_title_register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/josefin_sans_semibold"
-                android:text="Register"
+                android:text="Daftar"
                 android:textAlignment="center"
                 android:textColor="@color/black_faloka"
                 android:textSize="28sp"
@@ -72,19 +72,19 @@
                 android:drawablePadding="10dp"
                 android:ems="10"
                 android:fontFamily="@font/roboto_medium"
-                android:hint="Name"
+                android:hint="Nama"
                 android:inputType="textPersonName"
                 android:padding="10dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="50dp"
                 android:textColor="@color/black_faloka"
                 android:textColorHint="#C5C5C5"
-                app:layout_constraintEnd_toEndOf="@+id/tv_title_login"
-                app:layout_constraintStart_toStartOf="@+id/tv_title_login"
-                app:layout_constraintTop_toBottomOf="@+id/tv_title_login" />
+                app:layout_constraintEnd_toEndOf="@+id/tv_title_register"
+                app:layout_constraintStart_toStartOf="@+id/tv_title_register"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_register" />
 
             <EditText
-                android:id="@+id/edt_email"
+                android:id="@+id/edt_reg_email"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -122,13 +122,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/edt_reg_name" />
 
             <Button
-                android:id="@+id/btn_reg_register"
+                android:id="@+id/btn_log_login"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:background="@color/black_faloka"
                 android:fontFamily="@font/roboto_medium"
-                android:text="Register"
+                android:text="Daftar"
                 android:textAllCaps="false"
                 android:textColor="#FAFAFA"
                 android:textSize="18sp"
@@ -158,7 +158,7 @@
                 app:srcCompat="@drawable/ic_svg_arrow_drop_down" />
 
             <EditText
-                android:id="@+id/edt_reg_password"
+                android:id="@+id/edt_log_password"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -167,13 +167,13 @@
                 android:drawablePadding="10dp"
                 android:ems="10"
                 android:fontFamily="@font/roboto_medium"
-                android:hint="Password"
+                android:hint="Kata Sandi"
                 android:inputType="textPassword"
                 android:padding="10dp"
                 android:textColorHint="#C5C5C5"
-                app:layout_constraintEnd_toEndOf="@+id/edt_email"
-                app:layout_constraintStart_toStartOf="@+id/edt_email"
-                app:layout_constraintTop_toBottomOf="@+id/edt_email" />
+                app:layout_constraintEnd_toEndOf="@+id/edt_reg_email"
+                app:layout_constraintStart_toStartOf="@+id/edt_reg_email"
+                app:layout_constraintTop_toBottomOf="@+id/edt_reg_email" />
 
             <EditText
                 android:id="@+id/edt_reg_confirm_pass"
@@ -185,14 +185,14 @@
                 android:drawablePadding="10dp"
                 android:ems="10"
                 android:fontFamily="@font/roboto_medium"
-                android:hint="Konfirmasi Password"
+                android:hint="Konfirmasi Kata Sandi"
                 android:inputType="textPassword"
                 android:padding="10dp"
                 android:textColorHint="#C5C5C5"
-                app:layout_constraintEnd_toEndOf="@+id/edt_reg_password"
+                app:layout_constraintEnd_toEndOf="@+id/edt_log_password"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/edt_reg_password"
-                app:layout_constraintTop_toBottomOf="@+id/edt_reg_password" />
+                app:layout_constraintStart_toStartOf="@+id/edt_log_password"
+                app:layout_constraintTop_toBottomOf="@+id/edt_log_password" />
 
             <TextView
                 android:id="@+id/textView"
@@ -203,15 +203,15 @@
                 android:text="Sudah punya akun?"
                 android:textColor="#878787"
                 android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="@+id/btn_reg_register"
-                app:layout_constraintTop_toBottomOf="@+id/btn_reg_register" />
+                app:layout_constraintStart_toStartOf="@+id/btn_log_login"
+                app:layout_constraintTop_toBottomOf="@+id/btn_log_login" />
 
             <TextView
-                android:id="@+id/tv_reg_login"
+                android:id="@+id/tv_log_lupapassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="Login disini"
+                android:text="Masuk Disini"
                 android:textColor="@color/black_faloka"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
