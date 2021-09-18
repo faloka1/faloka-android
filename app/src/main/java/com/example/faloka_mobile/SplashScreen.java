@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
 
+import com.example.faloka_mobile.Login.LoginActivity;
 import com.example.faloka_mobile.Register.RegisterActivity;
 
 public class SplashScreen extends AppCompatActivity {
@@ -21,7 +22,7 @@ public class SplashScreen extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 finish();
             }
         }, 2000L);
