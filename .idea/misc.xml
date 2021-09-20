@@ -5,11 +5,15 @@
       <map>
         <entry key="..\:/AndroidStudioFile/Falokamobile/app/src/main/res/drawable/ic_splash_screen.xml" value="0.19583333333333333" />
         <entry key="..\:/AndroidStudioFile/Falokamobile/app/src/main/res/drawable/ic_svg_arrow_drop_down.xml" value="0.19583333333333333" />
+        <entry key="..\:/AndroidStudioFile/Falokamobile/app/src/main/res/drawable/round_corner_navbar_bottom.xml" value="0.19583333333333333" />
         <entry key="..\:/AndroidStudioFile/Falokamobile/app/src/main/res/drawable/round_corner_top.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioFile/Falokamobile/app/src/main/res/drawable/selector.xml" value="0.19583333333333333" />
         <entry key="..\:/AndroidStudioFile/Falokamobile/app/src/main/res/layout/activity_login.xml" value="0.22" />
-        <entry key="..\:/AndroidStudioFile/Falokamobile/app/src/main/res/layout/activity_main.xml" value="0.17300724637681159" />
+        <entry key="..\:/AndroidStudioFile/Falokamobile/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/AndroidStudioFile/Falokamobile/app/src/main/res/layout/activity_register.xml" value="0.22" />
         <entry key="..\:/AndroidStudioFile/Falokamobile/app/src/main/res/layout/activity_splash_screen.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioFile/Falokamobile/app/src/main/res/menu/bottom_menu.xml" value="0.1796875" />
+        <entry key="..\:/AndroidStudioFile/Falokamobile/app/src/main/res/menu/top_menu.xml" value="0.1796875" />
       </map>
     </option>
   </component>
