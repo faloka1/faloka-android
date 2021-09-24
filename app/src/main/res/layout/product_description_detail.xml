@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="4dp">
+
+    <LinearLayout
+        android:background="@color/netral_black_100"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="21dp"
+            android:layout_marginTop="16dp"
+            android:text="Deskripsi"
+            android:textSize="16sp"
+            android:letterSpacing="0.015"
+            android:fontFamily="@font/lato"
+            android:textColor="@color/netral_black_900"
+            android:layout_marginBottom="12dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="21dp"
+            android:layout_marginRight="21dp"
+            android:text="JUAL ECER BEBAS PILIH WARNA SESUAI PILIHAN DI VARIASI PEMBELIAN GROSIR DAPATKAN HARGA YANG LEBIH MURAH DENGAN MENGHUBUNGI ADMIN
+matt : Katun Rayon
+Berat : 360 gr/pcs* kemiripan warna asli dengan foto sekitar 80-95% tergantung resolusi cahaya
+* wajib cantumkan warna cadangan
+* Bila warna yg dipilih tidak ada maka kami akan mengirim warna yg tersedia. NO COMPLAIN !!!!"
+            android:textSize="14sp"
+            android:letterSpacing="0.05"
+            android:fontFamily="@font/khula"
+            android:textColor="@color/netral_black_1000"
+            android:layout_marginBottom="12dp"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
