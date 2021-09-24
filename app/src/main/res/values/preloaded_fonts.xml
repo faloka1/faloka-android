@@ -3,6 +3,9 @@
     <array name="preloaded_fonts" translatable="false">
         <item>@font/josefin_sans</item>
         <item>@font/josefin_sans_semibold</item>
+        <item>@font/khula</item>
+        <item>@font/lato</item>
+        <item>@font/lato_bold</item>
         <item>@font/roboto</item>
         <item>@font/roboto_medium</item>
     </array>

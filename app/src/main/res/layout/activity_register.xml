@@ -154,8 +154,7 @@
                 android:layout_marginEnd="10dp"
                 app:layout_constraintBottom_toBottomOf="@+id/spinner_gender"
                 app:layout_constraintEnd_toEndOf="@+id/spinner_gender"
-                app:layout_constraintTop_toTopOf="@+id/spinner_gender"
-                app:srcCompat="@drawable/ic_svg_arrow_drop_down" />
+                app:layout_constraintTop_toTopOf="@+id/spinner_gender"/>
 
             <EditText
                 android:id="@+id/edt_log_password"
