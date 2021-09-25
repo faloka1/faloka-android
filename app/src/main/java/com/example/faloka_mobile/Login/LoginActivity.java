@@ -21,6 +21,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
     private BackendAPI backendAPI;
+    private Call<List<User>> callUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,12 @@ public class LoginActivity extends AppCompatActivity {
 
         backendAPI = new BackendAPI();
 
-        Call<List<User>> callUsers = backendAPI.getAPI().getUsers();
+        callbackUsers();
+
+    }
+
+    void callbackUsers(){ // try get data user
+        callUsers = backendAPI.getAPI().getUsers();
         callUsers.enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
@@ -46,6 +52,5 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
-
     }
 }
