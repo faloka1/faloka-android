@@ -21,52 +21,43 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        setSupportActionBar(binding.toolbar);
+
 
         binding.buttomNavigation.setSelectedItemId(R.id.bottom_menu_home);
         binding.buttomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Fragment fragment = null;
                 switch (item.getItemId()){
                     case R.id.bottom_menu_home:
                         Toast.makeText(getApplicationContext(), "HOME", Toast.LENGTH_SHORT).show();
+                        fragment = new HomeFragment();
                         break;
                     case R.id.bottom_menu_search:
                         Toast.makeText(getApplicationContext(), "SEARCH", Toast.LENGTH_SHORT).show();
+                        fragment = new SearchFragment();
                         break;
                     case R.id.bottom_menu_inspire:
                         Toast.makeText(getApplicationContext(), "INSPIRE ME", Toast.LENGTH_SHORT).show();
+                        fragment = new InpireMeFragment();
                         break;
                     case R.id.bottom_menu_account:
                         Toast.makeText(getApplicationContext(), "ACCOUNT", Toast.LENGTH_SHORT).show();
+                        fragment = new AccountFragment();
                         break;
                 }
-                return false;
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frame_container, fragment)
+                        .commit();
+                return true;
             }
         });
+        Fragment fragment = new HomeFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.frame_container, fragment)
+                .commit();
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.top_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        switch (item.getItemId()){
-            case R.id.top_menu_wishlist:
-                Toast.makeText(getApplicationContext(), "WISHLIST", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.top_menu_cart:
-                Toast.makeText(getApplicationContext(), "CART", Toast.LENGTH_SHORT).show();
-                break;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-
 
 }
