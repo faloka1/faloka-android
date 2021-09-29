@@ -1,5 +1,7 @@
 package com.example.faloka_mobile.Home;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,11 +10,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.faloka_mobile.Adapter.SubCategoryAdapter;
+import com.example.faloka_mobile.Login.LoginActivity;
+import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.Category;
 import com.example.faloka_mobile.Model.Image;
 import com.example.faloka_mobile.Model.SubCategory;
@@ -28,6 +34,7 @@ public class ContentHomeFragment extends Fragment {
 
     Category category;
     RecyclerView rvSubCategory;
+    Button btnLogout;
     SubCategoryAdapter subCategoryAdapter;
     CarouselView homeCarousel;
 
@@ -63,7 +70,18 @@ public class ContentHomeFragment extends Fragment {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext() , 4, GridLayoutManager.VERTICAL, false);
         rvSubCategory.setLayoutManager(gridLayoutManager);
         rvSubCategory.setAdapter(subCategoryAdapter);
+        btnLogout = view.findViewById(R.id.logout);
+
+        btnLogout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TokenManager tokenManager = TokenManager.getInstance(getActivity().getSharedPreferences("Token",Context.MODE_PRIVATE));
+                tokenManager.deleteToken();
+                startActivity(new Intent(getActivity(), LoginActivity.class));
+            }
+        });
 
         return view;
     }
+
 }

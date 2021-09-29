@@ -2,10 +2,12 @@ package com.example.faloka_mobile.Login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.faloka_mobile.MainActivity;
 import com.example.faloka_mobile.Model.User;
 import com.example.faloka_mobile.Retrofit.BackendAPI;
 import com.example.faloka_mobile.databinding.ActivityLoginBinding;
@@ -17,11 +19,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener,AuthListener{
 
     private ActivityLoginBinding binding;
-    private BackendAPI backendAPI;
-    private Call<List<User>> callUsers;
+    private LoginViewModel loginViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,28 +30,24 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot() );
 
-        backendAPI = new BackendAPI();
-
-        callbackUsers();
+        binding.btnLogLogin.setOnClickListener(this);
 
     }
+    @Override
+    public void onClick(View view) {
+        loginViewModel = new LoginViewModel(binding);
+        if(loginViewModel.login(view, this)){
+            onSuccess();
+        }
+    }
+    @Override
+    public void onSuccess() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 
-    void callbackUsers(){ // try get data user
-        callUsers = backendAPI.getAPI().getUsers();
-        callUsers.enqueue(new Callback<List<User>>() {
-            @Override
-            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                List<User> users = response.body();
-                for(User user : users) {
-                    binding.edtLogEmail.setText(user.getEmail());
-                    binding.edtLogPassword.setText(user.getPassword());
-                }
-            }
+    @Override
+    public void onFailure(String massage) {
 
-            @Override
-            public void onFailure(Call<List<User>> call, Throwable t) {
-
-            }
-        });
     }
 }

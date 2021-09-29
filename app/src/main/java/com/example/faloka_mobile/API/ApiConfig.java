@@ -22,7 +22,7 @@ public class ApiConfig {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor()
                 .setLevel(HttpLoggingInterceptor.Level.BODY);
 
-        if(TokenManager.isLogin()){
+        if(tokenManager.isLogin()){
              client = new OkHttpClient.Builder()
                     .addInterceptor(new Interceptor() {
                         @NonNull

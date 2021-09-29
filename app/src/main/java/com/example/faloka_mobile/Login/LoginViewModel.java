@@ -34,14 +34,14 @@ public class LoginViewModel extends ViewModel {
         password = binding.edtLogPassword.getText().toString().trim();
     }
 
-    public void login(View view, Context context) {
+    public boolean login(View view, Context context) {
         init();
         MutableLiveData<Boolean> validation = new MutableLiveData<>();
         if (!isValidEmail() | !isValidPassword()) {
-            return;
+            return false;
         }
         LoginRepository.userLogin(email,password,context);
-        authListener.onSuccess();
+        return true;
     }
     private Boolean isValidEmail(){
         if(email.isEmpty()){

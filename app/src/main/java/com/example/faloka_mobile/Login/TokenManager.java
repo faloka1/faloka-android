@@ -4,7 +4,7 @@ import android.content.SharedPreferences;
 
 public class TokenManager {
     static private SharedPreferences prefs;
-    private SharedPreferences.Editor editor;
+    static private SharedPreferences.Editor editor;
 
     public static TokenManager INSTANCE = null;
 
@@ -25,15 +25,18 @@ public class TokenManager {
         editor.putInt("EXPIRED_TIME", token.getExpiresIn()).commit();
         editor.apply();
     }
-    public static boolean isLogin(){
+    public boolean isLogin(){
         return (INSTANCE.getToken()!=null);
     }
     public void deleteToken(){
         editor.remove("ACCESS_TOKEN").commit();
         editor.remove("EXPIRED_TIME").commit();
+        editor.apply();
     }
 
     public String getToken(){
-        return prefs.getString("ACCESS_TOKEN","missing");
+
+        return prefs.getString("ACCESS_TOKEN",null);
     }
+
 }
