@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,12 +24,15 @@ import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.Category;
 import com.example.faloka_mobile.Model.Image;
 import com.example.faloka_mobile.Model.SubCategory;
+import com.example.faloka_mobile.Product_List.ProductAdapter;
+import com.example.faloka_mobile.Product_List.ProductResponse;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.FragmentContentHomeBinding;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageClickListener;
 import com.synnapps.carouselview.ImageListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ContentHomeFragment extends Fragment {
@@ -38,6 +42,7 @@ public class ContentHomeFragment extends Fragment {
     Button btnLogout;
     SubCategoryAdapter subCategoryAdapter;
     CarouselView homeCarousel;
+    RecyclerView rvStyleInspiration;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,17 +78,22 @@ public class ContentHomeFragment extends Fragment {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext() , 4, GridLayoutManager.VERTICAL, false);
         rvSubCategory.setLayoutManager(gridLayoutManager);
         rvSubCategory.setAdapter(subCategoryAdapter);
-        btnLogout = view.findViewById(R.id.logout);
 
-        btnLogout.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TokenManager tokenManager = TokenManager.getInstance(getActivity().getSharedPreferences("Token",Context.MODE_PRIVATE));
-                tokenManager.deleteToken();
-                startActivity(new Intent(getActivity(), LoginActivity.class));
-            }
-        });
-
+        ArrayList<ProductResponse> products = new ArrayList<>();
+        products.add(new ProductResponse("Blouse bagus",R.drawable.product_image,"Toko bagus",8000));
+        products.add(new ProductResponse("Blouse bagus",R.drawable.product_image,"Toko bagus",8000));
+        products.add(new ProductResponse("Blouse bagus",R.drawable.product_image,"Toko bagus",8000));
+        products.add(new ProductResponse("Blouse bagus",R.drawable.product_image,"Toko bagus",8000));
+        products.add(new ProductResponse("Blouse bagus",R.drawable.product_image,"Toko bagus",8000));
+        products.add(new ProductResponse("Blouse bagus",R.drawable.product_image,"Toko bagus",8000));
+        products.add(new ProductResponse("Blouse bagus",R.drawable.product_image,"Toko bagus",8000));
+        products.add(new ProductResponse("Blouse bagus",R.drawable.product_image,"Toko bagus",8000));
+        products.add(new ProductResponse("Blouse bagus",R.drawable.product_image,"Toko bagus",8000));
+        products.add(new ProductResponse("Blouse bagus",R.drawable.product_image,"Toko bagus",8000));
+        rvStyleInspiration = view.findViewById(R.id.rv_product_list);
+        ProductAdapter productAdapter = new ProductAdapter(products);
+        rvStyleInspiration.setLayoutManager(new GridLayoutManager(getContext(),2, GridLayoutManager.VERTICAL, false));
+        rvStyleInspiration.setAdapter(productAdapter);
         return view;
     }
 
