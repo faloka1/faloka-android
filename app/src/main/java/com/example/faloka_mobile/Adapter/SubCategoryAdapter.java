@@ -49,6 +49,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
             public void onClick(View view) {
                 Toast.makeText(view.getContext(), holder.tvSubCategory.getText(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context, ProductListActivity.class);
+                intent.putExtra("sub_category", subCategory);
                 view.getContext().startActivity(intent);
             }
         });

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,11 +17,14 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.faloka_mobile.Home.HomeFragment;
+import com.example.faloka_mobile.Model.SubCategory;
 import com.example.faloka_mobile.R;
 
 import java.util.ArrayList;
 
 public class ProductListActivity extends AppCompatActivity {
+
+    private SubCategory subCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +36,10 @@ public class ProductListActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        toolbar.setTitle("Blouse");
+        Intent intent = getIntent();
+        subCategory = intent.getParcelableExtra("sub_category");
+
+        toolbar.setTitle(subCategory.getName());
 
         ArrayList<ProductResponse> products = new ArrayList<>();
         products.add(new ProductResponse("Blouse bagus",R.drawable.product_image,"Toko bagus",8000));
