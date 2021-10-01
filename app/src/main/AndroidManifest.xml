@@ -22,6 +22,15 @@
             android:name=".MainActivity"
             android:exported="true" />
         <activity
+            android:name=".Product_List.ProductListActivity"
+            android:label="Product List"
+            android:exported="true"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
             android:name=".SplashScreen"
             android:exported="true">
             <intent-filter>
