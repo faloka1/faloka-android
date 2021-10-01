@@ -38,7 +38,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
     @Override
     public void onBindViewHolder(@NonNull SubCategoryViewHolder holder, int position) {
         SubCategory subCategory = subCategories.get(position);
-        holder.imgSubCategory.setImageResource(subCategory.getImage().getPosition() );
+//        holder.imgSubCategory.setImageResource(subCategory.getImage().getPosition() );
         holder.tvSubCategory.setText(subCategory.getName());
         holder.cvSubCategory.setOnClickListener(new View.OnClickListener() {
             @Override

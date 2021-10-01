@@ -4,29 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class SubCategory implements Parcelable {
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Image getImage() {
-        return image;
-    }
-
-    public void setImage(Image image) {
-        this.image = image;
-    }
 
     private int id;
     private String name;
@@ -69,5 +46,28 @@ public class SubCategory implements Parcelable {
         parcel.writeInt(id);
         parcel.writeString(name);
         parcel.writeParcelable(image, i);
+    }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 }

@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.faloka_mobile.Adapter.SubCategoryAdapter;
 import com.example.faloka_mobile.Login.LoginActivity;
 import com.example.faloka_mobile.Login.TokenManager;
@@ -46,7 +47,7 @@ public class ContentHomeFragment extends Fragment {
 
         Bundle bundle = getArguments();
         if(bundle != null) {
-            category = getArguments().getParcelable("id");
+            category = getArguments().getParcelable("category");
         }
 
         homeCarousel = view.findViewById(R.id.home_carousel);
@@ -54,7 +55,9 @@ public class ContentHomeFragment extends Fragment {
         homeCarousel.setImageListener(new ImageListener() {
             @Override
             public void setImageForPosition(int position, ImageView imageView) {
-                imageView.setImageResource(category.getImages().get(position).getPosition() );
+                Glide.with(getContext())
+                        .load("http://192.168.100.7:8000"+category.getImages().get(position).getPosition())
+                        .into(imageView);
             }
         });
         homeCarousel.setImageClickListener(new ImageClickListener() {

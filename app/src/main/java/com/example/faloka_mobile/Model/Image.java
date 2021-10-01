@@ -3,18 +3,22 @@ package com.example.faloka_mobile.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Image implements Parcelable {
      private int id;
      private String name;
+     @SerializedName("image")
+    private String position;
 
-    public Image(String name, int position){
+    public Image(String name, String position){
         this.name = name;
         this.position = position;
     }
     protected Image(Parcel in) {
         id = in.readInt();
         name = in.readString();
-        position = in.readInt();
+        position = in.readString();
     }
 
     public static final Creator<Image> CREATOR = new Creator<Image>() {
@@ -45,15 +49,15 @@ public class Image implements Parcelable {
         this.name = name;
     }
 
-    public int getPosition() {
+    public String getPosition() {
         return position;
     }
 
-    public void setPosition(int position) {
+    public void setPosition(String position) {
         this.position = position;
     }
 
-    private int position;
+
 
     @Override
     public int describeContents() {
@@ -64,6 +68,6 @@ public class Image implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(id);
         parcel.writeString(name);
-        parcel.writeInt(position);
+        parcel.writeString(position);
     }
 }
