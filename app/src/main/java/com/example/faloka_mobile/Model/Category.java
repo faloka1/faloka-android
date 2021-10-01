@@ -11,6 +11,7 @@ public class Category implements Parcelable {
 
     private int id;
     private String name;
+    @SerializedName("carousels")
     private List<Image> images;
     @SerializedName("sub_categories")
     private List<SubCategory> subCategories;

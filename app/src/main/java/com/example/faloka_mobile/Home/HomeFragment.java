@@ -42,9 +42,9 @@ public class HomeFragment extends Fragment {
     private AppCompatActivity activity;
     private FragmentHomeBinding binding;
     private List<Category> categories;
-    private List<SubCategory> subCategories;
-    private List<Image> images;
-    private List<Image> images2;
+//    private List<SubCategory> subCategories;
+//    private List<Image> images;
+//    private List<Image> images2;
     private FragmentTabHost tabHost;
 
     @Override
@@ -135,36 +135,56 @@ public class HomeFragment extends Fragment {
     }
 
     void initDataCategory(){
-        images = new ArrayList<>();
-        images2 = new ArrayList<>();
-        Image blouseImage = new Image("Blouse", R.drawable.blouse_collection);
-        Image hijabImage = new Image("Hijab", R.drawable.hijab_collection);
-        images.add(blouseImage);
-        images.add(hijabImage);
-        images.add(blouseImage);
-        images.add(hijabImage);
+//        images = new ArrayList<>();
+//        images2 = new ArrayList<>();
+//        Image blouseImage = new Image("Blouse", R.drawable.blouse_collection);
+//        Image hijabImage = new Image("Hijab", R.drawable.hijab_collection);
+//        images.add(blouseImage);
+//        images.add(hijabImage);
+//        images.add(blouseImage);
+//        images.add(hijabImage);
+//
+//        images2.add(hijabImage);
+//        images2.add(hijabImage);
+//        images2.add(hijabImage);
+//
+//        subCategories = new ArrayList<>();
+//        subCategories.add(new SubCategory("Blouse", new Image("Gambar Blouse", R.drawable.img_blouse)));
+//        subCategories.add(new SubCategory("Jacket", new Image("Gambar Blouse", R.drawable.img_jaket)));
+//        subCategories.add(new SubCategory("Vest", new Image("Gambar Blouse", R.drawable.img_vest)));
+//        subCategories.add(new SubCategory("Sweeter", new Image("Gambar Blouse", R.drawable.img_sweeter)));
+//        subCategories.add(new SubCategory("Rompi", new Image("Gambar Blouse", R.drawable.img_rompi)));
+//
+//        List<SubCategory> subCategories2 = new ArrayList<>();
+//        subCategories2.add(new SubCategory("Vest", new Image("Gambar Blouse", R.drawable.img_vest)));
+//        subCategories2.add(new SubCategory("Blouse", new Image("Gambar Blouse", R.drawable.img_blouse)));
+//        subCategories2.add(new SubCategory("Jacket", new Image("Gambar Blouse", R.drawable.img_jaket)));
+//        subCategories2.add(new SubCategory("Rompi", new Image("Gambar Blouse", R.drawable.img_rompi)));
+//        subCategories2.add(new SubCategory("Sweeter", new Image("Gambar Blouse", R.drawable.img_sweeter)));
+//        subCategories2.add(new SubCategory("Rok", new Image("Gambar Blouse", R.drawable.img_rok)));
+//        subCategories2.add(new SubCategory("Rok", new Image("Gambar Blouse", R.drawable.img_rok)));
+//        subCategories2.add(new SubCategory("Rok", new Image("Gambar Blouse", R.drawable.img_rok)));
 
-        images2.add(hijabImage);
-        images2.add(hijabImage);
-        images2.add(hijabImage);
+//        categories.add(new Category("Cowok", images, subCategories));
+//        categories.add(new Category("Cewek", images2, subCategories2));
+//        categories.add(new Category("Atasan", images, subCategories));
+//        categories.add(new Category("Bawahan", images2, subCategories2));
 
-        subCategories = new ArrayList<>();
-        subCategories.add(new SubCategory("Blouse", new Image("Gambar Blouse", R.drawable.img_blouse)));
-        subCategories.add(new SubCategory("Jacket", new Image("Gambar Blouse", R.drawable.img_jaket)));
-        subCategories.add(new SubCategory("Vest", new Image("Gambar Blouse", R.drawable.img_vest)));
-        subCategories.add(new SubCategory("Sweeter", new Image("Gambar Blouse", R.drawable.img_sweeter)));
-        subCategories.add(new SubCategory("Rompi", new Image("Gambar Blouse", R.drawable.img_rompi)));
 
-        List<SubCategory> subCategories2 = new ArrayList<>();
-        subCategories2.add(new SubCategory("Vest", new Image("Gambar Blouse", R.drawable.img_vest)));
-        subCategories2.add(new SubCategory("Blouse", new Image("Gambar Blouse", R.drawable.img_blouse)));
-        subCategories2.add(new SubCategory("Jacket", new Image("Gambar Blouse", R.drawable.img_jaket)));
-        subCategories2.add(new SubCategory("Rompi", new Image("Gambar Blouse", R.drawable.img_rompi)));
-        subCategories2.add(new SubCategory("Sweeter", new Image("Gambar Blouse", R.drawable.img_sweeter)));
-        subCategories2.add(new SubCategory("Rok", new Image("Gambar Blouse", R.drawable.img_rok)));
-        subCategories2.add(new SubCategory("Rok", new Image("Gambar Blouse", R.drawable.img_rok)));
-        subCategories2.add(new SubCategory("Rok", new Image("Gambar Blouse", R.drawable.img_rok)));
         categories = new ArrayList<>();
+        TokenManager tokenManager = TokenManager.getInstance(activity.getApplicationContext().getSharedPreferences("Token",0));
+        Call<List<Category>> callCategories;
+        callCategories = ApiConfig.getApiService(tokenManager).getCategories();
+        callCategories.enqueue(new Callback<List<Category>>() {
+            @Override
+            public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
+
+                if(response.isSuccessful()){
+                    List<Category> respCategory;
+                    respCategory = response.body();
+                    initTabHost(respCategory);
+                }
+                else{
 
                 }
 
