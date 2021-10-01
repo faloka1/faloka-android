@@ -1,6 +1,7 @@
 package com.example.faloka_mobile.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.faloka_mobile.Model.SubCategory;
+import com.example.faloka_mobile.Product_List.ProductListActivity;
 import com.example.faloka_mobile.R;
 
 import java.util.List;
@@ -22,8 +24,10 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
 
     List<SubCategory> subCategories;
     LayoutInflater inflater;
+    Context context;
 
     public SubCategoryAdapter(Context context, List<SubCategory> subCategories){
+        this.context = context;
         this.subCategories = subCategories;
         this.inflater = LayoutInflater.from(context);
     }
@@ -44,6 +48,9 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
             @Override
             public void onClick(View view) {
                 Toast.makeText(view.getContext(), holder.tvSubCategory.getText(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, ProductListActivity.class);
+                intent.putExtra("sub_category", subCategory);
+                view.getContext().startActivity(intent);
             }
         });
 
