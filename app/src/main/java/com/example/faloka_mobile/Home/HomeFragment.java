@@ -20,6 +20,10 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.faloka_mobile.API.ApiConfig;
+import com.example.faloka_mobile.API.ApiService;
+import com.example.faloka_mobile.Login.LoginResponse;
+import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.Category;
 import com.example.faloka_mobile.Model.Image;
 import com.example.faloka_mobile.Model.SubCategory;
@@ -28,6 +32,10 @@ import com.example.faloka_mobile.databinding.FragmentHomeBinding;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
 
@@ -54,18 +62,18 @@ public class HomeFragment extends Fragment {
         ((AppCompatActivity)getActivity()).setSupportActionBar(binding.toolbar);
         tabHost = view.findViewById(R.id.tab_host);
         initDataCategory();
-        initTabHost();
 
         return view;
     }
 
-    void initTabHost(){
+    void initTabHost(List<Category> categories){
         int i=0;
         tabHost.setup(getActivity(), getChildFragmentManager(), R.id.home_content);
         tabHost.setCurrentTab(0);
         for(Category category : categories){
+            System.out.println(category.getName());
             Bundle bundle = new Bundle();
-            bundle.putParcelable("id", category);
+            bundle.putParcelable("category", category);
             tabHost.addTab(tabHost.newTabSpec(category.getName()).setIndicator(category.getName()), ContentHomeFragment.class, bundle);
             TextView tv = tabHost.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
             tv.setAllCaps(false);
@@ -158,13 +166,17 @@ public class HomeFragment extends Fragment {
         subCategories2.add(new SubCategory("Rok", new Image("Gambar Blouse", R.drawable.img_rok)));
         categories = new ArrayList<>();
 
-        categories.add(new Category("Cowok", images, subCategories));
-        categories.add(new Category("Cewek", images2, subCategories2));
-        categories.add(new Category("Atasan", images, subCategories));
-        categories.add(new Category("Bawahan", images2, subCategories2));
+                }
 
+            }
 
+            @Override
+            public void onFailure(Call<List<Category>> call, Throwable t) {
 
+            }
+        });
+
+        System.out.println(categories);
 
     }
 

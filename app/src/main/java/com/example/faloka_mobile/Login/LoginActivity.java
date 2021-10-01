@@ -35,10 +35,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
     @Override
     public void onClick(View view) {
-        loginViewModel = new LoginViewModel(binding);
-        if(loginViewModel.login(view, this)){
-            onSuccess();
+        if(view.getId() == binding.btnLogLogin.getId()){
+            loginViewModel = new LoginViewModel(binding);
+            if(loginViewModel.login(view, this)){
+                onSuccess();
+            }
+            else{
+                Toast.makeText(this, "HAHAH", Toast.LENGTH_SHORT).show();
+            }
         }
+
     }
     @Override
     public void onSuccess() {

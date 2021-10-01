@@ -46,7 +46,7 @@ public class ContentHomeFragment extends Fragment {
 
         Bundle bundle = getArguments();
         if(bundle != null) {
-            category = getArguments().getParcelable("id");
+            category = getArguments().getParcelable("category");
         }
 
         homeCarousel = view.findViewById(R.id.home_carousel);

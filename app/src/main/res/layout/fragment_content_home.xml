@@ -23,6 +23,7 @@
             <include
                 layout="@layout/layout_home_carousel"
                 />
+
             <include
                 layout="@layout/layout_home_subcategories"
                 />

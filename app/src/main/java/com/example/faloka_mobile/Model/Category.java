@@ -2,6 +2,9 @@ package com.example.faloka_mobile.Model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class Category implements Parcelable {
@@ -9,6 +12,7 @@ public class Category implements Parcelable {
     private int id;
     private String name;
     private List<Image> images;
+    @SerializedName("sub_categories")
     private List<SubCategory> subCategories;
 
     public Category(String name, List<Image> images, List<SubCategory> subCategories){
@@ -16,6 +20,8 @@ public class Category implements Parcelable {
         this.images = images;
         this.subCategories = subCategories;
     }
+
+    public Category(){}
 
     public List<SubCategory> getSubCategories() {
         return subCategories;
