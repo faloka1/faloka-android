@@ -1,6 +1,7 @@
 package com.example.faloka_mobile.Login;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -37,13 +38,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
         if(view.getId() == binding.btnLogLogin.getId()){
             loginViewModel = new LoginViewModel(binding);
-            if(loginViewModel.login(view, this)){
-                onSuccess();
-            }
-            else{
-                Toast.makeText(this, "HAHAH", Toast.LENGTH_SHORT).show();
-            }
         }
+
+    }
+    @Override
+    public void onCheck(LiveData<Boolean> validation) {
 
     }
     @Override
@@ -56,4 +55,5 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onFailure(String massage) {
 
     }
+
 }
