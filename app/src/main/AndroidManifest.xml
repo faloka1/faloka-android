@@ -22,7 +22,7 @@
             android:name=".MainActivity"
             android:exported="true" />
         <activity
-            android:name=".Product_List.ProductListActivity"
+            android:name=".ProductList.ProductListActivity"
             android:label="Product List"
             android:exported="true"
             android:parentActivityName=".MainActivity" >

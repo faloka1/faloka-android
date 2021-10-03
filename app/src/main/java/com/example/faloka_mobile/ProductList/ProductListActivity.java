@@ -1,4 +1,4 @@
-package com.example.faloka_mobile.Product_List;
+package com.example.faloka_mobile.ProductList;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -16,13 +16,10 @@ import android.widget.Toast;
 import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Adapter.ProductAdapter;
 import com.example.faloka_mobile.Login.TokenManager;
-import com.example.faloka_mobile.Model.Category;
-import com.example.faloka_mobile.Model.Pivot;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.SubCategory;
 import com.example.faloka_mobile.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
