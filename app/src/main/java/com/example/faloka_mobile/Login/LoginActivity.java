@@ -43,6 +43,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
+    public void onCheck(LiveData<Boolean> validation) {
+
+    }
+    @Override
     public void onSuccess() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);

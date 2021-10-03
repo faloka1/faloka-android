@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,6 +28,7 @@ import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageClickListener;
 import com.synnapps.carouselview.ImageListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ContentHomeFragment extends Fragment {
@@ -36,6 +38,7 @@ public class ContentHomeFragment extends Fragment {
     Button btnLogout;
     SubCategoryAdapter subCategoryAdapter;
     CarouselView homeCarousel;
+    RecyclerView rvStyleInspiration;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,23 +80,12 @@ public class ContentHomeFragment extends Fragment {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext() , 4, GridLayoutManager.VERTICAL, false);
         rvSubCategory.setLayoutManager(gridLayoutManager);
         rvSubCategory.setAdapter(subCategoryAdapter);
-        btnLogout = view.findViewById(R.id.logout);
-
-        btnLogout.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TokenManager tokenManager = TokenManager.getInstance(getActivity().getSharedPreferences("Token",Context.MODE_PRIVATE));
-                tokenManager.deleteToken();
-                startActivity(new Intent(getActivity(), LoginActivity.class));
-            }
-        });
 
         List<Product> products = category.getProductList();
         RecyclerView rvStyleInspiration = view.findViewById(R.id.rv_product_list);
         ProductAdapter productAdapter = new ProductAdapter(products);
         rvStyleInspiration.setLayoutManager(new GridLayoutManager(getContext() ,2, GridLayoutManager.VERTICAL, false));
         rvStyleInspiration.setAdapter(productAdapter);
-
         return view;
     }
 
