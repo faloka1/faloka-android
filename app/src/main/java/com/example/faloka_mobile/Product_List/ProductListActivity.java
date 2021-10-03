@@ -4,23 +4,30 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.faloka_mobile.Home.HomeFragment;
+import com.example.faloka_mobile.API.ApiConfig;
+import com.example.faloka_mobile.Adapter.ProductAdapter;
+import com.example.faloka_mobile.Login.TokenManager;
+import com.example.faloka_mobile.Model.Category;
+import com.example.faloka_mobile.Model.Pivot;
+import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.SubCategory;
 import com.example.faloka_mobile.R;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProductListActivity extends AppCompatActivity {
 
@@ -38,24 +45,28 @@ public class ProductListActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         subCategory = intent.getParcelableExtra("sub_category");
-
         toolbar.setTitle(subCategory.getName());
 
-        ArrayList<ProductResponse> products = new ArrayList<>();
-        products.add(new ProductResponse("Blouse bagus",R.drawable.product_image,"Toko bagus",8000));
-        products.add(new ProductResponse("Blouse bagus",R.drawable.product_image,"Toko bagus",8000));
-        products.add(new ProductResponse("Blouse bagus",R.drawable.product_image,"Toko bagus",8000));
-        products.add(new ProductResponse("Blouse bagus",R.drawable.product_image,"Toko bagus",8000));
-        products.add(new ProductResponse("Blouse bagus",R.drawable.product_image,"Toko bagus",8000));
-        products.add(new ProductResponse("Blouse bagus",R.drawable.product_image,"Toko bagus",8000));
-        products.add(new ProductResponse("Blouse bagus",R.drawable.product_image,"Toko bagus",8000));
-        products.add(new ProductResponse("Blouse bagus",R.drawable.product_image,"Toko bagus",8000));
-        products.add(new ProductResponse("Blouse bagus",R.drawable.product_image,"Toko bagus",8000));
-        products.add(new ProductResponse("Blouse bagus",R.drawable.product_image,"Toko bagus",8000));
-        RecyclerView rvStyleInspiration = findViewById(R.id.rv_product_list);
-        ProductAdapter productAdapter = new ProductAdapter(products);
-        rvStyleInspiration.setLayoutManager(new GridLayoutManager(this,2, GridLayoutManager.VERTICAL, false));
-        rvStyleInspiration.setAdapter(productAdapter);
+        TokenManager tokenManager = TokenManager.getInstance(getApplicationContext().getSharedPreferences("Token",0));
+        Call<List<Product>> callProduct;
+        callProduct = ApiConfig.getApiService(tokenManager).
+                getProductSubCategories(subCategory.getSlugCategory(), subCategory.getSlug());
+        callProduct.enqueue(new Callback<List<Product>>() {
+            @Override
+            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                List<Product> respProduct;
+                respProduct = response.body();
+                RecyclerView rvProductList = findViewById(R.id.rv_product_list);
+                ProductAdapter productAdapter = new ProductAdapter(respProduct);
+                rvProductList.setLayoutManager(new GridLayoutManager(getApplicationContext(),2, GridLayoutManager.VERTICAL, false));
+                rvProductList.setAdapter(productAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<Product>> call, Throwable t) {
+
+            }
+        });
 
     }
 

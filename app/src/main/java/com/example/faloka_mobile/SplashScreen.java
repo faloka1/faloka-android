@@ -26,14 +26,14 @@ public class SplashScreen extends AppCompatActivity {
             @Override
             public void run() {
                 TokenManager tokenManager = TokenManager.getInstance(getSharedPreferences("Token",0));
-                if(tokenManager.isLogin()){
+//                if(tokenManager.isLogin()){
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     finish();
-                }
-                else{
-                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                    finish();
-                }
+//                }
+//                else{
+//                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+//                    finish();
+//                }
             }
         }, 2000L);
     }

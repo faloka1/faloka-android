@@ -2,6 +2,7 @@ package com.example.faloka_mobile.API;
 
 import com.example.faloka_mobile.Login.LoginResponse;
 import com.example.faloka_mobile.Model.Category;
+import com.example.faloka_mobile.Model.Product;
 
 import java.util.List;
 
@@ -10,13 +11,19 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface ApiService {
     @FormUrlEncoded
     @POST("auth/login")
     Call<LoginResponse> getSession(@Field("email") String email, @Field("password") String password);
 
-    @GET("categories")
+    @GET("home")
     Call<List<Category>> getCategories();
+
+    @GET("products")
+    Call<List<Product>> getProductSubCategories(
+            @Query("category") String slugCategory,
+            @Query("subcategory") String slugSubCategory);
 }
 

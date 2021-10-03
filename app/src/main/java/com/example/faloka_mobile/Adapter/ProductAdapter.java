@@ -1,6 +1,5 @@
-package com.example.faloka_mobile.Product_List;
+package com.example.faloka_mobile.Adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,17 +11,20 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
+import com.example.faloka_mobile.Model.VariantImage;
+import com.example.faloka_mobile.Model.Product;
+import com.example.faloka_mobile.Model.Variant;
 import com.example.faloka_mobile.R;
 
-import java.util.ArrayList;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
-    ArrayList<ProductResponse> productList;
+    List<Product> productList;
 
-    public ProductAdapter(ArrayList<ProductResponse> productList){
+    public ProductAdapter(List<Product> productList){
         this.productList = productList;
     }
     @NonNull
@@ -36,11 +38,18 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public void onBindViewHolder(@NonNull ProductAdapter.ProductViewHolder holder, int position) {
-        ProductResponse product = productList.get(position);
-        holder.img.setImageResource(product.getImage());
+        Product product = productList.get(position);
+        Glide.with(holder.img.getContext())
+                .load("http://192.168.100.7:8000"+product.getProductImageURL() )
+                .into(holder.img);
+
         holder.name.setText(product.getName());
-        holder.brand.setText(product.getBrand());
-        //holder.price.setText(product.getPrice());
+        holder.brand.setText(product.getBrand().getName());
+
+        Double price = Double.parseDouble(String.valueOf(product.getPrice()));
+        Locale localeID = new Locale("in", "ID");
+        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+        holder.price.setText(String.valueOf(formatRupiah.format(price)));
     }
 
     @Override
@@ -59,7 +68,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             img = itemView.findViewById(R.id.product_image);
             brand = itemView.findViewById(R.id.product_brand);
             name = itemView.findViewById(R.id.product_name);
-            //price = itemView.findViewById(R.id.product_price);
+            price = itemView.findViewById(R.id.product_price);
         }
     }
 }
