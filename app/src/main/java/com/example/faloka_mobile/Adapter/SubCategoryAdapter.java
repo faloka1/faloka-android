@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.faloka_mobile.Model.SubCategory;
 import com.example.faloka_mobile.Product_List.ProductListActivity;
 import com.example.faloka_mobile.R;
@@ -42,12 +43,13 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
     @Override
     public void onBindViewHolder(@NonNull SubCategoryViewHolder holder, int position) {
         SubCategory subCategory = subCategories.get(position);
-//        holder.imgSubCategory.setImageResource(subCategory.getImage().getPosition() );
+        Glide.with(holder.imgSubCategory.getContext() )
+                .load("http://192.168.100.7:8000"+subCategory.getImageURL() )
+                .into(holder.imgSubCategory);
         holder.tvSubCategory.setText(subCategory.getName());
         holder.cvSubCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), holder.tvSubCategory.getText(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context, ProductListActivity.class);
                 intent.putExtra("sub_category", subCategory);
                 view.getContext().startActivity(intent);

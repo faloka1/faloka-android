@@ -4,7 +4,6 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
@@ -21,16 +20,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.faloka_mobile.API.ApiConfig;
-import com.example.faloka_mobile.API.ApiService;
-import com.example.faloka_mobile.Login.LoginResponse;
 import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.Category;
-import com.example.faloka_mobile.Model.Image;
 import com.example.faloka_mobile.Model.SubCategory;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.FragmentHomeBinding;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -71,6 +68,7 @@ public class HomeFragment extends Fragment {
         tabHost.setup(getActivity(), getChildFragmentManager(), R.id.home_content);
         tabHost.setCurrentTab(0);
         for(Category category : categories){
+
             System.out.println(category.getName());
             Bundle bundle = new Bundle();
             bundle.putParcelable("category", category);

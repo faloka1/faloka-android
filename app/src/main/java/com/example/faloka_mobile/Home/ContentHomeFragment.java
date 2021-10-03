@@ -15,19 +15,15 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.faloka_mobile.Adapter.ProductAdapter;
 import com.example.faloka_mobile.Adapter.SubCategoryAdapter;
 import com.example.faloka_mobile.Login.LoginActivity;
 import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.Category;
-import com.example.faloka_mobile.Model.Image;
-import com.example.faloka_mobile.Model.SubCategory;
-import com.example.faloka_mobile.Product_List.ProductAdapter;
-import com.example.faloka_mobile.Product_List.ProductResponse;
+import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.R;
-import com.example.faloka_mobile.databinding.FragmentContentHomeBinding;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageClickListener;
 import com.synnapps.carouselview.ImageListener;
@@ -53,46 +49,42 @@ public class ContentHomeFragment extends Fragment {
         Bundle bundle = getArguments();
         if(bundle != null) {
             category = getArguments().getParcelable("category");
+            String slugCategory = category.getSlug();
+            for(int i=0; i<category.getSubCategoryList().size(); i++){
+                category.getSubCategoryList().get(i).setSlugCategory(slugCategory);
+            }
         }
 
+
+
         homeCarousel = view.findViewById(R.id.home_carousel);
-        homeCarousel.setPageCount(category.getImages().size());
+        homeCarousel.setPageCount(category.getCarouselList().size());
         homeCarousel.setImageListener(new ImageListener() {
             @Override
             public void setImageForPosition(int position, ImageView imageView) {
                 Glide.with(getContext())
-                        .load("http://192.168.100.7:8000"+category.getImages().get(position).getPosition())
+                        .load("http://192.168.100.7:8000"+category.getCarouselList().get(position).getImageURL())
                         .into(imageView);
             }
         });
         homeCarousel.setImageClickListener(new ImageClickListener() {
             @Override
             public void onClick(int position) {
-                Toast.makeText(getContext(), category.getImages().get(position).getName(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), category.getImages().get(position).getName(), Toast.LENGTH_SHORT).show();
             }
         });
 
         rvSubCategory = view.findViewById(R.id.rv_subcategory);
-        subCategoryAdapter = new SubCategoryAdapter(getContext(), category.getSubCategories());
-        System.out.println(category.getSubCategories().size());
+        subCategoryAdapter = new SubCategoryAdapter(getContext(), category.getSubCategoryList() );
+        System.out.println(category.getSubCategoryList().size());
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext() , 4, GridLayoutManager.VERTICAL, false);
         rvSubCategory.setLayoutManager(gridLayoutManager);
         rvSubCategory.setAdapter(subCategoryAdapter);
 
-        ArrayList<ProductResponse> products = new ArrayList<>();
-        products.add(new ProductResponse("Blouse bagus",R.drawable.product_image,"Toko bagus",8000));
-        products.add(new ProductResponse("Blouse bagus",R.drawable.product_image,"Toko bagus",8000));
-        products.add(new ProductResponse("Blouse bagus",R.drawable.product_image,"Toko bagus",8000));
-        products.add(new ProductResponse("Blouse bagus",R.drawable.product_image,"Toko bagus",8000));
-        products.add(new ProductResponse("Blouse bagus",R.drawable.product_image,"Toko bagus",8000));
-        products.add(new ProductResponse("Blouse bagus",R.drawable.product_image,"Toko bagus",8000));
-        products.add(new ProductResponse("Blouse bagus",R.drawable.product_image,"Toko bagus",8000));
-        products.add(new ProductResponse("Blouse bagus",R.drawable.product_image,"Toko bagus",8000));
-        products.add(new ProductResponse("Blouse bagus",R.drawable.product_image,"Toko bagus",8000));
-        products.add(new ProductResponse("Blouse bagus",R.drawable.product_image,"Toko bagus",8000));
-        rvStyleInspiration = view.findViewById(R.id.rv_product_list);
+        List<Product> products = category.getProductList();
+        RecyclerView rvStyleInspiration = view.findViewById(R.id.rv_product_list);
         ProductAdapter productAdapter = new ProductAdapter(products);
-        rvStyleInspiration.setLayoutManager(new GridLayoutManager(getContext(),2, GridLayoutManager.VERTICAL, false));
+        rvStyleInspiration.setLayoutManager(new GridLayoutManager(getContext() ,2, GridLayoutManager.VERTICAL, false));
         rvStyleInspiration.setAdapter(productAdapter);
         return view;
     }

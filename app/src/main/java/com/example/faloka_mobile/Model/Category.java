@@ -11,32 +11,22 @@ public class Category implements Parcelable {
 
     private int id;
     private String name;
+    private String slug;
     @SerializedName("carousels")
-    private List<Image> images;
+    private List<Carousel> carouselList;
     @SerializedName("sub_categories")
-    private List<SubCategory> subCategories;
+    private List<SubCategory> subCategoryList;
+    @SerializedName("products")
+    private List<Product> productList;
 
-    public Category(String name, List<Image> images, List<SubCategory> subCategories){
-        this.name = name;
-        this.images = images;
-        this.subCategories = subCategories;
-    }
-
-    public Category(){}
-
-    public List<SubCategory> getSubCategories() {
-        return subCategories;
-    }
-
-    public void setSubCategories(List<SubCategory> subCategories) {
-        this.subCategories = subCategories;
-    }
 
     protected Category(Parcel in) {
-        id = in.readInt();
-        name = in.readString();
-        images = in.createTypedArrayList(Image.CREATOR);
-        subCategories = in.createTypedArrayList(SubCategory.CREATOR);
+        setId(in.readInt());
+        setName(in.readString());
+        setSlug(in.readString());
+        setCarouselList(in.createTypedArrayList(Carousel.CREATOR));
+        setSubCategoryList(in.createTypedArrayList(SubCategory.CREATOR));
+        setProductList(in.createTypedArrayList(Product.CREATOR));
     }
 
     public static final Creator<Category> CREATOR = new Creator<Category>() {
@@ -50,6 +40,21 @@ public class Category implements Parcelable {
             return new Category[size];
         }
     };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(getId());
+        parcel.writeString(getName());
+        parcel.writeString(getSlug());
+        parcel.writeTypedList(getCarouselList());
+        parcel.writeTypedList(getSubCategoryList());
+        parcel.writeTypedList(getProductList());
+    }
 
     public int getId() {
         return id;
@@ -67,25 +72,35 @@ public class Category implements Parcelable {
         this.name = name;
     }
 
-    public List<Image> getImages() {
-        return images;
+    public String getSlug() {
+        return slug;
     }
 
-    public void setImages(List<Image> images) {
-        this.images = images;
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 
-
-    @Override
-    public int describeContents() {
-        return 0;
+    public List<Carousel> getCarouselList() {
+        return carouselList;
     }
 
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(id);
-        parcel.writeString(name);
-        parcel.writeTypedList(images);
-        parcel.writeTypedList(subCategories);
+    public void setCarouselList(List<Carousel> carouselList) {
+        this.carouselList = carouselList;
+    }
+
+    public List<SubCategory> getSubCategoryList() {
+        return subCategoryList;
+    }
+
+    public void setSubCategoryList(List<SubCategory> subCategoryList) {
+        this.subCategoryList = subCategoryList;
+    }
+
+    public List<Product> getProductList() {
+        return productList;
+    }
+
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
     }
 }

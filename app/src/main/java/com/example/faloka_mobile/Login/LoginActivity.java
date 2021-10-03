@@ -41,6 +41,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
     }
+
     @Override
     public void onCheck(LiveData<Boolean> validation) {
 
