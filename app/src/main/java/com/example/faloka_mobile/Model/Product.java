@@ -15,7 +15,8 @@ public class Product implements Parcelable {
     @SerializedName("brands")
     private Brand brand;
     private int price;
-    private Pivot pivot;
+    @SerializedName("pivot")
+    private PivotProduct pivotProduct;
     private String description;
     private float discount;
     private String slug;
@@ -26,10 +27,17 @@ public class Product implements Parcelable {
         setVariantList(in.createTypedArrayList(Variant.CREATOR));
         setBrand(in.readParcelable(Brand.class.getClassLoader()));
         setPrice(in.readInt());
-        setPivot(in.readParcelable(Pivot.class.getClassLoader()));
+        setPivotProduct(in.readParcelable(PivotProduct.class.getClassLoader()));
         setDescription(in.readString());
         setDiscount(in.readFloat());
         setSlug(in.readString());
+    }
+
+    public String getProductImageURL(){
+        Variant variant= variantList.get(0);
+        List<VariantImage> variantImageList = variant.getVariantImageList();
+        VariantImage variantImage = variantImageList.get(0);
+        return variantImage.getImageURL();
     }
 
     public static final Creator<Product> CREATOR = new Creator<Product>() {
@@ -56,7 +64,7 @@ public class Product implements Parcelable {
         parcel.writeTypedList(getVariantList());
         parcel.writeParcelable(getBrand(), i);
         parcel.writeInt(getPrice());
-        parcel.writeParcelable(getPivot(), i);
+        parcel.writeParcelable(getPivotProduct(), i);
         parcel.writeString(getDescription());
         parcel.writeFloat(getDiscount());
         parcel.writeString(getSlug());
@@ -82,13 +90,6 @@ public class Product implements Parcelable {
         return variantList;
     }
 
-    public String getProductImageURL(){
-        Variant variant= variantList.get(0);
-        List<VariantImage> variantImageList = variant.getVariantImageList();
-        VariantImage variantImage = variantImageList.get(0);
-        return variantImage.getImageURL();
-    }
-
     public void setVariantList(List<Variant> variantList) {
         this.variantList = variantList;
     }
@@ -109,12 +110,12 @@ public class Product implements Parcelable {
         this.price = price;
     }
 
-    public Pivot getPivot() {
-        return pivot;
+    public PivotProduct getPivotProduct() {
+        return pivotProduct;
     }
 
-    public void setPivot(Pivot pivot) {
-        this.pivot = pivot;
+    public void setPivotProduct(PivotProduct pivotProduct) {
+        this.pivotProduct = pivotProduct;
     }
 
     public String getDescription() {

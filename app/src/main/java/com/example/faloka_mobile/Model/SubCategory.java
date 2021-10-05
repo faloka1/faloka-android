@@ -10,17 +10,17 @@ public class SubCategory implements Parcelable {
     private int id;
     private String slugCategory;
     private String name;
-    @SerializedName("image_url")
-    private String imageURL;
     private String slug;
-    private Pivot pivot;
+    @SerializedName("pivot")
+    private PivotSubCategory pivotSubCategory;
+
 
     protected SubCategory(Parcel in) {
         setId(in.readInt());
+        setSlugCategory(in.readString());
         setName(in.readString());
-        setImageURL(in.readString());
         setSlug(in.readString());
-        setPivot(in.readParcelable(Pivot.class.getClassLoader()));
+        setPivotSubCategory(in.readParcelable(PivotSubCategory.class.getClassLoader()));
     }
 
     public static final Creator<SubCategory> CREATOR = new Creator<SubCategory>() {
@@ -43,10 +43,10 @@ public class SubCategory implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(getId());
+        parcel.writeString(getSlugCategory());
         parcel.writeString(getName());
-        parcel.writeString(getImageURL());
         parcel.writeString(getSlug());
-        parcel.writeParcelable(getPivot(), i);
+        parcel.writeParcelable(getPivotSubCategory(), i);
     }
 
     public int getId() {
@@ -57,20 +57,20 @@ public class SubCategory implements Parcelable {
         this.id = id;
     }
 
+    public String getSlugCategory() {
+        return slugCategory;
+    }
+
+    public void setSlugCategory(String slugCategory) {
+        this.slugCategory = slugCategory;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getImageURL() {
-        return imageURL;
-    }
-
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
     }
 
     public String getSlug() {
@@ -81,19 +81,11 @@ public class SubCategory implements Parcelable {
         this.slug = slug;
     }
 
-    public Pivot getPivot() {
-        return pivot;
+    public PivotSubCategory getPivotSubCategory() {
+        return pivotSubCategory;
     }
 
-    public void setPivot(Pivot pivot) {
-        this.pivot = pivot;
-    }
-
-    public String getSlugCategory() {
-        return slugCategory;
-    }
-
-    public void setSlugCategory(String slugCategory) {
-        this.slugCategory = slugCategory;
+    public void setPivotSubCategory(PivotSubCategory pivotSubCategory) {
+        this.pivotSubCategory = pivotSubCategory;
     }
 }
