@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Adapter.ProductAdapter;
 import com.example.faloka_mobile.Adapter.SubCategoryAdapter;
 import com.example.faloka_mobile.Login.LoginActivity;
@@ -48,7 +49,7 @@ public class ContentHomeFragment extends Fragment {
 
         Bundle bundle = getArguments();
         if(bundle != null) {
-            category = getArguments().getParcelable("category");
+            category = getArguments().getParcelable(HomeFragment.CATEGORY_PARCELABLE);
             String slugCategory = category.getSlug();
             for(int i=0; i<category.getSubCategoryList().size(); i++){
                 category.getSubCategoryList().get(i).setSlugCategory(slugCategory);
@@ -63,7 +64,7 @@ public class ContentHomeFragment extends Fragment {
             @Override
             public void setImageForPosition(int position, ImageView imageView) {
                 Glide.with(getContext())
-                        .load("http://192.168.100.7:8000"+category.getCarouselList().get(position).getImageURL())
+                        .load(ApiConfig.BASE_IMAGE_URL+category.getCarouselList().get(position).getImageURL())
                         .into(imageView);
             }
         });

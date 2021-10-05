@@ -36,6 +36,7 @@ import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
 
+    public static final String CATEGORY_PARCELABLE = "category";
     private AppCompatActivity activity;
     private FragmentHomeBinding binding;
     private List<Category> categories;
@@ -71,7 +72,7 @@ public class HomeFragment extends Fragment {
 
             System.out.println(category.getName());
             Bundle bundle = new Bundle();
-            bundle.putParcelable("category", category);
+            bundle.putParcelable(CATEGORY_PARCELABLE, category);
             tabHost.addTab(tabHost.newTabSpec(category.getName()).setIndicator(category.getName()), ContentHomeFragment.class, bundle);
             TextView tv = tabHost.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
             tv.setAllCaps(false);

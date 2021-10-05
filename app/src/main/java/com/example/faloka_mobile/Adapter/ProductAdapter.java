@@ -11,6 +11,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Model.VariantImage;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.Variant;
@@ -40,7 +41,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public void onBindViewHolder(@NonNull ProductAdapter.ProductViewHolder holder, int position) {
         Product product = productList.get(position);
         Glide.with(holder.img.getContext())
-                .load("http://192.168.100.7:8000"+product.getProductImageURL() )
+                .load(ApiConfig.BASE_IMAGE_URL+product.getProductImageURL() )
                 .into(holder.img);
 
         holder.name.setText(product.getName());
