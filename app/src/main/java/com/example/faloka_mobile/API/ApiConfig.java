@@ -17,6 +17,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import okhttp3.logging.HttpLoggingInterceptor;
 
 public class ApiConfig {
+    public static final String BASE_URL = "http://ec2-13-59-13-137.us-east-2.compute.amazonaws.com/public/api/";
+    public static final String BASE_IMAGE_URL = "http://ec2-13-59-13-137.us-east-2.compute.amazonaws.com/public";
     static OkHttpClient client;
     public static ApiService getApiService(TokenManager tokenManager) {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor()
@@ -41,7 +43,8 @@ public class ApiConfig {
         }
 
         Retrofit retrofit = new retrofit2.Retrofit.Builder()
-                .baseUrl("http://192.168.100.7:8000/api/")
+//                .baseUrl("http://192.168.100.7:8000/api/")
+                .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();

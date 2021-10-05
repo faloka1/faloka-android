@@ -13,6 +13,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Model.SubCategory;
 import com.example.faloka_mobile.ProductList.ProductListActivity;
 import com.example.faloka_mobile.R;
@@ -42,7 +43,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
     public void onBindViewHolder(@NonNull SubCategoryViewHolder holder, int position) {
         SubCategory subCategory = subCategories.get(position);
         Glide.with(holder.imgSubCategory.getContext() )
-                .load("http://192.168.100.7:8000"+subCategory.getPivotSubCategory().getImageURL() )
+                .load(ApiConfig.BASE_IMAGE_URL+subCategory.getPivotSubCategory().getImageURL() )
                 .into(holder.imgSubCategory);
         holder.tvSubCategory.setText(subCategory.getName());
         holder.cvSubCategory.setOnClickListener(new View.OnClickListener() {
