@@ -17,7 +17,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Adapter.ProductAdapter;
 import com.example.faloka_mobile.Adapter.SubCategoryAdapter;
 import com.example.faloka_mobile.Login.LoginActivity;
@@ -35,36 +34,34 @@ import java.util.List;
 public class ContentHomeFragment extends Fragment {
 
     Category category;
-    RecyclerView rvSubCategory;
     Button btnLogout;
-    SubCategoryAdapter subCategoryAdapter;
-    CarouselView homeCarousel;
-    RecyclerView rvStyleInspiration;
+    View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_content_home, container, false);
+        view = inflater.inflate(R.layout.fragment_content_home, container, false);
 
         Bundle bundle = getArguments();
         if(bundle != null) {
-            category = getArguments().getParcelable(HomeFragment.CATEGORY_PARCELABLE);
-            String slugCategory = category.getSlug();
-            for(int i=0; i<category.getSubCategoryList().size(); i++){
-                category.getSubCategoryList().get(i).setSlugCategory(slugCategory);
-            }
+            category = bundle.getParcelable("category");
         }
+        createHomeCarousel();
+        createSubCategory();
+        createStyleInspiration();
+        return view;
+    }
 
-
-
+    private void createHomeCarousel(){
+        CarouselView homeCarousel;
         homeCarousel = view.findViewById(R.id.home_carousel);
         homeCarousel.setPageCount(category.getCarouselList().size());
         homeCarousel.setImageListener(new ImageListener() {
             @Override
             public void setImageForPosition(int position, ImageView imageView) {
                 Glide.with(getContext())
-                        .load(ApiConfig.BASE_IMAGE_URL+category.getCarouselList().get(position).getImageURL())
+                        .load("http://192.168.100.7:8000"+category.getCarouselList().get(position).getImageURL())
                         .into(imageView);
             }
         });
@@ -75,19 +72,26 @@ public class ContentHomeFragment extends Fragment {
             }
         });
 
+    }
+
+    private void createSubCategory(){
+        RecyclerView rvSubCategory;
+        SubCategoryAdapter subCategoryAdapter;
+
         rvSubCategory = view.findViewById(R.id.rv_subcategory);
-        subCategoryAdapter = new SubCategoryAdapter(getContext(), category.getSubCategoryList() );
-        System.out.println(category.getSubCategoryList().size());
+        subCategoryAdapter = new SubCategoryAdapter(getContext(), category.getSubCategoryList());
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext() , 4, GridLayoutManager.VERTICAL, false);
         rvSubCategory.setLayoutManager(gridLayoutManager);
         rvSubCategory.setAdapter(subCategoryAdapter);
+    }
 
+    private void createStyleInspiration(){
+        RecyclerView rvStyleInspiration;
         List<Product> products = category.getProductList();
-        RecyclerView rvStyleInspiration = view.findViewById(R.id.rv_product_list);
+        rvStyleInspiration = view.findViewById(R.id.rv_product_list);
         ProductAdapter productAdapter = new ProductAdapter(products);
         rvStyleInspiration.setLayoutManager(new GridLayoutManager(getContext() ,2, GridLayoutManager.VERTICAL, false));
         rvStyleInspiration.setAdapter(productAdapter);
-        return view;
     }
 
 }

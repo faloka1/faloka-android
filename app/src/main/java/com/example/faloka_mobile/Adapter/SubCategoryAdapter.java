@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Model.SubCategory;
-import com.example.faloka_mobile.ProductList.ProductListActivity;
+import com.example.faloka_mobile.Product.ProductListActivity;
 import com.example.faloka_mobile.R;
 
 import java.util.List;

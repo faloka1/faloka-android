@@ -21,6 +21,8 @@
         app:strokeWidth="1dp"
         tools:ignore="MissingClass">
 
+
+
     </com.synnapps.carouselview.CarouselView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

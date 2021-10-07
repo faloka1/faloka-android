@@ -9,8 +9,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.faloka_mobile.MainActivity;
-import com.example.faloka_mobile.Model.User;
-import com.example.faloka_mobile.Retrofit.BackendAPI;
 import com.example.faloka_mobile.databinding.ActivityLoginBinding;
 
 import java.util.List;
