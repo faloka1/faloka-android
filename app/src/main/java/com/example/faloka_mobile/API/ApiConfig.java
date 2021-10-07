@@ -43,7 +43,6 @@ public class ApiConfig {
         }
 
         Retrofit retrofit = new retrofit2.Retrofit.Builder()
-//                .baseUrl("http://192.168.100.7:8000/api/")
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)

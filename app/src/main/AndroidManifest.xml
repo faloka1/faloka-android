@@ -13,6 +13,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Falokamobile">
         <activity
+            android:name=".Checkout.ActionAddressActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Checkout.CheckoutActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Product.ProductDetailActivity"
+            android:exported="true" />
+        <activity
             android:name=".Login.LoginActivity"
             android:exported="true" />
         <activity

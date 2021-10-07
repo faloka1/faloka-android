@@ -1,4 +1,4 @@
-package com.example.faloka_mobile.ProductList;
+package com.example.faloka_mobile.Product;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;

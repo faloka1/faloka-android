@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".Product.ProductDetailActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:background="@color/white"
+        android:theme="@style/ThemeOverlay.AppCompat.Light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="@color/black" />
+
+    <ScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <LinearLayout
+            android:background="@color/netral_300"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/netral_100"
+                android:paddingBottom="20dp">
+
+
+                <ImageView
+                    android:id="@+id/detail_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="402dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:scaleType="centerCrop"></ImageView>
+
+                <TextView
+                    android:id="@+id/tv_detail_brand"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/khula_semibold"
+                    android:layout_marginStart="20dp"
+                    android:textColor="@color/netral_900"
+                    android:text="Brand"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_image" />
+
+                <TextView
+                    android:id="@+id/tv_detail_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:fontFamily="@font/khula"
+                    android:letterSpacing="0.05"
+                    android:text="Blouse Bagus"
+                    android:textColor="@color/netral_900"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_detail_brand"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_detail_brand" />
+
+                <TextView
+                    android:id="@+id/tv_detail_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="11dp"
+                    android:fontFamily="@font/lato_bold"
+                    android:letterSpacing="0.05"
+                    android:text="Rp 80.000"
+                    android:textColor="@color/netral_900"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_detail_name"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_detail_name" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:background="@color/netral_100"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="20dp"
+                android:paddingHorizontal="20dp"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:id="@+id/tv_title_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lato_bold"
+                    android:letterSpacing="0.015"
+                    android:text="Deskripsi"
+                    android:textColor="@color/netral_900"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"></TextView>
+
+                <TextView
+                    android:id="@+id/tv_detail_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/khula"
+                    android:letterSpacing="0.015"
+                    android:text="Deskripsi"
+                    android:textColor="#616161"
+                    android:textSize="16sp"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintStart_toStartOf="@+id/tv_title_description"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_description"></TextView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:background="@color/netral_100"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="20dp"
+                android:paddingHorizontal="20dp"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:id="@+id/tv_title_relate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lato_bold"
+                    android:letterSpacing="0.015"
+                    android:text="Relate Product"
+                    android:textColor="@color/netral_900"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"></TextView>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_product_relate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintStart_toStartOf="@id/tv_title_relate"
+                    app:layout_constraintTop_toTopOf="@id/tv_title_relate">
+                </androidx.recyclerview.widget.RecyclerView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:background="@color/netral_100"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="13dp"
+        android:paddingBottom="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btn_buy_now"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/netral_900"
+            android:textColor="@color/netral_100"
+            android:text="Beli Sekarang" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
