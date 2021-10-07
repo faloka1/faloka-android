@@ -8,6 +8,9 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class Product implements Parcelable {
+
+    public static final String EXTRA_PRODUCT = "extra_product";
+
     private int id;
     private String name;
     @SerializedName("variants")

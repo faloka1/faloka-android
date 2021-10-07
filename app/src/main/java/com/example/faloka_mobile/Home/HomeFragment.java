@@ -68,7 +68,7 @@ public class HomeFragment extends Fragment {
         for(Category category : categories){
 
             Bundle bundle = new Bundle();
-            bundle.putParcelable("category", category);
+            bundle.putParcelable(Category.EXTRA_CATEGORY, category);
 
             tabHost.addTab(tabHost.newTabSpec(category.getName()).setIndicator(category.getName()), ContentHomeFragment.class, bundle);
             TextView tv = tabHost.getTabWidget().getChildAt(i).findViewById(android.R.id.title);

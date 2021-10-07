@@ -11,6 +11,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiService {
@@ -25,5 +26,11 @@ public interface ApiService {
     Call<List<Product>> getProductSubCategories(
             @Query("category") String slugCategory,
             @Query("subcategory") String slugSubCategory);
+
+    @GET("products/{slug}/related")
+    Call<List<Product>> getRelatedProducts(
+        @Path(value = "slug", encoded = true) String slug
+    );
+
 }
 
