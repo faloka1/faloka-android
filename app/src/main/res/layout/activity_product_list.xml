@@ -23,7 +23,7 @@
         app:titleTextColor="@color/black" />
 
     <LinearLayout
-        android:id="@+id/style_inspiration_container"
+        android:id="@+id/product_list_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
