@@ -9,6 +9,8 @@ import java.util.List;
 
 public class Category implements Parcelable {
 
+    public static final String EXTRA_CATEGORY = "extra_category";
+
     private int id;
     private String name;
     private String slug;
