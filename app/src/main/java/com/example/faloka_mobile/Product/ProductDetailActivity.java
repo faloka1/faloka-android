@@ -34,7 +34,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProductDetailActivity extends AppCompatActivity implements View.OnClickListener {
+public class ProductDetailActivity extends AppCompatActivity{
 
     ActivityProductDetailBinding binding;
     Product product;
@@ -52,10 +52,20 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
             setHeader();
             setDescription();
             setProductRelate();
-            binding.btnBuyNow.setOnClickListener(this);
+            onClickButtonBuy();
         }
     }
 
+    private void onClickButtonBuy(){
+        binding.btnBuyNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProductDetailActivity.this, CheckoutActivity.class);
+                intent.putExtra(Product.EXTRA_PRODUCT, product);
+                startActivity(intent);
+            }
+        });
+    }
     private void getDetailProductFromList(){
         product = getIntent().getParcelableExtra(Product.EXTRA_PRODUCT);
     }
@@ -115,12 +125,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
 
     }
-    @Override
-    public void onClick(View view) {
-        Intent intent = new Intent(this, CheckoutActivity.class);
-        intent.putExtra(Product.EXTRA_PRODUCT, product);
-        startActivity(intent);
-    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

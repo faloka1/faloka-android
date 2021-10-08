@@ -56,6 +56,11 @@ public class Product implements Parcelable {
         return variantImageList;
    }
 
+   public String getSizeProduct(){
+       Variant variant= variantList.get(0);
+       return variant.getName();
+   }
+
     public static final Creator<Product> CREATOR = new Creator<Product>() {
         @Override
         public Product createFromParcel(Parcel in) {

@@ -58,13 +58,15 @@ public class CheckoutActivity extends AppCompatActivity {
                 .commit();
     }
     private void setContent(){
-        Bundle extras = getIntent().getExtras();
-        if(extras!=null) {
-            Product product = extras.getParcelable(Product.EXTRA_PRODUCT);
+        Bundle bundle = getIntent().getExtras();
+        DeliveryFragment deliveryFragment = new DeliveryFragment();
+        if(bundle!=null) {
+            deliveryFragment.setArguments(bundle);
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.frame_container_2, deliveryFragment);
+            ft.commit();
         }
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frame_container_2, new DeliveryFragment());
-        ft.commit();
+
     }
 
     @Override
