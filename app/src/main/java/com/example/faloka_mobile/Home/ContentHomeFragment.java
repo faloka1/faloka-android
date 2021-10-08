@@ -62,7 +62,7 @@ public class ContentHomeFragment extends Fragment {
             @Override
             public void setImageForPosition(int position, ImageView imageView) {
                 Glide.with(getContext())
-                        .load(ApiConfig.BASE_IMAGE_URL +category.getCarouselList().get(position).getImageURL())
+                        .load(ApiConfig.BASE_IMAGE_URL  +category.getCarouselList().get(position).getImageURL())
                         .into(imageView);
             }
         });
