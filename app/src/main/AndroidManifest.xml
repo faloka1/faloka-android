@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Falokamobile">
         <activity
+            android:name=".Checkout.DeliveryChooseActivity"
+            android:exported="true" />
+        <activity
             android:name=".Checkout.ActionAddressActivity"
             android:exported="true" />
         <activity
