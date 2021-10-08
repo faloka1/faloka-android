@@ -59,7 +59,7 @@ public class CheckoutActivity extends AppCompatActivity {
     private void setContent(){
         Bundle extras = getIntent().getExtras();
         if(extras!=null) {
-            Product product = extras.getParcelable("product");
+            Product product = extras.getParcelable(Product.EXTRA_PRODUCT);
         }
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.frame_container_2, new DeliveryFragment());

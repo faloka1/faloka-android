@@ -11,7 +11,7 @@
         <entry key="..\:/AndroidStudioFile/Falokamobile/app/src/main/res/drawable/round_corner_subcategory.xml" value="0.1" />
         <entry key="..\:/AndroidStudioFile/Falokamobile/app/src/main/res/drawable/round_corner_top.xml" value="0.1" />
         <entry key="..\:/AndroidStudioFile/Falokamobile/app/src/main/res/drawable/selector.xml" value="0.19583333333333333" />
-        <entry key="..\:/AndroidStudioFile/Falokamobile/app/src/main/res/layout/activity_checkout.xml" value="0.3333333333333333" />
+        <entry key="..\:/AndroidStudioFile/Falokamobile/app/src/main/res/layout/activity_checkout.xml" value="0.16666666666666666" />
         <entry key="..\:/AndroidStudioFile/Falokamobile/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/AndroidStudioFile/Falokamobile/app/src/main/res/layout/activity_main.xml" value="0.2324805339265851" />
         <entry key="..\:/AndroidStudioFile/Falokamobile/app/src/main/res/layout/activity_product_detail.xml" value="0.3333333333333333" />
@@ -22,6 +22,7 @@
         <entry key="..\:/AndroidStudioFile/Falokamobile/app/src/main/res/layout/fragment_2.xml" value="0.125" />
         <entry key="..\:/AndroidStudioFile/Falokamobile/app/src/main/res/layout/fragment_account.xml" value="0.15489130434782608" />
         <entry key="..\:/AndroidStudioFile/Falokamobile/app/src/main/res/layout/fragment_content_home.xml" value="0.22" />
+        <entry key="..\:/AndroidStudioFile/Falokamobile/app/src/main/res/layout/fragment_delivery.xml" value="0.3333333333333333" />
         <entry key="..\:/AndroidStudioFile/Falokamobile/app/src/main/res/layout/fragment_dynamic.xml" value="0.16666666666666666" />
         <entry key="..\:/AndroidStudioFile/Falokamobile/app/src/main/res/layout/fragment_home.xml" value="0.43125" />
         <entry key="..\:/AndroidStudioFile/Falokamobile/app/src/main/res/layout/fragment_home_carousel.xml" value="0.15353260869565216" />
