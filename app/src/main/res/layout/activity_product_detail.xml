@@ -41,15 +41,23 @@
                 android:background="@color/netral_100"
                 android:paddingBottom="20dp">
 
-
-                <ImageView
-                    android:id="@+id/detail_image"
+                <com.synnapps.carouselview.CarouselView
+                    android:id="@+id/carousel_detail_image"
                     android:layout_width="match_parent"
-                    android:layout_height="402dp"
-                    android:scaleType="centerCrop"
+                    android:layout_height="200dp"
+                    app:fillColor="@color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"></ImageView>
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:pageColor="@color/black"
+                    app:radius="6dp"
+                    app:slideInterval="3000"
+                    app:strokeColor="#323232"
+                    app:strokeWidth="1dp"
+                    tools:ignore="MissingClass">
+
+
+                </com.synnapps.carouselview.CarouselView>
 
                 <TextView
                     android:id="@+id/tv_detail_brand"
@@ -62,7 +70,7 @@
                     android:textColor="@color/netral_900"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/detail_image" />
+                    app:layout_constraintTop_toBottomOf="@+id/carousel_detail_image" />
 
                 <TextView
                     android:id="@+id/tv_detail_name"

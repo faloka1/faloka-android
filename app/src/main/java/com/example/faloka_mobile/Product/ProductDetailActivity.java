@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -21,6 +22,9 @@ import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.ActivityProductDetailBinding;
+import com.synnapps.carouselview.CarouselView;
+import com.synnapps.carouselview.ImageClickListener;
+import com.synnapps.carouselview.ImageListener;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -62,9 +66,18 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     }
 
     private void setHeader(){
-        Glide.with(this)
-                .load(ApiConfig.BASE_IMAGE_URL+product.getProductImageURL())
-                .into(binding.detailImage);
+
+        binding.carouselDetailImage.setPageCount(product.getProductCarouselImageURL().size());
+        binding.carouselDetailImage.setImageListener(new ImageListener() {
+            @Override
+            public void setImageForPosition(int position, ImageView imageView) {
+                Glide.with(imageView.getContext())
+                        .load(ApiConfig.BASE_IMAGE_URL+product.getProductCarouselImageURL()
+                                .get(position).getImageURL())
+                        .into(imageView);
+            }
+        });
+
         binding.tvDetailName.setText(product.getName());
         binding.tvDetailBrand.setText(product.getBrand().getName());
         Double price = Double.parseDouble(String.valueOf(product.getPrice()));
