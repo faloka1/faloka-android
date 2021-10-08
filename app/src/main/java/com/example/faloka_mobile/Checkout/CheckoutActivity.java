@@ -47,6 +47,7 @@ public class CheckoutActivity extends AppCompatActivity {
     private void setStepProgressBar(){
         label.add("Pengiriman");
         label.add("Pembayaran");
+        binding.stepView.setBackgroundColor(getResources().getColor(R.color.white));
         binding.stepView.getState()
                 .animationType(StepView.ANIMATION_ALL)
                 .steps(label)
