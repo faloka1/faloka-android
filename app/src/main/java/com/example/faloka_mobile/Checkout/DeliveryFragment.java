@@ -75,6 +75,15 @@ public class DeliveryFragment extends Fragment{
 
     private void setExpedition(){
 
+        binding.tvDeliveryEkspedition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), DeliveryChooseActivity.class);
+
+                startActivityForResult(intent, DeliveryFragment.REQUEST_CHOOSE_DELIVERY);
+            }
+        });
+
     }
 
     @Override
