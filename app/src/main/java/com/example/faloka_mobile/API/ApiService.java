@@ -2,6 +2,7 @@ package com.example.faloka_mobile.API;
 
 import com.example.faloka_mobile.Login.LoginResponse;
 import com.example.faloka_mobile.Model.Category;
+import com.example.faloka_mobile.Model.Logout;
 import com.example.faloka_mobile.Model.Product;
 
 import java.util.List;
@@ -32,5 +33,7 @@ public interface ApiService {
         @Path(value = "slug", encoded = true) String slug
     );
 
+//    @POST("auth/logout")
+//    Call<Logout>
 }
 
