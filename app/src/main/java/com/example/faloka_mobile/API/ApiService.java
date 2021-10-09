@@ -4,6 +4,7 @@ import com.example.faloka_mobile.Login.LoginResponse;
 import com.example.faloka_mobile.Model.Category;
 import com.example.faloka_mobile.Model.Logout;
 import com.example.faloka_mobile.Model.Product;
+import com.example.faloka_mobile.Model.Profile;
 
 import java.util.List;
 
@@ -36,5 +37,8 @@ public interface ApiService {
 
     @POST("auth/logout")
     Call<Logout> getLogoutMessage(@Header("Authorization") String auth);
+
+    @GET("auth/profile")
+    Call<Profile> getProfile(@Header("Authorization") String auth);
 }
 

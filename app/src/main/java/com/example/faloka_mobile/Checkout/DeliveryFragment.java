@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,12 +21,23 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.faloka_mobile.API.ApiConfig;
+import com.example.faloka_mobile.Adapter.AddressAdapter;
+import com.example.faloka_mobile.Adapter.CourierAdapter;
+import com.example.faloka_mobile.Login.TokenManager;
+import com.example.faloka_mobile.Model.Address;
+import com.example.faloka_mobile.Model.Logout;
 import com.example.faloka_mobile.Model.Product;
+import com.example.faloka_mobile.Model.Profile;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.FragmentDeliveryBinding;
 
 import java.text.NumberFormat;
+import java.util.List;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DeliveryFragment extends Fragment{
 
@@ -74,7 +86,7 @@ public class DeliveryFragment extends Fragment{
     }
 
     private void setExpedition(){
-
+        binding.tvDeliveryEkspedition.setText("HAHAHA");
         binding.tvDeliveryEkspedition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,6 +105,7 @@ public class DeliveryFragment extends Fragment{
 //            Toast.makeText(, "", Toast.LENGTH_SHORT).show();
             String result = data.getStringExtra(DeliveryFragment.EXTRA_CHOOSE_DELIVERY);
             Toast.makeText(getContext(), "HAHA"+result, Toast.LENGTH_SHORT).show();
+            binding.tvDeliveryEkspedition.setText("HMMM");
         }
     }
 
@@ -110,11 +123,38 @@ public class DeliveryFragment extends Fragment{
     }
 
     private void setAddressSection(){
-        binding.btnEdit.setOnClickListener(new View.OnClickListener() {
+//        binding.btnEdit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(view.getContext(),ActionAddressActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+        TokenManager tokenManager = TokenManager.getInstance(getContext().getSharedPreferences("Token",0));
+        Call<Profile> callProfile = ApiConfig.getApiService(tokenManager).getProfile(tokenManager.getTypeToken()+" "+tokenManager.getToken());
+
+        callProfile.enqueue(new Callback<Profile>() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(),ActionAddressActivity.class);
-                startActivity(intent);
+            public void onResponse(Call<Profile> call, Response<Profile> response) {
+                if(response.isSuccessful()){
+                    Profile profile = response.body();
+//                    Toast.makeText(getContext(), profile.getGender(), Toast.LENGTH_SHORT).show();
+//                    List<Address> addressList = profile.getAddressList();
+//                    AddressAdapter addressAdapter;
+//
+//                    addressAdapter = new AddressAdapter(addressList);
+//                    binding.rvAddresses.setAdapter(addressAdapter);
+//                    binding.rvAddresses.setLayoutManager(new LinearLayoutManager(getContext()));
+                }
+                else {
+                    Toast.makeText(getContext(), "FAIL", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Profile> call, Throwable t) {
+
             }
         });
     }

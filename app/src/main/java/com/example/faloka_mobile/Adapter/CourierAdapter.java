@@ -37,6 +37,7 @@ public class CourierAdapter extends RecyclerView.Adapter<CourierAdapter.CourierV
 
         Courier courier = courierList.get(position);
         List<CourierService> courierServiceList = courier.getCourierServiceList();
+
         for(CourierService courierService : courierServiceList){
             RadioButton radioButton = new RadioButton(holder.itemView.getContext());
             radioButton.setText(courierService.getName());
