@@ -3,6 +3,7 @@ package com.example.faloka_mobile.Checkout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
@@ -45,9 +46,14 @@ public class CheckoutActivity extends AppCompatActivity {
                 .commit();
     }
     private void setContent(){
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.add(R.id.frame_container_2, new DeliveryFragment());
-        ft.commit();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        DeliveryFragment deliveryFragment = new DeliveryFragment();
+
+        fragmentTransaction.add(R.id.frame_container_payment, deliveryFragment, "Fragment Delivery");
+        fragmentTransaction.commit();
+        CheckoutFragmentUtil.printActivityFragmentList(fragmentManager);
     }
 
 }
