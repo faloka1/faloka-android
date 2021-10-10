@@ -13,6 +13,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Falokamobile">
         <activity
+            android:name=".Profile.ProfileActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Checkout.DetailOrderActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Checkout.ConfirmCheckoutActivity"
+            android:exported="true" />
+        <activity
             android:name=".Checkout.ActionAddressActivity"
             android:exported="true" />
         <activity
@@ -29,6 +38,9 @@
             android:exported="true" />
         <activity
             android:name=".MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Checkout.checkoutCobaCoba"
             android:exported="true" />
         <activity
             android:name=".Product.ProductListActivity"

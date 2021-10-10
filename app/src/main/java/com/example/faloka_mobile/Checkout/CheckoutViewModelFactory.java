@@ -32,7 +32,9 @@ public class CheckoutViewModelFactory extends ViewModelProvider.NewInstanceFacto
         if (modelClass.isAssignableFrom(DeliveryViewModel.class)) {
             return (T) new DeliveryViewModel(mCheckoutRepository);
         }
-
+        else if (modelClass.isAssignableFrom(PaymentViewModel.class)) {
+            return (T) new PaymentViewModel(mCheckoutRepository);
+        }
         throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());
     }
 }
