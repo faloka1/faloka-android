@@ -5,9 +5,13 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Product implements Parcelable {
+
+    public static final String EXTRA_PRODUCT = "extra_product";
+
     private int id;
     private String name;
     @SerializedName("variants")
@@ -39,6 +43,23 @@ public class Product implements Parcelable {
         VariantImage variantImage = variantImageList.get(0);
         return variantImage.getImageURL();
     }
+
+   public List<VariantImage> getProductCarouselImageURL(){
+        List<VariantImage> variantImageList = new ArrayList<>();
+        for(Variant variant : variantList){
+            List<VariantImage> tempVariantImageList = new ArrayList<>();
+            tempVariantImageList = variant.getVariantImageList();
+            for(VariantImage variantImage : tempVariantImageList){
+                variantImageList.add(variantImage);
+            }
+        }
+        return variantImageList;
+   }
+
+   public String getSizeProduct(){
+       Variant variant= variantList.get(0);
+       return variant.getName();
+   }
 
     public static final Creator<Product> CREATOR = new Creator<Product>() {
         @Override

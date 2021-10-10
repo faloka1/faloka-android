@@ -41,7 +41,7 @@ public class ProductListActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
-        subCategory = intent.getParcelableExtra("sub_category");
+        subCategory = intent.getParcelableExtra(SubCategory.EXTRA_SUBCATEGORY);
         toolbar.setTitle(subCategory.getName());
 
         TokenManager tokenManager = TokenManager.getInstance(getApplicationContext().getSharedPreferences("Token",0));
