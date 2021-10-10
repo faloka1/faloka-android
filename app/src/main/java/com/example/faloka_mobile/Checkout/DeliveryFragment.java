@@ -140,11 +140,11 @@ public class DeliveryFragment extends Fragment{
                     Profile profile = response.body();
 //                    Toast.makeText(getContext(), profile.getGender(), Toast.LENGTH_SHORT).show();
 //                    List<Address> addressList = profile.getAddressList();
-//                    AddressAdapter addressAdapter;
-//
-//                    addressAdapter = new AddressAdapter(addressList);
-//                    binding.rvAddresses.setAdapter(addressAdapter);
-//                    binding.rvAddresses.setLayoutManager(new LinearLayoutManager(getContext()));
+                    AddressAdapter addressAdapter;
+
+                    addressAdapter = new AddressAdapter(profile.getAddressList());
+                    binding.rvAddresses.setAdapter(addressAdapter);
+                    binding.rvAddresses.setLayoutManager(new LinearLayoutManager(getContext()));
                 }
                 else {
                     Toast.makeText(getContext(), "FAIL", Toast.LENGTH_SHORT).show();

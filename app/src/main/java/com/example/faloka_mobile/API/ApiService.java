@@ -2,6 +2,7 @@ package com.example.faloka_mobile.API;
 
 import com.example.faloka_mobile.Login.LoginResponse;
 import com.example.faloka_mobile.Model.Category;
+import com.example.faloka_mobile.Model.Courier;
 import com.example.faloka_mobile.Model.Logout;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.Profile;
@@ -40,5 +41,8 @@ public interface ApiService {
 
     @GET("auth/profile")
     Call<Profile> getProfile(@Header("Authorization") String auth);
+
+    @GET("expeditions")
+    Call<List<Courier>> getExpeditions();
 }
 
