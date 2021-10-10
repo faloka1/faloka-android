@@ -1,66 +1,97 @@
 package com.example.faloka_mobile.Checkout;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
+import com.example.faloka_mobile.Adapter.PaymentMethodAdapter;
+import com.example.faloka_mobile.Model.PaymentMethod;
 import com.example.faloka_mobile.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link PaymentFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class PaymentFragment extends Fragment {
+public class PaymentFragment extends Fragment implements PaymentMethodSelectedListener {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public PaymentFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PaymentFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PaymentFragment newInstance(String param1, String param2) {
-        PaymentFragment fragment = new PaymentFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    PaymentViewModel viewModel;
+    View view;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        CheckoutViewModelFactory factory = new CheckoutViewModelFactory(new CheckoutRepository(getActivity()));
+        viewModel = new ViewModelProvider(getActivity(), factory).get(PaymentViewModel.class);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_payment, container, false);
+
+        view = inflater.inflate(R.layout.fragment_payment, container, false);
+        setSummaryPrice();
+        setPaymentMethod();
+        setFooterPayment();
+
+        return view;
     }
+    private void setSummaryPrice(){
+
+    }
+    private void setPaymentMethod(){
+        viewModel.getPaymentMethod().observe(getActivity(),paymentMethods -> {
+            RecyclerView rvPaymentMethod = view.findViewById(R.id.rv_payment_method);
+            PaymentMethodAdapter paymentMethodAdapter = new PaymentMethodAdapter(paymentMethods,this::onPaymentMethodSelected);
+            rvPaymentMethod.setLayoutManager(new LinearLayoutManager(getActivity()));
+            rvPaymentMethod.setAdapter(paymentMethodAdapter);
+        });
+    }
+    private void setFooterPayment(){
+        TextView tvTotalPrice = view.findViewById(R.id.tv_total_price);
+        Button buttonNext = view.findViewById(R.id.btn_checkout_next);
+
+        buttonNext.setText("Konfirmasi");
+
+        getTotal().observe(getActivity(),total->{
+            tvTotalPrice.setText(total);
+        });
+    }
+
+    @Override
+    public void onPaymentMethodSelected(PaymentMethod paymentMethod) {
+        Button buttonNext = view.findViewById(R.id.btn_checkout_next);
+        buttonNext.setEnabled(true);
+        buttonNext.setBackgroundResource(R.color.netral_900);
+        buttonNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundlePayment = new Bundle();
+                Intent intent = new Intent(getActivity(), ConfirmCheckoutActivity.class);
+
+                getTotal().observe(getActivity(),total->{
+                    bundlePayment.putString("TOTAL_PRICE", total);
+                });
+
+                bundlePayment.putParcelable("PAYMENT_METHOD",paymentMethod);
+                intent.putExtra("DATA_CHECKOUT",bundlePayment);
+                startActivity(intent);
+            }
+        });
+
+    }
+    private LiveData<String> getTotal(){
+
+        TextView tvSubTotal = view.findViewById(R.id.tv_payment_value_subtotal);
+        TextView tvServicePrice = view.findViewById(R.id.tv_payment_value_total_service);
+
+        return viewModel.getTotalPrice(tvSubTotal.getText().toString(),tvServicePrice.getText().toString());
+    }
+
 }
