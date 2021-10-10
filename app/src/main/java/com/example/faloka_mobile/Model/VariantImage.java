@@ -12,6 +12,9 @@ public class VariantImage implements Parcelable {
     @SerializedName("variant_id")
     private int variantID;
 
+    public VariantImage(String imageURL){
+        setImageURL(imageURL);
+    }
 
     protected VariantImage(Parcel in) {
         setId(in.readInt());

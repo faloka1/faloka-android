@@ -1,0 +1,97 @@
+package com.example.faloka_mobile.Checkout;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+
+import com.example.faloka_mobile.Adapter.CourierAdapter;
+import com.example.faloka_mobile.Adapter.SubCategoryAdapter;
+import com.example.faloka_mobile.Model.Courier;
+import com.example.faloka_mobile.Model.CourierService;
+import com.example.faloka_mobile.Model.Product;
+import com.example.faloka_mobile.Product.ProductDetailActivity;
+import com.example.faloka_mobile.R;
+import com.example.faloka_mobile.databinding.ActivityDeliveryChooseBinding;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class DeliveryChooseActivity extends AppCompatActivity {
+
+    ActivityDeliveryChooseBinding binding;
+    List<Courier> courierList;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = ActivityDeliveryChooseBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        setToolbar();
+
+        binding.btnChoose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                closeActivity();
+            }
+        });
+        courierList = new ArrayList<>();
+        for(int i=0; i<3; i++){
+            Courier courier = new Courier("JNE");
+            List<CourierService> courierServiceList = new ArrayList<>();
+            for(int j=0; j<3; j++){
+                CourierService courierService = new CourierService("Reguler", 10000);
+                courierServiceList.add(courierService);
+            }
+            courier.setCourierServiceList(courierServiceList);
+            courierList.add(courier);
+        }
+
+        CourierAdapter courierAdapter;
+
+        courierAdapter = new CourierAdapter(courierList);
+        binding.rvCourier.setAdapter(courierAdapter);
+        binding.rvCourier.setLayoutManager(new LinearLayoutManager(this));
+
+    }
+
+    private void closeActivity() {
+        Intent intent = new Intent();
+        intent.putExtra(DeliveryFragment.EXTRA_CHOOSE_DELIVERY, "Testing passing data back to ActivityOne");
+        setResult(DeliveryFragment.RESULT_CHOOSE_DELIVERY, intent); // You can also send result without any data using setResult(int resultCode)
+        finish();
+    }
+
+    private void setToolbar(){
+        setSupportActionBar(binding.toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Pilih Ekspedisi");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()){
+            case android.R.id.home:
+                this.finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+}

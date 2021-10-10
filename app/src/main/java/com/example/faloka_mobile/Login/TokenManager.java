@@ -21,6 +21,7 @@ public class TokenManager {
     }
 
     public void saveToken(LoginResponse token){
+        editor.putString("TYPE_TOKEN", token.getTokenType()).commit();
         editor.putString("ACCESS_TOKEN", token.getAccessToken()).commit();
         editor.putInt("EXPIRED_TIME", token.getExpiresIn()).commit();
         editor.apply();
@@ -29,9 +30,14 @@ public class TokenManager {
         return (INSTANCE.getToken()!=null);
     }
     public void deleteToken(){
+        editor.remove("TYPE_TOKEN").commit();
         editor.remove("ACCESS_TOKEN").commit();
         editor.remove("EXPIRED_TIME").commit();
         editor.apply();
+    }
+
+    public String getTypeToken(){
+        return prefs.getString("TYPE_TOKEN", null);
     }
 
     public String getToken(){

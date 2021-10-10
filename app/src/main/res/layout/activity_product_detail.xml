@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".Product.ProductDetailActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -23,15 +23,16 @@
     <ScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/layout_bottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <LinearLayout
-            android:background="@color/netral_300"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/netral_300"
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -40,28 +41,36 @@
                 android:background="@color/netral_100"
                 android:paddingBottom="20dp">
 
-
-                <ImageView
-                    android:id="@+id/detail_image"
+                <com.synnapps.carouselview.CarouselView
+                    android:id="@+id/carousel_detail_image"
                     android:layout_width="match_parent"
-                    android:layout_height="402dp"
+                    android:layout_height="200dp"
+                    app:fillColor="@color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:scaleType="centerCrop"></ImageView>
+                    app:pageColor="@color/black"
+                    app:radius="6dp"
+                    app:slideInterval="3000"
+                    app:strokeColor="#323232"
+                    app:strokeWidth="1dp"
+                    tools:ignore="MissingClass">
+
+
+                </com.synnapps.carouselview.CarouselView>
 
                 <TextView
                     android:id="@+id/tv_detail_brand"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:textSize="18sp"
-                    android:fontFamily="@font/khula_semibold"
                     android:layout_marginStart="20dp"
-                    android:textColor="@color/netral_900"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/khula_semibold"
                     android:text="Brand"
+                    android:textColor="@color/netral_900"
+                    android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/detail_image" />
+                    app:layout_constraintTop_toBottomOf="@+id/carousel_detail_image" />
 
                 <TextView
                     android:id="@+id/tv_detail_name"
@@ -92,12 +101,12 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:background="@color/netral_100"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingVertical="20dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/netral_100"
                 android:paddingHorizontal="20dp"
-                android:layout_marginTop="8dp">
+                android:paddingVertical="20dp">
 
                 <TextView
                     android:id="@+id/tv_title_description"
@@ -115,24 +124,24 @@
                     android:id="@+id/tv_detail_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
                     android:fontFamily="@font/khula"
                     android:letterSpacing="0.015"
                     android:text="Deskripsi"
                     android:textColor="#616161"
                     android:textSize="16sp"
-                    android:layout_marginTop="12dp"
                     app:layout_constraintStart_toStartOf="@+id/tv_title_description"
                     app:layout_constraintTop_toBottomOf="@+id/tv_title_description"></TextView>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:background="@color/netral_100"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingVertical="20dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/netral_100"
                 android:paddingHorizontal="20dp"
-                android:layout_marginTop="8dp">
+                android:paddingVertical="20dp">
 
                 <TextView
                     android:id="@+id/tv_title_relate"
@@ -145,22 +154,23 @@
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"></TextView>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_product_relate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="@id/tv_title_relate"
-                    app:layout_constraintTop_toTopOf="@id/tv_title_relate">
-                </androidx.recyclerview.widget.RecyclerView>
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_relate"></androidx.recyclerview.widget.RecyclerView>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>
 
     <LinearLayout
-        android:background="@color/netral_100"
+        android:id="@+id/layout_bottom"
         android:layout_width="match_parent"
         android:layout_height="65dp"
+        android:background="@color/netral_100"
         android:paddingHorizontal="20dp"
         android:paddingTop="13dp"
         android:paddingBottom="12dp"
@@ -173,7 +183,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@color/netral_900"
-            android:textColor="@color/netral_100"
-            android:text="Beli Sekarang" />
+            android:text="Beli Sekarang"
+            android:textColor="@color/netral_100" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

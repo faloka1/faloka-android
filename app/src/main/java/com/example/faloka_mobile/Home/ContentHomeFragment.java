@@ -15,13 +15,17 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Adapter.ProductAdapter;
 import com.example.faloka_mobile.Adapter.SubCategoryAdapter;
 import com.example.faloka_mobile.Login.LoginActivity;
+import com.example.faloka_mobile.Login.LoginResponse;
 import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.Category;
+import com.example.faloka_mobile.Model.Logout;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.R;
 import com.synnapps.carouselview.CarouselView;
@@ -30,6 +34,10 @@ import com.synnapps.carouselview.ImageListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ContentHomeFragment extends Fragment {
 
@@ -45,11 +53,35 @@ public class ContentHomeFragment extends Fragment {
 
         Bundle bundle = getArguments();
         if(bundle != null) {
-            category = bundle.getParcelable("category");
+            category = bundle.getParcelable(Category.EXTRA_CATEGORY);
         }
         createHomeCarousel();
         createSubCategory();
         createStyleInspiration();
+        btnLogout = view.findViewById(R.id.logout);
+        btnLogout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TokenManager tokenManager = TokenManager.getInstance(view.getContext().getSharedPreferences("Token",0));
+
+                Call<Logout> callLogout = ApiConfig.getApiService(tokenManager).getLogoutMessage(tokenManager.getTypeToken()+" "+tokenManager.getToken());
+
+                callLogout.enqueue(new Callback<Logout>() {
+                    @Override
+                    public void onResponse(Call<Logout> call, Response<Logout> response) {
+                        Logout logout = response.body();
+                        tokenManager.deleteToken();
+                        startActivity(new Intent(getActivity(), LoginActivity.class));
+                        Toast.makeText(view.getContext(), logout.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<Logout> call, Throwable t) {
+
+                    }
+                });
+            }
+        });
         return view;
     }
 
@@ -61,7 +93,7 @@ public class ContentHomeFragment extends Fragment {
             @Override
             public void setImageForPosition(int position, ImageView imageView) {
                 Glide.with(getContext())
-                        .load("http://192.168.100.7:8000"+category.getCarouselList().get(position).getImageURL())
+                        .load(ApiConfig.BASE_IMAGE_URL  +category.getCarouselList().get(position).getImageURL())
                         .into(imageView);
             }
         });

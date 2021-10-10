@@ -1,5 +1,6 @@
 package com.example.faloka_mobile.Product;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -7,19 +8,33 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Adapter.ProductAdapter;
 import com.example.faloka_mobile.Checkout.CheckoutActivity;
+import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.Product;
+import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.ActivityProductDetailBinding;
+import com.synnapps.carouselview.CarouselView;
+import com.synnapps.carouselview.ImageClickListener;
+import com.synnapps.carouselview.ImageListener;
 
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
-public class ProductDetailActivity extends AppCompatActivity implements View.OnClickListener {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class ProductDetailActivity extends AppCompatActivity{
 
     ActivityProductDetailBinding binding;
     Product product;
@@ -36,12 +51,23 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         if(product!=null){
             setHeader();
             setDescription();
-            binding.btnBuyNow.setOnClickListener(this);
+            setProductRelate();
+            onClickButtonBuy();
         }
     }
 
+    private void onClickButtonBuy(){
+        binding.btnBuyNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProductDetailActivity.this, CheckoutActivity.class);
+                intent.putExtra(Product.EXTRA_PRODUCT, product);
+                startActivity(intent);
+            }
+        });
+    }
     private void getDetailProductFromList(){
-        product = getIntent().getParcelableExtra("product");
+        product = getIntent().getParcelableExtra(Product.EXTRA_PRODUCT);
     }
     private void setToolbar(){
         setSupportActionBar(binding.toolbar);
@@ -50,9 +76,18 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     }
 
     private void setHeader(){
-        Glide.with(this)
-                .load("http://192.168.100.7:8000"+product.getProductImageURL())
-                .into(binding.detailImage);
+
+        binding.carouselDetailImage.setPageCount(product.getProductCarouselImageURL().size());
+        binding.carouselDetailImage.setImageListener(new ImageListener() {
+            @Override
+            public void setImageForPosition(int position, ImageView imageView) {
+                Glide.with(imageView.getContext())
+                        .load(ApiConfig.BASE_IMAGE_URL+product.getProductCarouselImageURL()
+                                .get(position).getImageURL())
+                        .into(imageView);
+            }
+        });
+
         binding.tvDetailName.setText(product.getName());
         binding.tvDetailBrand.setText(product.getBrand().getName());
         Double price = Double.parseDouble(String.valueOf(product.getPrice()));
@@ -65,17 +100,55 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         binding.tvDetailDescription.setText(product.getDescription());
     }
 
-    private void setProductRelate(List<Product> products) {
-        ProductAdapter productAdapter = new ProductAdapter(products);
-        RecyclerView rvProductRelate = binding.rvProductRelate;
-        rvProductRelate.setLayoutManager(new GridLayoutManager(getApplicationContext(),2, GridLayoutManager.VERTICAL, false));
-        rvProductRelate.setAdapter(productAdapter);
+    private void setProductRelate() {
+        TokenManager tokenManager = TokenManager.getInstance(getApplicationContext().getSharedPreferences("Token",0));
+        Call<List<Product>> callRelatedProducts;
+        callRelatedProducts = ApiConfig.getApiService(tokenManager).getRelatedProducts(product.getSlug());
+        callRelatedProducts.enqueue(new Callback<List<Product>>() {
+            @Override
+            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                List<Product> respProduct;
+                respProduct = response.body();
+                System.out.println(respProduct);
+                ProductAdapter productAdapter = new ProductAdapter(respProduct);
+                RecyclerView rvProductRelate = binding.rvProductRelate;
+                rvProductRelate.setLayoutManager(new GridLayoutManager(getApplicationContext(),2, GridLayoutManager.VERTICAL, false));
+                rvProductRelate.setAdapter(productAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<Product>> call, Throwable t) {
+
+            }
+        });
+
+
 
     }
+
+
     @Override
-    public void onClick(View view) {
-        Intent intent = new Intent(this, CheckoutActivity.class);
-        intent.putExtra("product", product);
-        startActivity(intent);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.top_menu, menu);
+        return super.onCreateOptionsMenu(menu);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()){
+            case android.R.id.home:
+                this.finish();
+                return true;
+            case R.id.top_menu_wishlist:
+                Toast.makeText(getApplicationContext(), "WISHLIST", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.top_menu_cart:
+                Toast.makeText(getApplicationContext(), "CART", Toast.LENGTH_SHORT).show();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }

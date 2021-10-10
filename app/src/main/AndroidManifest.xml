@@ -22,6 +22,9 @@
             android:name=".Checkout.ConfirmCheckoutActivity"
             android:exported="true" />
         <activity
+            android:name=".Checkout.DeliveryChooseActivity"
+            android:exported="true" />
+        <activity
             android:name=".Checkout.ActionAddressActivity"
             android:exported="true" />
         <activity
