@@ -1,6 +1,7 @@
 package com.example.faloka_mobile.Adapter;
 
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.faloka_mobile.Checkout.ActionAddressActivity;
 import com.example.faloka_mobile.Model.Address;
 import com.example.faloka_mobile.Model.Courier;
 import com.example.faloka_mobile.Model.CourierService;
@@ -48,6 +50,9 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressV
             @Override
             public void onClick(View view) {
                 Toast.makeText(holder.itemView.getContext(), "EDIT"+ address.getLocation(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(view.getContext(), ActionAddressActivity.class);
+                intent.putExtra(Address.EXTRA_ADDRESS, address);
+                view.getContext().startActivity(intent);
             }
         });
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {

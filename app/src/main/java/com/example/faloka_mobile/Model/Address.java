@@ -6,6 +6,9 @@ import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
 public class Address implements Parcelable {
+
+    public static final String EXTRA_ADDRESS = "EXTRA_ADDRESS";
+
     private int id;
     private String name;
     @SerializedName("phone_number")
@@ -18,6 +21,10 @@ public class Address implements Parcelable {
     private int postalCode;
     private String location;
     private PivotAddress pivot;
+
+    public Address(){
+
+    }
 
     protected Address(Parcel in) {
         setId(in.readInt());

@@ -123,13 +123,6 @@ public class DeliveryFragment extends Fragment{
     }
 
     private void setAddressSection(){
-//        binding.btnEdit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(view.getContext(),ActionAddressActivity.class);
-//                startActivity(intent);
-//            }
-//        });
         TokenManager tokenManager = TokenManager.getInstance(getContext().getSharedPreferences("Token",0));
         Call<Profile> callProfile = ApiConfig.getApiService(tokenManager).getProfile(tokenManager.getTypeToken()+" "+tokenManager.getToken());
 
