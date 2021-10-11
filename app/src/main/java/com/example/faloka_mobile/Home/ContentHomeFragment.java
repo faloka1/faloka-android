@@ -26,6 +26,7 @@ import com.example.faloka_mobile.Login.LoginResponse;
 import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.Category;
 import com.example.faloka_mobile.Model.Logout;
+import com.example.faloka_mobile.Model.Message;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.R;
 import com.synnapps.carouselview.CarouselView;
@@ -50,7 +51,8 @@ public class ContentHomeFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_content_home, container, false);
-
+        TokenManager tokenManager = TokenManager.getInstance(getContext().getSharedPreferences("Token",0));
+        Toast.makeText(getContext(), tokenManager.getToken(), Toast.LENGTH_SHORT).show();
         Bundle bundle = getArguments();
         if(bundle != null) {
             category = bundle.getParcelable(Category.EXTRA_CATEGORY);
@@ -64,19 +66,20 @@ public class ContentHomeFragment extends Fragment {
             public void onClick(View view) {
                 TokenManager tokenManager = TokenManager.getInstance(view.getContext().getSharedPreferences("Token",0));
 
-                Call<Logout> callLogout = ApiConfig.getApiService(tokenManager).getLogoutMessage(tokenManager.getTypeToken()+" "+tokenManager.getToken());
+                Call<Message> callLogout = ApiConfig.getApiService(tokenManager).getLogoutMessage(tokenManager.getTypeToken()+" "+tokenManager.getToken());
 
-                callLogout.enqueue(new Callback<Logout>() {
+                callLogout.enqueue(new Callback<Message>() {
                     @Override
-                    public void onResponse(Call<Logout> call, Response<Logout> response) {
-                        Logout logout = response.body();
+                    public void onResponse(Call<Message> call, Response<Message> response) {
+                        Message logout = response.body();
                         tokenManager.deleteToken();
-                        startActivity(new Intent(getActivity(), LoginActivity.class));
+                        startActivity(new Intent(view.getContext(), LoginActivity.class));
                         Toast.makeText(view.getContext(), logout.getMessage(), Toast.LENGTH_SHORT).show();
+                        getActivity().finish();
                     }
 
                     @Override
-                    public void onFailure(Call<Logout> call, Throwable t) {
+                    public void onFailure(Call<Message> call, Throwable t) {
 
                     }
                 });

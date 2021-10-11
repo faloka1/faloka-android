@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,16 +21,26 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.faloka_mobile.API.ApiConfig;
+import com.example.faloka_mobile.Adapter.AddressAdapter;
+import com.example.faloka_mobile.Adapter.CourierAdapter;
+import com.example.faloka_mobile.Login.TokenManager;
+import com.example.faloka_mobile.Model.Address;
+import com.example.faloka_mobile.Model.Logout;
 import com.example.faloka_mobile.Model.Product;
+import com.example.faloka_mobile.Model.Profile;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.FragmentDeliveryBinding;
 
 import java.text.NumberFormat;
+import java.util.List;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DeliveryFragment extends Fragment{
 
-//    public static final String REQUEST_CHOOSE_DELIVERY = "REQUEST_CHOOSE_DELIVERY";
     public static final int REQUEST_CHOOSE_DELIVERY = 99;
     public static final int RESULT_CHOOSE_DELIVERY = 88;
     public static final String EXTRA_CHOOSE_DELIVERY = "EXTRA_CHOOSE_DELIVERY";
@@ -74,7 +85,7 @@ public class DeliveryFragment extends Fragment{
     }
 
     private void setExpedition(){
-
+        binding.tvDeliveryEkspedition.setText("HAHAHA");
         binding.tvDeliveryEkspedition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,17 +101,22 @@ public class DeliveryFragment extends Fragment{
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == DeliveryFragment.REQUEST_CHOOSE_DELIVERY && resultCode == RESULT_CHOOSE_DELIVERY){
-//            Toast.makeText(, "", Toast.LENGTH_SHORT).show();
             String result = data.getStringExtra(DeliveryFragment.EXTRA_CHOOSE_DELIVERY);
             Toast.makeText(getContext(), "HAHA"+result, Toast.LENGTH_SHORT).show();
+            binding.tvDeliveryEkspedition.setText("HMMM");
         }
+//        if(requestCode == Address.REQUEST_EDIT_ADDRESS && resultCode == Address.RESULT_EDIT_ADDRESS){
+//            Toast.makeText(getContext(), "HAHA", Toast.LENGTH_SHORT).show();
+//        }
     }
 
     private void setProductOrder(){
         TextView tvOrderProductName = view.findViewById(R.id.tv_order_product_name);
         TextView tvOrderProductPrice = view.findViewById(R.id.tv_order_product_price);
         ImageView imgOrderProduct = view.findViewById(R.id.image_order_product);
+        TextView tvOrderProductSize = view.findViewById(R.id.tv_order_product_size_value);
 
+        tvOrderProductSize.setText(product.getSizeProduct());
         tvOrderProductPrice.setText(String.valueOf(getFormatRupiah(product.getPrice())));
         tvOrderProductName.setText(product.getName());
 
@@ -109,12 +125,32 @@ public class DeliveryFragment extends Fragment{
                 .into(imgOrderProduct);
     }
 
+
+
     private void setAddressSection(){
-        binding.btnEdit.setOnClickListener(new View.OnClickListener() {
+        TokenManager tokenManager = TokenManager.getInstance(getContext().getSharedPreferences("Token",0));
+        Call<Profile> callProfile = ApiConfig.getApiService(tokenManager).getProfile("Bearer "+tokenManager.getToken());
+
+        callProfile.enqueue(new Callback<Profile>() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(),ActionAddressActivity.class);
-                startActivity(intent);
+            public void onResponse(Call<Profile> call, Response<Profile> response) {
+                if(response.isSuccessful()){
+                    Profile profile = response.body();
+                    AddressAdapter addressAdapter;
+
+                    addressAdapter = new AddressAdapter(profile.getAddressList());
+                    binding.rvAddresses.setAdapter(addressAdapter);
+                    binding.rvAddresses.setLayoutManager(new LinearLayoutManager(getContext()));
+                }
+                else {
+                    Toast.makeText(getContext(), "FAIL", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Profile> call, Throwable t) {
+
             }
         });
     }

@@ -36,12 +36,13 @@ public class CourierAdapter extends RecyclerView.Adapter<CourierAdapter.CourierV
     public void onBindViewHolder(@NonNull CourierViewHolder holder, int position) {
 
         Courier courier = courierList.get(position);
-        List<CourierService> courierServiceList = courier.getCourierServiceList();
-        for(CourierService courierService : courierServiceList){
-            RadioButton radioButton = new RadioButton(holder.itemView.getContext());
-            radioButton.setText(courierService.getName());
-            holder.radioGroupCourier.addView(radioButton);
-        }
+//        List<CourierService> courierServiceList = courier.getCourierServiceList();
+        holder.tvCourier.setText(courier.getName());
+//        for(CourierService courierService : courierServiceList){
+//            RadioButton radioButton = new RadioButton(holder.itemView.getContext());
+//            radioButton.setText(courierService.getName());
+//            holder.radioGroupCourier.addView(radioButton);
+//        }
 
     }
 

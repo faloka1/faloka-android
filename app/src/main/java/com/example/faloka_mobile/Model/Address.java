@@ -3,27 +3,43 @@ package com.example.faloka_mobile.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Address implements Parcelable {
-    private String recipientName;
-    private String phoneNumber;
+
+    public static final String EXTRA_ADDRESS = "EXTRA_ADDRESS";
+    public static final int REQUEST_EDIT_ADDRESS = 100;
+    public static final int RESULT_EDIT_ADDRESS = 111;
+
+    private int id;
+    private String name;
+    @SerializedName("phone_number")
+    private String phone;
     private String province;
-    private String city;
     private String district;
-    private String postalCode;
-    private String completeAddress;
+    @SerializedName("sub_district")
+    private String subDistrict;
+    @SerializedName("postal_code")
+    private int postalCode;
+    private String location;
+    private PivotAddress pivot;
 
     public Address(){
 
     }
+
     protected Address(Parcel in) {
-        recipientName = in.readString();
-        phoneNumber = in.readString();
-        province = in.readString();
-        city = in.readString();
-        district = in.readString();
-        postalCode = in.readString();
-        completeAddress = in.readString();
+        setId(in.readInt());
+        setName(in.readString());
+        setPhone(in.readString());
+        setProvince(in.readString());
+        setDistrict(in.readString());
+        setSubDistrict(in.readString());
+        setPostalCode(in.readInt());
+        setLocation(in.readString());
+        setPivot(in.readParcelable(PivotAddress.class.getClassLoader()));
     }
+
     public static final Creator<Address> CREATOR = new Creator<Address>() {
         @Override
         public Address createFromParcel(Parcel in) {
@@ -36,15 +52,47 @@ public class Address implements Parcelable {
         }
     };
 
-
-    public String getPhoneNumber() {
-        return phoneNumber;
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(getId());
+        parcel.writeString(getName());
+        parcel.writeString(getPhone());
+        parcel.writeString(getProvince());
+        parcel.writeString(getDistrict());
+        parcel.writeString(getSubDistrict());
+        parcel.writeInt(getPostalCode());
+        parcel.writeString(getLocation());
+        parcel.writeParcelable(getPivot(), i);
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
     public String getProvince() {
         return province;
@@ -52,23 +100,6 @@ public class Address implements Parcelable {
 
     public void setProvince(String province) {
         this.province = province;
-    }
-
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getRecipientName() {
-        return recipientName;
-    }
-
-    public void setRecipientName(String recipientName) {
-        this.recipientName = recipientName;
     }
 
     public String getDistrict() {
@@ -79,37 +110,35 @@ public class Address implements Parcelable {
         this.district = district;
     }
 
-    public String getPostalCode() {
+    public String getSubDistrict() {
+        return subDistrict;
+    }
+
+    public void setSubDistrict(String subDistrict) {
+        this.subDistrict = subDistrict;
+    }
+
+    public int getPostalCode() {
         return postalCode;
     }
 
-    public void setPostalCode(String postalCode) {
+    public void setPostalCode(int postalCode) {
         this.postalCode = postalCode;
     }
 
-    public String getCompleteAddress() {
-        return completeAddress;
+    public String getLocation() {
+        return location;
     }
 
-    public void setCompleteAddress(String completeAddress) {
-        this.completeAddress = completeAddress;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
-
-    @Override
-    public int describeContents() {
-        return 0;
+    public PivotAddress getPivot() {
+        return pivot;
     }
 
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(recipientName);
-        parcel.writeString(phoneNumber);
-        parcel.writeString(province);
-        parcel.writeString(city);
-        parcel.writeString(district);
-        parcel.writeString(postalCode);
-        parcel.writeString(completeAddress);
-
+    public void setPivot(PivotAddress pivot) {
+        this.pivot = pivot;
     }
 }
