@@ -140,7 +140,7 @@
                 android:textColor="@color/netral_900">
             </TextView>
             <EditText
-                android:id="@+id/et_address_district"
+                android:id="@+id/et_address_subdistrict"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:paddingStart="13dp"

@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.example.faloka_mobile.MainActivity;
 import com.example.faloka_mobile.databinding.ActivityLoginBinding;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -36,12 +37,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
         if(view.getId() == binding.btnLogLogin.getId()){
             loginViewModel = new LoginViewModel(binding);
-            if(loginViewModel.login(view, getApplicationContext())){
+            if(loginViewModel.login(view, view.getContext() )){
                 onSuccess();
-                TokenManager tokenManager = TokenManager.getInstance(getApplicationContext().getSharedPreferences("Token",0));
-                Toast.makeText(getApplicationContext(), tokenManager.getToken(), Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(view.getContext(), "GAGAL", Toast.LENGTH_SHORT).show();
             }
         }
+
 
     }
 

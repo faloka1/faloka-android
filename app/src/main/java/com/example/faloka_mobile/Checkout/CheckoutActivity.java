@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.faloka_mobile.Model.Address;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.ActivityCheckoutBinding;
@@ -27,6 +28,7 @@ public class CheckoutActivity extends AppCompatActivity {
 
     public ActivityCheckoutBinding binding;
     public ArrayList<String> label = new ArrayList<>();
+    private Product product;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,11 @@ public class CheckoutActivity extends AppCompatActivity {
                 .commit();
     }
     private void setContent(){
+      
+        product = getIntent().getParcelableExtra(Product.EXTRA_PRODUCT);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Product.EXTRA_PRODUCT, product);
+      
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -68,6 +75,8 @@ public class CheckoutActivity extends AppCompatActivity {
         fragmentTransaction.add(R.id.frame_container_payment, deliveryFragment, "Fragment Delivery");
         fragmentTransaction.commit();
         CheckoutFragmentUtil.printActivityFragmentList(fragmentManager);
+
+     
     }
 
     @Override
@@ -90,6 +99,9 @@ public class CheckoutActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == Address.REQUEST_EDIT_ADDRESS && resultCode == Address.RESULT_EDIT_ADDRESS){
+            setContent();
+        }
     }
 
 }
