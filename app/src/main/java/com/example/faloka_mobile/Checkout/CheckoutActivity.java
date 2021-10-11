@@ -94,7 +94,6 @@ public class CheckoutActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == Address.REQUEST_EDIT_ADDRESS && resultCode == Address.RESULT_EDIT_ADDRESS){
-            Toast.makeText(getApplicationContext(), "HAHA", Toast.LENGTH_SHORT).show();
             setContent();
         }
     }

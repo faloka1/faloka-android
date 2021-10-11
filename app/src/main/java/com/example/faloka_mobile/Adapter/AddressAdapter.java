@@ -36,8 +36,11 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressV
 
     List<Address> addressList;
     Context context;
+    AddressAdapter addressAdapter;
+
     public AddressAdapter(List<Address> addressList){
         this.addressList = addressList;
+        this.addressAdapter = this;
     }
 
     @NonNull
@@ -62,7 +65,6 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressV
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), ActionAddressActivity.class);
                 intent.putExtra(Address.EXTRA_ADDRESS, address);
-//                view.getContext().startActivity(intent);
                 ((Activity) context).startActivityForResult(intent, Address.REQUEST_EDIT_ADDRESS);
             }
         });
@@ -76,7 +78,8 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressV
                     public void onResponse(Call<Message> call, Response<Message> response) {
                         Message message = response.body();
                         Toast.makeText(holder.itemView.getContext(), message.getMessage(), Toast.LENGTH_SHORT).show();
-                        view.getContext().startActivity(new Intent(view.getContext(), CheckoutActivity.class));
+                        ((Activity) context).finish();
+                        ((Activity) context).startActivity(((Activity) context).getIntent());
                     }
 
                     @Override

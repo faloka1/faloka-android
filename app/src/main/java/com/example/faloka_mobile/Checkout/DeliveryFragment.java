@@ -41,7 +41,6 @@ import retrofit2.Response;
 
 public class DeliveryFragment extends Fragment{
 
-//    public static final String REQUEST_CHOOSE_DELIVERY = "REQUEST_CHOOSE_DELIVERY";
     public static final int REQUEST_CHOOSE_DELIVERY = 99;
     public static final int RESULT_CHOOSE_DELIVERY = 88;
     public static final String EXTRA_CHOOSE_DELIVERY = "EXTRA_CHOOSE_DELIVERY";

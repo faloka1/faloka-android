@@ -65,17 +65,8 @@ public class ActionAddressActivity extends AppCompatActivity {
                 callAddress.enqueue(new Callback<Message>() {
                     @Override
                     public void onResponse(Call<Message> call, Response<Message> response) {
-//                        if(!response.isSuccessful()){
-//                            Toast.makeText(view.getContext(), response.code() + " GAGAL", Toast.LENGTH_SHORT).show();
-//                            return;
-//                        }
                         Message message = response.body();
-//                        Toast.makeText(view.getContext(), message.getMessage() + " BERHASIL", Toast.LENGTH_SHORT).show();
-//                        startActivity(new Intent(ActionAddressActivity.this, CheckoutActivity.class));
-//                        finish();
-//                        Intent intent = new Intent();
-//                        intent.putExtra(DeliveryFragment.EXTRA_CHOOSE_DELIVERY, "Testing passing data back to ActivityOne");
-
+                        Toast.makeText(view.getContext(), message.getMessage(), Toast.LENGTH_SHORT).show();
                         setResult(Address.RESULT_EDIT_ADDRESS); // You can also send result without any data using setResult(int resultCode)
                         finish();
 
