@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
@@ -62,15 +62,21 @@ public class CheckoutActivity extends AppCompatActivity {
                 .commit();
     }
     private void setContent(){
+      
         product = getIntent().getParcelableExtra(Product.EXTRA_PRODUCT);
         Bundle bundle = new Bundle();
         bundle.putParcelable(Product.EXTRA_PRODUCT, product);
-        DeliveryFragment deliveryFragment = new DeliveryFragment();
-        deliveryFragment.setArguments(bundle);
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+      
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        ft.add(R.id.frame_container_2, deliveryFragment);
-        ft.commit();
+        DeliveryFragment deliveryFragment = new DeliveryFragment();
+
+        fragmentTransaction.add(R.id.frame_container_payment, deliveryFragment, "Fragment Delivery");
+        fragmentTransaction.commit();
+        CheckoutFragmentUtil.printActivityFragmentList(fragmentManager);
+
+     
     }
 
     @Override

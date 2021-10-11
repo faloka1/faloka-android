@@ -13,9 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Falokamobile">
         <activity
-            android:name=".Profile.ProfileActivity"
-            android:exported="true" />
-        <activity
             android:name=".Checkout.DetailOrderActivity"
             android:exported="true" />
         <activity

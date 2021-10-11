@@ -4,21 +4,17 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Adapter.AddressAdapter;
@@ -29,17 +25,12 @@ import com.example.faloka_mobile.Model.Logout;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.Profile;
 import com.example.faloka_mobile.R;
+import com.example.faloka_mobile.databinding.ActivityCheckoutBinding;
 import com.example.faloka_mobile.databinding.FragmentDeliveryBinding;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import java.util.ArrayList;
 
-import java.text.NumberFormat;
-import java.util.List;
-import java.util.Locale;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class DeliveryFragment extends Fragment{
+public class DeliveryFragment extends Fragment implements View.OnClickListener{
 
     public static final int REQUEST_CHOOSE_DELIVERY = 99;
     public static final int RESULT_CHOOSE_DELIVERY = 88;
@@ -48,40 +39,56 @@ public class DeliveryFragment extends Fragment{
     Product product;
     FragmentDeliveryBinding binding;
     View view;
+    Button btnEdit;
+    Button btnNext;
+  
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        binding = FragmentDeliveryBinding.inflate(inflater, container, false);
-        view = binding.getRoot();
-        setAddressSection();
-        setContentProduct();
-        setExpedition();
-        setFooterDelivery();
 
+        view = inflater.inflate(R.layout.fragment_delivery, container, false);
+        setAddressSection();
+        setFooterDelivery();
         return view;
     }
-
-    private void setContentProduct(){
-        if(getArguments() != null){
-            product = getArguments().getParcelable(Product.EXTRA_PRODUCT);
-            setProductOrder();
-
-            binding.tvDeliveryBrand.setText(product.getBrand().getName());
-            binding.tvDeliverySubtotalValue.setText(String.valueOf(getFormatRupiah(0 ) ));
-        }
+    private void setAddressSection(){
+        btnEdit = view.findViewById(R.id.btn_edit);
+        btnEdit.setOnClickListener(this);
+    }
+    private void setFooterDelivery(){
+        btnNext = view.findViewById(R.id.btn_checkout_next);
+        btnNext.setEnabled(true);
+        btnNext.setOnClickListener(this);
     }
 
-    public String getFormatRupiah(int price){
-        Double tempPrice = Double.parseDouble(String.valueOf(price));
-        Locale localeID = new Locale("in", "ID");
-        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
-        return  formatRupiah.format(tempPrice);
+    @Override
+    public void onClick(View view) {
+        if(view.findViewById(R.id.btn_edit) == btnEdit){
+            Intent intent = new Intent(getContext(),ActionAddressActivity.class);
+            startActivity(intent);
+        }
+        else if(view.findViewById(R.id.btn_checkout_next) == btnNext){
+            final FragmentManager fragmentManager = getFragmentManager();
+          
+            Fragment fragmentPayment = CheckoutFragmentUtil.getFragmentByTagName(fragmentManager, "Fragment Payment");
+
+            if(fragmentPayment==null)
+            {
+                fragmentPayment = new PaymentFragment();
+            }
+          
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.frame_container_payment, fragmentPayment, "Fragment Payment");
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+            CheckoutFragmentUtil.printActivityFragmentList(fragmentManager);
+          
+        }
     }
 
     private void setExpedition(){
@@ -120,11 +127,7 @@ public class DeliveryFragment extends Fragment{
         tvOrderProductPrice.setText(String.valueOf(getFormatRupiah(product.getPrice())));
         tvOrderProductName.setText(product.getName());
 
-        Glide.with(imgOrderProduct.getContext())
-                .load(ApiConfig.BASE_IMAGE_URL+product.getProductImageURL())
-                .into(imgOrderProduct);
     }
-
 
 
     private void setAddressSection(){
@@ -152,16 +155,8 @@ public class DeliveryFragment extends Fragment{
             public void onFailure(Call<Profile> call, Throwable t) {
 
             }
-        });
-    }
 
-    private void setFooterDelivery(){
-        binding.tvTotalPrice.setText(String.valueOf(getFormatRupiah(0)));
-        binding.btnNextPayment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        }
 
-            }
-        });
     }
 }
