@@ -70,9 +70,15 @@ public class ActionAddressActivity extends AppCompatActivity {
 //                            return;
 //                        }
                         Message message = response.body();
-                        Toast.makeText(view.getContext(), message.getMessage() + " BERHASIL", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(ActionAddressActivity.this, CheckoutActivity.class));
+//                        Toast.makeText(view.getContext(), message.getMessage() + " BERHASIL", Toast.LENGTH_SHORT).show();
+//                        startActivity(new Intent(ActionAddressActivity.this, CheckoutActivity.class));
+//                        finish();
+//                        Intent intent = new Intent();
+//                        intent.putExtra(DeliveryFragment.EXTRA_CHOOSE_DELIVERY, "Testing passing data back to ActivityOne");
+
+                        setResult(Address.RESULT_EDIT_ADDRESS); // You can also send result without any data using setResult(int resultCode)
                         finish();
+
                     }
 
                     @Override

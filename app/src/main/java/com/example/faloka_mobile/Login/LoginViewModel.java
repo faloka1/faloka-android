@@ -41,7 +41,8 @@ public class LoginViewModel extends ViewModel {
             return false;
         }
         LoginRepository.userLogin(email,password,context);
-        return true;
+        TokenManager tokenManager = TokenManager.getInstance(view.getContext().getSharedPreferences("Token",0));
+        return (tokenManager.getToken() != null);
     }
     private Boolean isValidEmail(){
         if(email.isEmpty()){

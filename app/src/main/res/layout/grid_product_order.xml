@@ -22,10 +22,10 @@
                 android:layout_width="92dp"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/hijab_collection"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></ImageView>
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@android:drawable/ic_dialog_alert"></ImageView>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
@@ -40,7 +40,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lato"
-                    android:text="Blouse Bagus"
+                    android:text="-"
                     android:textColor="@color/netral_900"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -68,7 +68,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/lato_bold"
-                        android:text="All size"
+                        android:text="-"
                         android:textColor="@color/netral_900"
                         android:textSize="14sp" />
 
@@ -80,7 +80,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:fontFamily="@font/lato_bold"
-                    android:text="Rp.80.000"
+                    android:text="Rp.-"
                     android:textColor="@color/netral_900"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"

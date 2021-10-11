@@ -102,18 +102,22 @@ public class DeliveryFragment extends Fragment{
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == DeliveryFragment.REQUEST_CHOOSE_DELIVERY && resultCode == RESULT_CHOOSE_DELIVERY){
-//            Toast.makeText(, "", Toast.LENGTH_SHORT).show();
             String result = data.getStringExtra(DeliveryFragment.EXTRA_CHOOSE_DELIVERY);
             Toast.makeText(getContext(), "HAHA"+result, Toast.LENGTH_SHORT).show();
             binding.tvDeliveryEkspedition.setText("HMMM");
         }
+//        if(requestCode == Address.REQUEST_EDIT_ADDRESS && resultCode == Address.RESULT_EDIT_ADDRESS){
+//            Toast.makeText(getContext(), "HAHA", Toast.LENGTH_SHORT).show();
+//        }
     }
 
     private void setProductOrder(){
         TextView tvOrderProductName = view.findViewById(R.id.tv_order_product_name);
         TextView tvOrderProductPrice = view.findViewById(R.id.tv_order_product_price);
         ImageView imgOrderProduct = view.findViewById(R.id.image_order_product);
+        TextView tvOrderProductSize = view.findViewById(R.id.tv_order_product_size_value);
 
+        tvOrderProductSize.setText(product.getSizeProduct());
         tvOrderProductPrice.setText(String.valueOf(getFormatRupiah(product.getPrice())));
         tvOrderProductName.setText(product.getName());
 
@@ -122,17 +126,17 @@ public class DeliveryFragment extends Fragment{
                 .into(imgOrderProduct);
     }
 
+
+
     private void setAddressSection(){
         TokenManager tokenManager = TokenManager.getInstance(getContext().getSharedPreferences("Token",0));
-        Call<Profile> callProfile = ApiConfig.getApiService(tokenManager).getProfile(tokenManager.getTypeToken()+" "+tokenManager.getToken());
+        Call<Profile> callProfile = ApiConfig.getApiService(tokenManager).getProfile("Bearer "+tokenManager.getToken());
 
         callProfile.enqueue(new Callback<Profile>() {
             @Override
             public void onResponse(Call<Profile> call, Response<Profile> response) {
                 if(response.isSuccessful()){
                     Profile profile = response.body();
-//                    Toast.makeText(getContext(), profile.getGender(), Toast.LENGTH_SHORT).show();
-//                    List<Address> addressList = profile.getAddressList();
                     AddressAdapter addressAdapter;
 
                     addressAdapter = new AddressAdapter(profile.getAddressList());

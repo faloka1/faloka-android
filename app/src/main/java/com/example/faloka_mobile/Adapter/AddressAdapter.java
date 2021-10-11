@@ -1,6 +1,8 @@
 package com.example.faloka_mobile.Adapter;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,18 +16,26 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Checkout.ActionAddressActivity;
+import com.example.faloka_mobile.Checkout.CheckoutActivity;
+import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.Address;
 import com.example.faloka_mobile.Model.Courier;
 import com.example.faloka_mobile.Model.CourierService;
+import com.example.faloka_mobile.Model.Message;
 import com.example.faloka_mobile.R;
 
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressViewHolder>{
 
     List<Address> addressList;
-
+    Context context;
     public AddressAdapter(List<Address> addressList){
         this.addressList = addressList;
     }
@@ -34,6 +44,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressV
     @Override
     public AddressViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_address,parent,false);
+        context = parent.getContext();
         return new AddressAdapter.AddressViewHolder(view);
     }
 
@@ -49,16 +60,30 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressV
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(holder.itemView.getContext(), "EDIT"+ address.getLocation(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(view.getContext(), ActionAddressActivity.class);
                 intent.putExtra(Address.EXTRA_ADDRESS, address);
-                view.getContext().startActivity(intent);
+//                view.getContext().startActivity(intent);
+                ((Activity) context).startActivityForResult(intent, Address.REQUEST_EDIT_ADDRESS);
             }
         });
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(holder.itemView.getContext(), "DELETE"+ address.getLocation(), Toast.LENGTH_SHORT).show();
+                TokenManager tokenManager = TokenManager.getInstance(view.getContext().getSharedPreferences("Token",0));
+                Call<Message> callAddress = ApiConfig.getApiService(tokenManager).deleteAddress(address.getId());
+                callAddress.enqueue(new Callback<Message>() {
+                    @Override
+                    public void onResponse(Call<Message> call, Response<Message> response) {
+                        Message message = response.body();
+                        Toast.makeText(holder.itemView.getContext(), message.getMessage(), Toast.LENGTH_SHORT).show();
+                        view.getContext().startActivity(new Intent(view.getContext(), CheckoutActivity.class));
+                    }
+
+                    @Override
+                    public void onFailure(Call<Message> call, Throwable t) {
+
+                    }
+                });
             }
         });
     }

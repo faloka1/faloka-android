@@ -13,6 +13,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -41,7 +42,7 @@ public interface ApiService {
     );
 
     @POST("auth/logout")
-    Call<Logout> getLogoutMessage(@Header("Authorization") String auth);
+    Call<Message> getLogoutMessage(@Header("Authorization") String auth);
 
     @GET("auth/profile")
     Call<Profile> getProfile(@Header("Authorization") String auth);
@@ -51,5 +52,8 @@ public interface ApiService {
 
     @PUT("auth/address/{address_id}")
     Call<Message> putAddress(@Path("address_id") int addressID, @Body Address address);
+
+    @DELETE("auth/address/{address_id}")
+    Call<Message> deleteAddress(@Path("address_id") int addressID);
 }
 

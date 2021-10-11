@@ -8,6 +8,8 @@ import com.google.gson.annotations.SerializedName;
 public class Address implements Parcelable {
 
     public static final String EXTRA_ADDRESS = "EXTRA_ADDRESS";
+    public static final int REQUEST_EDIT_ADDRESS = 100;
+    public static final int RESULT_EDIT_ADDRESS = 111;
 
     private int id;
     private String name;
