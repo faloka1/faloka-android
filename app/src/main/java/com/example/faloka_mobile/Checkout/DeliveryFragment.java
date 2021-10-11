@@ -1,9 +1,9 @@
 package com.example.faloka_mobile.Checkout;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -13,22 +13,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.bumptech.glide.Glide;
+
 import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Adapter.AddressAdapter;
-import com.example.faloka_mobile.Adapter.CourierAdapter;
 import com.example.faloka_mobile.Login.TokenManager;
-import com.example.faloka_mobile.Model.Address;
-import com.example.faloka_mobile.Model.Logout;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.Profile;
 import com.example.faloka_mobile.R;
-import com.example.faloka_mobile.databinding.ActivityCheckoutBinding;
 import com.example.faloka_mobile.databinding.FragmentDeliveryBinding;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
-import java.util.ArrayList;
+
+import java.text.NumberFormat;
+import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DeliveryFragment extends Fragment implements View.OnClickListener{
 
@@ -55,10 +57,6 @@ public class DeliveryFragment extends Fragment implements View.OnClickListener{
         setAddressSection();
         setFooterDelivery();
         return view;
-    }
-    private void setAddressSection(){
-        btnEdit = view.findViewById(R.id.btn_edit);
-        btnEdit.setOnClickListener(this);
     }
     private void setFooterDelivery(){
         btnNext = view.findViewById(R.id.btn_checkout_next);
@@ -112,9 +110,6 @@ public class DeliveryFragment extends Fragment implements View.OnClickListener{
             Toast.makeText(getContext(), "HAHA"+result, Toast.LENGTH_SHORT).show();
             binding.tvDeliveryEkspedition.setText("HMMM");
         }
-//        if(requestCode == Address.REQUEST_EDIT_ADDRESS && resultCode == Address.RESULT_EDIT_ADDRESS){
-//            Toast.makeText(getContext(), "HAHA", Toast.LENGTH_SHORT).show();
-//        }
     }
 
     private void setProductOrder(){
@@ -129,6 +124,13 @@ public class DeliveryFragment extends Fragment implements View.OnClickListener{
 
     }
 
+    private String getFormatRupiah(int price) {
+        Integer.parseInt(String.valueOf(product.getPrice()));
+        Locale localeID = new Locale("in", "ID");
+        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+        return  formatRupiah.format(price);
+    }
+
 
     private void setAddressSection(){
         TokenManager tokenManager = TokenManager.getInstance(getContext().getSharedPreferences("Token",0));
@@ -137,15 +139,14 @@ public class DeliveryFragment extends Fragment implements View.OnClickListener{
         callProfile.enqueue(new Callback<Profile>() {
             @Override
             public void onResponse(Call<Profile> call, Response<Profile> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     Profile profile = response.body();
                     AddressAdapter addressAdapter;
 
                     addressAdapter = new AddressAdapter(profile.getAddressList());
                     binding.rvAddresses.setAdapter(addressAdapter);
                     binding.rvAddresses.setLayoutManager(new LinearLayoutManager(getContext()));
-                }
-                else {
+                } else {
                     Toast.makeText(getContext(), "FAIL", Toast.LENGTH_SHORT).show();
                 }
 
@@ -155,8 +156,6 @@ public class DeliveryFragment extends Fragment implements View.OnClickListener{
             public void onFailure(Call<Profile> call, Throwable t) {
 
             }
-
-        }
-
+        });
     }
 }
