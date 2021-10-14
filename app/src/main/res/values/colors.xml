@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="white_faloka">#DADADA</color>
+    <color name="black_faloka">#323232</color>
+    <color name="faloka_accent_green">#01B8BC</color>
+
+    <color name="primary_color">#1E0F14</color>
+
+    <color name="secondary_green_dark">#006E87</color>
+    <color name="secondary_green_light">#01B8BC</color>
+
+    <color name="semantic_danger_dark">#DB317A</color>
+
+    <color name="netral_900">#1E0F14</color>
+    <color name="netral_800">#241A1B</color>
+    <color name="netral_700">#2A2424</color>
+    <color name="netral_600">#323232</color>
+    <color name="netral_500">#848484</color>
+    <color name="netral_400">#C1C1C1</color>
+    <color name="netral_300">#EAEAEA</color>
+    <color name="netral_200">#F4F4F4</color>
+    <color name="netral_100">#FAFAFA</color>
+
+</resources>
