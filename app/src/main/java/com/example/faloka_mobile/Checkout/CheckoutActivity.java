@@ -2,18 +2,13 @@ package com.example.faloka_mobile.Checkout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
 
 import com.example.faloka_mobile.Model.Address;
 import com.example.faloka_mobile.Model.Product;
@@ -22,7 +17,6 @@ import com.example.faloka_mobile.databinding.ActivityCheckoutBinding;
 import com.shuhart.stepview.StepView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class CheckoutActivity extends AppCompatActivity {
 
@@ -94,6 +88,9 @@ public class CheckoutActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == Address.REQUEST_EDIT_ADDRESS && resultCode == Address.RESULT_EDIT_ADDRESS){
+            setContent();
+        }
+        if(requestCode == Address.REQUEST_ADD_ADDRESS && resultCode == Address.RESULT_ADD_ADDRESS){
             setContent();
         }
     }

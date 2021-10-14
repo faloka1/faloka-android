@@ -8,8 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,11 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Checkout.ActionAddressActivity;
-import com.example.faloka_mobile.Checkout.CheckoutActivity;
 import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.Address;
-import com.example.faloka_mobile.Model.Courier;
-import com.example.faloka_mobile.Model.CourierService;
 import com.example.faloka_mobile.Model.Message;
 import com.example.faloka_mobile.R;
 
@@ -37,6 +32,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressV
     List<Address> addressList;
     Context context;
     AddressAdapter addressAdapter;
+
 
     public AddressAdapter(List<Address> addressList){
         this.addressList = addressList;
@@ -72,7 +68,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressV
             @Override
             public void onClick(View view) {
                 TokenManager tokenManager = TokenManager.getInstance(view.getContext().getSharedPreferences("Token",0));
-                Call<Message> callAddress = ApiConfig.getApiService(tokenManager).deleteAddress(address.getId());
+                Call<Message> callAddress = ApiConfig.getApiService(tokenManager).deleteAddress(tokenManager.getTypeToken()+" "+tokenManager.getToken(),address.getId());
                 callAddress.enqueue(new Callback<Message>() {
                     @Override
                     public void onResponse(Call<Message> call, Response<Message> response) {
