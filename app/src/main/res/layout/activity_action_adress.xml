@@ -108,16 +108,10 @@
                     android:textColor="@color/netral_900"
                     android:textSize="14sp"></TextView>
 
-                <EditText
-                    android:id="@+id/et_address_province"
+                <Spinner
+                    android:id="@+id/spinner_province"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@drawable/card_border"
-                    android:inputType="text"
-                    android:paddingStart="13dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView4" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <LinearLayout
@@ -135,16 +129,11 @@
                     android:textColor="@color/netral_900"
                     android:textSize="14sp"></TextView>
 
-                <EditText
-                    android:id="@+id/et_address_city"
+                <Spinner
+                    android:id="@+id/spinner_district"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@drawable/card_border"
-                    android:inputType="text"
-                    android:paddingStart="13dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView4" />
+                    android:spinnerMode="dropdown"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <LinearLayout

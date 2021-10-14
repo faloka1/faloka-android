@@ -1,15 +1,10 @@
 package com.example.faloka_mobile.Checkout;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentResultListener;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
@@ -22,17 +17,14 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Adapter.AddressAdapter;
-import com.example.faloka_mobile.Adapter.CourierAdapter;
+import com.example.faloka_mobile.Adapter.AddressAddAdapter;
 import com.example.faloka_mobile.Login.TokenManager;
-import com.example.faloka_mobile.Model.Address;
-import com.example.faloka_mobile.Model.Logout;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.Profile;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.FragmentDeliveryBinding;
 
 import java.text.NumberFormat;
-import java.util.List;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -137,10 +129,16 @@ public class DeliveryFragment extends Fragment{
                 if(response.isSuccessful()){
                     Profile profile = response.body();
                     AddressAdapter addressAdapter;
-
-                    addressAdapter = new AddressAdapter(profile.getAddressList());
-                    binding.rvAddresses.setAdapter(addressAdapter);
-                    binding.rvAddresses.setLayoutManager(new LinearLayoutManager(getContext()));
+                    if(profile.getAddressList().size() != 0){
+                        addressAdapter = new AddressAdapter(profile.getAddressList());
+                        binding.rvAddresses.setAdapter(addressAdapter);
+                        binding.rvAddresses.setLayoutManager(new LinearLayoutManager(getContext()));
+                    }
+                    else{
+                        Toast.makeText(getContext(), "KOSONG", Toast.LENGTH_SHORT).show();
+                        binding.rvAddresses.setAdapter(new AddressAddAdapter());
+                        binding.rvAddresses.setLayoutManager(new LinearLayoutManager(getContext()));
+                    }
                 }
                 else {
                     Toast.makeText(getContext(), "FAIL", Toast.LENGTH_SHORT).show();

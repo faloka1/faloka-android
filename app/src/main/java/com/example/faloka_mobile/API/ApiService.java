@@ -4,10 +4,11 @@ import com.example.faloka_mobile.Login.LoginResponse;
 import com.example.faloka_mobile.Model.Address;
 import com.example.faloka_mobile.Model.Category;
 import com.example.faloka_mobile.Model.Courier;
-import com.example.faloka_mobile.Model.Logout;
+import com.example.faloka_mobile.Model.District;
 import com.example.faloka_mobile.Model.Message;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.Profile;
+import com.example.faloka_mobile.Model.Province;
 
 import java.util.List;
 
@@ -50,10 +51,22 @@ public interface ApiService {
     @GET("expeditions")
     Call<List<Courier>> getExpeditions();
 
+    @POST("auth/address")
+    Call<Message> addAddress(@Header("Authorization") String auth, @Body Address address);
+
     @PUT("auth/address/{address_id}")
-    Call<Message> putAddress(@Path("address_id") int addressID, @Body Address address);
+    Call<Message> putAddress(@Header("Authorization") String auth, @Path("address_id") int addressID, @Body Address address);
 
     @DELETE("auth/address/{address_id}")
-    Call<Message> deleteAddress(@Path("address_id") int addressID);
+    Call<Message> deleteAddress(@Header("Authorization") String auth, @Path("address_id") int addressID);
+
+    @GET("province")
+    Call<List<Province>> getAllProvince();
+
+    @GET("province/{province_id}")
+    Call<List<Province>> getProvinceByID(@Path("province_id") int provinceID);
+
+    @GET("city")
+    Call<List<District>> getDistrictByProvince(@Query("province") int provinceID);
 }
 
