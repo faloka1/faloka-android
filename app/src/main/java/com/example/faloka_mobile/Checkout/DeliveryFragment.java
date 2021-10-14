@@ -10,14 +10,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Adapter.AddressAdapter;
 import com.example.faloka_mobile.Adapter.AddressAddAdapter;
+
 import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.Profile;
@@ -31,7 +32,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DeliveryFragment extends Fragment{
+public class DeliveryFragment extends Fragment implements View.OnClickListener{
 
     public static final int REQUEST_CHOOSE_DELIVERY = 99;
     public static final int RESULT_CHOOSE_DELIVERY = 88;
@@ -40,40 +41,52 @@ public class DeliveryFragment extends Fragment{
     Product product;
     FragmentDeliveryBinding binding;
     View view;
+    Button btnEdit;
+    Button btnNext;
+  
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        binding = FragmentDeliveryBinding.inflate(inflater, container, false);
-        view = binding.getRoot();
-        setAddressSection();
-        setContentProduct();
-        setExpedition();
-        setFooterDelivery();
 
+        view = inflater.inflate(R.layout.fragment_delivery, container, false);
+        setAddressSection();
+        setFooterDelivery();
         return view;
     }
-
-    private void setContentProduct(){
-        if(getArguments() != null){
-            product = getArguments().getParcelable(Product.EXTRA_PRODUCT);
-            setProductOrder();
-
-            binding.tvDeliveryBrand.setText(product.getBrand().getName());
-            binding.tvDeliverySubtotalValue.setText(String.valueOf(getFormatRupiah(0 ) ));
-        }
+    private void setFooterDelivery(){
+        btnNext = view.findViewById(R.id.btn_checkout_next);
+        btnNext.setEnabled(true);
+        btnNext.setOnClickListener(this);
     }
 
-    public String getFormatRupiah(int price){
-        Double tempPrice = Double.parseDouble(String.valueOf(price));
-        Locale localeID = new Locale("in", "ID");
-        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
-        return  formatRupiah.format(tempPrice);
+    @Override
+    public void onClick(View view) {
+        if(view.findViewById(R.id.btn_edit) == btnEdit){
+            Intent intent = new Intent(getContext(),ActionAddressActivity.class);
+            startActivity(intent);
+        }
+        else if(view.findViewById(R.id.btn_checkout_next) == btnNext){
+            final FragmentManager fragmentManager = getFragmentManager();
+          
+            Fragment fragmentPayment = CheckoutFragmentUtil.getFragmentByTagName(fragmentManager, "Fragment Payment");
+
+            if(fragmentPayment==null)
+            {
+                fragmentPayment = new PaymentFragment();
+            }
+          
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.frame_container_payment, fragmentPayment, "Fragment Payment");
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+            CheckoutFragmentUtil.printActivityFragmentList(fragmentManager);
+          
+        }
     }
 
     private void setExpedition(){
@@ -97,9 +110,6 @@ public class DeliveryFragment extends Fragment{
             Toast.makeText(getContext(), "HAHA"+result, Toast.LENGTH_SHORT).show();
             binding.tvDeliveryEkspedition.setText("HMMM");
         }
-//        if(requestCode == Address.REQUEST_EDIT_ADDRESS && resultCode == Address.RESULT_EDIT_ADDRESS){
-//            Toast.makeText(getContext(), "HAHA", Toast.LENGTH_SHORT).show();
-//        }
     }
 
     private void setProductOrder(){
@@ -112,11 +122,14 @@ public class DeliveryFragment extends Fragment{
         tvOrderProductPrice.setText(String.valueOf(getFormatRupiah(product.getPrice())));
         tvOrderProductName.setText(product.getName());
 
-        Glide.with(imgOrderProduct.getContext())
-                .load(ApiConfig.BASE_IMAGE_URL+product.getProductImageURL())
-                .into(imgOrderProduct);
     }
 
+    private String getFormatRupiah(int price) {
+        Integer.parseInt(String.valueOf(product.getPrice()));
+        Locale localeID = new Locale("in", "ID");
+        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+        return  formatRupiah.format(price);
+    }
 
 
     private void setAddressSection(){
@@ -126,7 +139,7 @@ public class DeliveryFragment extends Fragment{
         callProfile.enqueue(new Callback<Profile>() {
             @Override
             public void onResponse(Call<Profile> call, Response<Profile> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     Profile profile = response.body();
                     AddressAdapter addressAdapter;
                     if(profile.getAddressList().size() != 0){
@@ -148,16 +161,6 @@ public class DeliveryFragment extends Fragment{
 
             @Override
             public void onFailure(Call<Profile> call, Throwable t) {
-
-            }
-        });
-    }
-
-    private void setFooterDelivery(){
-        binding.tvTotalPrice.setText(String.valueOf(getFormatRupiah(0)));
-        binding.btnNextPayment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
             }
         });
