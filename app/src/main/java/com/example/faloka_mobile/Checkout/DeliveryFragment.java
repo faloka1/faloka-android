@@ -5,8 +5,6 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
@@ -19,6 +17,8 @@ import android.widget.Toast;
 
 import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Adapter.AddressAdapter;
+import com.example.faloka_mobile.Adapter.AddressAddAdapter;
+
 import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.Profile;
@@ -142,11 +142,18 @@ public class DeliveryFragment extends Fragment implements View.OnClickListener{
                 if (response.isSuccessful()) {
                     Profile profile = response.body();
                     AddressAdapter addressAdapter;
-
-                    addressAdapter = new AddressAdapter(profile.getAddressList());
-                    binding.rvAddresses.setAdapter(addressAdapter);
-                    binding.rvAddresses.setLayoutManager(new LinearLayoutManager(getContext()));
-                } else {
+                    if(profile.getAddressList().size() != 0){
+                        addressAdapter = new AddressAdapter(profile.getAddressList());
+                        binding.rvAddresses.setAdapter(addressAdapter);
+                        binding.rvAddresses.setLayoutManager(new LinearLayoutManager(getContext()));
+                    }
+                    else{
+                        Toast.makeText(getContext(), "KOSONG", Toast.LENGTH_SHORT).show();
+                        binding.rvAddresses.setAdapter(new AddressAddAdapter());
+                        binding.rvAddresses.setLayoutManager(new LinearLayoutManager(getContext()));
+                    }
+                }
+                else {
                     Toast.makeText(getContext(), "FAIL", Toast.LENGTH_SHORT).show();
                 }
 

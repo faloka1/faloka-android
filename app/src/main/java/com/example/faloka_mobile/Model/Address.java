@@ -10,6 +10,8 @@ public class Address implements Parcelable {
     public static final String EXTRA_ADDRESS = "EXTRA_ADDRESS";
     public static final int REQUEST_EDIT_ADDRESS = 100;
     public static final int RESULT_EDIT_ADDRESS = 111;
+    public static final int REQUEST_ADD_ADDRESS = 80;
+    public static final int RESULT_ADD_ADDRESS = 88;
 
     private int id;
     private String name;
