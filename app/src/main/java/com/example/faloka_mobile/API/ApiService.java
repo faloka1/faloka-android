@@ -9,6 +9,7 @@ import com.example.faloka_mobile.Model.Message;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.Profile;
 import com.example.faloka_mobile.Model.Province;
+import com.example.faloka_mobile.Model.User;
 
 import java.util.List;
 
@@ -48,16 +49,19 @@ public interface ApiService {
     @GET("auth/profile")
     Call<Profile> getProfile(@Header("Authorization") String auth);
 
+    @GET("user")
+    Call<User> getUser(@Header("Authorization") String auth);
+
     @GET("expeditions")
     Call<List<Courier>> getExpeditions();
 
-    @POST("auth/address")
+    @POST("user/address")
     Call<Message> addAddress(@Header("Authorization") String auth, @Body Address address);
 
-    @PUT("auth/address/{address_id}")
+    @PUT("user/address/{address_id}")
     Call<Message> putAddress(@Header("Authorization") String auth, @Path("address_id") int addressID, @Body Address address);
 
-    @DELETE("auth/address/{address_id}")
+    @DELETE("user/address/{address_id}")
     Call<Message> deleteAddress(@Header("Authorization") String auth, @Path("address_id") int addressID);
 
     @GET("province")
@@ -66,7 +70,7 @@ public interface ApiService {
     @GET("province/{province_id}")
     Call<List<Province>> getProvinceByID(@Path("province_id") int provinceID);
 
-    @GET("city")
+    @GET("district")
     Call<List<District>> getDistrictByProvince(@Query("province") int provinceID);
 }
 

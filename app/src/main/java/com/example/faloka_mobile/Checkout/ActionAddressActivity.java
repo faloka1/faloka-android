@@ -48,12 +48,13 @@ public class ActionAddressActivity extends AppCompatActivity {
         if(getIntent().hasExtra(Address.EXTRA_ADDRESS)) {
             address = getIntent().getParcelableExtra(Address.EXTRA_ADDRESS);
             getSupportActionBar().setTitle("Edit Alamat");
-            binding.etAddressName.setText(address.getName());
-            binding.etAddressPhoneNumber.setText(address.getPhone());
+//            binding.etAddressName.setText(address.getName());
+//            binding.etAddressPhoneNumber.setText(address.getPhone());
             binding.etAddressSubdistrict.setText(address.getSubDistrict());
             binding.etAddressPostalCode.setText(String.valueOf(address.getPostalCode()));
             binding.etAddressComplete.setText(address.getLocation());
-//            binding.spinnerProvince.setSelection(address.);
+//            binding.spinnerProvince.setSelection(2);
+            System.out.println("JAJAJA"+address.getProvince().getIndex());
         }
         binding.btnSubmitAddress.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,10 +65,10 @@ public class ActionAddressActivity extends AppCompatActivity {
                 }
 
                 Address newAddress = new Address();
-                newAddress.setName(binding.etAddressName.getText().toString().trim());
-                newAddress.setPhone(binding.etAddressPhoneNumber.getText().toString().trim());
-                newAddress.setProvince(province.getName());
-                newAddress.setDistrict(district.getName());
+//                newAddress.setName(binding.etAddressName.getText().toString().trim());
+//                newAddress.setPhone(binding.etAddressPhoneNumber.getText().toString().trim());
+                newAddress.setProvinceID(province.getProvinceID() );
+                newAddress.setDistrictID(district.getDistrictID());
                 newAddress.setSubDistrict(binding.etAddressSubdistrict.getText().toString().trim());
                 newAddress.setPostalCode(Integer.parseInt(binding.etAddressPostalCode.getText().toString().trim()));
 //                newAddress.setPostalCode(district.getPostalCode());
@@ -116,6 +117,7 @@ public class ActionAddressActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Province>> call, Response<List<Province>> response) {
                 List<Province> provinceList = response.body();
+
                 ArrayAdapter<Province> provinceArrayAdapter = new ArrayAdapter<Province>(getApplicationContext(), R.layout.spinner_item, provinceList);
                 binding.spinnerProvince.setPrompt("Select province");
                 provinceArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
@@ -124,8 +126,12 @@ public class ActionAddressActivity extends AppCompatActivity {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                         province = (Province) adapterView.getSelectedItem();
-                        setDistrict(province.getId());
-                        Toast.makeText(view.getContext(), province.getName(), Toast.LENGTH_SHORT).show();
+                        setDistrict(province.getProvinceID() );
+                        Toast.makeText(view.getContext(), province.getName()+" "+province.getProvinceID(), Toast.LENGTH_SHORT).show();
+//                        if(getIntent().hasExtra(Address.EXTRA_ADDRESS)) {
+//                            address = getIntent().getParcelableExtra(Address.EXTRA_ADDRESS);
+//                            binding.spinnerProvince.setSelection(10);
+//                        }
                     }
 
                     @Override
@@ -133,6 +139,7 @@ public class ActionAddressActivity extends AppCompatActivity {
 
                     }
                 });
+
             }
 
             @Override
@@ -145,7 +152,7 @@ public class ActionAddressActivity extends AppCompatActivity {
     private void setDistrict(int provinceID){
         if(province != null){
             TokenManager tokenManager = TokenManager.getInstance(getApplicationContext().getSharedPreferences("Token",0));
-            Call<List<District>> callDistrict = ApiConfig.getApiService(tokenManager).getDistrictByProvince(province.getId()) ;
+            Call<List<District>> callDistrict = ApiConfig.getApiService(tokenManager).getDistrictByProvince(provinceID) ;
             callDistrict.enqueue(new Callback<List<District>>() {
                 @Override
                 public void onResponse(Call<List<District>> call, Response<List<District>> response) {
@@ -159,7 +166,7 @@ public class ActionAddressActivity extends AppCompatActivity {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                             district = (District) adapterView.getSelectedItem();
-                            binding.etAddressPostalCode.setText(String.valueOf(district.getPostalCode()));
+//                            binding.etAddressPostalCode.setText(String.valueOf(district.getPostalCode()));
                             Toast.makeText(view.getContext(), district.getName(), Toast.LENGTH_SHORT).show();
                         }
 

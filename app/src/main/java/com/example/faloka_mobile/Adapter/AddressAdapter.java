@@ -18,6 +18,7 @@ import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Checkout.ActionAddressActivity;
 import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.Address;
+import com.example.faloka_mobile.Model.District;
 import com.example.faloka_mobile.Model.Message;
 import com.example.faloka_mobile.R;
 
@@ -50,12 +51,12 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressV
     @Override
     public void onBindViewHolder(@NonNull AddressViewHolder holder, int position) {
         Address address = addressList.get(position);
-        String deliveryAddress = address.getProvince()+", "+address.getDistrict()+", "+address.getSubDistrict();
+        String deliveryAddress = address.getProvince().getName()+", "+address.getDistrict().getName()+", "+address.getSubDistrict();
         holder.tvTitleDelivery.setText("Alamat Pengiriman");
-        holder.tvDeliveryName.setText(address.getName());
+        holder.tvDeliveryName.setText("HMM");
         holder.tvDeliveryCompleteAddress.setText(address.getLocation());
         holder.tvDeliveryAddress.setText(deliveryAddress);
-        holder.tvDeliveryPhoneNumber.setText(address.getPhone());
+        holder.tvDeliveryPhoneNumber.setText("000");
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,7 +74,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressV
                     @Override
                     public void onResponse(Call<Message> call, Response<Message> response) {
                         Message message = response.body();
-                        Toast.makeText(holder.itemView.getContext(), message.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, message.getMessage(), Toast.LENGTH_SHORT).show();
                         ((Activity) context).finish();
                         ((Activity) context).startActivity(((Activity) context).getIntent());
                     }
