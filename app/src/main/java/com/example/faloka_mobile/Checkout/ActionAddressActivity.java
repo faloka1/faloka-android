@@ -18,6 +18,7 @@ import com.example.faloka_mobile.Model.Address;
 import com.example.faloka_mobile.Model.District;
 import com.example.faloka_mobile.Model.Message;
 import com.example.faloka_mobile.Model.Province;
+import com.example.faloka_mobile.Model.User;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.ActivityActionAdressBinding;
 
@@ -45,16 +46,30 @@ public class ActionAddressActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         setProvince();
+        TokenManager tokenManager = TokenManager.getInstance(getApplicationContext().getSharedPreferences("Token",0));
+        Call<User> callUser = ApiConfig.getApiService(tokenManager).getUser(tokenManager.getTypeToken()+" "+tokenManager.getToken());
+        callUser.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                User user = response.body();
+                binding.etAddressName.setText(user.getName());
+                binding.etAddressPhoneNumber.setText(user.getPhone());
+                binding.etAddressName.setEnabled(false);
+                binding.etAddressPhoneNumber.setEnabled(false);
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+
+            }
+        });
         if(getIntent().hasExtra(Address.EXTRA_ADDRESS)) {
             address = getIntent().getParcelableExtra(Address.EXTRA_ADDRESS);
             getSupportActionBar().setTitle("Edit Alamat");
-//            binding.etAddressName.setText(address.getName());
-//            binding.etAddressPhoneNumber.setText(address.getPhone());
             binding.etAddressSubdistrict.setText(address.getSubDistrict());
             binding.etAddressPostalCode.setText(String.valueOf(address.getPostalCode()));
             binding.etAddressComplete.setText(address.getLocation());
-//            binding.spinnerProvince.setSelection(2);
-            System.out.println("JAJAJA"+address.getProvince().getIndex());
+
         }
         binding.btnSubmitAddress.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,7 +145,7 @@ public class ActionAddressActivity extends AppCompatActivity {
                         Toast.makeText(view.getContext(), province.getName()+" "+province.getProvinceID(), Toast.LENGTH_SHORT).show();
 //                        if(getIntent().hasExtra(Address.EXTRA_ADDRESS)) {
 //                            address = getIntent().getParcelableExtra(Address.EXTRA_ADDRESS);
-//                            binding.spinnerProvince.setSelection(10);
+//                            binding.spinnerProvince.setSelection(i);
 //                        }
                     }
 
@@ -139,6 +154,16 @@ public class ActionAddressActivity extends AppCompatActivity {
 
                     }
                 });
+
+                if(getIntent().hasExtra(Address.EXTRA_ADDRESS)) {
+                    address = getIntent().getParcelableExtra(Address.EXTRA_ADDRESS);
+                    for(int i=0; i<provinceList.size(); i++){
+                        Province province = provinceList.get(i);
+                        if(address.getProvince().getProvinceID() == province.getProvinceID()){
+                            binding.spinnerProvince.setSelection(i);
+                        }
+                    }
+                }
 
             }
 
@@ -167,7 +192,7 @@ public class ActionAddressActivity extends AppCompatActivity {
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                             district = (District) adapterView.getSelectedItem();
 //                            binding.etAddressPostalCode.setText(String.valueOf(district.getPostalCode()));
-                            Toast.makeText(view.getContext(), district.getName(), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(view.getContext(), district.getName(), Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
@@ -175,6 +200,16 @@ public class ActionAddressActivity extends AppCompatActivity {
 
                         }
                     });
+                    if(getIntent().hasExtra(Address.EXTRA_ADDRESS)) {
+                        address = getIntent().getParcelableExtra(Address.EXTRA_ADDRESS);
+                        for(int i=0; i<districtList.size(); i++){
+                            District district = districtList.get(i);
+                            if(address.getDistrict().getDistrictID() == district.getDistrictID()){
+                                binding.spinnerDistrict.setSelection(i);
+                                System.out.println("______________________"+district.getName());
+                            }
+                        }
+                    }
                 }
 
                 @Override
@@ -182,6 +217,7 @@ public class ActionAddressActivity extends AppCompatActivity {
 
                 }
             });
+
         }
     }
 
