@@ -14,8 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.faloka_mobile.Adapter.PaymentMethodAdapter;
+import com.example.faloka_mobile.Model.Checkout;
 import com.example.faloka_mobile.Model.PaymentMethod;
 import com.example.faloka_mobile.R;
 
@@ -23,10 +25,14 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
 
     PaymentViewModel viewModel;
     View view;
-
+    Checkout checkout;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(getArguments() != null){
+            checkout = getArguments().getParcelable(Checkout.EXTRA_CHECKOUT);
+            Toast.makeText(getContext(), "HAHA"+checkout.getExpeditionName(), Toast.LENGTH_SHORT).show();
+        }
         CheckoutViewModelFactory factory = new CheckoutViewModelFactory(new CheckoutRepository(getActivity()));
         viewModel = new ViewModelProvider(getActivity(),factory).get(PaymentViewModel.class);
     }
