@@ -6,24 +6,23 @@ import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
 public class District implements Parcelable {
-    @SerializedName("city_id")
+
     private int id;
+    @SerializedName("row")
+    private int index;
     @SerializedName("province_id")
     private int provinceID;
-    private String province;
-    private String type;
-    @SerializedName("city_name")
+    @SerializedName("district_id")
+    private int districtID;
+    @SerializedName("title")
     private String name;
-    @SerializedName("postal_code")
-    private int postalCode;
 
     protected District(Parcel in) {
         setId(in.readInt());
-        setName(in.readString());
+        setIndex(in.readInt());
         setProvinceID(in.readInt());
-        setProvince(in.readString());
-        setType(in.readString());
-        setPostalCode(in.readInt());
+        setDistrictID(in.readInt());
+        setName(in.readString());
     }
 
     public static final Creator<District> CREATOR = new Creator<District>() {
@@ -46,11 +45,10 @@ public class District implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(getId());
-        parcel.writeString(getName());
+        parcel.writeInt(getIndex());
         parcel.writeInt(getProvinceID());
-        parcel.writeString(getProvince());
-        parcel.writeString(getType());
-        parcel.writeInt(getPostalCode());
+        parcel.writeInt(getDistrictID());
+        parcel.writeString(getName());
     }
 
     public int getId() {
@@ -61,12 +59,12 @@ public class District implements Parcelable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public int getIndex() {
+        return index;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     public int getProvinceID() {
@@ -77,29 +75,22 @@ public class District implements Parcelable {
         this.provinceID = provinceID;
     }
 
-    public String getProvince() {
-        return province;
+    public int getDistrictID() {
+        return districtID;
     }
 
-    public void setProvince(String province) {
-        this.province = province;
+    public void setDistrictID(int districtID) {
+        this.districtID = districtID;
     }
 
-    public String getType() {
-        return type;
+    public String getName() {
+        return name;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public int getPostalCode() {
-        return postalCode;
-    }
-
-    public void setPostalCode(int postalCode) {
-        this.postalCode = postalCode;
-    }
     @Override
     public String toString(){
         return this.name;

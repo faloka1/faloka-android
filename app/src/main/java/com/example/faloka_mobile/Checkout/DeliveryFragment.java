@@ -24,6 +24,7 @@ import com.example.faloka_mobile.Adapter.AddressAddAdapter;
 import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.Profile;
+import com.example.faloka_mobile.Model.User;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.FragmentDeliveryBinding;
 
@@ -117,16 +118,16 @@ public class DeliveryFragment extends Fragment{
 
     private void setAddressSection(){
         TokenManager tokenManager = TokenManager.getInstance(getContext().getSharedPreferences("Token",0));
-        Call<Profile> callProfile = ApiConfig.getApiService(tokenManager).getProfile("Bearer "+tokenManager.getToken());
+        Call<User> callUser = ApiConfig.getApiService(tokenManager).getUser("Bearer "+tokenManager.getToken());
 
-        callProfile.enqueue(new Callback<Profile>() {
+        callUser.enqueue(new Callback<User>() {
             @Override
-            public void onResponse(Call<Profile> call, Response<Profile> response) {
+            public void onResponse(Call<User> call, Response<User> response) {
                 if(response.isSuccessful()){
-                    Profile profile = response.body();
+                    User user = response.body();
                     AddressAdapter addressAdapter;
-                    if(profile.getAddressList().size() != 0){
-                        addressAdapter = new AddressAdapter(profile.getAddressList());
+                    if(user.getAddressList().size() != 0){
+                        addressAdapter = new AddressAdapter(user.getAddressList());
                         binding.rvAddresses.setAdapter(addressAdapter);
                         binding.rvAddresses.setLayoutManager(new LinearLayoutManager(getContext()));
                     }
@@ -143,7 +144,7 @@ public class DeliveryFragment extends Fragment{
             }
 
             @Override
-            public void onFailure(Call<Profile> call, Throwable t) {
+            public void onFailure(Call<User> call, Throwable t) {
 
             }
         });

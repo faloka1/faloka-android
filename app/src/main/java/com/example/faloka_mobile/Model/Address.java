@@ -14,17 +14,20 @@ public class Address implements Parcelable {
     public static final int RESULT_ADD_ADDRESS = 88;
 
     private int id;
-    private String name;
-    @SerializedName("phone_number")
-    private String phone;
-    private String province;
-    private String district;
+    @SerializedName("province_id")
+    private int provinceID;
+    @SerializedName("district_id")
+    private int districtID;
     @SerializedName("sub_district")
     private String subDistrict;
     @SerializedName("postal_code")
     private int postalCode;
     private String location;
     private PivotAddress pivot;
+    @SerializedName("districts")
+    private District district;
+    @SerializedName("provinces")
+    private Province province;
 
     public Address(){
 
@@ -32,14 +35,14 @@ public class Address implements Parcelable {
 
     protected Address(Parcel in) {
         setId(in.readInt());
-        setName(in.readString());
-        setPhone(in.readString());
-        setProvince(in.readString());
-        setDistrict(in.readString());
+        setProvinceID(in.readInt());
+        setDistrictID(in.readInt());
         setSubDistrict(in.readString());
         setPostalCode(in.readInt());
         setLocation(in.readString());
         setPivot(in.readParcelable(PivotAddress.class.getClassLoader()));
+        setDistrict(in.readParcelable(District.class.getClassLoader()));
+        setProvince(in.readParcelable(Province.class.getClassLoader()));
     }
 
     public static final Creator<Address> CREATOR = new Creator<Address>() {
@@ -62,14 +65,14 @@ public class Address implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(getId());
-        parcel.writeString(getName());
-        parcel.writeString(getPhone());
-        parcel.writeString(getProvince());
-        parcel.writeString(getDistrict());
+        parcel.writeInt(getProvinceID());
+        parcel.writeInt(getDistrictID());
         parcel.writeString(getSubDistrict());
         parcel.writeInt(getPostalCode());
         parcel.writeString(getLocation());
         parcel.writeParcelable(getPivot(), i);
+        parcel.writeParcelable(getDistrict(), i);
+        parcel.writeParcelable(getProvince(), i);
     }
 
     public int getId() {
@@ -80,36 +83,20 @@ public class Address implements Parcelable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public int getProvinceID() {
+        return provinceID;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProvinceID(int provinceID) {
+        this.provinceID = provinceID;
     }
 
-    public String getPhone() {
-        return phone;
+    public int getDistrictID() {
+        return districtID;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getProvince() {
-        return province;
-    }
-
-    public void setProvince(String province) {
-        this.province = province;
-    }
-
-    public String getDistrict() {
-        return district;
-    }
-
-    public void setDistrict(String district) {
-        this.district = district;
+    public void setDistrictID(int districtID) {
+        this.districtID = districtID;
     }
 
     public String getSubDistrict() {
@@ -142,5 +129,21 @@ public class Address implements Parcelable {
 
     public void setPivot(PivotAddress pivot) {
         this.pivot = pivot;
+    }
+
+    public District getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(District district) {
+        this.district = district;
+    }
+
+    public Province getProvince() {
+        return province;
+    }
+
+    public void setProvince(Province province) {
+        this.province = province;
     }
 }

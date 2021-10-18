@@ -18,7 +18,9 @@ import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Checkout.ActionAddressActivity;
 import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.Address;
+import com.example.faloka_mobile.Model.District;
 import com.example.faloka_mobile.Model.Message;
+import com.example.faloka_mobile.Model.User;
 import com.example.faloka_mobile.R;
 
 import java.util.List;
@@ -50,12 +52,27 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressV
     @Override
     public void onBindViewHolder(@NonNull AddressViewHolder holder, int position) {
         Address address = addressList.get(position);
-        String deliveryAddress = address.getProvince()+", "+address.getDistrict()+", "+address.getSubDistrict();
+        String deliveryAddress = address.getProvince().getName()+", "+address.getDistrict().getName()+", "+address.getSubDistrict();
         holder.tvTitleDelivery.setText("Alamat Pengiriman");
-        holder.tvDeliveryName.setText(address.getName());
         holder.tvDeliveryCompleteAddress.setText(address.getLocation());
         holder.tvDeliveryAddress.setText(deliveryAddress);
-        holder.tvDeliveryPhoneNumber.setText(address.getPhone());
+
+        TokenManager tokenManager = TokenManager.getInstance(context.getSharedPreferences("Token",0));
+        Call<User> callUser = ApiConfig.getApiService(tokenManager).getUser(tokenManager.getTypeToken()+" "+tokenManager.getToken());
+        callUser.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                User user = response.body();
+                holder.tvDeliveryPhoneNumber.setText(user.getPhone());
+                holder.tvDeliveryName.setText(user.getName());
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+
+            }
+        });
+
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,7 +90,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressV
                     @Override
                     public void onResponse(Call<Message> call, Response<Message> response) {
                         Message message = response.body();
-                        Toast.makeText(holder.itemView.getContext(), message.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, message.getMessage(), Toast.LENGTH_SHORT).show();
                         ((Activity) context).finish();
                         ((Activity) context).startActivity(((Activity) context).getIntent());
                     }
