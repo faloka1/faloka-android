@@ -3,20 +3,20 @@ package com.example.faloka_mobile.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class CourierService implements Parcelable {
-    private int id;
-    private String name;
-    private int price;
+import com.google.gson.annotations.SerializedName;
 
-    public CourierService(String name, int price){
-        this.name = name;
-        this.price = price;
-    }
+import java.util.List;
+
+public class CourierService implements Parcelable {
+    @SerializedName("service")
+    private String name;
+    private String description;
+    private List<Cost> cost;
 
     protected CourierService(Parcel in) {
-        setId(in.readInt());
         setName(in.readString());
-        setPrice(in.readInt());
+        setDescription(in.readString());
+        setCost(in.createTypedArrayList(Cost.CREATOR));
     }
 
     public static final Creator<CourierService> CREATOR = new Creator<CourierService>() {
@@ -38,17 +38,9 @@ public class CourierService implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(getId());
         parcel.writeString(getName());
-        parcel.writeInt(getPrice());
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+        parcel.writeString(getDescription());
+        parcel.writeTypedList(getCost());
     }
 
     public String getName() {
@@ -59,11 +51,19 @@ public class CourierService implements Parcelable {
         this.name = name;
     }
 
-    public int getPrice() {
-        return price;
+    public String getDescription() {
+        return description;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<Cost> getCost() {
+        return cost;
+    }
+
+    public void setCost(List<Cost> cost) {
+        this.cost = cost;
     }
 }

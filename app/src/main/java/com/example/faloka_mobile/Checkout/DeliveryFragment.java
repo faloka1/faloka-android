@@ -22,6 +22,7 @@ import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Adapter.AddressAdapter;
 import com.example.faloka_mobile.Adapter.AddressAddAdapter;
 import com.example.faloka_mobile.Login.TokenManager;
+import com.example.faloka_mobile.Model.Checkout;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.Profile;
 import com.example.faloka_mobile.Model.User;
@@ -40,8 +41,11 @@ public class DeliveryFragment extends Fragment{
     public static final int REQUEST_CHOOSE_DELIVERY = 99;
     public static final int RESULT_CHOOSE_DELIVERY = 88;
     public static final String EXTRA_CHOOSE_DELIVERY = "EXTRA_CHOOSE_DELIVERY";
+    public static final String EXTRA_CODE_EXPEDITION = "EXTRA_CODE_EXPEDITION";
+    public static final String EXTRA_PRICE_EXPEDITION = "EXTRA_PRICE_EXPEDITION";
 
     Product product;
+    Checkout checkout;
     FragmentDeliveryBinding binding;
     View view;
     @Override
@@ -55,6 +59,7 @@ public class DeliveryFragment extends Fragment{
 
         binding = FragmentDeliveryBinding.inflate(inflater, container, false);
         view = binding.getRoot();
+        checkout = new Checkout();
         setAddressSection();
         setContentProduct();
         setExpedition();
@@ -80,7 +85,7 @@ public class DeliveryFragment extends Fragment{
     }
 
     private void setExpedition(){
-        binding.tvDeliveryEkspedition.setText("HAHAHA");
+        binding.tvDeliveryEkspedition.setText("Pilih Ekspedisimu");
         binding.tvDeliveryEkspedition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,8 +101,18 @@ public class DeliveryFragment extends Fragment{
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == DeliveryFragment.REQUEST_CHOOSE_DELIVERY && resultCode == RESULT_CHOOSE_DELIVERY){
             String result = data.getStringExtra(DeliveryFragment.EXTRA_CHOOSE_DELIVERY);
-            Toast.makeText(getContext(), "HAHA"+result, Toast.LENGTH_SHORT).show();
-            binding.tvDeliveryEkspedition.setText("HMMM");
+            String codeCourier = data.getStringExtra(DeliveryFragment.EXTRA_CODE_EXPEDITION);
+            int priceCourier = data.getIntExtra(DeliveryFragment.EXTRA_PRICE_EXPEDITION, 0);
+            int subTotal = product.getPrice() + priceCourier;
+//            Toast.makeText(getContext(), "HAHA"+result, Toast.LENGTH_SHORT).show();
+            binding.tvDeliveryEkspedition.setText((codeCourier.toUpperCase(Locale.ROOT)));
+            binding.tvDeliveryExpeditionPrice.setText(getFormatRupiah(priceCourier));
+            binding.tvDeliverySubtotalValue.setText(getFormatRupiah(subTotal));
+            TextView tvTotal = view.findViewById(R.id.tv_total_price);
+            tvTotal.setText(getFormatRupiah(subTotal));
+            checkout.setExpeditionName(codeCourier);
+            checkout.setQuantity(1);
+            checkout.setShippingPrice(priceCourier);
         }
     }
 
@@ -114,6 +129,7 @@ public class DeliveryFragment extends Fragment{
         Glide.with(imgOrderProduct.getContext())
                 .load(ApiConfig.BASE_IMAGE_URL+product.getProductImageURL())
                 .into(imgOrderProduct);
+        checkout.setVariantID(product.getVariantList().get(0).getId());
     }
 
     private void setAddressSection(){
@@ -130,6 +146,7 @@ public class DeliveryFragment extends Fragment{
                         addressAdapter = new AddressAdapter(user.getAddressList());
                         binding.rvAddresses.setAdapter(addressAdapter);
                         binding.rvAddresses.setLayoutManager(new LinearLayoutManager(getContext()));
+                        checkout.setAddressID(user.getAddressList().get(0).getId());
                     }
                     else{
                         Toast.makeText(getContext(), "KOSONG", Toast.LENGTH_SHORT).show();
@@ -151,13 +168,20 @@ public class DeliveryFragment extends Fragment{
     }
 
     private void setFooterDelivery(){
-        Button button = binding.footerCheckout.btnCheckoutNext;
+//        Button button = binding.footerCheckout.btnCheckoutNext;
+        Button button = view.findViewById(R.id.btn_checkout_next);
         button.setEnabled(true);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Fragment fragment = new PaymentFragment();
+
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(Checkout.EXTRA_CHECKOUT, checkout);
+                fragment.setArguments(bundle);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.frame_container_checkout, new PaymentFragment());
+//                ft.replace(R.id.frame_container_checkout, new PaymentFragment());
+                ft.replace(R.id.frame_container_checkout, fragment );
                 ft.addToBackStack(null);
                 ft.commit();
             }

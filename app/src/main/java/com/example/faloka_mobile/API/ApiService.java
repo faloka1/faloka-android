@@ -55,6 +55,14 @@ public interface ApiService {
     @GET("expeditions")
     Call<List<Courier>> getExpeditions();
 
+    @GET("ongkir")
+    Call<List<Courier>> getCostExpeditions(
+            @Query("origin") int originDistrictID,
+            @Query("destination") int destDistrictID,
+            @Query("weight") int weight,
+            @Query("courier") String courierCode
+    );
+
     @POST("user/address")
     Call<Message> addAddress(@Header("Authorization") String auth, @Body Address address);
 

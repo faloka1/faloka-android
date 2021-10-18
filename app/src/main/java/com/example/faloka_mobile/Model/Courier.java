@@ -3,19 +3,20 @@ package com.example.faloka_mobile.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class Courier implements Parcelable {
     private int id;
+    private String code;
     private String name;
+    @SerializedName("costs")
     private List<CourierService> courierServiceList;
-
-    public Courier(String name){
-        this.name = name;
-    }
 
     protected Courier(Parcel in) {
         setId(in.readInt());
+        setCode(in.readString());
         setName(in.readString());
         setCourierServiceList(in.createTypedArrayList(CourierService.CREATOR));
     }
@@ -40,6 +41,7 @@ public class Courier implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(getId());
+        parcel.writeString(getCode());
         parcel.writeString(getName());
         parcel.writeTypedList(getCourierServiceList());
     }
@@ -50,6 +52,14 @@ public class Courier implements Parcelable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getName() {
