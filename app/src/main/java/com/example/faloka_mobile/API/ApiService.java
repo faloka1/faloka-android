@@ -84,5 +84,18 @@ public interface ApiService {
 
     @GET("payment")
     Call<List<Payment>> getPayments();
+
+    @FormUrlEncoded
+    @POST("checkout")
+    Call<Message> isCheckout(
+            @Header("Authorization") String auth,
+            @Field("shipping_price") int shippingPrice,
+            @Field("expedition_name") String expeditionName,
+            @Field("payment_id") int paymentID,
+            @Field("address_id") int addressID,
+            @Field("quantity") int quantity,
+            @Field("variant_id") int variantID,
+            @Field("service") String serviceExpedition
+    );
 }
 

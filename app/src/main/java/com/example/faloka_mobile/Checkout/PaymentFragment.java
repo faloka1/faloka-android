@@ -1,8 +1,10 @@
 package com.example.faloka_mobile.Checkout;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
@@ -22,11 +24,13 @@ import com.example.faloka_mobile.Adapter.PaymentAdapter;
 import com.example.faloka_mobile.Adapter.PaymentMethodAdapter;
 import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.Checkout;
+import com.example.faloka_mobile.Model.Message;
 import com.example.faloka_mobile.Model.Order;
 import com.example.faloka_mobile.Model.Payment;
 import com.example.faloka_mobile.Model.PaymentMethod;
 import com.example.faloka_mobile.Model.User;
 import com.example.faloka_mobile.R;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -163,17 +167,70 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
 //                bundlePayment.putParcelable("PAYMENT_METHOD",paymentMethod);
 //                intent.putExtra("DATA_CHECKOUT",bundlePayment);
 //                startActivity(intent);
-                Bundle bundlePayment = new Bundle();
-                Intent intent = new Intent(getActivity(), ConfirmCheckoutActivity.class);
 
 //                getTotal().observe(getActivity(),total->{
 //                    order.getCheckout().setTotalPrice(Integer.parseInt(total));
 //                });
 
-                order.setPayment(paymentMethod);
-                bundlePayment.putParcelable(Order.EXTRA_ORDER, order);
-                intent.putExtra("DATA_ORDER",bundlePayment);
-                startActivity(intent);
+
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(view.getContext());
+                alertBuilder.setMessage("Apakah kamu yakin memesan ini?");
+                alertBuilder.setCancelable(true);
+                alertBuilder.setPositiveButton(
+                        "Pesan",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                TokenManager tokenManager = TokenManager.getInstance(getContext().getSharedPreferences("Token",0));
+                                Call<Message> callCheckout = ApiConfig.getApiService(tokenManager).isCheckout(
+                                        tokenManager.getTypeToken()+" "+tokenManager.getToken(),
+                                        order.getCheckout().getShippingPrice(),
+                                        order.getCheckout().getExpeditionName(),
+                                        order.getCheckout().getPaymentID(),
+                                        order.getCheckout().getAddressID(),
+                                        order.getCheckout().getQuantity(),
+                                        order.getCheckout().getVariantID(),
+                                        order.getCheckout().getServiceExpedition()
+                                );
+                                callCheckout.enqueue(new Callback<Message>() {
+                                    @Override
+                                    public void onResponse(Call<Message> call, Response<Message> response) {
+                                        if(response.isSuccessful()){
+                                            Message message = response.body();
+                                            System.out.println("PESAN RAHASIA: "+message.getMessage());
+                                            Bundle bundlePayment = new Bundle();
+                                            Intent intent = new Intent(getActivity(), ConfirmCheckoutActivity.class);
+                                            order.setPayment(paymentMethod);
+                                            bundlePayment.putParcelable(Order.EXTRA_ORDER, order);
+                                            intent.putExtra("DATA_ORDER",bundlePayment);
+                                            startActivity(intent);
+                                        }
+                                        else {
+                                            Snackbar.make(view, "Maaf, gagal order", Snackbar.LENGTH_SHORT).show();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<Message> call, Throwable t) {
+
+                                    }
+                                });
+                            }
+                        }
+                );
+                alertBuilder.setNegativeButton(
+                        "Batal",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        }
+                );
+
+                AlertDialog alertDialog = alertBuilder.create();
+                alertDialog.show();
+
             }
         });
         setFooterPayment();

@@ -122,7 +122,7 @@ public class DeliveryFragment extends Fragment{
 //            int priceCourier = data.getIntExtra(DeliveryFragment.EXTRA_PRICE_EXPEDITION, 0);
 //            int subTotal = product.getPrice() + priceCourier;
 //            Toast.makeText(getContext(), "HAHA"+result, Toast.LENGTH_SHORT).show();
-            binding.tvDeliveryEkspedition.setText((courier.getCode().toUpperCase(Locale.ROOT)));
+            binding.tvDeliveryEkspedition.setText(courier.getName()+" "+courierService.getName());
             binding.tvDeliveryExpeditionPrice.setText(getFormatRupiah(courierService.getCost().get(0).getValue()));
             binding.tvDeliverySubtotalValue.setText(getFormatRupiah(totalOrder));
             TextView tvTotal = view.findViewById(R.id.tv_total_price);
@@ -133,7 +133,7 @@ public class DeliveryFragment extends Fragment{
             checkout.setExpeditionName(courier.getCode());
             checkout.setQuantity(1);
             checkout.setShippingPrice(courierService.getCost().get(0).getValue());
-
+            checkout.setServiceExpedition(courierService.getName());
         }
     }
 
