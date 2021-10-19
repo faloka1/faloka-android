@@ -6,6 +6,7 @@ import com.example.faloka_mobile.Model.Category;
 import com.example.faloka_mobile.Model.Courier;
 import com.example.faloka_mobile.Model.District;
 import com.example.faloka_mobile.Model.Message;
+import com.example.faloka_mobile.Model.Payment;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.Profile;
 import com.example.faloka_mobile.Model.Province;
@@ -80,5 +81,8 @@ public interface ApiService {
 
     @GET("district")
     Call<List<District>> getDistrictByProvince(@Query("province") int provinceID);
+
+    @GET("payment")
+    Call<List<Payment>> getPayments();
 }
 

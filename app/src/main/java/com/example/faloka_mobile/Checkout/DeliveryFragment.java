@@ -86,6 +86,8 @@ public class DeliveryFragment extends Fragment{
 
     private void setExpedition(){
         binding.tvDeliveryEkspedition.setText("Pilih Ekspedisimu");
+        Button button = view.findViewById(R.id.btn_checkout_next);
+        button.setEnabled(false);
         binding.tvDeliveryEkspedition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,9 +112,13 @@ public class DeliveryFragment extends Fragment{
             binding.tvDeliverySubtotalValue.setText(getFormatRupiah(subTotal));
             TextView tvTotal = view.findViewById(R.id.tv_total_price);
             tvTotal.setText(getFormatRupiah(subTotal));
+            Button button = view.findViewById(R.id.btn_checkout_next);
+            button.setEnabled(true);
+            button.setBackgroundColor(getResources().getColor(R.color.black_faloka));
             checkout.setExpeditionName(codeCourier);
             checkout.setQuantity(1);
             checkout.setShippingPrice(priceCourier);
+            checkout.setTotalPrice(subTotal);
         }
     }
 
@@ -170,7 +176,6 @@ public class DeliveryFragment extends Fragment{
     private void setFooterDelivery(){
 //        Button button = binding.footerCheckout.btnCheckoutNext;
         Button button = view.findViewById(R.id.btn_checkout_next);
-        button.setEnabled(true);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

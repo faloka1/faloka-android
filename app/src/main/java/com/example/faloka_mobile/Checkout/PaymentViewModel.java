@@ -32,9 +32,10 @@ public class PaymentViewModel extends ViewModel {
 
         MutableLiveData<String> total = new MutableLiveData<>();
 
-        Locale localeID = new Locale("in", "ID");
-        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
-        total.setValue(formatRupiah.format(subtotal + servicePrice));
+//        Locale localeID = new Locale("in", "ID");
+//        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+//        total.setValue(formatRupiah.format(subtotal + servicePrice));
+        total.setValue(String.valueOf((int)(subtotal + servicePrice)));
         return total;
     }
 
