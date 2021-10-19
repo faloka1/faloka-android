@@ -8,6 +8,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class Courier implements Parcelable {
+    public static final String EXTRA_COURIER = "EXTRA_COURIER";
     private int id;
     private String code;
     private String name;

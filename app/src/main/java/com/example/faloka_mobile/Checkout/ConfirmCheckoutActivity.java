@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.faloka_mobile.Model.Checkout;
+import com.example.faloka_mobile.Model.Order;
 import com.example.faloka_mobile.Model.Payment;
 import com.example.faloka_mobile.Model.PaymentMethod;
 import com.example.faloka_mobile.R;
@@ -24,8 +25,7 @@ import java.util.Locale;
 public class ConfirmCheckoutActivity extends AppCompatActivity implements View.OnClickListener {
 
     ActivityConfrimCheckoutBinding binding;
-    Checkout checkout;
-    Payment payment;
+    Order order;
     Bundle bundle;
 
     @Override
@@ -34,14 +34,12 @@ public class ConfirmCheckoutActivity extends AppCompatActivity implements View.O
         binding = ActivityConfrimCheckoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        checkout = new Checkout();
+        order = new Order();
         bundle = new Bundle();
-        payment = new Payment();
 
         if(getIntent() != null){
-            bundle = getIntent().getBundleExtra("DATA_CHECKOUT");
-            checkout = bundle.getParcelable(Checkout.EXTRA_CHECKOUT);
-            payment = bundle.getParcelable(Payment.EXTRA_PAYMENT);
+            bundle = getIntent().getBundleExtra("DATA_ORDER");
+            order = bundle.getParcelable(Order.EXTRA_ORDER);
         }
 
 //        Bundle bundle = getIntent().getParcelableExtra("DATA_CHECKOUT");
@@ -53,10 +51,10 @@ public class ConfirmCheckoutActivity extends AppCompatActivity implements View.O
 //                + " (" + paymentMethod.getRekeningName() + ")");
 //        binding.tvConfirmValueTotalPayment.setText(total);
 
-        binding.tvConfirmValueMethodPayment.setText(payment.getPaymentName());
-        binding.tvConfirmValuePaymentCode.setText(payment.getAccountNumber()
-                + " (" + payment.getAccountName() + ")");
-        binding.tvConfirmValueTotalPayment.setText(getFormatRupiah(checkout.getTotalPrice()));
+        binding.tvConfirmValueMethodPayment.setText(order.getPayment().getPaymentName());
+        binding.tvConfirmValuePaymentCode.setText(order.getPayment().getAccountNumber()
+                + " (" + order.getPayment().getAccountName() + ")");
+        binding.tvConfirmValueTotalPayment.setText(getFormatRupiah(order.getTotalOrder()));
 
         binding.btnDetail.setOnClickListener(this);
         binding.btnHowToPay.setOnClickListener(this);
@@ -74,6 +72,9 @@ public class ConfirmCheckoutActivity extends AppCompatActivity implements View.O
     public void onClick(View view) {
         if(view.findViewById(R.id.btn_detail) == binding.btnDetail){
             Intent intent = new Intent(this, DetailOrderActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(Order.EXTRA_ORDER, order);
+            intent.putExtra("DATA_ORDER", bundle);
             startActivity(intent);
         }
         else if(view.findViewById(R.id.btn_how_to_pay) == binding.btnHowToPay){

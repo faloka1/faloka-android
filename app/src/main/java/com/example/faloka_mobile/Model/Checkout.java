@@ -20,7 +20,6 @@ public class Checkout implements Parcelable {
     private int quantity;
     @SerializedName("variant_id")
     private int variantID;
-    private int totalPrice;
 
     public Checkout(){
 
@@ -33,7 +32,6 @@ public class Checkout implements Parcelable {
         setAddressID(in.readInt());
         setQuantity(in.readInt());
         setVariantID(in.readInt());
-        setTotalPrice(in.readInt());
     }
 
     public static final Creator<Checkout> CREATOR = new Creator<Checkout>() {
@@ -61,7 +59,6 @@ public class Checkout implements Parcelable {
         parcel.writeInt(getAddressID());
         parcel.writeInt(getQuantity());
         parcel.writeInt(getVariantID());
-        parcel.writeInt(getTotalPrice());
     }
 
     public int getShippingPrice() {
@@ -110,13 +107,5 @@ public class Checkout implements Parcelable {
 
     public void setVariantID(int variantID) {
         this.variantID = variantID;
-    }
-
-    public int getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(int totalPrice) {
-        this.totalPrice = totalPrice;
     }
 }

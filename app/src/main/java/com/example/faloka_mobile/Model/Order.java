@@ -4,11 +4,16 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Order implements Parcelable {
+
+    public  static final String EXTRA_ORDER = "EXTRA_ORDER";
+
     private Payment payment;
     private Address address;
     private Product product;
     private Checkout checkout;
     private Courier courier;
+    private CourierService courierService;
+    private int totalOrder;
 
     public Order(){
 
@@ -20,6 +25,8 @@ public class Order implements Parcelable {
         setProduct(in.readParcelable(Product.class.getClassLoader()));
         setCheckout(in.readParcelable(Checkout.class.getClassLoader()));
         setCourier(in.readParcelable(Courier.class.getClassLoader()));
+        setCourierService(in.readParcelable(CourierService.class.getClassLoader()));
+        setTotalOrder(in.readInt());
     }
 
     public static final Creator<Order> CREATOR = new Creator<Order>() {
@@ -46,6 +53,8 @@ public class Order implements Parcelable {
         parcel.writeParcelable(getProduct(), i);
         parcel.writeParcelable(getCheckout(), i);
         parcel.writeParcelable(getCourier(), i);
+        parcel.writeParcelable(getCourierService(), i);
+        parcel.writeInt(getTotalOrder());
     }
 
     public Payment getPayment() {
@@ -86,5 +95,21 @@ public class Order implements Parcelable {
 
     public void setCourier(Courier courier) {
         this.courier = courier;
+    }
+
+    public CourierService getCourierService() {
+        return courierService;
+    }
+
+    public void setCourierService(CourierService courierService) {
+        this.courierService = courierService;
+    }
+
+    public int getTotalOrder() {
+        return totalOrder;
+    }
+
+    public void setTotalOrder(int totalOrder) {
+        this.totalOrder = totalOrder;
     }
 }

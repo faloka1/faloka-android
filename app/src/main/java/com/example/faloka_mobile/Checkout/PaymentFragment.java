@@ -22,6 +22,7 @@ import com.example.faloka_mobile.Adapter.PaymentAdapter;
 import com.example.faloka_mobile.Adapter.PaymentMethodAdapter;
 import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.Checkout;
+import com.example.faloka_mobile.Model.Order;
 import com.example.faloka_mobile.Model.Payment;
 import com.example.faloka_mobile.Model.PaymentMethod;
 import com.example.faloka_mobile.Model.User;
@@ -39,14 +40,15 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
 
     PaymentViewModel viewModel;
     View view;
-    Checkout checkout;
+//    Checkout checkout;
+    Order order;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        checkout = new Checkout();
+        order = new Order();
         if(getArguments() != null){
-            checkout = getArguments().getParcelable(Checkout.EXTRA_CHECKOUT);
-            Toast.makeText(getContext(), "HAHA"+checkout.getTotalPrice(), Toast.LENGTH_SHORT).show();
+            order = getArguments().getParcelable(Order.EXTRA_ORDER);
+//            Toast.makeText(getContext(), "HAHA"+order.getCheckout().getTotalPrice(), Toast.LENGTH_SHORT).show();
         }
         CheckoutViewModelFactory factory = new CheckoutViewModelFactory(new CheckoutRepository(getActivity()));
         viewModel = new ViewModelProvider(getActivity(),factory).get(PaymentViewModel.class);
@@ -65,7 +67,7 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
     }
     private void setSummaryPrice(){
         TextView tvSubTotal = view.findViewById(R.id.tv_payment_value_subtotal);
-        tvSubTotal.setText(String.valueOf(checkout.getTotalPrice()));
+        tvSubTotal.setText(String.valueOf(order.getTotalOrder()));
     }
     private void setPaymentMethod(){
 //        viewModel.getPaymentMethod().observe(getActivity(),paymentMethods -> {
@@ -106,6 +108,7 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
 
         getTotal().observe(getActivity(),total->{
             tvTotalPrice.setText(getFormatRupiah(Integer.parseInt(total)));
+            order.setTotalOrder(Integer.parseInt(total));
         });
     }
 
@@ -146,7 +149,7 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
         tvPriceService.setText(String.valueOf(paymentMethod.getPriceService()));
         buttonNext.setEnabled(true);
         buttonNext.setBackgroundResource(R.color.netral_900);
-        checkout.setPaymentID(paymentMethod.getId());
+        order.getCheckout().setPaymentID(paymentMethod.getId());
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -163,13 +166,13 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
                 Bundle bundlePayment = new Bundle();
                 Intent intent = new Intent(getActivity(), ConfirmCheckoutActivity.class);
 
-                getTotal().observe(getActivity(),total->{
-                    checkout.setTotalPrice(Integer.parseInt(total));
-                });
+//                getTotal().observe(getActivity(),total->{
+//                    order.getCheckout().setTotalPrice(Integer.parseInt(total));
+//                });
 
-                bundlePayment.putParcelable(Checkout.EXTRA_CHECKOUT, checkout);
-                bundlePayment.putParcelable(Payment.EXTRA_PAYMENT, paymentMethod);
-                intent.putExtra("DATA_CHECKOUT",bundlePayment);
+                order.setPayment(paymentMethod);
+                bundlePayment.putParcelable(Order.EXTRA_ORDER, order);
+                intent.putExtra("DATA_ORDER",bundlePayment);
                 startActivity(intent);
             }
         });
