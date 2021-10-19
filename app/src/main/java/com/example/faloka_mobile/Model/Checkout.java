@@ -13,6 +13,8 @@ public class Checkout implements Parcelable {
     private int shippingPrice;
     @SerializedName("expedition_name")
     private String expeditionName;
+    @SerializedName("service")
+    private String serviceExpedition;
     @SerializedName("payment_id")
     private int paymentID;
     @SerializedName("address_id")
@@ -28,6 +30,7 @@ public class Checkout implements Parcelable {
     protected Checkout(Parcel in) {
         setShippingPrice(in.readInt());
         setExpeditionName(in.readString());
+        setServiceExpedition(in.readString());
         setPaymentID(in.readInt());
         setAddressID(in.readInt());
         setQuantity(in.readInt());
@@ -55,6 +58,7 @@ public class Checkout implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(getShippingPrice());
         parcel.writeString(getExpeditionName());
+        parcel.writeString(getServiceExpedition());
         parcel.writeInt(getPaymentID());
         parcel.writeInt(getAddressID());
         parcel.writeInt(getQuantity());
@@ -75,6 +79,14 @@ public class Checkout implements Parcelable {
 
     public void setExpeditionName(String expeditionName) {
         this.expeditionName = expeditionName;
+    }
+
+    public String getServiceExpedition() {
+        return serviceExpedition;
+    }
+
+    public void setServiceExpedition(String serviceExpedition) {
+        this.serviceExpedition = serviceExpedition;
     }
 
     public int getPaymentID() {

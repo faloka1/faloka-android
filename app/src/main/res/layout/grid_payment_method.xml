@@ -54,16 +54,17 @@
                 android:letterSpacing="0.015"
                 android:text="2118181818">
             </TextView>
+
             <TextView
                 android:id="@+id/tv_rekening_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textColor="@color/netral_500"
+                android:layout_marginLeft="8dp"
                 android:fontFamily="@font/khula"
                 android:letterSpacing="0.015"
-                android:text=" (Ela) ">
-            </TextView>
+                android:text=" (Ela) "
+                android:textColor="@color/netral_500"
+                android:textSize="16sp"></TextView>
 
 
         </LinearLayout>

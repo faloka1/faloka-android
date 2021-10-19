@@ -22,7 +22,11 @@ import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Adapter.AddressAdapter;
 import com.example.faloka_mobile.Adapter.AddressAddAdapter;
 import com.example.faloka_mobile.Login.TokenManager;
+import com.example.faloka_mobile.Model.Address;
 import com.example.faloka_mobile.Model.Checkout;
+import com.example.faloka_mobile.Model.Courier;
+import com.example.faloka_mobile.Model.CourierService;
+import com.example.faloka_mobile.Model.Order;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.Profile;
 import com.example.faloka_mobile.Model.User;
@@ -46,6 +50,11 @@ public class DeliveryFragment extends Fragment{
 
     Product product;
     Checkout checkout;
+    CourierService courierService;
+    Courier courier;
+    Address address;
+    int totalOrder;
+
     FragmentDeliveryBinding binding;
     View view;
     @Override
@@ -86,6 +95,8 @@ public class DeliveryFragment extends Fragment{
 
     private void setExpedition(){
         binding.tvDeliveryEkspedition.setText("Pilih Ekspedisimu");
+        Button button = view.findViewById(R.id.btn_checkout_next);
+        button.setEnabled(false);
         binding.tvDeliveryEkspedition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,19 +111,29 @@ public class DeliveryFragment extends Fragment{
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == DeliveryFragment.REQUEST_CHOOSE_DELIVERY && resultCode == RESULT_CHOOSE_DELIVERY){
-            String result = data.getStringExtra(DeliveryFragment.EXTRA_CHOOSE_DELIVERY);
-            String codeCourier = data.getStringExtra(DeliveryFragment.EXTRA_CODE_EXPEDITION);
-            int priceCourier = data.getIntExtra(DeliveryFragment.EXTRA_PRICE_EXPEDITION, 0);
-            int subTotal = product.getPrice() + priceCourier;
+//            String result = data.getStringExtra(DeliveryFragment.EXTRA_CHOOSE_DELIVERY);
+
+            Bundle bundle = data.getBundleExtra(DeliveryFragment.EXTRA_CHOOSE_DELIVERY);
+            courier = bundle.getParcelable(Courier.EXTRA_COURIER);
+            courierService = bundle.getParcelable(CourierService.EXTRA_COURIER_SERVICE);
+            totalOrder = product.getPrice()+courierService.getCost().get(0).getValue();
+
+//            String codeCourier = data.getStringExtra(DeliveryFragment.EXTRA_CODE_EXPEDITION);
+//            int priceCourier = data.getIntExtra(DeliveryFragment.EXTRA_PRICE_EXPEDITION, 0);
+//            int subTotal = product.getPrice() + priceCourier;
 //            Toast.makeText(getContext(), "HAHA"+result, Toast.LENGTH_SHORT).show();
-            binding.tvDeliveryEkspedition.setText((codeCourier.toUpperCase(Locale.ROOT)));
-            binding.tvDeliveryExpeditionPrice.setText(getFormatRupiah(priceCourier));
-            binding.tvDeliverySubtotalValue.setText(getFormatRupiah(subTotal));
+            binding.tvDeliveryEkspedition.setText(courier.getName()+" "+courierService.getName());
+            binding.tvDeliveryExpeditionPrice.setText(getFormatRupiah(courierService.getCost().get(0).getValue()));
+            binding.tvDeliverySubtotalValue.setText(getFormatRupiah(totalOrder));
             TextView tvTotal = view.findViewById(R.id.tv_total_price);
-            tvTotal.setText(getFormatRupiah(subTotal));
-            checkout.setExpeditionName(codeCourier);
+            tvTotal.setText(getFormatRupiah(totalOrder));
+            Button button = view.findViewById(R.id.btn_checkout_next);
+            button.setEnabled(true);
+            button.setBackgroundColor(getResources().getColor(R.color.black_faloka));
+            checkout.setExpeditionName(courier.getCode());
             checkout.setQuantity(1);
-            checkout.setShippingPrice(priceCourier);
+            checkout.setShippingPrice(courierService.getCost().get(0).getValue());
+            checkout.setServiceExpedition(courierService.getName());
         }
     }
 
@@ -147,6 +168,7 @@ public class DeliveryFragment extends Fragment{
                         binding.rvAddresses.setAdapter(addressAdapter);
                         binding.rvAddresses.setLayoutManager(new LinearLayoutManager(getContext()));
                         checkout.setAddressID(user.getAddressList().get(0).getId());
+                        address = user.getAddressList().get(0);
                     }
                     else{
                         Toast.makeText(getContext(), "KOSONG", Toast.LENGTH_SHORT).show();
@@ -170,14 +192,20 @@ public class DeliveryFragment extends Fragment{
     private void setFooterDelivery(){
 //        Button button = binding.footerCheckout.btnCheckoutNext;
         Button button = view.findViewById(R.id.btn_checkout_next);
-        button.setEnabled(true);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment fragment = new PaymentFragment();
 
+                Order order = new Order();
+                order.setCheckout(checkout);
+                order.setProduct(product);
+                order.setAddress(address);
+                order.setCourier(courier);
+                order.setCourierService(courierService);
+                order.setTotalOrder(totalOrder);
+                Fragment fragment = new PaymentFragment();
                 Bundle bundle = new Bundle();
-                bundle.putParcelable(Checkout.EXTRA_CHECKOUT, checkout);
+                bundle.putParcelable(Order.EXTRA_ORDER, order);
                 fragment.setArguments(bundle);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
 //                ft.replace(R.id.frame_container_checkout, new PaymentFragment());

@@ -6,6 +6,7 @@ import com.example.faloka_mobile.Model.Category;
 import com.example.faloka_mobile.Model.Courier;
 import com.example.faloka_mobile.Model.District;
 import com.example.faloka_mobile.Model.Message;
+import com.example.faloka_mobile.Model.Payment;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.Profile;
 import com.example.faloka_mobile.Model.Province;
@@ -80,5 +81,21 @@ public interface ApiService {
 
     @GET("district")
     Call<List<District>> getDistrictByProvince(@Query("province") int provinceID);
+
+    @GET("payment")
+    Call<List<Payment>> getPayments();
+
+    @FormUrlEncoded
+    @POST("checkout")
+    Call<Message> isCheckout(
+            @Header("Authorization") String auth,
+            @Field("shipping_price") int shippingPrice,
+            @Field("expedition_name") String expeditionName,
+            @Field("payment_id") int paymentID,
+            @Field("address_id") int addressID,
+            @Field("quantity") int quantity,
+            @Field("variant_id") int variantID,
+            @Field("service") String serviceExpedition
+    );
 }
 

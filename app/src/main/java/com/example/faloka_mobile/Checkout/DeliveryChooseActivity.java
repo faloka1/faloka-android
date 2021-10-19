@@ -145,8 +145,12 @@ public class DeliveryChooseActivity extends AppCompatActivity {
                         public void onCheckedChanged(RadioGroup radioGroup, int i) {
                             if(radioGroup.getCheckedRadioButtonId() != -1){
                                 CourierService courierService = courierServiceList.get(i);
-                                intent.putExtra(DeliveryFragment.EXTRA_CODE_EXPEDITION, courier.getCode());
-                                intent.putExtra(DeliveryFragment.EXTRA_PRICE_EXPEDITION, courierService.getCost().get(0).getValue());
+                                Bundle bundle = new Bundle();
+                                bundle.putParcelable(Courier.EXTRA_COURIER, courier);
+                                bundle.putParcelable(CourierService.EXTRA_COURIER_SERVICE, courierService);
+                                intent.putExtra(DeliveryFragment.EXTRA_CHOOSE_DELIVERY, bundle);
+//                                intent.putExtra(DeliveryFragment.EXTRA_CODE_EXPEDITION, courier.getCode());
+//                                intent.putExtra(DeliveryFragment.EXTRA_PRICE_EXPEDITION, courierService.getCost().get(0).getValue());
                                 System.out.println(courierService.getName() +" "+(radioGroup.getCheckedRadioButtonId()));
                             }
                         }
