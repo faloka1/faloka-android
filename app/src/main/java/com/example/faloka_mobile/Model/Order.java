@@ -7,6 +7,7 @@ public class Order implements Parcelable {
 
     public  static final String EXTRA_ORDER = "EXTRA_ORDER";
 
+    private int orderID;
     private Payment payment;
     private Address address;
     private Product product;
@@ -20,6 +21,7 @@ public class Order implements Parcelable {
     }
 
     protected Order(Parcel in) {
+        setOrderID(in.readInt());
         setPayment(in.readParcelable(Payment.class.getClassLoader()));
         setAddress(in.readParcelable(Address.class.getClassLoader()));
         setProduct(in.readParcelable(Product.class.getClassLoader()));
@@ -48,6 +50,7 @@ public class Order implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(getOrderID());
         parcel.writeParcelable(getPayment(), i);
         parcel.writeParcelable(getAddress(), i);
         parcel.writeParcelable(getProduct(), i);
@@ -55,6 +58,14 @@ public class Order implements Parcelable {
         parcel.writeParcelable(getCourier(), i);
         parcel.writeParcelable(getCourierService(), i);
         parcel.writeInt(getTotalOrder());
+    }
+
+    public int getOrderID() {
+        return orderID;
+    }
+
+    public void setOrderID(int orderID) {
+        this.orderID = orderID;
     }
 
     public Payment getPayment() {

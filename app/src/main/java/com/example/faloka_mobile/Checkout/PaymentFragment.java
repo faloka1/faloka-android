@@ -26,6 +26,7 @@ import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.Checkout;
 import com.example.faloka_mobile.Model.Message;
 import com.example.faloka_mobile.Model.Order;
+import com.example.faloka_mobile.Model.OrderResponse;
 import com.example.faloka_mobile.Model.Payment;
 import com.example.faloka_mobile.Model.PaymentMethod;
 import com.example.faloka_mobile.Model.User;
@@ -182,7 +183,7 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 TokenManager tokenManager = TokenManager.getInstance(getContext().getSharedPreferences("Token",0));
-                                Call<Message> callCheckout = ApiConfig.getApiService(tokenManager).isCheckout(
+                                Call<OrderResponse> callCheckout = ApiConfig.getApiService(tokenManager).isCheckout(
                                         tokenManager.getTypeToken()+" "+tokenManager.getToken(),
                                         order.getCheckout().getShippingPrice(),
                                         order.getCheckout().getExpeditionName(),
@@ -192,15 +193,16 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
                                         order.getCheckout().getVariantID(),
                                         order.getCheckout().getServiceExpedition()
                                 );
-                                callCheckout.enqueue(new Callback<Message>() {
+                                callCheckout.enqueue(new Callback<OrderResponse>() {
                                     @Override
-                                    public void onResponse(Call<Message> call, Response<Message> response) {
+                                    public void onResponse(Call<OrderResponse> call, Response<OrderResponse> response) {
                                         if(response.isSuccessful()){
-                                            Message message = response.body();
-                                            System.out.println("PESAN RAHASIA: "+message.getMessage());
+                                            OrderResponse orderResponse = response.body();
+                                            System.out.println("PESAN RAHASIA: "+orderResponse.getMessage());
                                             Bundle bundlePayment = new Bundle();
                                             Intent intent = new Intent(getActivity(), ConfirmCheckoutActivity.class);
                                             order.setPayment(paymentMethod);
+                                            order.setOrderID(orderResponse.getOrderID());
                                             bundlePayment.putParcelable(Order.EXTRA_ORDER, order);
                                             intent.putExtra("DATA_ORDER",bundlePayment);
                                             startActivity(intent);
@@ -211,7 +213,7 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
                                     }
 
                                     @Override
-                                    public void onFailure(Call<Message> call, Throwable t) {
+                                    public void onFailure(Call<OrderResponse> call, Throwable t) {
 
                                     }
                                 });

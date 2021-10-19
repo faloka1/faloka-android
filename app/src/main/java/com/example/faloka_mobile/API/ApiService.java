@@ -1,11 +1,14 @@
 package com.example.faloka_mobile.API;
 
+import android.database.Observable;
+
 import com.example.faloka_mobile.Login.LoginResponse;
 import com.example.faloka_mobile.Model.Address;
 import com.example.faloka_mobile.Model.Category;
 import com.example.faloka_mobile.Model.Courier;
 import com.example.faloka_mobile.Model.District;
 import com.example.faloka_mobile.Model.Message;
+import com.example.faloka_mobile.Model.OrderResponse;
 import com.example.faloka_mobile.Model.Payment;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.Profile;
@@ -14,6 +17,8 @@ import com.example.faloka_mobile.Model.User;
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -21,8 +26,11 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -87,7 +95,7 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("checkout")
-    Call<Message> isCheckout(
+    Call<OrderResponse> isCheckout(
             @Header("Authorization") String auth,
             @Field("shipping_price") int shippingPrice,
             @Field("expedition_name") String expeditionName,
@@ -97,5 +105,12 @@ public interface ApiService {
             @Field("variant_id") int variantID,
             @Field("service") String serviceExpedition
     );
+
+    @Multipart
+    @POST("uploadpayment/{order_id}")
+    Call<Message> uploadPhotoMultipart(
+            @Part("_method") RequestBody method,
+            @Part MultipartBody.Part image,
+            @Path("order_id") int orderID);
 }
 
