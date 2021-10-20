@@ -19,7 +19,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener,AuthListener{
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener,AuthListener, LoginValidListener{
 
     private ActivityLoginBinding binding;
     private LoginViewModel loginViewModel;
@@ -36,13 +36,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
         if(view.getId() == binding.btnLogLogin.getId()){
-            loginViewModel = new LoginViewModel(binding);
-            if(loginViewModel.login(view, view.getContext() )){
-                onSuccess();
-            }
-            else {
-                Toast.makeText(view.getContext(), "GAGAL", Toast.LENGTH_SHORT).show();
-            }
+            loginViewModel = new LoginViewModel(binding, this::onLogin);
+//            if(loginViewModel.login(view, view.getContext() )){
+//                onSuccess();
+//            }
+//            else {
+//                Toast.makeText(view.getContext(), "Maaf, Login gagal", Toast.LENGTH_SHORT).show();
+//            }
+            loginViewModel.login(view, view.getContext() );
+
         }
 
 
@@ -59,4 +61,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
+    @Override
+    public void onLogin(boolean valid) {
+        if(valid){
+            onSuccess();
+        }
+        else {
+            Toast.makeText(binding.getRoot().getContext(), "Maaf, Login gagal", Toast.LENGTH_SHORT).show();
+        }
+    }
 }
