@@ -83,9 +83,9 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.PaymentV
                     lastSelectedPosition = getAdapterPosition();
                     notifyDataSetChanged();
                     selectedListener.onPaymentSelected(payment);
-                    Toast.makeText(view.getContext(),
-                            "selected offer is " + tvBankName.getText(),
-                            Toast.LENGTH_LONG).show();
+//                    Toast.makeText(view.getContext(),
+//                            "selected offer is " + tvBankName.getText(),
+//                            Toast.LENGTH_LONG).show();
                 }
             });
             radioButton.setChecked(lastSelectedPosition==position);

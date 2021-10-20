@@ -32,7 +32,7 @@ public class AddressAddAdapter extends RecyclerView.Adapter<AddressAddAdapter.Ad
         holder.btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "HAHA", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(view.getContext(), "HAHA", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(view.getContext(), ActionAddressActivity.class);
                 ((Activity) context).startActivityForResult(intent, Address.REQUEST_ADD_ADDRESS);
             }
