@@ -3,12 +3,14 @@ package com.example.faloka_mobile.Login;
 import android.content.Context;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.API.ApiService;
+import com.example.faloka_mobile.Model.Login;
 
 import java.io.IOException;
 
@@ -21,11 +23,11 @@ import retrofit2.Response;
 
 public class LoginRepository{
 
-    public static final void userLogin(String email, String password, Context context){
+    public static final void userLogin(Login login, Context context, LoginValidListener loginValidListener){
 
         TokenManager tokenManager = TokenManager.getInstance(context.getSharedPreferences("Token",0));
 
-        Call<LoginResponse> client = ApiConfig.getApiService(tokenManager).getSession(email,password);
+        Call<LoginResponse> client = ApiConfig.getApiService(tokenManager).getSession(login);
         client.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
@@ -33,10 +35,12 @@ public class LoginRepository{
                     if(response.body()!=null){
                         if(tokenManager.getToken()==null){
                             tokenManager.saveToken(response.body());
+                            loginValidListener.onLogin(true);
                         }
                     }
                 }
                 else{
+                    loginValidListener.onLogin(false);
                     if(response.body()!=null){}
                 }
             }

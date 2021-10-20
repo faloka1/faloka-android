@@ -15,6 +15,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.faloka_mobile.Model.Login;
 import com.example.faloka_mobile.databinding.ActivityLoginBinding;
 
 import java.util.regex.Pattern;
@@ -22,34 +23,45 @@ import java.util.regex.Pattern;
 public class LoginViewModel extends ViewModel {
 
     ActivityLoginBinding binding;
-    private String email = null;
-    private String password = null;
+//    private String email = null;
+//    private String password = null;
+    private Login login;
     public AuthListener authListener;
+    public LoginValidListener loginValidListener;
 
-    public LoginViewModel(ActivityLoginBinding binding){
+    public LoginViewModel(ActivityLoginBinding binding, LoginValidListener loginValidListener){
         this.binding = binding;
+        this.loginValidListener = loginValidListener;
     }
     private void init(){
-        email = binding.edtLogEmail.getText().toString().trim();
-        password = binding.edtLogPassword.getText().toString().trim();
+        login = new Login();
+        login.setEmail(binding.edtLogEmail.getText().toString().trim());
+        login.setPassword(binding.edtLogPassword.getText().toString().trim());
     }
 
-    public boolean login(View view, Context context) {
+//    public boolean login(View view, Context context) {
+//        init();
+//        MutableLiveData<Boolean> validation = new MutableLiveData<>();
+//        if (!isValidEmail() | !isValidPassword()) {
+//            return false;
+//        }
+//        LoginRepository.userLogin(login,context);
+//        return true;
+//    }
+    public void login(View view, Context context) {
         init();
         MutableLiveData<Boolean> validation = new MutableLiveData<>();
         if (!isValidEmail() | !isValidPassword()) {
-            return false;
+            return;
         }
-        LoginRepository.userLogin(email,password,context);
-        TokenManager tokenManager = TokenManager.getInstance(view.getContext().getSharedPreferences("Token",0));
-        return (tokenManager.getToken() != null);
+        LoginRepository.userLogin(login,context, loginValidListener);
     }
     private Boolean isValidEmail(){
-        if(email.isEmpty()){
+        if(login.getEmail().isEmpty()){
             binding.edtLogEmail.setError("Email masih kosong");
             return false;
         }
-        else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+        else if(!Patterns.EMAIL_ADDRESS.matcher(login.getEmail()).matches()){
             binding.edtLogEmail.setError("Sesuaikan dengan format email");
             return false;
         }
@@ -62,12 +74,12 @@ public class LoginViewModel extends ViewModel {
             "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
     );
     private boolean isValidPassword(){
-        if(email.isEmpty()){
+        if(login.getPassword().isEmpty()){
             binding.edtLogPassword.setError("Password masih kosong");
             return false;
         }
         else {
-            binding.edtLogEmail.setError(null);
+            binding.edtLogPassword.setError(null);
             return true;
         }
     }

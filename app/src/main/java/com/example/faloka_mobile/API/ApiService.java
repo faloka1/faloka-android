@@ -7,6 +7,7 @@ import com.example.faloka_mobile.Model.Address;
 import com.example.faloka_mobile.Model.Category;
 import com.example.faloka_mobile.Model.Courier;
 import com.example.faloka_mobile.Model.District;
+import com.example.faloka_mobile.Model.Login;
 import com.example.faloka_mobile.Model.Message;
 import com.example.faloka_mobile.Model.OrderResponse;
 import com.example.faloka_mobile.Model.Payment;
@@ -35,9 +36,9 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiService {
-    @FormUrlEncoded
+
     @POST("auth/login")
-    Call<LoginResponse> getSession(@Field("email") String email, @Field("password") String password);
+    Call<LoginResponse> getSession(@Body Login login);
 
     @GET("home")
     Call<List<Category>> getCategories();
