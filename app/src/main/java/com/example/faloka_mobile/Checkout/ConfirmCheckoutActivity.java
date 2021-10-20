@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Login.TokenManager;
+import com.example.faloka_mobile.MainActivity;
 import com.example.faloka_mobile.Model.Checkout;
 import com.example.faloka_mobile.Model.Message;
 import com.example.faloka_mobile.Model.Order;
@@ -83,7 +84,7 @@ public class ConfirmCheckoutActivity extends AppCompatActivity implements View.O
         binding.btnDetail.setOnClickListener(this);
         binding.btnHowToPay.setOnClickListener(this);
         binding.btnUpload.setOnClickListener(this);
-
+        binding.btnShopping.setOnClickListener(this);
     }
 
     public String getFormatRupiah(int price){
@@ -116,6 +117,11 @@ public class ConfirmCheckoutActivity extends AppCompatActivity implements View.O
             });
             dialog.show();
 
+        }
+        else if(view.findViewById(R.id.btn_shopping) == binding.btnShopping){
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
         }
         else if(view.findViewById(R.id.btn_upload) == binding.btnUpload){
 

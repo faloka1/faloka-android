@@ -113,12 +113,12 @@ public class DeliveryChooseActivity extends AppCompatActivity {
     void setService(Courier courier){
         TokenManager tokenManager = TokenManager.getInstance(getApplicationContext().getSharedPreferences("Token",0));
         Call<List<Courier>> callCostCouriers = ApiConfig.getApiService(tokenManager).getCostExpeditions(501, 114, 1000, courier.getCode() );
-        Toast.makeText(getApplicationContext(), courier.getCode(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(), courier.getCode(), Toast.LENGTH_SHORT).show();
 
         callCostCouriers.enqueue(new Callback<List<Courier>>() {
             @Override
             public void onResponse(Call<List<Courier>> call, Response<List<Courier>> response) {
-                Toast.makeText(getApplicationContext(), "HMM", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "HMM", Toast.LENGTH_SHORT).show();
                 if(response.isSuccessful()) {
                     List<Courier> courierList = response.body();
                     List<CourierService> courierServiceList = courierList.get(0).getCourierServiceList();

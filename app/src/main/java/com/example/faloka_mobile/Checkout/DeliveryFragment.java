@@ -178,7 +178,7 @@ public class DeliveryFragment extends Fragment{
                         address = user.getAddressList().get(0);
                     }
                     else{
-                        Toast.makeText(getContext(), "KOSONG", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getContext(), "KOSONG", Toast.LENGTH_SHORT).show();
                         binding.rvAddresses.setAdapter(new AddressAddAdapter());
                         binding.rvAddresses.setLayoutManager(new LinearLayoutManager(getContext()));
                     }

@@ -183,7 +183,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@drawable/card_border"
-                    android:inputType="textPostalAddress"
+                    android:inputType="number|textPostalAddress"
                     android:paddingStart="13dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

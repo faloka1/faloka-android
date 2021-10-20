@@ -52,7 +52,7 @@ public class ContentHomeFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_content_home, container, false);
         TokenManager tokenManager = TokenManager.getInstance(getContext().getSharedPreferences("Token",0));
-        Toast.makeText(getContext(), tokenManager.getToken(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), tokenManager.getToken(), Toast.LENGTH_SHORT).show();
         Bundle bundle = getArguments();
         if(bundle != null) {
             category = bundle.getParcelable(Category.EXTRA_CATEGORY);

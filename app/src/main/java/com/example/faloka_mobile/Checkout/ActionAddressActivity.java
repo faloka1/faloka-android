@@ -142,7 +142,7 @@ public class ActionAddressActivity extends AppCompatActivity {
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                         province = (Province) adapterView.getSelectedItem();
                         setDistrict(province.getProvinceID() );
-                        Toast.makeText(view.getContext(), province.getName()+" "+province.getProvinceID(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(view.getContext(), province.getName()+" "+province.getProvinceID(), Toast.LENGTH_SHORT).show();
 //                        if(getIntent().hasExtra(Address.EXTRA_ADDRESS)) {
 //                            address = getIntent().getParcelableExtra(Address.EXTRA_ADDRESS);
 //                            binding.spinnerProvince.setSelection(i);

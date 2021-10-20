@@ -150,6 +150,7 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
                 bundlePayment.putParcelable("PAYMENT_METHOD",paymentMethod);
                 intent.putExtra("DATA_CHECKOUT",bundlePayment);
                 startActivity(intent);
+                getActivity().finish();
             }
         });
 
