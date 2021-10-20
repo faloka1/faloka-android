@@ -55,6 +55,7 @@ public class CheckoutActivity extends AppCompatActivity {
                 .animationDuration(getResources().getInteger(android.R.integer.config_shortAnimTime))
                 .typeface(ResourcesCompat.getFont(this, R.font.khula))
                 .commit();
+        binding.stepView.setOnStepClickListener(this);
     }
     private void setContent(){
         product = getIntent().getParcelableExtra(Product.EXTRA_PRODUCT);
