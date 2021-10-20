@@ -43,10 +43,18 @@ import retrofit2.Response;
 
 public class PaymentFragment extends Fragment implements PaymentMethodSelectedListener, PaymentSelectedListener {
 
+    public static final int PAYMENT_STEP = 1;
+
+    StepViewSelectedListener stepViewSelectedListener;
     PaymentViewModel viewModel;
     View view;
 //    Checkout checkout;
     Order order;
+
+    public PaymentFragment(StepViewSelectedListener stepViewSelectedListener){
+        this.stepViewSelectedListener = stepViewSelectedListener;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

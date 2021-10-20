@@ -3,6 +3,7 @@ package com.example.faloka_mobile.Checkout;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -10,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.faloka_mobile.Model.Address;
 import com.example.faloka_mobile.Model.Product;
@@ -19,7 +21,7 @@ import com.shuhart.stepview.StepView;
 
 import java.util.ArrayList;
 
-public class CheckoutActivity extends AppCompatActivity {
+public class CheckoutActivity extends AppCompatActivity implements StepViewSelectedListener, StepView.OnStepClickListener {
 
     public ActivityCheckoutBinding binding;
     public ArrayList<String> label = new ArrayList<>();
@@ -63,12 +65,13 @@ public class CheckoutActivity extends AppCompatActivity {
         bundle.putParcelable(Product.EXTRA_PRODUCT, product);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        DeliveryFragment deliveryFragment = new DeliveryFragment();
+        DeliveryFragment deliveryFragment = new DeliveryFragment(this::onStep);
         deliveryFragment.setArguments(bundle);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
         ft.add(R.id.frame_container_checkout, deliveryFragment);
+        ft.addToBackStack("HAHA");
         ft.commit();
 
     }
@@ -83,10 +86,16 @@ public class CheckoutActivity extends AppCompatActivity {
 
         switch (item.getItemId()){
             case android.R.id.home:
-                this.finish();
+                Fragment f = getSupportFragmentManager().findFragmentById(R.id.frame_container_checkout);
+                if(f instanceof DeliveryFragment){
+                    finish();
+                }
+                else if(f instanceof PaymentFragment) {
+                    this.getSupportFragmentManager().popBackStack();
+                    onStep(DeliveryFragment.DELIVERY_STEP);
+                }
                 return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -101,4 +110,20 @@ public class CheckoutActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onStep(int step) {
+        binding.stepView.go(step, true);
+    }
+
+    @Override
+    public void onStepClick(int step) {
+        Fragment f = getSupportFragmentManager().findFragmentById(R.id.frame_container_checkout);
+        if(f instanceof DeliveryFragment){
+            return;
+        }
+        else if(f instanceof PaymentFragment) {
+            this.getSupportFragmentManager().popBackStack();
+        }
+        onStep(step);
+    }
 }

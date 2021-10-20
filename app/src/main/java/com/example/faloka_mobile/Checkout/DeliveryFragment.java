@@ -47,6 +47,7 @@ public class DeliveryFragment extends Fragment{
     public static final String EXTRA_CHOOSE_DELIVERY = "EXTRA_CHOOSE_DELIVERY";
     public static final String EXTRA_CODE_EXPEDITION = "EXTRA_CODE_EXPEDITION";
     public static final String EXTRA_PRICE_EXPEDITION = "EXTRA_PRICE_EXPEDITION";
+    public static final int DELIVERY_STEP = 0;
 
     Product product;
     Checkout checkout;
@@ -54,9 +55,15 @@ public class DeliveryFragment extends Fragment{
     Courier courier;
     Address address;
     int totalOrder;
+    StepViewSelectedListener stepViewSelectedListener;
 
     FragmentDeliveryBinding binding;
     View view;
+
+    public DeliveryFragment(StepViewSelectedListener stepViewSelectedListener){
+        this.stepViewSelectedListener = stepViewSelectedListener;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -203,7 +210,7 @@ public class DeliveryFragment extends Fragment{
                 order.setCourier(courier);
                 order.setCourierService(courierService);
                 order.setTotalOrder(totalOrder);
-                Fragment fragment = new PaymentFragment();
+                Fragment fragment = new PaymentFragment(stepViewSelectedListener);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(Order.EXTRA_ORDER, order);
                 fragment.setArguments(bundle);
@@ -212,6 +219,7 @@ public class DeliveryFragment extends Fragment{
                 ft.replace(R.id.frame_container_checkout, fragment );
                 ft.addToBackStack(null);
                 ft.commit();
+                stepViewSelectedListener.onStep(PaymentFragment.PAYMENT_STEP);
             }
         });
     }
