@@ -14,10 +14,10 @@ public class checkoutCobaCoba extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout_coba_coba);
 
-        Fragment fragment = new PaymentFragment();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.frame_container_payment,fragment)
-                .commit();
+//        Fragment fragment = new PaymentFragment();
+//        getSupportFragmentManager()
+//                .beginTransaction()
+//                .add(R.id.frame_container_payment,fragment)
+//                .commit();
     }
 }

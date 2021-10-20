@@ -33,7 +33,6 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.PaymentV
         this.selectedListener = selectedListener;
         int price = 2000;
         for(Payment payment : paymentList){
-            price+=500;
             payment.setPriceService(price);
         }
     }
