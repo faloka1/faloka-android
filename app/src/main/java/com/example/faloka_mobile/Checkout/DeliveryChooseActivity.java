@@ -53,7 +53,7 @@ public class DeliveryChooseActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         intent = new Intent();
         setToolbar();
-
+        binding.btnChoose.setEnabled(false);
         TokenManager tokenManager = TokenManager.getInstance(getApplicationContext().getSharedPreferences("Token",0));
         Call<List<Courier>> callCouriers = ApiConfig.getApiService(tokenManager).getExpeditions();
 
@@ -88,6 +88,7 @@ public class DeliveryChooseActivity extends AppCompatActivity {
                         if(radioGroup.getCheckedRadioButtonId() != -1){
                             Courier courier = courierList.get(i);
                             setService(courier);
+
                         }
                     }
                 });
@@ -139,7 +140,6 @@ public class DeliveryChooseActivity extends AppCompatActivity {
                         binding.radioGroupCourierservice.addView(radioButton);
                         i++;
                     }
-
                     binding.radioGroupCourierservice.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                         @Override
                         public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -152,6 +152,8 @@ public class DeliveryChooseActivity extends AppCompatActivity {
 //                                intent.putExtra(DeliveryFragment.EXTRA_CODE_EXPEDITION, courier.getCode());
 //                                intent.putExtra(DeliveryFragment.EXTRA_PRICE_EXPEDITION, courierService.getCost().get(0).getValue());
                                 System.out.println(courierService.getName() +" "+(radioGroup.getCheckedRadioButtonId()));
+                                binding.btnChoose.setEnabled(true);
+                                binding.btnChoose.setBackgroundColor(getResources().getColor(R.color.black_faloka));
                             }
                         }
                     });
