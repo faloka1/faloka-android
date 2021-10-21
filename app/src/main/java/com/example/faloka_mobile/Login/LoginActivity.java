@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.faloka_mobile.MainActivity;
+import com.example.faloka_mobile.Register.RegisterActivity;
 import com.example.faloka_mobile.databinding.ActivityLoginBinding;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -31,6 +32,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(binding.getRoot() );
 
         binding.btnLogLogin.setOnClickListener(this);
+        binding.tvLogRegister.setOnClickListener(this);
 
     }
     @Override
@@ -46,7 +48,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             loginViewModel.login(view, view.getContext() );
 
         }
-
+        else if(view.getId() == binding.tvLogRegister.getId()){
+            Intent intent = new Intent(this, RegisterActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
     }
 

@@ -2,8 +2,8 @@
     <string name="app_name">Faloka-mobile</string>
     <string-array name="gender_array">
         <item>Jenis Kelamin</item>
-        <item>Laki-laki</item>
-        <item>Perempuan</item>
+        <item>L</item>
+        <item>P</item>
     </string-array>
     <string name="tab_text_1">Home</string>
     <string name="tab_text_2">Profile</string>

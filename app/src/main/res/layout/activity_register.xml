@@ -40,7 +40,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="600dp"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -105,6 +105,28 @@
                 app:layout_constraintStart_toStartOf="@+id/spinner_gender"
                 app:layout_constraintTop_toBottomOf="@+id/spinner_gender" />
 
+            <EditText
+                android:id="@+id/edt_reg_phone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="#F1F1F1"
+                android:drawableStart="@android:drawable/ic_menu_call"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:fontFamily="@font/roboto_medium"
+                android:hint="Phone"
+                android:inputType="number"
+                android:padding="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="50dp"
+                android:textColor="@color/black_faloka"
+                android:textColorHint="#C5C5C5"
+                app:layout_constraintEnd_toEndOf="@+id/spinner_gender"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/spinner_gender"
+                app:layout_constraintTop_toBottomOf="@+id/edt_reg_email" />
+
             <Spinner
                 android:id="@+id/spinner_gender"
                 android:layout_width="0dp"
@@ -122,7 +144,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/edt_reg_name" />
 
             <Button
-                android:id="@+id/btn_log_login"
+                android:id="@+id/btn_reg_register"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -154,10 +176,10 @@
                 android:layout_marginEnd="10dp"
                 app:layout_constraintBottom_toBottomOf="@+id/spinner_gender"
                 app:layout_constraintEnd_toEndOf="@+id/spinner_gender"
-                app:layout_constraintTop_toTopOf="@+id/spinner_gender"/>
+                app:layout_constraintTop_toTopOf="@+id/spinner_gender" />
 
             <EditText
-                android:id="@+id/edt_log_password"
+                android:id="@+id/edt_reg_password"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -172,7 +194,7 @@
                 android:textColorHint="#C5C5C5"
                 app:layout_constraintEnd_toEndOf="@+id/edt_reg_email"
                 app:layout_constraintStart_toStartOf="@+id/edt_reg_email"
-                app:layout_constraintTop_toBottomOf="@+id/edt_reg_email" />
+                app:layout_constraintTop_toBottomOf="@+id/edt_reg_phone" />
 
             <EditText
                 android:id="@+id/edt_reg_confirm_pass"
@@ -188,10 +210,10 @@
                 android:inputType="textPassword"
                 android:padding="10dp"
                 android:textColorHint="#C5C5C5"
-                app:layout_constraintEnd_toEndOf="@+id/edt_log_password"
+                app:layout_constraintEnd_toEndOf="@+id/edt_reg_password"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/edt_log_password"
-                app:layout_constraintTop_toBottomOf="@+id/edt_log_password" />
+                app:layout_constraintStart_toStartOf="@+id/edt_reg_password"
+                app:layout_constraintTop_toBottomOf="@+id/edt_reg_password" />
 
             <TextView
                 android:id="@+id/textView"
@@ -199,11 +221,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="36dp"
                 android:layout_marginTop="32dp"
+                android:layout_marginBottom="24dp"
                 android:text="Sudah punya akun?"
                 android:textColor="#878787"
                 android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="@+id/btn_log_login"
-                app:layout_constraintTop_toBottomOf="@+id/btn_log_login" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/btn_reg_register"
+                app:layout_constraintTop_toBottomOf="@+id/btn_reg_register" />
 
             <TextView
                 android:id="@+id/tv_log_lupapassword"
@@ -213,7 +237,7 @@
                 android:text="Masuk Disini"
                 android:textColor="@color/black_faloka"
                 android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/textView"
                 app:layout_constraintStart_toEndOf="@+id/textView"
                 app:layout_constraintTop_toTopOf="@+id/textView" />
 
