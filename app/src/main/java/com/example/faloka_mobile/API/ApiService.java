@@ -15,6 +15,8 @@ import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.Profile;
 import com.example.faloka_mobile.Model.Province;
 import com.example.faloka_mobile.Model.User;
+import com.example.faloka_mobile.Model.UserRegister;
+import com.example.faloka_mobile.Register.RegisterResponse;
 
 import java.util.List;
 
@@ -39,6 +41,9 @@ public interface ApiService {
 
     @POST("auth/login")
     Call<LoginResponse> getSession(@Body Login login);
+
+    @POST("auth/register")
+    Call<RegisterResponse> addUser(@Body UserRegister userRegister);
 
     @GET("home")
     Call<List<Category>> getCategories();
