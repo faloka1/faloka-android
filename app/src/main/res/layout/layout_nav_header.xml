@@ -10,7 +10,7 @@
     android:paddingVertical="20dp">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_profile_login"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/primary_color"
@@ -23,18 +23,19 @@
         app:layout_constraintTop_toTopOf="parent"></Button>
 
     <Button
+        android:id="@+id/btn_profile_register"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="12dp"
+        android:background="@color/netral_100"
         android:letterSpacing="0.125"
         android:text="Register"
         android:textColor="@color/netral_900"
-        android:textSize="17sp"
-        android:background="@color/netral_100"
 
+        android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"></Button>
+        app:layout_constraintTop_toBottomOf="@+id/btn_profile_login"></Button>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

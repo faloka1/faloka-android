@@ -60,8 +60,12 @@ public class AccountFragment extends Fragment {
         createTab(view);
         setToolbar();
         createDrawer(view);
-
+        initUser();
         return view;
+    }
+
+    private void initUser(){
+
     }
 
     private void setToolbar(){
