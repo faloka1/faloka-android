@@ -27,9 +27,9 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="63dp"
-                android:layout_height="63dp"
-                android:src="@drawable/img_profile"/>
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_svg_account" />
 
             <TextView
                 android:layout_width="wrap_content"
