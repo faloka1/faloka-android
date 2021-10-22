@@ -18,13 +18,17 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.FragmentAccountBinding;
+import com.example.faloka_mobile.databinding.FragmentHomeBinding;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -45,33 +49,35 @@ public class AccountFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = FragmentAccountBinding.inflate(getLayoutInflater());
+        setHasOptionsMenu(true);
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_account, container, false);
         activity = ((AppCompatActivity)getActivity());
+        binding = FragmentAccountBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
         createTab(view);
+        setToolbar();
         createDrawer(view);
-        activity.setSupportActionBar(view.findViewById(R.id.account_toolbar));
 
         return view;
     }
+
+    private void setToolbar(){
+        activity.setSupportActionBar(binding.toolbar);
+        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        activity.getSupportActionBar().setTitle(" ");
+    }
+
     private void createDrawer(View view){
         drawerLayout = view.findViewById(R.id.account_drawer);
         actionBarDrawerToggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, R.string.nav_open, R.string.nav_close);
+        actionBarDrawerToggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.black_faloka));
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
     }
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
     public  void createTab(View view){
 
         tabLayout = view.findViewById(R.id.account_main_tab);
@@ -129,6 +135,31 @@ public class AccountFragment extends Fragment {
         public int getCount() {
             return totalTabs;
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        activity.getMenuInflater().inflate(R.menu.top_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.top_menu_wishlist:
+                Toast.makeText(activity.getApplicationContext(), "WISHLIST", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.top_menu_cart:
+                Toast.makeText(activity.getApplicationContext(), "CART", Toast.LENGTH_SHORT).show();
+                break;
+        }
+
+        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }
