@@ -42,6 +42,11 @@ public class RegisterActivity extends AppCompatActivity implements RegisterValid
             RegisterViewModel registerViewModel = new RegisterViewModel(binding, this::onRegister);
             registerViewModel.register(view);
         }
+        else if(view.getId() == binding.tvRegLogin.getId()){
+            Intent intent = new Intent(this, Login.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     @Override
