@@ -17,6 +17,7 @@ import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Adapter.ProductAdapter;
 import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.Product;
+import com.example.faloka_mobile.Model.ProductListResponse;
 import com.example.faloka_mobile.Model.SubCategory;
 import com.example.faloka_mobile.R;
 
@@ -45,14 +46,14 @@ public class ProductListActivity extends AppCompatActivity {
         toolbar.setTitle(subCategory.getName());
 
         TokenManager tokenManager = TokenManager.getInstance(getApplicationContext().getSharedPreferences("Token",0));
-        Call<List<Product>> callProduct;
+        Call<ProductListResponse> callProduct;
         callProduct = ApiConfig.getApiService(tokenManager).
                 getProductSubCategories(subCategory.getSlugCategory(), subCategory.getSlug());
-        callProduct.enqueue(new Callback<List<Product>>() {
+        callProduct.enqueue(new Callback<ProductListResponse>() {
             @Override
-            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                List<Product> respProduct;
-                respProduct = response.body();
+            public void onResponse(Call<ProductListResponse> call, Response<ProductListResponse> response) {
+                ProductListResponse productListResponses = response.body();
+                List<Product> respProduct = productListResponses.getProductList();
                 RecyclerView rvProductList = findViewById(R.id.rv_product_list);
                 ProductAdapter productAdapter = new ProductAdapter(respProduct);
                 rvProductList.setLayoutManager(new GridLayoutManager(getApplicationContext(),2, GridLayoutManager.VERTICAL, false));
@@ -60,7 +61,7 @@ public class ProductListActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<Product>> call, Throwable t) {
+            public void onFailure(Call<ProductListResponse> call, Throwable t) {
 
             }
         });

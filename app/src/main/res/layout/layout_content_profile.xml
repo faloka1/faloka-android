@@ -27,19 +27,21 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:id="@+id/img_user"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:src="@drawable/ic_svg_account" />
 
             <TextView
+                android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:textSize="20sp"
-                android:fontFamily="@font/lato_bold"
-                android:textColor="@color/primary_color"
                 android:layout_marginStart="15dp"
-                android:text="Laila Ma'rufah"></TextView>
+                android:fontFamily="@font/lato_bold"
+                android:gravity="center_vertical"
+                android:text="none"
+                android:textColor="@color/primary_color"
+                android:textSize="20sp"></TextView>
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
