@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.faloka_mobile" >
+    package="com.example.faloka_mobile">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -13,7 +13,10 @@
         android:networkSecurityConfig="@xml/network_configure"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Falokamobile" >
+        android:theme="@style/Theme.Falokamobile">
+        <activity
+            android:name=".MixAndMatch.MixMatchActivity"
+            android:exported="true" />
         <activity
             android:name=".Checkout.DetailOrderActivity"
             android:exported="true" />
@@ -48,14 +51,14 @@
             android:name=".Product.ProductListActivity"
             android:exported="true"
             android:label="Product List"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".SplashScreen"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
