@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -28,7 +27,6 @@ import com.example.faloka_mobile.Model.Courier;
 import com.example.faloka_mobile.Model.CourierService;
 import com.example.faloka_mobile.Model.Order;
 import com.example.faloka_mobile.Model.Product;
-import com.example.faloka_mobile.Model.Profile;
 import com.example.faloka_mobile.Model.User;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.FragmentDeliveryBinding;

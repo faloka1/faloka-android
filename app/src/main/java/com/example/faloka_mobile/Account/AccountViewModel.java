@@ -13,21 +13,27 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.ViewModel;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.faloka_mobile.API.ApiConfig;
+import com.example.faloka_mobile.Adapter.OrderProductAdapter;
 import com.example.faloka_mobile.Login.LoginActivity;
 import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.Message;
+import com.example.faloka_mobile.Model.OrderUser;
+import com.example.faloka_mobile.Model.User;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.FragmentAccountBinding;
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AccountViewModel extends ViewModel {
+public class AccountViewModel extends ViewModel implements UserProfileListener, OrderUserListener{
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -55,8 +61,11 @@ public class AccountViewModel extends ViewModel {
         createTab(view);
         setToolbar();
         createDrawer(view);
-        initUser();
+        initStateUser();
+        AccountRepository.setUserProfile(view, this::onUserProfile);
+//        AccountRepository.getOrders(view, this::onOrder);
     }
+
     private void setToolbar(){
         activity.setSupportActionBar(binding.toolbar);
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -102,6 +111,23 @@ public class AccountViewModel extends ViewModel {
         drawerOptionListener.onOptionDrawer(actionBarDrawerToggle);
     }
 
+    @Override
+    public void onUserProfile(User user) {
+        binding.account.tvName.setText(user.getName());
+    }
+
+    @Override
+    public void onOrder(List<OrderUser> orderUserList) {
+//        for (OrderUser orderUser : orderUserList){
+//            System.out.println(orderUser.getId());
+//
+//        }
+//        OrderProductAdapter orderProductAdapter = new OrderProductAdapter(orderUserList);
+//        binding.rvAddresses.setAdapter(addressAdapter);
+//        binding.rvAddresses.setLayoutManager(new LinearLayoutManager(getContext()));
+//        Toast.makeText(view.getContext(), "HMMMMMMMMMMM", Toast.LENGTH_SHORT).show();
+    }
+
     public class MyAdapter extends FragmentPagerAdapter {
 
         private Context myContext;
@@ -131,7 +157,7 @@ public class AccountViewModel extends ViewModel {
         }
     }
 
-    private void initUser(){
+    private void initStateUser(){
         TokenManager tokenManager = TokenManager.getInstance(view.getContext().getSharedPreferences("Token",0));
         View navViewHeaderView = binding.profileNavView.getHeaderView(0);
         Button btnLogin = navViewHeaderView.findViewById(R.id.btn_profile_login);

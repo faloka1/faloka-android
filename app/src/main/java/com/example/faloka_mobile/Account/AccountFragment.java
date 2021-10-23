@@ -46,7 +46,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AccountFragment extends Fragment implements DrawerOptionListener{
+public class AccountFragment extends Fragment implements DrawerOptionListener {
     private FragmentAccountBinding binding;
     private AppCompatActivity activity;
     private ActionBarDrawerToggle actionBarDrawerToggle;

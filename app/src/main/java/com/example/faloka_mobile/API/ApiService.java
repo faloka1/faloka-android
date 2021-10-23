@@ -10,8 +10,10 @@ import com.example.faloka_mobile.Model.District;
 import com.example.faloka_mobile.Model.Login;
 import com.example.faloka_mobile.Model.Message;
 import com.example.faloka_mobile.Model.OrderResponse;
+import com.example.faloka_mobile.Model.OrderUser;
 import com.example.faloka_mobile.Model.Payment;
 import com.example.faloka_mobile.Model.Product;
+import com.example.faloka_mobile.Model.ProductListResponse;
 import com.example.faloka_mobile.Model.Profile;
 import com.example.faloka_mobile.Model.Province;
 import com.example.faloka_mobile.Model.User;
@@ -49,7 +51,7 @@ public interface ApiService {
     Call<List<Category>> getCategories();
 
     @GET("products")
-    Call<List<Product>> getProductSubCategories(
+    Call<ProductListResponse> getProductSubCategories(
             @Query("category") String slugCategory,
             @Query("subcategory") String slugSubCategory);
 
@@ -118,5 +120,8 @@ public interface ApiService {
             @Part("_method") RequestBody method,
             @Part MultipartBody.Part image,
             @Path("order_id") int orderID);
+
+    @GET("user/orders")
+    Call<List<OrderUser>> getOrders(@Header("Authorization") String auth, @Query("status") String status);
 }
 
