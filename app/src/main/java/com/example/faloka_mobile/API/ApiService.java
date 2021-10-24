@@ -63,6 +63,9 @@ public interface ApiService {
     @GET("products")
     Call<ProductListResponse> getProducts();
 
+    @GET("products/{slug}")
+    Call<Product> getProductSlug(@Path(value = "slug", encoded = true) String slug);
+
     @POST("auth/logout")
     Call<Message> getLogoutMessage(@Header("Authorization") String auth);
 
