@@ -26,6 +26,7 @@ import com.example.faloka_mobile.Model.Checkout;
 import com.example.faloka_mobile.Model.Message;
 import com.example.faloka_mobile.Model.Order;
 import com.example.faloka_mobile.Model.OrderResponse;
+import com.example.faloka_mobile.Model.OrderUser;
 import com.example.faloka_mobile.Model.Payment;
 import com.example.faloka_mobile.Model.PaymentMethod;
 import com.example.faloka_mobile.R;
@@ -44,12 +45,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ConfirmCheckoutActivity extends AppCompatActivity implements View.OnClickListener {
+public class ConfirmCheckoutActivity extends AppCompatActivity implements View.OnClickListener ,UploadFileListener {
     private static final int PICK_IMAGE = 1;
     private static final int PERMISSION_REQUEST_STORAGE = 2;
 
     ActivityConfrimCheckoutBinding binding;
-    Order order;
+//    Order order;
+    OrderUser orderUser;
     Bundle bundle;
     private Uri uri;
 
@@ -59,12 +61,14 @@ public class ConfirmCheckoutActivity extends AppCompatActivity implements View.O
         binding = ActivityConfrimCheckoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        order = new Order();
+//        order = new Order();
+        orderUser = new OrderUser();
         bundle = new Bundle();
 
         if(getIntent() != null){
             bundle = getIntent().getBundleExtra("DATA_ORDER");
-            order = bundle.getParcelable(Order.EXTRA_ORDER);
+//            order = bundle.getParcelable(Order.EXTRA_ORDER);
+            orderUser = bundle.getParcelable(OrderUser.EXTRA_ORDER_USER);
         }
 
 //        Bundle bundle = getIntent().getParcelableExtra("DATA_CHECKOUT");
@@ -76,11 +80,16 @@ public class ConfirmCheckoutActivity extends AppCompatActivity implements View.O
 //                + " (" + paymentMethod.getRekeningName() + ")");
 //        binding.tvConfirmValueTotalPayment.setText(total);
 
-        binding.tvConfirmValueMethodPayment.setText(order.getPayment().getPaymentName());
-        binding.tvConfirmValuePaymentCode.setText(order.getPayment().getAccountNumber()
-                + " (" + order.getPayment().getAccountName() + ")");
-        binding.tvConfirmValueTotalPayment.setText(getFormatRupiah(order.getTotalOrder()));
-
+//        binding.tvConfirmValueMethodPayment.setText(order.getPayment().getPaymentName());
+//        binding.tvConfirmValuePaymentCode.setText(order.getPayment().getAccountNumber()
+//                + " (" + order.getPayment().getAccountName() + ")");
+//        binding.tvConfirmValueTotalPayment.setText(getFormatRupiah(order.getTotalOrder()));
+        binding.tvConfirmValueMethodPayment.setText(orderUser.getPayment().getPaymentName());
+        binding.tvConfirmValuePaymentCode.setText(orderUser.getPayment().getAccountNumber()
+                + " (" + orderUser.getPayment().getAccountName() + ")");
+        int total = orderUser.getShippingPrice() + orderUser.getOrderDetailList().get(0).getProduct().getPrice() + 2000;
+//        binding.tvConfirmValueTotalPayment.setText(getFormatRupiah(order.getTotalOrder()));
+        binding.tvConfirmValueTotalPayment.setText(getFormatRupiah(total));
         binding.btnDetail.setOnClickListener(this);
         binding.btnHowToPay.setOnClickListener(this);
         binding.btnUpload.setOnClickListener(this);
@@ -99,7 +108,8 @@ public class ConfirmCheckoutActivity extends AppCompatActivity implements View.O
         if(view.findViewById(R.id.btn_detail) == binding.btnDetail){
             Intent intent = new Intent(this, DetailOrderActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putParcelable(Order.EXTRA_ORDER, order);
+//            bundle.putParcelable(Order.EXTRA_ORDER, order);
+            bundle.putParcelable(OrderUser.EXTRA_ORDER_USER, orderUser);
             intent.putExtra("DATA_ORDER", bundle);
             startActivity(intent);
         }
@@ -171,7 +181,7 @@ public class ConfirmCheckoutActivity extends AppCompatActivity implements View.O
                 System.out.println(uri);
                 if(uri != null) {
                     File file = FileUtils.getFile(getApplicationContext(), uri);
-                    uploadMultipart(file);
+                    uploadMultipart(file, this::onUpload);
                 }else{
                     Toast.makeText(getApplicationContext(), "You must choose the image", Toast.LENGTH_SHORT).show();
                 }
@@ -199,20 +209,22 @@ public class ConfirmCheckoutActivity extends AppCompatActivity implements View.O
         }
     }
 
-    private void uploadMultipart(File file) {
+    private void uploadMultipart(File file, UploadFileListener uploadFileListener) {
 
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part photoPart = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
 //
         RequestBody method = RequestBody.create(MediaType.parse("multipart/form-data"), "PATCH");
         TokenManager tokenManager = TokenManager.getInstance(getApplicationContext().getSharedPreferences("Token",0));
-        Call<Message> callUploadPayment = ApiConfig.getApiService(tokenManager).uploadPhotoMultipart(method, photoPart, order.getOrderID());
+//        Call<Message> callUploadPayment = ApiConfig.getApiService(tokenManager).uploadPhotoMultipart(method, photoPart, order.getOrderID());
+        Call<Message> callUploadPayment = ApiConfig.getApiService(tokenManager).uploadPhotoMultipart(method, photoPart, orderUser.getOrderDetailList().get(0).getOrderID() );
         callUploadPayment.enqueue(new Callback<Message>() {
             @Override
             public void onResponse(Call<Message> call, Response<Message> response) {
                 if(response.isSuccessful()) {
                     Message message = response.body();
-                    Toast.makeText(getApplicationContext(), message.getMessage(), Toast.LENGTH_SHORT).show();
+                    uploadFileListener.onUpload(message);
+//                    Toast.makeText(getApplicationContext(), message.getMessage(), Toast.LENGTH_SHORT).show();
                 }
                 else {
                     Toast.makeText(getApplicationContext(),"GAGAL", Toast.LENGTH_SHORT).show();
@@ -264,4 +276,10 @@ public class ConfirmCheckoutActivity extends AppCompatActivity implements View.O
         startActivityForResult(intent, PICK_IMAGE);
     }
 
+    @Override
+    public void onUpload(Message message) {
+        Toast.makeText(getApplicationContext(), message.getMessage(), Toast.LENGTH_SHORT).show();
+//        binding.btnUpload.setEnabled(false);
+//        binding.btnUpload.setBackgroundColor(getResources().getColor(R.color.white_faloka));
+    }
 }

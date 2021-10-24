@@ -26,12 +26,16 @@ import com.example.faloka_mobile.Model.Checkout;
 import com.example.faloka_mobile.Model.Courier;
 import com.example.faloka_mobile.Model.CourierService;
 import com.example.faloka_mobile.Model.Order;
+import com.example.faloka_mobile.Model.OrderDetail;
+import com.example.faloka_mobile.Model.OrderUser;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.User;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.FragmentDeliveryBinding;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -221,16 +225,33 @@ public class DeliveryFragment extends Fragment{
             @Override
             public void onClick(View view) {
 
-                Order order = new Order();
-                order.setCheckout(checkout);
-                order.setProduct(product);
-                order.setAddress(address);
-                order.setCourier(courier);
-                order.setCourierService(courierService);
-                order.setTotalOrder(totalOrder);
+//                Order order = new Order();
+//                order.setCheckout(checkout);
+//                order.setProduct(product);
+//                order.setAddress(address);
+//                order.setCourier(courier);
+//                order.setCourierService(courierService);
+//                order.setTotalOrder(totalOrder);
+
+                OrderUser orderUser = new OrderUser();
+                orderUser.setShippingPrice(courierService.getCost().get(0).getValue());
+                orderUser.setService(courierService.getName());
+                orderUser.setExpeditionName(courier.getName());
+                orderUser.setAddressID(address.getId());
+                List<OrderDetail> orderDetailList = new ArrayList<>();
+                OrderDetail orderDetail = new OrderDetail();
+                orderDetail.setProduct(product);
+                orderDetail.setVariant(product.getVariantList().get(0));
+                orderDetail.setQuantity(1);
+                orderDetailList.add(orderDetail);
+                orderUser.setOrderDetailList(orderDetailList);
+                orderUser.setAddress(address);
+
+
                 Fragment fragment = new PaymentFragment(stepViewSelectedListener);
                 Bundle bundle = new Bundle();
-                bundle.putParcelable(Order.EXTRA_ORDER, order);
+//                bundle.putParcelable(Order.EXTRA_ORDER, order);
+                bundle.putParcelable(OrderUser.EXTRA_ORDER_USER, orderUser);
                 fragment.setArguments(bundle);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
 //                ft.replace(R.id.frame_container_checkout, new PaymentFragment());

@@ -7,7 +7,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="180dp"
         android:layout_marginLeft="4dp"
         android:layout_marginTop="12dp"
         android:layout_marginRight="4dp"
@@ -75,7 +75,7 @@
                     android:fontFamily="@font/lato_bold"
                     android:text="Rp."
                     android:textColor="#DB317A"
-                    android:textSize="22sp" />
+                    android:textSize="16sp" />
 
                 <ImageButton
                     android:id="@+id/img_btn_detail_order"
@@ -89,7 +89,7 @@
             <Button
                 android:id="@+id/btn_upload_payment"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_marginBottom="16dp"
                 android:background="@color/black_faloka"
                 android:fontFamily="@font/khula"
