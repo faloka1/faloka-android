@@ -60,6 +60,9 @@ public interface ApiService {
         @Path(value = "slug", encoded = true) String slug
     );
 
+    @GET("products")
+    Call<ProductListResponse> getProducts();
+
     @POST("auth/logout")
     Call<Message> getLogoutMessage(@Header("Authorization") String auth);
 
