@@ -39,12 +39,18 @@ public class MixMatchActivity extends AppCompatActivity implements ImageToLayout
         if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
             x = motionEvent.getX();
             y = motionEvent.getY();
+//            imageView.setBackgroundResource(R.drawable.mix_match_product_border);
+        }
+        else if(motionEvent.getAction() == MotionEvent.ACTION_UP){
+//            imageView.setBackgroundResource(R.drawable.mix_match_product_default);
         }
         if(motionEvent.getAction() == MotionEvent.ACTION_MOVE){
             dx = motionEvent.getX() - x;
             dy = motionEvent.getY() - y;
-            imageView.setX(imageView.getX() + dx);
-            imageView.setY(imageView.getY() + dy);
+            if(imageView != null) {
+                imageView.setX(imageView.getX() + dx);
+                imageView.setY(imageView.getY() + dy);
+            }
             x = motionEvent.getX();
             y = motionEvent.getY();
         }

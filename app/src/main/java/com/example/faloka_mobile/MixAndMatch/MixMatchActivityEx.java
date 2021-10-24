@@ -28,15 +28,15 @@ public class MixMatchActivityEx extends AppCompatActivity implements View.OnTouc
         binding = ActivityMixMatchBinding.inflate(getLayoutInflater());
         view = binding.getRoot();
         setContentView(view);
-        binding.button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ImageView imageView = new ImageView(MixMatchActivityEx.this);
-                imageView.setImageResource(R.drawable.img_blouse);
-                addView(imageView, 100, 100);
-                colorrandom(imageView);
-            }
-        });
+//        binding.button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                ImageView imageView = new ImageView(MixMatchActivityEx.this);
+//                imageView.setImageResource(R.drawable.img_blouse);
+//                addView(imageView, 100, 100);
+//                colorrandom(imageView);
+//            }
+//        });
 //        MixMatchViewModel mixMatchViewModel = new MixMatchViewModel(binding, this);
     }
 
