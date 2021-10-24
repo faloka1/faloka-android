@@ -20,6 +20,8 @@ public class Checkout implements Parcelable {
     @SerializedName("address_id")
     private int addressID;
     private int quantity;
+    @SerializedName("product_id")
+    private int productID;
     @SerializedName("variant_id")
     private int variantID;
 
@@ -34,6 +36,7 @@ public class Checkout implements Parcelable {
         setPaymentID(in.readInt());
         setAddressID(in.readInt());
         setQuantity(in.readInt());
+        setProductID(in.readInt());
         setVariantID(in.readInt());
     }
 
@@ -62,6 +65,7 @@ public class Checkout implements Parcelable {
         parcel.writeInt(getPaymentID());
         parcel.writeInt(getAddressID());
         parcel.writeInt(getQuantity());
+        parcel.writeInt(getProductID());
         parcel.writeInt(getVariantID());
     }
 
@@ -111,6 +115,14 @@ public class Checkout implements Parcelable {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public int getProductID() {
+        return productID;
+    }
+
+    public void setProductID(int productID) {
+        this.productID = productID;
     }
 
     public int getVariantID() {

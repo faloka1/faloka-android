@@ -132,13 +132,22 @@ public class DeliveryFragment extends Fragment{
             binding.tvDeliverySubtotalValue.setText(getFormatRupiah(totalOrder));
             TextView tvTotal = view.findViewById(R.id.tv_total_price);
             tvTotal.setText(getFormatRupiah(totalOrder));
-            Button button = view.findViewById(R.id.btn_checkout_next);
-            button.setEnabled(true);
-            button.setBackgroundColor(getResources().getColor(R.color.black_faloka));
+//            Button button = view.findViewById(R.id.btn_checkout_next);
+//            button.setEnabled(true);
+//            button.setBackgroundColor(getResources().getColor(R.color.black_faloka));
             checkout.setExpeditionName(courier.getCode());
             checkout.setQuantity(1);
             checkout.setShippingPrice(courierService.getCost().get(0).getValue());
             checkout.setServiceExpedition(courierService.getName());
+            checkout.setProductID(product.getId());
+            if(address != null){
+                binding.footerCheckout.btnCheckoutNext.setEnabled(true);
+                binding.footerCheckout.btnCheckoutNext.setBackgroundColor(getResources().getColor(R.color.black_faloka));
+            }
+            else {
+                binding.footerCheckout.btnCheckoutNext.setEnabled(false);
+                binding.footerCheckout.btnCheckoutNext.setBackgroundColor(getResources().getColor(R.color.white_faloka));
+            }
         }
     }
 
@@ -174,11 +183,22 @@ public class DeliveryFragment extends Fragment{
                         binding.rvAddresses.setLayoutManager(new LinearLayoutManager(getContext()));
                         checkout.setAddressID(user.getAddressList().get(0).getId());
                         address = user.getAddressList().get(0);
+
+                        if(courier != null){
+                            binding.footerCheckout.btnCheckoutNext.setEnabled(true);
+                            binding.footerCheckout.btnCheckoutNext.setBackgroundColor(getResources().getColor(R.color.black_faloka));
+                        }
+                        else {
+                            binding.footerCheckout.btnCheckoutNext.setEnabled(false);
+                            binding.footerCheckout.btnCheckoutNext.setBackgroundColor(getResources().getColor(R.color.white_faloka));
+                        }
                     }
                     else{
 //                        Toast.makeText(getContext(), "KOSONG", Toast.LENGTH_SHORT).show();
                         binding.rvAddresses.setAdapter(new AddressAddAdapter());
                         binding.rvAddresses.setLayoutManager(new LinearLayoutManager(getContext()));
+                        binding.footerCheckout.btnCheckoutNext.setEnabled(false);
+                        binding.footerCheckout.btnCheckoutNext.setBackgroundColor(getResources().getColor(R.color.white_faloka));
                     }
                 }
                 else {

@@ -200,6 +200,7 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
                                         order.getCheckout().getAddressID(),
                                         order.getCheckout().getQuantity(),
                                         order.getCheckout().getVariantID(),
+                                        order.getCheckout().getProductID(),
                                         order.getCheckout().getServiceExpedition()
                                 );
                                 callCheckout.enqueue(new Callback<OrderResponse>() {
