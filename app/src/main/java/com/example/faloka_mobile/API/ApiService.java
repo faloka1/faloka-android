@@ -14,6 +14,7 @@ import com.example.faloka_mobile.Model.OrderUser;
 import com.example.faloka_mobile.Model.Payment;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.ProductListResponse;
+import com.example.faloka_mobile.Model.ProductMixMatch;
 import com.example.faloka_mobile.Model.Profile;
 import com.example.faloka_mobile.Model.Province;
 import com.example.faloka_mobile.Model.User;
@@ -130,5 +131,9 @@ public interface ApiService {
 
     @GET("user/orders")
     Call<List<OrderUser>> getOrders(@Header("Authorization") String auth, @Query("status") String status);
+
+    @GET("mix-and-match/items")
+    Call<List<ProductMixMatch>> getProductsMixMatch();
+
 }
 
