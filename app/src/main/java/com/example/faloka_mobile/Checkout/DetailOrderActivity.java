@@ -86,8 +86,8 @@ public class DetailOrderActivity extends AppCompatActivity {
         binding.tvDeliveryEkspedition.setText(expedition);
         binding.tvDeliveryExpeditionPrice.setText(getFormatRupiah(orderUser.getShippingPrice()));
         String address = orderUser.getAddress().getLocation()+", "
-//                +orderUser.getAddress().getProvince().getName()+", "
-//                +orderUser.getAddress().getDistrict().getName()+", "
+                +orderUser.getAddress().getProvince().getName()+", "
+                +orderUser.getAddress().getDistrict().getName()+", "
                 +orderUser.getAddress().getSubDistrict();
         binding.tvDeliveryName.setText(address);
     }

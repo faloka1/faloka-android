@@ -38,10 +38,13 @@ public class Product implements Parcelable {
     }
 
     public String getProductImageURL(){
-        Variant variant= variantList.get(0);
-        List<VariantImage> variantImageList = variant.getVariantImageList();
-        VariantImage variantImage = variantImageList.get(0);
-        return variantImage.getImageURL();
+        if(!variantList.isEmpty()) {
+            Variant variant = variantList.get(0);
+            List<VariantImage> variantImageList = variant.getVariantImageList();
+            VariantImage variantImage = variantImageList.get(0);
+            return variantImage.getImageURL();
+        }
+        return " ";
     }
 
    public List<VariantImage> getProductCarouselImageURL(){

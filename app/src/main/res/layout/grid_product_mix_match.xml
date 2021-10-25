@@ -23,7 +23,8 @@
             <ImageView
                 android:id="@+id/img_mix_match_product"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/btn_mix_match_buy"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -40,8 +41,7 @@
                 android:textColor="#FFFFFF"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/img_mix_match_product" />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <ImageView
                 android:id="@+id/img_selected"
