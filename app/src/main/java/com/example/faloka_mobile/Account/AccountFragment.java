@@ -47,6 +47,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AccountFragment extends Fragment implements DrawerOptionListener {
+
+    public static final String EXTRA_FRAGMENT_ACCOUNT = "EXTRA_FRAGMENT_ACCOUNT";
+    public static final int INDEX_FRAGMENT_ACCOUNT = 3;
+
     private FragmentAccountBinding binding;
     private AppCompatActivity activity;
     private ActionBarDrawerToggle actionBarDrawerToggle;

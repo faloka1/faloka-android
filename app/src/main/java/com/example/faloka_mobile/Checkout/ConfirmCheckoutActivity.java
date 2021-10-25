@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -20,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.faloka_mobile.API.ApiConfig;
+import com.example.faloka_mobile.Account.AccountFragment;
+import com.example.faloka_mobile.Home.HomeFragment;
 import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.MainActivity;
 import com.example.faloka_mobile.Model.Checkout;
@@ -94,6 +97,7 @@ public class ConfirmCheckoutActivity extends AppCompatActivity implements View.O
         binding.btnHowToPay.setOnClickListener(this);
         binding.btnUpload.setOnClickListener(this);
         binding.btnShopping.setOnClickListener(this);
+        binding.btnProfile.setOnClickListener(this);
     }
 
     public String getFormatRupiah(int price){
@@ -170,6 +174,12 @@ public class ConfirmCheckoutActivity extends AppCompatActivity implements View.O
 
 
         }
+        else if(view.getId() == binding.btnProfile.getId()){
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra(AccountFragment.EXTRA_FRAGMENT_ACCOUNT, AccountFragment.INDEX_FRAGMENT_ACCOUNT);
+            startActivity(intent);
+            finish();
+        }
     }
 
     @Override
@@ -181,7 +191,7 @@ public class ConfirmCheckoutActivity extends AppCompatActivity implements View.O
                 System.out.println(uri);
                 if(uri != null) {
                     File file = FileUtils.getFile(getApplicationContext(), uri);
-                    uploadMultipart(file, this::onUpload);
+                    CheckoutRepository.uploadMultipart(binding.getRoot(), file,orderUser, this::onUpload);
                 }else{
                     Toast.makeText(getApplicationContext(), "You must choose the image", Toast.LENGTH_SHORT).show();
                 }
@@ -209,50 +219,50 @@ public class ConfirmCheckoutActivity extends AppCompatActivity implements View.O
         }
     }
 
-    private void uploadMultipart(File file, UploadFileListener uploadFileListener) {
-
-        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-        MultipartBody.Part photoPart = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
+//    public static final void uploadMultipart(View view, File file, OrderUser orderUser, UploadFileListener uploadFileListener) {
 //
-        RequestBody method = RequestBody.create(MediaType.parse("multipart/form-data"), "PATCH");
-        TokenManager tokenManager = TokenManager.getInstance(getApplicationContext().getSharedPreferences("Token",0));
-//        Call<Message> callUploadPayment = ApiConfig.getApiService(tokenManager).uploadPhotoMultipart(method, photoPart, order.getOrderID());
-        Call<Message> callUploadPayment = ApiConfig.getApiService(tokenManager).uploadPhotoMultipart(method, photoPart, orderUser.getOrderDetailList().get(0).getOrderID() );
-        callUploadPayment.enqueue(new Callback<Message>() {
-            @Override
-            public void onResponse(Call<Message> call, Response<Message> response) {
-                if(response.isSuccessful()) {
-                    Message message = response.body();
-                    uploadFileListener.onUpload(message);
-//                    Toast.makeText(getApplicationContext(), message.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Toast.makeText(getApplicationContext(),"GAGAL", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Message> call, Throwable t) {
-
-            }
-        });
-//        uploadService = new UploadService();
-//        uploadService.uploadPhotoMultipart(action, photoPart, new Callback() {
+//        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+//        MultipartBody.Part photoPart = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
+////
+//        RequestBody method = RequestBody.create(MediaType.parse("multipart/form-data"), "PATCH");
+//        TokenManager tokenManager = TokenManager.getInstance(view.getContext().getSharedPreferences("Token",0));
+////        Call<Message> callUploadPayment = ApiConfig.getApiService(tokenManager).uploadPhotoMultipart(method, photoPart, order.getOrderID());
+//        Call<Message> callUploadPayment = ApiConfig.getApiService(tokenManager).uploadPhotoMultipart(method, photoPart, orderUser.getOrderDetailList().get(0).getOrderID() );
+//        callUploadPayment.enqueue(new Callback<Message>() {
 //            @Override
-//            public void onResponse(Call call, Response response) {
-//                BaseResponse baseResponse = (BaseResponse) response.body();
-//
-//                if(baseResponse != null) {
-//                    Toast.makeText(MainActivity.this, baseResponse.getMessage(), Toast.LENGTH_SHORT).show();
+//            public void onResponse(Call<Message> call, Response<Message> response) {
+//                if(response.isSuccessful()) {
+//                    Message message = response.body();
+//                    uploadFileListener.onUpload(message);
+////                    Toast.makeText(getApplicationContext(), message.getMessage(), Toast.LENGTH_SHORT).show();
+//                }
+//                else {
+//                    Toast.makeText(view.getContext(),"GAGAL", Toast.LENGTH_SHORT).show();
 //                }
 //            }
 //
 //            @Override
-//            public void onFailure(Call call, Throwable t) {
-//                t.printStackTrace();
+//            public void onFailure(Call<Message> call, Throwable t) {
+//
 //            }
 //        });
-    }
+////        uploadService = new UploadService();
+////        uploadService.uploadPhotoMultipart(action, photoPart, new Callback() {
+////            @Override
+////            public void onResponse(Call call, Response response) {
+////                BaseResponse baseResponse = (BaseResponse) response.body();
+////
+////                if(baseResponse != null) {
+////                    Toast.makeText(MainActivity.this, baseResponse.getMessage(), Toast.LENGTH_SHORT).show();
+////                }
+////            }
+////
+////            @Override
+////            public void onFailure(Call call, Throwable t) {
+////                t.printStackTrace();
+////            }
+////        });
+//    }
 
     private void choosePhoto() {
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)

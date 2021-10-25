@@ -52,7 +52,7 @@ public class DeliveryFragment extends Fragment{
     public static final int DELIVERY_STEP = 0;
 
     Product product;
-    Checkout checkout;
+//    Checkout checkout;
     CourierService courierService;
     Courier courier;
     Address address;
@@ -77,7 +77,7 @@ public class DeliveryFragment extends Fragment{
 
         binding = FragmentDeliveryBinding.inflate(inflater, container, false);
         view = binding.getRoot();
-        checkout = new Checkout();
+//        checkout = new Checkout();
         setAddressSection();
         setContentProduct();
         setExpedition();
@@ -139,11 +139,11 @@ public class DeliveryFragment extends Fragment{
 //            Button button = view.findViewById(R.id.btn_checkout_next);
 //            button.setEnabled(true);
 //            button.setBackgroundColor(getResources().getColor(R.color.black_faloka));
-            checkout.setExpeditionName(courier.getCode());
-            checkout.setQuantity(1);
-            checkout.setShippingPrice(courierService.getCost().get(0).getValue());
-            checkout.setServiceExpedition(courierService.getName());
-            checkout.setProductID(product.getId());
+//            checkout.setExpeditionName(courier.getCode());
+//            checkout.setQuantity(1);
+//            checkout.setShippingPrice(courierService.getCost().get(0).getValue());
+//            checkout.setServiceExpedition(courierService.getName());
+//            checkout.setProductID(product.getId());
             if(address != null){
                 binding.footerCheckout.btnCheckoutNext.setEnabled(true);
                 binding.footerCheckout.btnCheckoutNext.setBackgroundColor(getResources().getColor(R.color.black_faloka));
@@ -168,7 +168,7 @@ public class DeliveryFragment extends Fragment{
         Glide.with(imgOrderProduct.getContext())
                 .load(ApiConfig.BASE_IMAGE_URL+product.getProductImageURL())
                 .into(imgOrderProduct);
-        checkout.setVariantID(product.getVariantList().get(0).getId());
+//        checkout.setVariantID(product.getVariantList().get(0).getId());
     }
 
     private void setAddressSection(){
@@ -185,7 +185,7 @@ public class DeliveryFragment extends Fragment{
                         addressAdapter = new AddressAdapter(user.getAddressList());
                         binding.rvAddresses.setAdapter(addressAdapter);
                         binding.rvAddresses.setLayoutManager(new LinearLayoutManager(getContext()));
-                        checkout.setAddressID(user.getAddressList().get(0).getId());
+//                        checkout.setAddressID(user.getAddressList().get(0).getId());
                         address = user.getAddressList().get(0);
 
                         if(courier != null){

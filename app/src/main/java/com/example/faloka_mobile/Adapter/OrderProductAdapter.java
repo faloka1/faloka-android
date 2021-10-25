@@ -1,5 +1,7 @@
 package com.example.faloka_mobile.Adapter;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.faloka_mobile.API.ApiConfig;
+import com.example.faloka_mobile.Checkout.ConfirmCheckoutActivity;
+import com.example.faloka_mobile.Checkout.DetailOrderActivity;
 import com.example.faloka_mobile.Model.OrderDetail;
 import com.example.faloka_mobile.Model.OrderUser;
 import com.example.faloka_mobile.Model.Variant;
@@ -59,10 +63,32 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
         Glide.with(holder.imgOrderProduct.getContext())
                 .load(ApiConfig.BASE_IMAGE_URL + variant.getVariantImageList().get(0).getImageURL() )
                 .into(holder.imgOrderProduct);
-        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+//        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(view.getContext(), orderDetail.getOrderID(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+
+        holder.imgBtnDetailOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), orderDetail.getOrderID(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(view.getContext(), DetailOrderActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(OrderUser.EXTRA_ORDER_USER, orderUser);
+                intent.putExtra("DATA_ORDER", bundle);
+                view.getContext().startActivity(intent);
+            }
+        });
+
+        holder.btnUploadPayment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), ConfirmCheckoutActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(OrderUser.EXTRA_ORDER_USER, orderUser);
+                intent.putExtra("DATA_ORDER",bundle);
+                view.getContext().startActivity(intent);
             }
         });
 

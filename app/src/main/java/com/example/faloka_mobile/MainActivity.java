@@ -23,6 +23,8 @@ import android.os.Bundle;
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
+    Fragment fragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +62,13 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
-        Fragment fragment = new HomeFragment();
+        if(this.fragment == null){
+            this.fragment = new HomeFragment();
+        }
+        if(getIntent().getIntExtra(AccountFragment.EXTRA_FRAGMENT_ACCOUNT, 0) == AccountFragment.INDEX_FRAGMENT_ACCOUNT){
+            this.fragment = new AccountFragment();
+        }
+//        Fragment fragment = new HomeFragment();
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.frame_container, fragment)

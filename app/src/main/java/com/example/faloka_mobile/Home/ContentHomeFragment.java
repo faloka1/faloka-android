@@ -96,7 +96,6 @@ public class ContentHomeFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), MixMatchActivity.class);
                 startActivity(intent);
-                getActivity().finish();
             }
         });
 

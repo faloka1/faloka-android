@@ -1,9 +1,12 @@
 package com.example.faloka_mobile.MixAndMatch;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -60,5 +63,29 @@ public class MixMatchActivity extends AppCompatActivity implements ImageToLayout
     @Override
     public void onLayout(ImageView imageView) {
         this.imageView = imageView;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.top_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()){
+            case android.R.id.home:
+                this.finish();
+                return true;
+            case R.id.top_menu_wishlist:
+                Toast.makeText(getApplicationContext(), "WISHLIST", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.top_menu_cart:
+                Toast.makeText(getApplicationContext(), "CART", Toast.LENGTH_SHORT).show();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -65,11 +65,11 @@ public class DetailOrderActivity extends AppCompatActivity {
 //                .load(ApiConfig.BASE_IMAGE_URL+order.getProduct().getProductImageURL() )
 //                .into(binding.gridDetailProduct.imageOrderProduct);
         binding.tvDeliveryBrand.setText(orderUser.getOrderDetailList().get(0).getProduct().getBrand().getName());
-        binding.gridDetailProduct.tvOrderProductSizeValue.setText(orderUser.getOrderDetailList().get(0).getProduct().getSizeProduct());
+        binding.gridDetailProduct.tvOrderProductSizeValue.setText(orderUser.getOrderDetailList().get(0).getVariant().getName());
         binding.gridDetailProduct.tvOrderProductName.setText(orderUser.getOrderDetailList().get(0).getProduct().getName());
         binding.gridDetailProduct.tvOrderProductPrice.setText(getFormatRupiah(orderUser.getOrderDetailList().get(0).getProduct().getPrice()));
         Glide.with(binding.gridDetailProduct.imageOrderProduct.getContext())
-                .load(ApiConfig.BASE_IMAGE_URL+orderUser.getOrderDetailList().get(0).getProduct().getProductImageURL() )
+                .load(ApiConfig.BASE_IMAGE_URL+orderUser.getOrderDetailList().get(0).getVariant().getVariantImageList().get(0).getImageURL() )
                 .into(binding.gridDetailProduct.imageOrderProduct);
     }
 
@@ -86,8 +86,8 @@ public class DetailOrderActivity extends AppCompatActivity {
         binding.tvDeliveryEkspedition.setText(expedition);
         binding.tvDeliveryExpeditionPrice.setText(getFormatRupiah(orderUser.getShippingPrice()));
         String address = orderUser.getAddress().getLocation()+", "
-                +orderUser.getAddress().getProvince().getName()+", "
-                +orderUser.getAddress().getDistrict().getName()+", "
+//                +orderUser.getAddress().getProvince().getName()+", "
+//                +orderUser.getAddress().getDistrict().getName()+", "
                 +orderUser.getAddress().getSubDistrict();
         binding.tvDeliveryName.setText(address);
     }

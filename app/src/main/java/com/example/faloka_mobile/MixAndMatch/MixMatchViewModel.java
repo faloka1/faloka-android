@@ -36,6 +36,13 @@ public class MixMatchViewModel extends ViewModel implements View.OnTouchListener
         this.imageViewList = new ArrayList<>();
         binding.btnMixMatchDelete.setOnClickListener(this);
         MixMatchRepository.getMixMatchProducts(binding.getRoot(), this::onProduct);
+        setToolbar();
+    }
+
+    private void setToolbar(){
+        activity.setSupportActionBar(binding.mixMatchToolbar);
+        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        activity.getSupportActionBar().setTitle("Mix and match");
     }
 
     private void addImageView(ImageView imageView, int width, int height) {
@@ -76,9 +83,10 @@ public class MixMatchViewModel extends ViewModel implements View.OnTouchListener
     public void onSelected(Product product) {
         ImageView imageView = new ImageView(activity);
         Glide.with(imageView.getContext())
-                .load(ApiConfig.BASE_IMAGE_URL+product.getProductImageURL() )
+                .load(ApiConfig.BASE_IMAGE_URL + product.getProductImageURL())
                 .into(imageView);
         addImageView(imageView, 350, 350);
+
     }
 
     @Override
