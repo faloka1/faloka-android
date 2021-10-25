@@ -8,6 +8,9 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class OrderUser implements Parcelable {
+
+    public static final String EXTRA_ORDER_USER = "EXTRA_ORDER_USER";
+
     private int id;
     @SerializedName("image_payment_url")
     private String imagePaymentURL;
@@ -27,6 +30,10 @@ public class OrderUser implements Parcelable {
     private List<OrderDetail> orderDetailList;
     private Address address;
     private Payment payment;
+
+    public OrderUser(){
+
+    }
 
     protected OrderUser(Parcel in) {
         setId(in.readInt());

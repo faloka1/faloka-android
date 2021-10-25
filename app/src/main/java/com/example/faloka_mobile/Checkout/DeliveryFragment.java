@@ -26,12 +26,16 @@ import com.example.faloka_mobile.Model.Checkout;
 import com.example.faloka_mobile.Model.Courier;
 import com.example.faloka_mobile.Model.CourierService;
 import com.example.faloka_mobile.Model.Order;
+import com.example.faloka_mobile.Model.OrderDetail;
+import com.example.faloka_mobile.Model.OrderUser;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.User;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.FragmentDeliveryBinding;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -48,7 +52,7 @@ public class DeliveryFragment extends Fragment{
     public static final int DELIVERY_STEP = 0;
 
     Product product;
-    Checkout checkout;
+//    Checkout checkout;
     CourierService courierService;
     Courier courier;
     Address address;
@@ -73,7 +77,7 @@ public class DeliveryFragment extends Fragment{
 
         binding = FragmentDeliveryBinding.inflate(inflater, container, false);
         view = binding.getRoot();
-        checkout = new Checkout();
+//        checkout = new Checkout();
         setAddressSection();
         setContentProduct();
         setExpedition();
@@ -132,13 +136,22 @@ public class DeliveryFragment extends Fragment{
             binding.tvDeliverySubtotalValue.setText(getFormatRupiah(totalOrder));
             TextView tvTotal = view.findViewById(R.id.tv_total_price);
             tvTotal.setText(getFormatRupiah(totalOrder));
-            Button button = view.findViewById(R.id.btn_checkout_next);
-            button.setEnabled(true);
-            button.setBackgroundColor(getResources().getColor(R.color.black_faloka));
-            checkout.setExpeditionName(courier.getCode());
-            checkout.setQuantity(1);
-            checkout.setShippingPrice(courierService.getCost().get(0).getValue());
-            checkout.setServiceExpedition(courierService.getName());
+//            Button button = view.findViewById(R.id.btn_checkout_next);
+//            button.setEnabled(true);
+//            button.setBackgroundColor(getResources().getColor(R.color.black_faloka));
+//            checkout.setExpeditionName(courier.getCode());
+//            checkout.setQuantity(1);
+//            checkout.setShippingPrice(courierService.getCost().get(0).getValue());
+//            checkout.setServiceExpedition(courierService.getName());
+//            checkout.setProductID(product.getId());
+            if(address != null){
+                binding.footerCheckout.btnCheckoutNext.setEnabled(true);
+                binding.footerCheckout.btnCheckoutNext.setBackgroundColor(getResources().getColor(R.color.black_faloka));
+            }
+            else {
+                binding.footerCheckout.btnCheckoutNext.setEnabled(false);
+                binding.footerCheckout.btnCheckoutNext.setBackgroundColor(getResources().getColor(R.color.white_faloka));
+            }
         }
     }
 
@@ -155,7 +168,7 @@ public class DeliveryFragment extends Fragment{
         Glide.with(imgOrderProduct.getContext())
                 .load(ApiConfig.BASE_IMAGE_URL+product.getProductImageURL())
                 .into(imgOrderProduct);
-        checkout.setVariantID(product.getVariantList().get(0).getId());
+//        checkout.setVariantID(product.getVariantList().get(0).getId());
     }
 
     private void setAddressSection(){
@@ -172,13 +185,24 @@ public class DeliveryFragment extends Fragment{
                         addressAdapter = new AddressAdapter(user.getAddressList());
                         binding.rvAddresses.setAdapter(addressAdapter);
                         binding.rvAddresses.setLayoutManager(new LinearLayoutManager(getContext()));
-                        checkout.setAddressID(user.getAddressList().get(0).getId());
+//                        checkout.setAddressID(user.getAddressList().get(0).getId());
                         address = user.getAddressList().get(0);
+
+                        if(courier != null){
+                            binding.footerCheckout.btnCheckoutNext.setEnabled(true);
+                            binding.footerCheckout.btnCheckoutNext.setBackgroundColor(getResources().getColor(R.color.black_faloka));
+                        }
+                        else {
+                            binding.footerCheckout.btnCheckoutNext.setEnabled(false);
+                            binding.footerCheckout.btnCheckoutNext.setBackgroundColor(getResources().getColor(R.color.white_faloka));
+                        }
                     }
                     else{
 //                        Toast.makeText(getContext(), "KOSONG", Toast.LENGTH_SHORT).show();
                         binding.rvAddresses.setAdapter(new AddressAddAdapter());
                         binding.rvAddresses.setLayoutManager(new LinearLayoutManager(getContext()));
+                        binding.footerCheckout.btnCheckoutNext.setEnabled(false);
+                        binding.footerCheckout.btnCheckoutNext.setBackgroundColor(getResources().getColor(R.color.white_faloka));
                     }
                 }
                 else {
@@ -201,16 +225,33 @@ public class DeliveryFragment extends Fragment{
             @Override
             public void onClick(View view) {
 
-                Order order = new Order();
-                order.setCheckout(checkout);
-                order.setProduct(product);
-                order.setAddress(address);
-                order.setCourier(courier);
-                order.setCourierService(courierService);
-                order.setTotalOrder(totalOrder);
+//                Order order = new Order();
+//                order.setCheckout(checkout);
+//                order.setProduct(product);
+//                order.setAddress(address);
+//                order.setCourier(courier);
+//                order.setCourierService(courierService);
+//                order.setTotalOrder(totalOrder);
+
+                OrderUser orderUser = new OrderUser();
+                orderUser.setShippingPrice(courierService.getCost().get(0).getValue());
+                orderUser.setService(courierService.getName());
+                orderUser.setExpeditionName(courier.getName());
+                orderUser.setAddressID(address.getId());
+                List<OrderDetail> orderDetailList = new ArrayList<>();
+                OrderDetail orderDetail = new OrderDetail();
+                orderDetail.setProduct(product);
+                orderDetail.setVariant(product.getVariantList().get(0));
+                orderDetail.setQuantity(1);
+                orderDetailList.add(orderDetail);
+                orderUser.setOrderDetailList(orderDetailList);
+                orderUser.setAddress(address);
+
+
                 Fragment fragment = new PaymentFragment(stepViewSelectedListener);
                 Bundle bundle = new Bundle();
-                bundle.putParcelable(Order.EXTRA_ORDER, order);
+//                bundle.putParcelable(Order.EXTRA_ORDER, order);
+                bundle.putParcelable(OrderUser.EXTRA_ORDER_USER, orderUser);
                 fragment.setArguments(bundle);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
 //                ft.replace(R.id.frame_container_checkout, new PaymentFragment());

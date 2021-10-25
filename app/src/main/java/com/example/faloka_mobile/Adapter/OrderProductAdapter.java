@@ -1,8 +1,11 @@
 package com.example.faloka_mobile.Adapter;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -14,11 +17,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.faloka_mobile.API.ApiConfig;
+import com.example.faloka_mobile.Checkout.ConfirmCheckoutActivity;
+import com.example.faloka_mobile.Checkout.DetailOrderActivity;
 import com.example.faloka_mobile.Model.OrderDetail;
 import com.example.faloka_mobile.Model.OrderUser;
+import com.example.faloka_mobile.Model.Variant;
 import com.example.faloka_mobile.R;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapter.OrderProductViewHolder>{
     private List<OrderUser> orderUserList;
@@ -43,13 +51,18 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
         if(orderUser.getOrderDetailList().get(0).getProduct() == null){
             return;
         }
+        if(orderUser.getStatus().equals("dikirim")){
+            holder.btnUploadPayment.setVisibility(View.GONE);
+        }
         OrderDetail orderDetail = orderUser.getOrderDetailList().get(0);
-        holder.tvOrderBrand.setText("GAPAHAM");
-//        holder.tvOrderProductName.setText(orderDetail.getProduct().getName());
-//        holder.tvOrderPrice.setText(String.valueOf(orderDetail.getProduct().getPrice()));
-//        Glide.with(holder.imgOrderProduct.getContext())
-//                .load(ApiConfig.BASE_IMAGE_URL + orderDetail.getProduct().getProductImageURL())
-//                .into(holder.imgBtnDetailOrder);
+        holder.tvOrderBrand.setText(orderDetail.getProduct().getBrand().getName());
+        holder.tvOrderProductName.setText(orderDetail.getProduct().getName());
+        int total = orderDetail.getProduct().getPrice() + orderUser.getShippingPrice() + 2000;
+        holder.tvOrderPrice.setText(getFormatRupiah(total));
+        Variant variant = orderDetail.getVariant();
+        Glide.with(holder.imgOrderProduct.getContext())
+                .load(ApiConfig.BASE_IMAGE_URL + variant.getVariantImageList().get(0).getImageURL() )
+                .into(holder.imgOrderProduct);
 //        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -57,6 +70,35 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
 //            }
 //        });
 
+        holder.imgBtnDetailOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), DetailOrderActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(OrderUser.EXTRA_ORDER_USER, orderUser);
+                intent.putExtra("DATA_ORDER", bundle);
+                view.getContext().startActivity(intent);
+            }
+        });
+
+        holder.btnUploadPayment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), ConfirmCheckoutActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(OrderUser.EXTRA_ORDER_USER, orderUser);
+                intent.putExtra("DATA_ORDER",bundle);
+                view.getContext().startActivity(intent);
+            }
+        });
+
+    }
+
+    public String getFormatRupiah(int price){
+        Double tempPrice = Double.parseDouble(String.valueOf(price));
+        Locale localeID = new Locale("in", "ID");
+        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+        return  formatRupiah.format(tempPrice);
     }
 
     @Override
@@ -72,6 +114,7 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
         TextView tvOrderPrice;
         ImageButton imgBtnDetailOrder;
         ImageView imgOrderProduct;
+        Button btnUploadPayment;
         View view;
 
         public OrderProductViewHolder(@NonNull View itemView) {
@@ -83,6 +126,7 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
             tvOrderPrice = itemView.findViewById(R.id.tv_order_price);
             imgOrderProduct = itemView.findViewById(R.id.img_order_product);
             imgBtnDetailOrder = itemView.findViewById(R.id.img_btn_detail_order);
+            btnUploadPayment = itemView.findViewById(R.id.btn_upload_payment);
         }
     }
 }

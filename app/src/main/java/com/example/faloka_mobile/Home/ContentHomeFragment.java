@@ -65,30 +65,40 @@ public class ContentHomeFragment extends Fragment {
         btnLogout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), MixMatchActivity.class);
-                startActivity(intent);
-                getActivity().finish();
-//                TokenManager tokenManager = TokenManager.getInstance(view.getContext().getSharedPreferences("Token",0));
-//
-//                Call<Message> callLogout = ApiConfig.getApiService(tokenManager).getLogoutMessage(tokenManager.getTypeToken()+" "+tokenManager.getToken());
-//
-//                callLogout.enqueue(new Callback<Message>() {
-//                    @Override
-//                    public void onResponse(Call<Message> call, Response<Message> response) {
-//                        Message logout = response.body();
-//                        tokenManager.deleteToken();
-//                        startActivity(new Intent(view.getContext(), LoginActivity.class));
-//                        Toast.makeText(view.getContext(), logout.getMessage(), Toast.LENGTH_SHORT).show();
-//                        getActivity().finish();
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<Message> call, Throwable t) {
-//
-//                    }
-//                });
+//                Intent intent = new Intent(getActivity(), MixMatchActivity.class);
+//                startActivity(intent);
+//                getActivity().finish();
+                TokenManager tokenManager = TokenManager.getInstance(view.getContext().getSharedPreferences("Token",0));
+
+                Call<Message> callLogout = ApiConfig.getApiService(tokenManager).getLogoutMessage(tokenManager.getTypeToken()+" "+tokenManager.getToken());
+
+                callLogout.enqueue(new Callback<Message>() {
+                    @Override
+                    public void onResponse(Call<Message> call, Response<Message> response) {
+                        Message logout = response.body();
+                        tokenManager.deleteToken();
+                        startActivity(new Intent(view.getContext(), LoginActivity.class));
+                        Toast.makeText(view.getContext(), logout.getMessage(), Toast.LENGTH_SHORT).show();
+                        getActivity().finish();
+                    }
+
+                    @Override
+                    public void onFailure(Call<Message> call, Throwable t) {
+
+                    }
+                });
             }
         });
+
+        Button btnMixMatch = view.findViewById(R.id.btn_mix_match);
+        btnMixMatch.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), MixMatchActivity.class);
+                startActivity(intent);
+            }
+        });
+
         return view;
     }
 

@@ -19,6 +19,10 @@ public class OrderDetail implements Parcelable {
     @SerializedName("products")
     private Product product;
 
+    public OrderDetail(){
+
+    }
+
     protected OrderDetail(Parcel in) {
         setId(in.readInt());
         setQuantity(in.readInt());

@@ -26,9 +26,9 @@ public class PostFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public PostFragment() {
-        // Required empty public constructor
-    }
+//    public PostFragment() {
+//        // Required empty public constructor
+//    }
 
     /**
      * Use this factory method to create a new instance of

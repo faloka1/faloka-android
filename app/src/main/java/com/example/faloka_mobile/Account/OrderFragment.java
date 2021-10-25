@@ -6,15 +6,18 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.faloka_mobile.Account.OrderStatus.NotYetPaidFragment;
 import com.example.faloka_mobile.Account.OrderStatus.WaitConfirmationFragment;
 import com.example.faloka_mobile.R;
+import com.example.faloka_mobile.databinding.FragmentOrderBinding;
 import com.google.android.material.tabs.TabLayout;
 
 
@@ -22,10 +25,6 @@ public class OrderFragment extends Fragment {
 
     TabLayout tabLayout;
     ViewPager viewPager;
-
-    public OrderFragment() {
-
-    }
 
 
     @Override
@@ -39,6 +38,7 @@ public class OrderFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_order, container, false);
         createTab(view);
+
         return view;
     }
 
@@ -54,7 +54,6 @@ public class OrderFragment extends Fragment {
         final MyAdapter adapter = new MyAdapter(getContext(),getActivity().getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -72,7 +71,7 @@ public class OrderFragment extends Fragment {
             }
         });
     }
-    public class MyAdapter extends FragmentPagerAdapter {
+    public class MyAdapter extends FragmentStatePagerAdapter {
 
         private Context myContext;
         int totalTabs;
