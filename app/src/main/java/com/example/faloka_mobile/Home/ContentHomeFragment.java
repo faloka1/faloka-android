@@ -75,11 +75,19 @@ public class ContentHomeFragment extends Fragment {
                 callLogout.enqueue(new Callback<Message>() {
                     @Override
                     public void onResponse(Call<Message> call, Response<Message> response) {
-                        Message logout = response.body();
-                        tokenManager.deleteToken();
-                        startActivity(new Intent(view.getContext(), LoginActivity.class));
-                        Toast.makeText(view.getContext(), logout.getMessage(), Toast.LENGTH_SHORT).show();
-                        getActivity().finish();
+                        if(response.isSuccessful()) {
+                            Message logout = response.body();
+                            tokenManager.deleteToken();
+                            startActivity(new Intent(view.getContext(), LoginActivity.class));
+                            Toast.makeText(view.getContext(), logout.getMessage(), Toast.LENGTH_SHORT).show();
+                            getActivity().finish();
+                        }
+                        else {
+                            Toast.makeText(view.getContext(), "Login dulu"+response.code(), Toast.LENGTH_SHORT).show();
+                            tokenManager.deleteToken();
+                            startActivity(new Intent(view.getContext(), LoginActivity.class));
+                            getActivity().finish();
+                        }
                     }
 
                     @Override
@@ -87,15 +95,6 @@ public class ContentHomeFragment extends Fragment {
 
                     }
                 });
-            }
-        });
-
-        Button btnMixMatch = view.findViewById(R.id.btn_mix_match);
-        btnMixMatch.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), MixMatchActivity.class);
-                startActivity(intent);
             }
         });
 

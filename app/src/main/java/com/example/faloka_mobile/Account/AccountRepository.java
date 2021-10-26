@@ -39,7 +39,10 @@ public class AccountRepository {
                     activity.finish();
                 }
                 else {
-                    Toast.makeText(view.getContext(), "Logout Gagal", Toast.LENGTH_SHORT).show();
+                    tokenManager.deleteToken();
+                    activity.startActivity(new Intent(view.getContext(), LoginActivity.class));
+                    Toast.makeText(view.getContext(), "Login First", Toast.LENGTH_SHORT).show();
+                    activity.finish();
                 }
             }
 

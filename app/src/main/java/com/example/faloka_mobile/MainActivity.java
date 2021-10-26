@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,6 +15,7 @@ import android.widget.Toolbar;
 import com.example.faloka_mobile.Account.AccountFragment;
 import com.example.faloka_mobile.Home.HomeFragment;
 import com.example.faloka_mobile.InspireMe.InpireMeFragment;
+import com.example.faloka_mobile.MixAndMatch.MixMatchActivity;
 import com.example.faloka_mobile.Search.SearchFragment;
 import com.example.faloka_mobile.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -24,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
     Fragment fragment;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,12 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "INSPIRE ME", Toast.LENGTH_SHORT).show();
                         fragment = new InpireMeFragment();
                         break;
+                    case R.id.bottom_menu_mixmatch:
+                        item.setCheckable(false);
+                        Toast.makeText(getApplicationContext(), "MIX AND MATCH", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainActivity.this, MixMatchActivity.class);
+                        startActivity(intent);
+                        return true;
                     case R.id.bottom_menu_account:
                         Toast.makeText(getApplicationContext(), "ACCOUNT", Toast.LENGTH_SHORT).show();
                         fragment = new AccountFragment();

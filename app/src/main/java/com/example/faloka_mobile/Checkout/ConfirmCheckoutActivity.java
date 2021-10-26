@@ -11,6 +11,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -289,7 +290,15 @@ public class ConfirmCheckoutActivity extends AppCompatActivity implements View.O
     @Override
     public void onUpload(Message message) {
         Toast.makeText(getApplicationContext(), message.getMessage(), Toast.LENGTH_SHORT).show();
+        binding.btnUpload.setVisibility(View.GONE);
 //        binding.btnUpload.setEnabled(false);
 //        binding.btnUpload.setBackgroundColor(getResources().getColor(R.color.white_faloka));
+//        binding.btnUpload.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.netral_100)));
+    }
+
+
+    @Override
+    public void onBackPressed() {
+
     }
 }

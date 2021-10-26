@@ -146,6 +146,7 @@ public class DeliveryFragment extends Fragment{
 //            checkout.setProductID(product.getId());
             if(address != null){
                 binding.footerCheckout.btnCheckoutNext.setEnabled(true);
+                binding.footerCheckout.btnCheckoutNext.setTextColor(getResources().getColor(R.color.white));
                 binding.footerCheckout.btnCheckoutNext.setBackgroundColor(getResources().getColor(R.color.black_faloka));
             }
             else {
@@ -190,6 +191,7 @@ public class DeliveryFragment extends Fragment{
 
                         if(courier != null){
                             binding.footerCheckout.btnCheckoutNext.setEnabled(true);
+                            binding.footerCheckout.btnCheckoutNext.setTextColor(getResources().getColor(R.color.white));
                             binding.footerCheckout.btnCheckoutNext.setBackgroundColor(getResources().getColor(R.color.black_faloka));
                         }
                         else {

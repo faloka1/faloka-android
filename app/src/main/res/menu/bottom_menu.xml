@@ -12,8 +12,13 @@
         />
     <item
         android:id="@+id/bottom_menu_inspire"
-        android:title="Inspire Me"
+        android:title="Inspo"
         android:icon="@drawable/ic_svg_inspire"
+        />
+    <item
+        android:id="@+id/bottom_menu_mixmatch"
+        android:title="Mixmatch"
+        android:icon="@drawable/ic_icon_park_outline_clothes_crew_neck"
         />
     <item
         android:id="@+id/bottom_menu_account"
