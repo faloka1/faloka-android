@@ -70,7 +70,7 @@ public class DeliveryChooseActivity extends AppCompatActivity {
                     RadioButton radioButton = new RadioButton(getApplicationContext());
                     radioButton.setId(i);
                     radioButton.setText(courier.getName());
-                    radioButton.setTextColor(getResources().getColor(R.color.faloka_accent_green));
+                    radioButton.setTextColor(getResources().getColor(R.color.black_faloka));
                     ColorStateList myColorStateList = new ColorStateList(
                             new int[][]{
                                     new int[]{getResources().getColor(R.color.faloka_accent_green)}
@@ -129,7 +129,7 @@ public class DeliveryChooseActivity extends AppCompatActivity {
                         RadioButton radioButton = new RadioButton(getApplicationContext());
                         radioButton.setId(i);
                         radioButton.setText(courierService.getName()+" ("+getFormatRupiah(cost.getValue())+") - "+cost.getEtd() +" Hari");
-                        radioButton.setTextColor(getResources().getColor(R.color.faloka_accent_green));
+                        radioButton.setTextColor(getResources().getColor(R.color.black_faloka));
                         ColorStateList myColorStateList = new ColorStateList(
                                 new int[][]{
                                         new int[]{getResources().getColor(R.color.faloka_accent_green)}
@@ -153,6 +153,7 @@ public class DeliveryChooseActivity extends AppCompatActivity {
 //                                intent.putExtra(DeliveryFragment.EXTRA_PRICE_EXPEDITION, courierService.getCost().get(0).getValue());
                                 System.out.println(courierService.getName() +" "+(radioGroup.getCheckedRadioButtonId()));
                                 binding.btnChoose.setEnabled(true);
+                                binding.btnChoose.setTextColor(getResources().getColor(R.color.white));
                                 binding.btnChoose.setBackgroundColor(getResources().getColor(R.color.black_faloka));
                             }
                         }
