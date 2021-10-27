@@ -5,6 +5,7 @@
         android:title="Cart"
         android:id="@+id/top_menu_cart"
         android:icon="@drawable/ic_svg_cart"
+        app:actionLayout="@layout/cart_action_layout"
         app:showAsAction="always"
         />
     <item

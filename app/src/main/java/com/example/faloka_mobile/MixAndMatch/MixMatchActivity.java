@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,18 +21,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import ru.nikartm.support.BadgePosition;
+import ru.nikartm.support.ImageBadgeView;
+
 public class MixMatchActivity extends AppCompatActivity implements ImageToLayoutListener{
     private ActivityMixMatchBinding binding;
     private View view;
     private ImageView imageView;
     private float x,y;
     private float dx, dy;
+    private ImageBadgeView badgeView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMixMatchBinding.inflate(getLayoutInflater());
         view = binding.getRoot();
+
         setContentView(view);
         MixMatchViewModel mixMatchViewModel = new MixMatchViewModel(binding, this, this::onLayout);
     }
@@ -87,5 +93,21 @@ public class MixMatchActivity extends AppCompatActivity implements ImageToLayout
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem menuItem = menu.findItem(R.id.top_menu_cart);
+        badgeView = menuItem.getActionView().findViewById(R.id.cart_badge);
+        badgeView.setBadgeValue(27)
+                .setBadgeOvalAfterFirst(true)
+                .setBadgeTextSize(8)
+                .setMaxBadgeValue(999)
+                .setBadgePosition(BadgePosition.TOP_RIGHT)
+                .setBadgeTextStyle(Typeface.NORMAL)
+                .setShowCounter(true)
+                .setBadgePadding(4);
+        return super.onPrepareOptionsMenu(menu);
     }
 }
