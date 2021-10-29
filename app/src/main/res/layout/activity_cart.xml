@@ -7,7 +7,7 @@
     tools:context=".Cart.CartActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/detail_order_toolbar"
+        android:id="@+id/cart_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detail_order_toolbar">
+        app:layout_constraintTop_toBottomOf="@id/cart_toolbar">
 
         <CheckBox
             android:id="@+id/cbx_select_all"

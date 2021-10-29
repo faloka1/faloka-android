@@ -1,5 +1,6 @@
 package com.example.faloka_mobile;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -8,6 +9,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.faloka_mobile.Cart.CartActivity;
 
 import ru.nikartm.support.BadgePosition;
 import ru.nikartm.support.ImageBadgeView;
@@ -55,6 +58,8 @@ public class BaseActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), "CART", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), CartActivity.class);
+                startActivity(intent);
             }
         });
         return super.onPrepareOptionsMenu(menu);
