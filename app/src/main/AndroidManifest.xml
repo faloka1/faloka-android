@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Falokamobile">
         <activity
+            android:name=".Cart.CartActivity"
+            android:exported="true" />
+        <activity
             android:name=".MixAndMatch.MixMatchActivity"
             android:exported="true" />
         <activity
