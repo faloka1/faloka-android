@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 public class Brand implements Parcelable {
     private int id;
+    private String name;
 
     protected Brand(Parcel in) {
         id = in.readInt();
@@ -39,7 +40,7 @@ public class Brand implements Parcelable {
         this.name = name;
     }
 
-    private String name;
+
 
     @Override
     public int describeContents() {
@@ -50,5 +51,35 @@ public class Brand implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(id);
         parcel.writeString(name);
+    }
+
+    @Override public int hashCode()
+    {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result
+                + ((name == null) ? 0 : name.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+
+        Brand other = (Brand)obj;
+
+        if (name == null) {
+            if (other.name != null)
+                return false;
+        }
+        else if (!name.equals(other.name))
+            return false;
+        return true;
     }
 }

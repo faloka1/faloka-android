@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="4dp"
+    android:background="@color/white">
 
     <CheckBox
         android:id="@+id/cbx_cart_brand_name"
@@ -17,9 +19,6 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="1dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,6 +28,7 @@
             android:id="@+id/rv_cart_brand"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp" />
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

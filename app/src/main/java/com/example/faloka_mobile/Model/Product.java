@@ -24,18 +24,33 @@ public class Product implements Parcelable {
     private String description;
     private float discount;
     private String slug;
+    @SerializedName("mix_and_match_image")
+    private String imageMixMatchURL;
 
     protected Product(Parcel in) {
-        setId(in.readInt());
-        setName(in.readString());
-        setVariantList(in.createTypedArrayList(Variant.CREATOR));
-        setBrand(in.readParcelable(Brand.class.getClassLoader()));
-        setPrice(in.readInt());
-        setPivotProduct(in.readParcelable(PivotProduct.class.getClassLoader()));
-        setDescription(in.readString());
-        setDiscount(in.readFloat());
-        setSlug(in.readString());
+        id = in.readInt();
+        name = in.readString();
+        variantList = in.createTypedArrayList(Variant.CREATOR);
+        brand = in.readParcelable(Brand.class.getClassLoader());
+        price = in.readInt();
+        pivotProduct = in.readParcelable(PivotProduct.class.getClassLoader());
+        description = in.readString();
+        discount = in.readFloat();
+        slug = in.readString();
+        imageMixMatchURL = in.readString();
     }
+
+    public static final Creator<Product> CREATOR = new Creator<Product>() {
+        @Override
+        public Product createFromParcel(Parcel in) {
+            return new Product(in);
+        }
+
+        @Override
+        public Product[] newArray(int size) {
+            return new Product[size];
+        }
+    };
 
     public String getProductImageURL(){
         if(!variantList.isEmpty()) {
@@ -63,36 +78,6 @@ public class Product implements Parcelable {
        Variant variant= variantList.get(0);
        return variant.getName();
    }
-
-    public static final Creator<Product> CREATOR = new Creator<Product>() {
-        @Override
-        public Product createFromParcel(Parcel in) {
-            return new Product(in);
-        }
-
-        @Override
-        public Product[] newArray(int size) {
-            return new Product[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(getId());
-        parcel.writeString(getName());
-        parcel.writeTypedList(getVariantList());
-        parcel.writeParcelable(getBrand(), i);
-        parcel.writeInt(getPrice());
-        parcel.writeParcelable(getPivotProduct(), i);
-        parcel.writeString(getDescription());
-        parcel.writeFloat(getDiscount());
-        parcel.writeString(getSlug());
-    }
 
     public int getId() {
         return id;
@@ -164,5 +149,32 @@ public class Product implements Parcelable {
 
     public void setSlug(String slug) {
         this.slug = slug;
+    }
+
+    public String getImageMixMatchURL() {
+        return imageMixMatchURL;
+    }
+
+    public void setImageMixMatchURL(String imageMixMatchURL) {
+        this.imageMixMatchURL = imageMixMatchURL;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(name);
+        parcel.writeTypedList(variantList);
+        parcel.writeParcelable(brand, i);
+        parcel.writeInt(price);
+        parcel.writeParcelable(pivotProduct, i);
+        parcel.writeString(description);
+        parcel.writeFloat(discount);
+        parcel.writeString(slug);
+        parcel.writeString(imageMixMatchURL);
     }
 }
