@@ -18,9 +18,12 @@ import com.bumptech.glide.Glide;
 import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Adapter.ProductAdapter;
 import com.example.faloka_mobile.BaseActivity;
+import com.example.faloka_mobile.Cart.CartRepository;
 import com.example.faloka_mobile.Checkout.CheckoutActivity;
 import com.example.faloka_mobile.Login.TokenManager;
+import com.example.faloka_mobile.Model.BodyCart;
 import com.example.faloka_mobile.Model.Product;
+import com.example.faloka_mobile.Model.Variant;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.ActivityProductDetailBinding;
 import com.synnapps.carouselview.CarouselView;
@@ -54,6 +57,7 @@ public class ProductDetailActivity extends BaseActivity {
             setDescription();
             setProductRelate();
             onClickButtonBuy();
+            onClickButtonCart();
         }
     }
 
@@ -67,6 +71,21 @@ public class ProductDetailActivity extends BaseActivity {
             }
         });
     }
+
+    private void onClickButtonCart(){
+        binding.btnCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Variant variant = product.getVariantList().get(0);
+                BodyCart bodyCart = new BodyCart();
+                bodyCart.setProductID(product.getId());
+                bodyCart.setVariantID(variant.getId());
+                bodyCart.setQuantity(1);
+                CartRepository.addCart(view, bodyCart);
+            }
+        });
+    }
+
     private void getDetailProductFromList(){
         product = getIntent().getParcelableExtra(Product.EXTRA_PRODUCT);
     }

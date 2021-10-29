@@ -1,53 +1,30 @@
 package com.example.faloka_mobile.Checkout;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 
-import android.app.Activity;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.ColorStateList;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Account.AccountFragment;
-import com.example.faloka_mobile.Home.HomeFragment;
-import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.MainActivity;
-import com.example.faloka_mobile.Model.Checkout;
 import com.example.faloka_mobile.Model.Message;
-import com.example.faloka_mobile.Model.Order;
-import com.example.faloka_mobile.Model.OrderResponse;
 import com.example.faloka_mobile.Model.OrderUser;
-import com.example.faloka_mobile.Model.Payment;
-import com.example.faloka_mobile.Model.PaymentMethod;
 import com.example.faloka_mobile.R;
-import com.example.faloka_mobile.databinding.ActivityCheckoutBinding;
 import com.example.faloka_mobile.databinding.ActivityConfrimCheckoutBinding;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
 import java.text.NumberFormat;
 import java.util.Locale;
-
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ConfirmCheckoutActivity extends AppCompatActivity implements View.OnClickListener ,UploadFileListener {
     private static final int PICK_IMAGE = 1;

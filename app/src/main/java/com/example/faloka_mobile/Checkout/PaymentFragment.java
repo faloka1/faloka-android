@@ -16,21 +16,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.faloka_mobile.API.ApiConfig;
-import com.example.faloka_mobile.Adapter.AddressAdapter;
 import com.example.faloka_mobile.Adapter.PaymentAdapter;
-import com.example.faloka_mobile.Adapter.PaymentMethodAdapter;
 import com.example.faloka_mobile.Login.TokenManager;
-import com.example.faloka_mobile.Model.Checkout;
-import com.example.faloka_mobile.Model.Message;
-import com.example.faloka_mobile.Model.Order;
 import com.example.faloka_mobile.Model.OrderResponse;
 import com.example.faloka_mobile.Model.OrderUser;
 import com.example.faloka_mobile.Model.Payment;
 import com.example.faloka_mobile.Model.PaymentMethod;
-import com.example.faloka_mobile.Model.User;
 import com.example.faloka_mobile.R;
 import com.google.android.material.snackbar.Snackbar;
 

@@ -4,6 +4,8 @@ import android.database.Observable;
 
 import com.example.faloka_mobile.Login.LoginResponse;
 import com.example.faloka_mobile.Model.Address;
+import com.example.faloka_mobile.Model.BodyCart;
+import com.example.faloka_mobile.Model.Cart;
 import com.example.faloka_mobile.Model.Category;
 import com.example.faloka_mobile.Model.Courier;
 import com.example.faloka_mobile.Model.District;
@@ -134,6 +136,14 @@ public interface ApiService {
 
     @GET("mix-and-match/items")
     Call<List<ProductMixMatch>> getProductsMixMatch();
+
+    @GET("cart")
+    Call<List<Cart>> getCarts(@Header("Authorization") String auth);
+
+    @POST("cart")
+    Call<Message> addCart(@Header("Authorization") String auth, @Body BodyCart bodyCart);
+
+
 
 }
 
