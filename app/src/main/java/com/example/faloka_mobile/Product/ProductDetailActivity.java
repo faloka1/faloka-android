@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Adapter.ProductAdapter;
+import com.example.faloka_mobile.BaseActivity;
 import com.example.faloka_mobile.Checkout.CheckoutActivity;
 import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.Product;
@@ -34,7 +35,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProductDetailActivity extends AppCompatActivity{
+public class ProductDetailActivity extends BaseActivity {
 
     ActivityProductDetailBinding binding;
     Product product;
@@ -124,31 +125,6 @@ public class ProductDetailActivity extends AppCompatActivity{
 
 
 
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.top_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        switch (item.getItemId()){
-            case android.R.id.home:
-                this.finish();
-                return true;
-            case R.id.top_menu_wishlist:
-                Toast.makeText(getApplicationContext(), "WISHLIST", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.top_menu_cart:
-                Toast.makeText(getApplicationContext(), "CART", Toast.LENGTH_SHORT).show();
-                break;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
 }

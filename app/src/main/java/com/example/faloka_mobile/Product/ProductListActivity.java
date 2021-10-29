@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Adapter.ProductAdapter;
+import com.example.faloka_mobile.BaseActivity;
 import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.ProductListResponse;
@@ -27,7 +28,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProductListActivity extends AppCompatActivity {
+public class ProductListActivity extends BaseActivity {
 
     private SubCategory subCategory;
 
@@ -66,30 +67,6 @@ public class ProductListActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.top_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        switch (item.getItemId()){
-            case android.R.id.home:
-                this.finish();
-                return true;
-            case R.id.top_menu_wishlist:
-                Toast.makeText(getApplicationContext(), "WISHLIST", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.top_menu_cart:
-                Toast.makeText(getApplicationContext(), "CART", Toast.LENGTH_SHORT).show();
-                break;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
 }

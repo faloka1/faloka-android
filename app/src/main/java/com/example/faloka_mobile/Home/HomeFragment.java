@@ -20,13 +20,14 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.faloka_mobile.BaseFragment;
 import com.example.faloka_mobile.Model.Category;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.FragmentHomeBinding;
 
 import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends BaseFragment {
 
     private AppCompatActivity activity;
     private FragmentHomeBinding binding;
@@ -106,29 +107,6 @@ public class HomeFragment extends Fragment {
                 tv.setTextColor(getResources().getColor(R.color.white_faloka));
             }
         }
-    }
-
-
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        activity.getMenuInflater().inflate(R.menu.top_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        switch (item.getItemId()){
-            case R.id.top_menu_wishlist:
-                Toast.makeText(activity.getApplicationContext(), "WISHLIST", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.top_menu_cart:
-                Toast.makeText(activity.getApplicationContext(), "CART", Toast.LENGTH_SHORT).show();
-                break;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
 

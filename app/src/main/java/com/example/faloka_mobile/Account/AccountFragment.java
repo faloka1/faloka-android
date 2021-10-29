@@ -29,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.faloka_mobile.API.ApiConfig;
+import com.example.faloka_mobile.BaseFragment;
 import com.example.faloka_mobile.Login.LoginActivity;
 import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.Message;
@@ -46,7 +47,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AccountFragment extends Fragment implements DrawerOptionListener {
+public class AccountFragment extends BaseFragment implements DrawerOptionListener {
 
     public static final String EXTRA_FRAGMENT_ACCOUNT = "EXTRA_FRAGMENT_ACCOUNT";
     public static final int INDEX_FRAGMENT_ACCOUNT = 3;
@@ -71,33 +72,11 @@ public class AccountFragment extends Fragment implements DrawerOptionListener {
         return view;
     }
 
-
-
-
-
-
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        activity.getMenuInflater().inflate(R.menu.top_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        switch (item.getItemId()){
-            case R.id.top_menu_wishlist:
-                Toast.makeText(activity.getApplicationContext(), "WISHLIST", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.top_menu_cart:
-                Toast.makeText(activity.getApplicationContext(), "CART", Toast.LENGTH_SHORT).show();
-                break;
-        }
-
         if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
