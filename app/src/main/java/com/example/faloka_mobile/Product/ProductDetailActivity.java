@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Adapter.ProductAdapter;
 import com.example.faloka_mobile.BaseActivity;
+import com.example.faloka_mobile.Cart.CartAddItemListener;
 import com.example.faloka_mobile.Cart.CartRepository;
 import com.example.faloka_mobile.Checkout.CheckoutActivity;
 import com.example.faloka_mobile.Login.TokenManager;
@@ -38,7 +39,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProductDetailActivity extends BaseActivity {
+public class ProductDetailActivity extends BaseActivity implements CartAddItemListener {
 
     ActivityProductDetailBinding binding;
     Product product;
@@ -81,7 +82,7 @@ public class ProductDetailActivity extends BaseActivity {
                 bodyCart.setProductID(product.getId());
                 bodyCart.setVariantID(variant.getId());
                 bodyCart.setQuantity(1);
-                CartRepository.addCart(view, bodyCart);
+                CartRepository.addCart(view, bodyCart, ProductDetailActivity.this::onAddToCart);
             }
         });
     }
@@ -146,4 +147,8 @@ public class ProductDetailActivity extends BaseActivity {
 
     }
 
+    @Override
+    public void onAddToCart() {
+        CartRepository.getCountCarts(getApplicationContext(), ProductDetailActivity.super::onItemCount);
+    }
 }
