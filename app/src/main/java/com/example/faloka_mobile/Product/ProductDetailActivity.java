@@ -32,6 +32,7 @@ import com.synnapps.carouselview.ImageClickListener;
 import com.synnapps.carouselview.ImageListener;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -66,8 +67,13 @@ public class ProductDetailActivity extends BaseActivity implements CartAddItemLi
         binding.btnBuyNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                List<Product> productList = new ArrayList<>();
+                productList.add(product);
                 Intent intent = new Intent(ProductDetailActivity.this, CheckoutActivity.class);
-                intent.putExtra(Product.EXTRA_PRODUCT, product);
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList(Product.EXTRA_PRODUCT, (ArrayList)productList);
+//                intent.putExtra(Product.EXTRA_PRODUCT, product);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });

@@ -26,7 +26,7 @@ public class Product implements Parcelable {
     private String slug;
     @SerializedName("mix_and_match_image")
     private String imageMixMatchURL;
-    private int quantity;
+    private static int quantity;
 
     protected Product(Parcel in) {
         id = in.readInt();

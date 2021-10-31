@@ -7,8 +7,9 @@ import java.util.List;
 
 public class CartBrand implements Parcelable {
     private Brand brand;
-    private List<Product> productList;
-    private List<Integer> quantityList;
+//    private List<Product> productList;
+//    private List<Integer> quantityList;
+    private List<Cart> cartList;
 
     public CartBrand(){
 
@@ -16,7 +17,7 @@ public class CartBrand implements Parcelable {
 
     protected CartBrand(Parcel in) {
         setBrand(in.readParcelable(Brand.class.getClassLoader()));
-        setProductList(in.createTypedArrayList(Product.CREATOR));
+        setCartList(in.createTypedArrayList(Cart.CREATOR));
     }
 
     public static final Creator<CartBrand> CREATOR = new Creator<CartBrand>() {
@@ -39,7 +40,7 @@ public class CartBrand implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeParcelable(getBrand(), i);
-        parcel.writeTypedList(getProductList());
+        parcel.writeTypedList(getCartList());
     }
 
     public Brand getBrand() {
@@ -50,19 +51,11 @@ public class CartBrand implements Parcelable {
         this.brand = brand;
     }
 
-    public List<Product> getProductList() {
-        return productList;
+    public List<Cart> getCartList() {
+        return cartList;
     }
 
-    public void setProductList(List<Product> productList) {
-        this.productList = productList;
-    }
-
-    public List<Integer> getQuantityList() {
-        return quantityList;
-    }
-
-    public void setQuantityList(List<Integer> quantityList) {
-        this.quantityList = quantityList;
+    public void setCartList(List<Cart> cartList) {
+        this.cartList = cartList;
     }
 }

@@ -1,5 +1,7 @@
 package com.example.faloka_mobile.Cart;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Toast;
@@ -8,9 +10,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.faloka_mobile.Adapter.CartBrandAdapter;
+import com.example.faloka_mobile.Checkout.CheckoutActivity;
 import com.example.faloka_mobile.Model.Cart;
 import com.example.faloka_mobile.Model.CartBrand;
 import com.example.faloka_mobile.Model.Product;
+import com.example.faloka_mobile.Product.ProductDetailActivity;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.ActivityCartBinding;
 
@@ -108,7 +112,11 @@ public class CartViewModel implements CartItemListener, CartCheckedProductListen
         binding.footerCartCheckout.btnCheckoutNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(binding.getRoot().getContext(), CheckoutActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList(Product.EXTRA_PRODUCT, (ArrayList)checkedCartProduct);
+                intent.putExtras(bundle);
+                binding.getRoot().getContext().startActivity(intent);
             }
         });
     }

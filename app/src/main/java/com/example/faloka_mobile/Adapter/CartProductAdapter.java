@@ -18,7 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Cart.CartCheckedProductListener;
+import com.example.faloka_mobile.Model.Cart;
 import com.example.faloka_mobile.Model.Product;
+import com.example.faloka_mobile.Model.Variant;
 import com.example.faloka_mobile.R;
 
 import org.w3c.dom.Text;
@@ -36,12 +38,26 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
     private CartCheckedProductListener cartCheckedProductListener;
 //    private static int qty = 1;
 
-    public CartProductAdapter(List<Product> productList, List<Integer> quantityList, CartCheckedProductListener cartCheckedProductListener){
-        this.productList = productList;
+    public CartProductAdapter(List<Cart> cartList, CartCheckedProductListener cartCheckedProductListener){
+//        this.productList = productList;
+        initProductList(cartList);
 //        this.quantityList = quantityList;
         this.cartCheckedProductListener = cartCheckedProductListener;
         this.checkedProductList = new ArrayList<>(productList);
         cartCheckedProductListener.onCartProductChecked(checkedProductList, true, "");
+    }
+
+    public void initProductList(List<Cart> cartList){
+        productList = new ArrayList<>();
+        for(Cart cart : cartList){
+            Product product = cart.getProduct();
+            List<Variant> variantList = new ArrayList<>();
+            Variant variant = cart.getVariant();
+            variantList.add(variant);
+            product.setVariantList(variantList);
+            product.setQuantity(cart.getQuantity());
+            this.productList.add(product);
+        }
     }
 
     public void setBrandChecked(boolean isBrandChecked){
@@ -61,7 +77,7 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
         holder.tvCartProductName.setText(product.getName());
         holder.cbxCartProduct.setChecked(isBrandChecked);
         Glide.with(holder.imgCartProduct.getContext())
-                .load(ApiConfig.BASE_IMAGE_URL+product.getImageMixMatchURL() )
+                .load(ApiConfig.BASE_IMAGE_URL+product.getProductImageURL() )
                 .into(holder.imgCartProduct);
         holder.tvCartProductSize.setText(product.getSizeProduct());
         holder.tvCartProductPrice.setText(getFormatRupiah(product.getPrice()));

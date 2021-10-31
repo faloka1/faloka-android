@@ -42,7 +42,7 @@ public class CartBrandAdapter extends RecyclerView.Adapter<CartBrandAdapter.Cart
     public void onBindViewHolder(@NonNull CartBrandAdapter.CartBrandViewHolder holder, int position) {
         CartBrand cartBrand = cartBrandList.get(position);
         holder.cbxCartBrandName.setText(cartBrand.getBrand().getName());
-        CartProductAdapter cartProductAdapter = new CartProductAdapter(cartBrand.getProductList(), cartBrand.getQuantityList(), cartCheckedProductListener);
+        CartProductAdapter cartProductAdapter = new CartProductAdapter(cartBrand.getCartList(), cartCheckedProductListener);
         cartProductAdapter.setBrandChecked(isAllChecked);
         holder.rvCartBrand.setAdapter(cartProductAdapter);
         holder.rvCartBrand.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));

@@ -20,19 +20,28 @@ import com.bumptech.glide.Glide;
 import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Adapter.AddressAdapter;
 import com.example.faloka_mobile.Adapter.AddressAddAdapter;
+import com.example.faloka_mobile.Adapter.CartBrandAdapter;
+import com.example.faloka_mobile.Adapter.CheckoutBrandAdapter;
+import com.example.faloka_mobile.Cart.CartActivity;
 import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.Address;
+import com.example.faloka_mobile.Model.Brand;
+import com.example.faloka_mobile.Model.Cart;
+import com.example.faloka_mobile.Model.CartBrand;
 import com.example.faloka_mobile.Model.Courier;
 import com.example.faloka_mobile.Model.CourierService;
 import com.example.faloka_mobile.Model.OrderDetail;
 import com.example.faloka_mobile.Model.OrderUser;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.User;
+import com.example.faloka_mobile.Model.Variant;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.FragmentDeliveryBinding;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -49,7 +58,8 @@ public class DeliveryFragment extends Fragment{
     public static final String EXTRA_PRICE_EXPEDITION = "EXTRA_PRICE_EXPEDITION";
     public static final int DELIVERY_STEP = 0;
 
-    Product product;
+//    Product product;
+    List<Product> productList;
 //    Checkout checkout;
     CourierService courierService;
     Courier courier;
@@ -86,9 +96,13 @@ public class DeliveryFragment extends Fragment{
 
     private void setContentProduct(){
         if(getArguments() != null){
-            product = getArguments().getParcelable(Product.EXTRA_PRODUCT);
-            setProductOrder();
-            binding.tvDeliveryBrand.setText(product.getBrand().getName());
+            productList = getArguments().getParcelableArrayList(Product.EXTRA_PRODUCT);
+            Toast.makeText(view.getContext(), productList.get(0).getName(), Toast.LENGTH_SHORT).show();
+//            Product product;
+//            product = getArguments().getParcelable(Product.EXTRA_PRODUCT);
+            setProductOrder(productList);
+//            binding.tvDeliveryBrand.setText(product.getBrand().getName());
+//            productList.add(product);
             binding.tvDeliverySubtotalValue.setText(String.valueOf(getFormatRupiah(0 ) ));
         }
     }
@@ -118,30 +132,18 @@ public class DeliveryFragment extends Fragment{
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == DeliveryFragment.REQUEST_CHOOSE_DELIVERY && resultCode == RESULT_CHOOSE_DELIVERY){
-//            String result = data.getStringExtra(DeliveryFragment.EXTRA_CHOOSE_DELIVERY);
 
             Bundle bundle = data.getBundleExtra(DeliveryFragment.EXTRA_CHOOSE_DELIVERY);
             courier = bundle.getParcelable(Courier.EXTRA_COURIER);
             courierService = bundle.getParcelable(CourierService.EXTRA_COURIER_SERVICE);
-            totalOrder = product.getPrice()+courierService.getCost().get(0).getValue();
+//            totalOrder = product.getPrice()+courierService.getCost().get(0).getValue();
 
-//            String codeCourier = data.getStringExtra(DeliveryFragment.EXTRA_CODE_EXPEDITION);
-//            int priceCourier = data.getIntExtra(DeliveryFragment.EXTRA_PRICE_EXPEDITION, 0);
-//            int subTotal = product.getPrice() + priceCourier;
-//            Toast.makeText(getContext(), "HAHA"+result, Toast.LENGTH_SHORT).show();
             binding.tvDeliveryEkspedition.setText(courier.getName()+" "+courierService.getName());
             binding.tvDeliveryExpeditionPrice.setText(getFormatRupiah(courierService.getCost().get(0).getValue()));
             binding.tvDeliverySubtotalValue.setText(getFormatRupiah(totalOrder));
             TextView tvTotal = view.findViewById(R.id.tv_total_price);
             tvTotal.setText(getFormatRupiah(totalOrder));
-//            Button button = view.findViewById(R.id.btn_checkout_next);
-//            button.setEnabled(true);
-//            button.setBackgroundColor(getResources().getColor(R.color.black_faloka));
-//            checkout.setExpeditionName(courier.getCode());
-//            checkout.setQuantity(1);
-//            checkout.setShippingPrice(courierService.getCost().get(0).getValue());
-//            checkout.setServiceExpedition(courierService.getName());
-//            checkout.setProductID(product.getId());
+
             if(address != null){
                 binding.footerCheckout.btnCheckoutNext.setEnabled(true);
                 binding.footerCheckout.btnCheckoutNext.setTextColor(getResources().getColor(R.color.white));
@@ -154,20 +156,61 @@ public class DeliveryFragment extends Fragment{
         }
     }
 
-    private void setProductOrder(){
-        TextView tvOrderProductName = view.findViewById(R.id.tv_order_product_name);
-        TextView tvOrderProductPrice = view.findViewById(R.id.tv_order_product_price);
-        ImageView imgOrderProduct = view.findViewById(R.id.image_order_product);
-        TextView tvOrderProductSize = view.findViewById(R.id.tv_order_product_size_value);
+    private void setProductOrder(List<Product> productList){
+        List<CartBrand> cartBrandList = brandClassification(productList);
+        for(CartBrand cartBrand : cartBrandList){
+            System.out.println("Brand: "+cartBrand.getBrand().getName());
+            for(Cart cart : cartBrand.getCartList()){
+                System.out.println("\t"+cart.getProduct().getName());
+            }
+        }
+        System.out.println("SIZE: "+cartBrandList.size());
+        CheckoutBrandAdapter checkoutBrandAdapter = new CheckoutBrandAdapter(cartBrandList);
+        binding.rvCheckoutBrand.setAdapter(checkoutBrandAdapter);
+        binding.rvCheckoutBrand.setLayoutManager(new LinearLayoutManager(view.getContext()));
+//        TextView tvOrderProductName = view.findViewById(R.id.tv_order_product_name);
+//        TextView tvOrderProductPrice = view.findViewById(R.id.tv_order_product_price);
+//        ImageView imgOrderProduct = view.findViewById(R.id.image_order_product);
+//        TextView tvOrderProductSize = view.findViewById(R.id.tv_order_product_size_value);
 
-        tvOrderProductSize.setText(product.getSizeProduct());
-        tvOrderProductPrice.setText(String.valueOf(getFormatRupiah(product.getPrice())));
-        tvOrderProductName.setText(product.getName());
-
-        Glide.with(imgOrderProduct.getContext())
-                .load(ApiConfig.BASE_IMAGE_URL+product.getProductImageURL())
-                .into(imgOrderProduct);
+//        tvOrderProductSize.setText(product.getSizeProduct());
+//        tvOrderProductPrice.setText(String.valueOf(getFormatRupiah(product.getPrice())));
+//        tvOrderProductName.setText(product.getName());
+//
+//        Glide.with(imgOrderProduct.getContext())
+//                .load(ApiConfig.BASE_IMAGE_URL+product.getProductImageURL())
+//                .into(imgOrderProduct);
 //        checkout.setVariantID(product.getVariantList().get(0).getId());
+    }
+
+    public static final List<CartBrand> brandClassification(List<Product> productList){
+        List<CartBrand> cartBrandList = new ArrayList<>();
+        HashSet<Brand> brandNames = new HashSet<>();
+
+        for(Product product : productList){
+            brandNames.add(product.getBrand());
+        }
+        Iterator it = brandNames.iterator();
+        while (it.hasNext()){
+            Brand brand = (Brand) it.next();
+            CartBrand cartBrand = new CartBrand();
+//            List<Product> productListTemp = new ArrayList<>();
+            List<Cart> cartList = new ArrayList<>();
+            cartBrand.setBrand(brand);
+            for(Product product : productList){
+                if(brand.getName().equals(product.getBrand().getName())){
+                    Cart cart = new Cart();
+                    cart.setProduct(product);
+                    cartList.add(cart);
+//                    productListTemp.add(product);
+                }
+            }
+            cartBrand.setCartList(cartList);
+//            cartBrand.setProductList(productListTemp);
+            cartBrandList.add(cartBrand);
+        }
+
+        return cartBrandList;
     }
 
     private void setAddressSection(){
@@ -224,15 +267,6 @@ public class DeliveryFragment extends Fragment{
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-//                Order order = new Order();
-//                order.setCheckout(checkout);
-//                order.setProduct(product);
-//                order.setAddress(address);
-//                order.setCourier(courier);
-//                order.setCourierService(courierService);
-//                order.setTotalOrder(totalOrder);
-
                 OrderUser orderUser = new OrderUser();
                 orderUser.setShippingPrice(courierService.getCost().get(0).getValue());
                 orderUser.setService(courierService.getName());
@@ -240,8 +274,8 @@ public class DeliveryFragment extends Fragment{
                 orderUser.setAddressID(address.getId());
                 List<OrderDetail> orderDetailList = new ArrayList<>();
                 OrderDetail orderDetail = new OrderDetail();
-                orderDetail.setProduct(product);
-                orderDetail.setVariant(product.getVariantList().get(0));
+//                orderDetail.setProduct(product);
+//                orderDetail.setVariant(product.getVariantList().get(0));
                 orderDetail.setQuantity(1);
                 orderDetailList.add(orderDetail);
                 orderUser.setOrderDetailList(orderDetailList);
