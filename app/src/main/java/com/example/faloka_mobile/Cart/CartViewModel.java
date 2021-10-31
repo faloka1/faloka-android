@@ -2,6 +2,7 @@ package com.example.faloka_mobile.Cart;
 
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,6 +11,7 @@ import com.example.faloka_mobile.Adapter.CartBrandAdapter;
 import com.example.faloka_mobile.Model.Cart;
 import com.example.faloka_mobile.Model.CartBrand;
 import com.example.faloka_mobile.Model.Product;
+import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.ActivityCartBinding;
 
 import java.text.NumberFormat;
@@ -94,6 +96,21 @@ public class CartViewModel implements CartItemListener, CartCheckedProductListen
             System.out.println("\n"+mode+" CHECKED: "+product.getName()+" "+product.getId());
         }
         setTotalProduct(checkedCartProduct);
+        setFooterCart(checkedCartProduct);
+    }
+
+    public void setFooterCart(List<Product> productList){
+        int total = CartActivity.getTotal(productList);
+        binding.footerCartCheckout.btnCheckoutNext.setEnabled(true);
+        binding.footerCartCheckout.btnCheckoutNext.setBackgroundResource(R.color.netral_900);
+        binding.footerCartCheckout.btnCheckoutNext.setTextColor(activity.getResources().getColor(R.color.white));
+        binding.footerCartCheckout.tvCartTotalCart.setText(getFormatRupiah(total));
+        binding.footerCartCheckout.btnCheckoutNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
 }
