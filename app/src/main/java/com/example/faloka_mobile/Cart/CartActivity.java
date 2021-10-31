@@ -26,7 +26,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
-public class CartActivity extends AppCompatActivity implements CartItemListener{
+public class CartActivity extends AppCompatActivity{
     private ActivityCartBinding binding;
     private View view;
     @Override
@@ -36,7 +36,6 @@ public class CartActivity extends AppCompatActivity implements CartItemListener{
         view = binding.getRoot();
         setContentView(view);
         CartViewModel cartViewModel = new CartViewModel(binding, this);
-        CartRepository.getCarts(view, this::onCart);
         cartViewModel.setToolbar();
     }
 
@@ -64,29 +63,7 @@ public class CartActivity extends AppCompatActivity implements CartItemListener{
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onCart(List<Cart> cartList) {
-        List<CartBrand> cartBrandList = brandClassification(cartList);
-        CartBrandAdapter cartBrandAdapter = new CartBrandAdapter(cartBrandList);
-        cartBrandAdapter.setAllChecked(true);
-        binding.rvCartBrandProduct.setAdapter(cartBrandAdapter);
-        binding.rvCartBrandProduct.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        binding.cbxSelectAll.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(compoundButton.isChecked()){
-                    cartBrandAdapter.setAllChecked(true);
-                }
-                else {
-                    cartBrandAdapter.setAllChecked(false);
-                }
-                binding.rvCartBrandProduct.setAdapter(cartBrandAdapter);
-                binding.rvCartBrandProduct.setLayoutManager(new LinearLayoutManager(view.getContext()));
-            }
-        });
-    }
-
-    public List<CartBrand> brandClassification(List<Cart> cartList){
+    public static final List<CartBrand> brandClassification(List<Cart> cartList){
         List<CartBrand> cartBrandList = new ArrayList<>();
         HashSet<Brand> brandNames = new HashSet<>();
 
@@ -98,6 +75,7 @@ public class CartActivity extends AppCompatActivity implements CartItemListener{
             Brand brand = (Brand) it.next();
             CartBrand cartBrand = new CartBrand();
             List<Product> productList = new ArrayList<>();
+//            List<Integer> quantityList = new ArrayList<>();
             cartBrand.setBrand(brand);
             for(Cart cart : cartList){
                 if(brand.getName().equals(cart.getProduct().getBrand().getName())){
@@ -106,26 +84,26 @@ public class CartActivity extends AppCompatActivity implements CartItemListener{
                     Variant variant = cart.getVariant();
                     variantList.add(variant);
                     product.setVariantList(variantList);
+                    product.setQuantity(cart.getQuantity());
                     productList.add(product);
+//                    quantityList.add(cart.getQuantity());
                 }
             }
             cartBrand.setProductList(productList);
+//            cartBrand.setQuantityList(quantityList);
             cartBrandList.add(cartBrand);
-//            System.out.println("ASASA: "+cartBrandList.get(0).getProductList().get(0).getProductImageURL());
         }
-//        System.out.println("KAKKA: "+cartBrandList.get(0).getProductList().get(0).getSizeProduct());
-
-
-//        for(CartBrand cartBrand : cartBrandList){
-//            System.out.println(cartBrand.getBrand().getName());
-//            for (Product product : cartBrand.getProductList()){
-//                System.out.print(product.getName()+" ");
-////                System.out.println(product.getProductImageURL());
-//            }
-//            System.out.println("\n");
-//        }
 
         return cartBrandList;
+    }
+
+    public static final int getTotal(List<Product> productList){
+        int total = 0;
+        for(Product product : productList){
+            int sub = product.getQuantity() * product.getPrice();
+            total += sub;
+        }
+        return total;
     }
 
 }

@@ -8,6 +8,7 @@ import java.util.List;
 public class CartBrand implements Parcelable {
     private Brand brand;
     private List<Product> productList;
+    private List<Integer> quantityList;
 
     public CartBrand(){
 
@@ -55,5 +56,13 @@ public class CartBrand implements Parcelable {
 
     public void setProductList(List<Product> productList) {
         this.productList = productList;
+    }
+
+    public List<Integer> getQuantityList() {
+        return quantityList;
+    }
+
+    public void setQuantityList(List<Integer> quantityList) {
+        this.quantityList = quantityList;
     }
 }

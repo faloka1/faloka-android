@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.faloka_mobile.Cart.CartCheckedProductListener;
 import com.example.faloka_mobile.Model.CartBrand;
 import com.example.faloka_mobile.R;
 
@@ -19,9 +20,11 @@ public class CartBrandAdapter extends RecyclerView.Adapter<CartBrandAdapter.Cart
 
     private List<CartBrand> cartBrandList;
     private boolean isAllChecked;
+    private CartCheckedProductListener cartCheckedProductListener;
 
-    public CartBrandAdapter(List<CartBrand> cartBrandList){
+    public CartBrandAdapter(List<CartBrand> cartBrandList, CartCheckedProductListener cartCheckedProductListener){
         this.cartBrandList = cartBrandList;
+        this.cartCheckedProductListener = cartCheckedProductListener;
     }
 
     public void setAllChecked(boolean isAllChecked){
@@ -39,7 +42,7 @@ public class CartBrandAdapter extends RecyclerView.Adapter<CartBrandAdapter.Cart
     public void onBindViewHolder(@NonNull CartBrandAdapter.CartBrandViewHolder holder, int position) {
         CartBrand cartBrand = cartBrandList.get(position);
         holder.cbxCartBrandName.setText(cartBrand.getBrand().getName());
-        CartProductAdapter cartProductAdapter = new CartProductAdapter(cartBrand.getProductList());
+        CartProductAdapter cartProductAdapter = new CartProductAdapter(cartBrand.getProductList(), cartBrand.getQuantityList(), cartCheckedProductListener);
         cartProductAdapter.setBrandChecked(isAllChecked);
         holder.rvCartBrand.setAdapter(cartProductAdapter);
         holder.rvCartBrand.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));

@@ -26,6 +26,7 @@ public class Product implements Parcelable {
     private String slug;
     @SerializedName("mix_and_match_image")
     private String imageMixMatchURL;
+    private int quantity;
 
     protected Product(Parcel in) {
         id = in.readInt();
@@ -38,6 +39,7 @@ public class Product implements Parcelable {
         discount = in.readFloat();
         slug = in.readString();
         imageMixMatchURL = in.readString();
+        setQuantity(in.readInt());
     }
 
     public static final Creator<Product> CREATOR = new Creator<Product>() {
@@ -176,5 +178,14 @@ public class Product implements Parcelable {
         parcel.writeFloat(discount);
         parcel.writeString(slug);
         parcel.writeString(imageMixMatchURL);
+        parcel.writeInt(getQuantity());
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }
