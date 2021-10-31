@@ -23,6 +23,7 @@ import com.example.faloka_mobile.Adapter.AddressAddAdapter;
 import com.example.faloka_mobile.Adapter.CartBrandAdapter;
 import com.example.faloka_mobile.Adapter.CheckoutBrandAdapter;
 import com.example.faloka_mobile.Cart.CartActivity;
+import com.example.faloka_mobile.Cart.CartRepository;
 import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.Address;
 import com.example.faloka_mobile.Model.Brand;
@@ -59,7 +60,8 @@ public class DeliveryFragment extends Fragment{
     public static final int DELIVERY_STEP = 0;
 
 //    Product product;
-    List<Product> productList;
+//    List<Product> productList;
+    List<Cart> cartList;
 //    Checkout checkout;
     CourierService courierService;
     Courier courier;
@@ -96,11 +98,12 @@ public class DeliveryFragment extends Fragment{
 
     private void setContentProduct(){
         if(getArguments() != null){
-            productList = getArguments().getParcelableArrayList(Product.EXTRA_PRODUCT);
-            Toast.makeText(view.getContext(), productList.get(0).getName(), Toast.LENGTH_SHORT).show();
+            cartList = getArguments().getParcelableArrayList(Product.EXTRA_PRODUCT);
+//            productList = getArguments().getParcelableArrayList(Product.EXTRA_PRODUCT);
+//            Toast.makeText(view.getContext(), productList.get(0).getName(), Toast.LENGTH_SHORT).show();
 //            Product product;
 //            product = getArguments().getParcelable(Product.EXTRA_PRODUCT);
-            setProductOrder(productList);
+            setProductOrder(cartList);
 //            binding.tvDeliveryBrand.setText(product.getBrand().getName());
 //            productList.add(product);
             binding.tvDeliverySubtotalValue.setText(String.valueOf(getFormatRupiah(0 ) ));
@@ -156,8 +159,9 @@ public class DeliveryFragment extends Fragment{
         }
     }
 
-    private void setProductOrder(List<Product> productList){
-        List<CartBrand> cartBrandList = brandClassification(productList);
+    private void setProductOrder(List<Cart> cartList){
+//        List<CartBrand> cartBrandList = brandClassification(initProductList(cartList));
+        List<CartBrand> cartBrandList = CartActivity.brandClassification(cartList);
         for(CartBrand cartBrand : cartBrandList){
             System.out.println("Brand: "+cartBrand.getBrand().getName());
             for(Cart cart : cartBrand.getCartList()){
@@ -182,6 +186,19 @@ public class DeliveryFragment extends Fragment{
 //                .into(imgOrderProduct);
 //        checkout.setVariantID(product.getVariantList().get(0).getId());
     }
+
+//    public List<Product> initProductList(List<Cart> cartList){
+//        List<Product> productList = new ArrayList<>();
+//        for(Cart cart : cartList){
+//            Product product = cart.getProduct();
+//            product.setQuantity(cart.getQuantity());
+//            List<Variant> variantList = new ArrayList<>();
+//            variantList.add(cart.getVariant());
+//            product.setVariantList(variantList);
+//            productList.add(product);
+//        }
+//        return productList;
+//    }
 
     public static final List<CartBrand> brandClassification(List<Product> productList){
         List<CartBrand> cartBrandList = new ArrayList<>();

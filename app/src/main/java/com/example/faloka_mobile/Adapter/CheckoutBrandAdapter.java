@@ -36,18 +36,18 @@ public class CheckoutBrandAdapter extends RecyclerView.Adapter<CheckoutBrandAdap
     public void onBindViewHolder(@NonNull CheckoutBrandAdapter.OrderBrandViewHolder holder, int position) {
         CartBrand cartBrand = cartBrandList.get(position);
         holder.tvCheckoutBrandName.setText(cartBrand.getBrand().getName());
-        CheckoutProductAdapter checkoutProductAdapter = new CheckoutProductAdapter(initProductList(cartBrand.getCartList()));
+        CheckoutProductAdapter checkoutProductAdapter = new CheckoutProductAdapter(cartBrand.getCartList());
         holder.rvCheckoutProduct.setAdapter(checkoutProductAdapter);
         holder.rvCheckoutProduct.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
     }
 
-    public List<Product> initProductList(List<Cart> cartList){
-        List<Product> productList = new ArrayList<>();
-        for(Cart cart : cartList){
-            productList.add(cart.getProduct());
-        }
-        return productList;
-    }
+//    public List<Product> initProductList(List<Cart> cartList){
+//        List<Product> productList = new ArrayList<>();
+//        for(Cart cart : cartList){
+//            productList.add(cart.getProduct());
+//        }
+//        return productList;
+//    }
 
     @Override
     public int getItemCount() {

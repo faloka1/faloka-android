@@ -14,6 +14,7 @@ import com.example.faloka_mobile.Checkout.CheckoutActivity;
 import com.example.faloka_mobile.Model.Cart;
 import com.example.faloka_mobile.Model.CartBrand;
 import com.example.faloka_mobile.Model.Product;
+import com.example.faloka_mobile.Model.Variant;
 import com.example.faloka_mobile.Product.ProductDetailActivity;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.ActivityCartBinding;
@@ -124,5 +125,21 @@ public class CartViewModel implements CartItemListener, CartCheckedProductListen
             }
         });
     }
+
+//    public List<Product> initProductList(List<Cart> cartList){
+//        List<Product> productList = new ArrayList<>();
+//        for(Cart cart : cartList){
+//            Product product = cart.getProduct();
+//            product.setQuantity(cart.getQuantity());
+//            List<Variant> variantList = new ArrayList<>();
+//            variantList.add(cart.getVariant());
+//            product.setVariantList(variantList);
+//            productList.add(product);
+//            System.out.println("PSPSP: "+product.getQuantity()+" VS "+cart.getQuantity());
+//        }
+////        for(Product product : productList){
+////        }
+//        return productList;
+//    }
 
 }

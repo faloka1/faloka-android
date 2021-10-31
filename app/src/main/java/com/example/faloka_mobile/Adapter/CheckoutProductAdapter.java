@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.faloka_mobile.API.ApiConfig;
+import com.example.faloka_mobile.Model.Cart;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.R;
 
@@ -20,10 +21,11 @@ import java.util.Locale;
 
 public class CheckoutProductAdapter extends RecyclerView.Adapter<CheckoutProductAdapter.CheckoutProductViewHolder>{
 
-    List<Product> productList;
+//    List<Product> productList;
+    List<Cart> cartList;
 
-    public CheckoutProductAdapter(List<Product> productList){
-        this.productList = productList;
+    public CheckoutProductAdapter(List<Cart> cartList){
+        this.cartList = cartList;
     }
 
     @NonNull
@@ -35,14 +37,15 @@ public class CheckoutProductAdapter extends RecyclerView.Adapter<CheckoutProduct
 
     @Override
     public void onBindViewHolder(@NonNull CheckoutProductAdapter.CheckoutProductViewHolder holder, int position) {
-        Product product = productList.get(position);
+//        Product product = productList.get(position);
+        Cart cart = cartList.get(position);
         Glide.with(holder.imageOrderProduct.getContext())
-                .load(ApiConfig.BASE_IMAGE_URL+product.getProductImageURL() )
+                .load(ApiConfig.BASE_IMAGE_URL+cart.getVariant().getVariantImageList().get(0).getImageURL())
                 .into(holder.imageOrderProduct);
-        holder.tvOrderProductName.setText(product.getName());
-        holder.tvOrderProductPrice.setText(getFormatRupiah(product.getPrice()));
-        holder.tvOrderProductSizeValue.setText(product.getSizeProduct());
-        holder.tvCheckoutProductQty.setText(String.valueOf(product.getQuantity())+"x");
+        holder.tvOrderProductName.setText(cart.getProduct().getName());
+        holder.tvOrderProductPrice.setText(getFormatRupiah(cart.getProduct().getPrice()));
+        holder.tvOrderProductSizeValue.setText(cart.getVariant().getName());
+        holder.tvCheckoutProductQty.setText(String.valueOf(cart.getQuantity())+"x");
     }
 
     public String getFormatRupiah(int price){
@@ -54,7 +57,7 @@ public class CheckoutProductAdapter extends RecyclerView.Adapter<CheckoutProduct
 
     @Override
     public int getItemCount() {
-        return this.productList.size();
+        return this.cartList.size();
     }
 
     public class CheckoutProductViewHolder extends RecyclerView.ViewHolder {
