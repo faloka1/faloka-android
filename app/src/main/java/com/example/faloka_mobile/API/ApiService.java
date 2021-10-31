@@ -143,7 +143,12 @@ public interface ApiService {
     @POST("cart")
     Call<Message> addCart(@Header("Authorization") String auth, @Body BodyCart bodyCart);
 
-
+    @PATCH("cart/{cart_id}")
+    Call<Message> editCartQuantity(
+            @Header("Authorization") String auth,
+            @Path("cart_id") int cartID,
+            @Query("quantity") int quantity
+    );
 
 }
 

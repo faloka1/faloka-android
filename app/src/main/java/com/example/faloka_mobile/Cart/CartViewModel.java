@@ -28,7 +28,7 @@ public class CartViewModel implements CartItemListener, CartCheckedProductListen
     private AppCompatActivity activity;
     private ActivityCartBinding binding;
     private View view;
-    private List<Product> checkedCartProduct;
+    private List<Cart> checkedCartProduct;
 
     public CartViewModel(ActivityCartBinding binding, AppCompatActivity activity){
         this.activity = activity;
@@ -44,8 +44,8 @@ public class CartViewModel implements CartItemListener, CartCheckedProductListen
         activity.getSupportActionBar().setTitle("Tas");
     }
 
-    public void setTotalProduct(List<Product> productList){
-        int total = CartActivity.getTotal(productList);
+    public void setTotalProduct(List<Cart> cartList){
+        int total = CartActivity.getTotal(cartList);
         binding.tvCartTotalProduct.setText(getFormatRupiah(total));
         binding.tvCartSubTotal.setText(getFormatRupiah(total));
 
@@ -81,30 +81,34 @@ public class CartViewModel implements CartItemListener, CartCheckedProductListen
     }
 
     @Override
-    public void onCartProductChecked(List<Product> productList, boolean mode, String slug) {
+    public void onCartProductChecked(List<Cart> productList, boolean mode, int cartID) {
         if(mode){
-            for(Product product : productList){
-                this.checkedCartProduct.add(product);
+            for(Cart cart : productList){
+                this.checkedCartProduct.add(cart);
             }
         }
         else {
             for(int i=0; i<this.checkedCartProduct.size(); i++){
-                Product productChecked = checkedCartProduct.get(i);
-                if(productChecked.getSlug().equals(slug)){
+                Cart cartChecked = checkedCartProduct.get(i);
+                if(cartChecked.getId() == cartID){
                     checkedCartProduct.remove(i);
-                    System.out.println("REMOVe: "+productChecked.getSlug());
                 }
+//                Product productChecked = checkedCartProduct.get(i);
+//                if(productChecked.getSlug().equals(slug)){
+//                    checkedCartProduct.remove(i);
+//                    System.out.println("REMOVe: "+productChecked.getSlug());
+//                }
             }
         }
-        for(Product product : this.checkedCartProduct){
-            System.out.println("\n"+mode+" CHECKED: "+product.getName()+" "+product.getId());
+        for(Cart cart : this.checkedCartProduct){
+            System.out.println("\n"+mode+" CHECKED: "+cart.getProduct().getName()+" "+cart.getId());
         }
         setTotalProduct(checkedCartProduct);
         setFooterCart(checkedCartProduct);
     }
 
-    public void setFooterCart(List<Product> productList){
-        int total = CartActivity.getTotal(productList);
+    public void setFooterCart(List<Cart> cartList){
+        int total = CartActivity.getTotal(cartList);
         binding.footerCartCheckout.btnCheckoutNext.setEnabled(true);
         binding.footerCartCheckout.btnCheckoutNext.setBackgroundResource(R.color.netral_900);
         binding.footerCartCheckout.btnCheckoutNext.setTextColor(activity.getResources().getColor(R.color.white));

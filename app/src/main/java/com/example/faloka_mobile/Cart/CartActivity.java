@@ -87,10 +87,10 @@ public class CartActivity extends AppCompatActivity{
         return cartBrandList;
     }
 
-    public static final int getTotal(List<Product> productList){
+    public static final int getTotal(List<Cart> cartList){
         int total = 0;
-        for(Product product : productList){
-            int sub = product.getQuantity() * product.getPrice();
+        for(Cart cart : cartList){
+            int sub = cart.getQuantity() * cart.getProduct().getPrice();
             total += sub;
         }
         return total;

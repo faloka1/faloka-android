@@ -90,4 +90,26 @@ public class CartRepository {
         });
     }
 
+    public static final void editCartQuantity(View view, int cartID, int quantity){
+        TokenManager tokenManager = TokenManager.getInstance(view.getContext().getSharedPreferences("Token",0));
+        Call<Message> callEditCartQuantity = ApiConfig.getApiService(tokenManager).editCartQuantity(tokenManager.getTypeToken()+" "+tokenManager.getToken(), cartID, quantity );
+
+        callEditCartQuantity.enqueue(new Callback<Message>() {
+            @Override
+            public void onResponse(Call<Message> call, Response<Message> response) {
+                if(response.isSuccessful()){
+                    Message message = response.body();
+                    Snackbar.make(view, message.getMessage(), Snackbar.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(view.getContext(), "FAIL RESPONSE", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Message> call, Throwable t) {
+                Toast.makeText(view.getContext(), "FAIL API", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }
