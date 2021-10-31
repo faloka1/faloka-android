@@ -38,7 +38,7 @@ public class NotYetPaidFragment extends Fragment implements OrderUserListener {
                              Bundle savedInstanceState) {
         binding = FragmentNotYetPaidBinding.inflate(inflater, container, false);
         view = binding.getRoot();
-        AccountRepository.getOrders("Pending", view, this::onOrder);
+        AccountRepository.getOrders("unpaid", view, this::onOrder);
         return view;
     }
 

@@ -166,9 +166,9 @@
         </LinearLayout>
     </ScrollView>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/layout_bottom"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="65dp"
         android:background="@color/netral_100"
         android:paddingHorizontal="20dp"
@@ -179,11 +179,39 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
+            android:id="@+id/btn_cart"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/button_black_border"
+            android:gravity="center"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:text="Masukkan tas"
+            android:textColor="@color/black"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <Button
             android:id="@+id/btn_buy_now"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="4dp"
             android:background="@color/netral_900"
+            android:gravity="center"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             android:text="Beli Sekarang"
-            android:textColor="@color/netral_100" />
-    </LinearLayout>
+            android:textColor="@color/netral_100"
+            tools:ignore="TouchTargetSizeCheck" />
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

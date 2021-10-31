@@ -34,7 +34,7 @@ public class WaitConfirmationFragment extends Fragment implements OrderUserListe
                              Bundle savedInstanceState) {
         binding = FragmentNotYetPaidBinding.inflate(inflater, container, false);
         view = binding.getRoot();
-        AccountRepository.getOrders("dikirim", view, this::onOrder);
+        AccountRepository.getOrders("pending", view, this::onOrder);
         return view;
     }
 
