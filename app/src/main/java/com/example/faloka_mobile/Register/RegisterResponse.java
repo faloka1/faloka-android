@@ -3,12 +3,15 @@ package com.example.faloka_mobile.Register;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.faloka_mobile.Model.RegisterError;
 import com.example.faloka_mobile.Model.User;
 
 public class RegisterResponse implements Parcelable {
 
     private String message;
     private User user;
+
+    public RegisterResponse(){}
 
     protected RegisterResponse(Parcel in) {
         setMessage(in.readString());
@@ -38,6 +41,7 @@ public class RegisterResponse implements Parcelable {
         parcel.writeParcelable(getUser(), i);
     }
 
+
     public String getMessage() {
         return message;
     }
@@ -53,4 +57,7 @@ public class RegisterResponse implements Parcelable {
     public void setUser(User user) {
         this.user = user;
     }
+
+
+
 }

@@ -5,243 +5,238 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/header_faloka"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="#323232"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/josefin_sans"
-            android:text="Faloka"
-            android:textAlignment="center"
-            android:textColor="#ECECEC"
-            android:textSize="48sp" />
-    </LinearLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/header_faloka"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="-70dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="0dp"
-        android:background="@drawable/round_corner_top">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
+            android:id="@+id/header_faloka"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_height="200dp"
+            android:background="#323232"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tv_title_register"
+                android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="24dp"
-                android:fontFamily="@font/josefin_sans_semibold"
-                android:text="Daftar"
+                android:layout_marginTop="40dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/josefin_sans"
+                android:text="Faloka"
                 android:textAlignment="center"
-                android:textColor="@color/black_faloka"
-                android:textSize="28sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textColor="#ECECEC"
+                android:textSize="48sp" />
+        </LinearLayout>
 
-            <EditText
-                android:id="@+id/edt_reg_name"
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/header_faloka"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="-70dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="0dp"
+            android:background="@drawable/round_corner_top">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="#F1F1F1"
-                android:drawableStart="@drawable/ic_svg_user"
-                android:drawablePadding="10dp"
-                android:ems="10"
-                android:fontFamily="@font/roboto_medium"
-                android:hint="Nama"
-                android:inputType="textPersonName"
-                android:padding="10dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="50dp"
-                android:textColor="@color/black_faloka"
-                android:textColorHint="#C5C5C5"
-                app:layout_constraintEnd_toEndOf="@+id/tv_title_register"
-                app:layout_constraintStart_toStartOf="@+id/tv_title_register"
-                app:layout_constraintTop_toBottomOf="@+id/tv_title_register" />
+                android:layout_height="match_parent"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="16dp">
 
-            <EditText
-                android:id="@+id/edt_reg_email"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:background="#F1F1F1"
-                android:drawableStart="@drawable/ic_svg_carbon_email"
-                android:drawablePadding="10dp"
-                android:ems="10"
-                android:fontFamily="@font/roboto_medium"
-                android:hint="Email"
-                android:inputType="textPersonName"
-                android:padding="10dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="50dp"
-                android:textColor="@color/black_faloka"
-                android:textColorHint="#C5C5C5"
-                app:layout_constraintEnd_toEndOf="@+id/spinner_gender"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="@+id/spinner_gender"
-                app:layout_constraintTop_toBottomOf="@+id/spinner_gender" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_edt_reg_name"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:hint="Nama"
+                    app:endIconMode="clear_text"
+                    app:errorEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_register"
+                    app:startIconDrawable="@drawable/ic_svg_user">
 
-            <EditText
-                android:id="@+id/edt_reg_phone"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:background="#F1F1F1"
-                android:drawableStart="@android:drawable/ic_menu_call"
-                android:drawablePadding="10dp"
-                android:ems="10"
-                android:fontFamily="@font/roboto_medium"
-                android:hint="Phone"
-                android:inputType="number"
-                android:padding="10dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="50dp"
-                android:textColor="@color/black_faloka"
-                android:textColorHint="#C5C5C5"
-                app:layout_constraintEnd_toEndOf="@+id/spinner_gender"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/spinner_gender"
-                app:layout_constraintTop_toBottomOf="@+id/edt_reg_email" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_reg_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="textPersonName" />
 
-            <Spinner
-                android:id="@+id/spinner_gender"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="12dp"
-                android:background="#F1F1F1"
-                android:backgroundTint="#F1F1F1"
-                android:entries="@array/gender_array"
-                android:padding="10dp"
-                android:paddingStart="36dp"
-                android:spinnerMode="dropdown"
-                app:layout_constraintEnd_toEndOf="@+id/edt_reg_name"
-                app:layout_constraintStart_toStartOf="@+id/edt_reg_name"
-                app:layout_constraintTop_toBottomOf="@+id/edt_reg_name" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/spinner_gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:hint="Jenis kelamin"
+                    app:errorEnabled="true"
+                    app:startIconDrawable="@drawable/ic_svg_femenine"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    app:layout_constraintEnd_toEndOf="@+id/layout_edt_reg_name"
+                    app:layout_constraintStart_toStartOf="@+id/layout_edt_reg_name"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_edt_reg_name">
 
-            <Button
-                android:id="@+id/btn_reg_register"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="@color/black_faloka"
-                android:fontFamily="@font/roboto_medium"
-                android:text="Daftar"
-                android:textAllCaps="false"
-                android:textColor="#FAFAFA"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="@+id/edt_reg_confirm_pass"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/edt_reg_confirm_pass"
-                app:layout_constraintTop_toBottomOf="@+id/edt_reg_confirm_pass" />
+                    <AutoCompleteTextView
+                        android:id="@+id/autoComplete_spinner_gender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/netral_900"
+                        android:enabled="false"/>
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                app:layout_constraintBottom_toBottomOf="@+id/spinner_gender"
-                app:layout_constraintStart_toStartOf="@+id/spinner_gender"
-                app:layout_constraintTop_toTopOf="@+id/spinner_gender"
-                app:srcCompat="@drawable/ic_svg_femenine" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                app:layout_constraintBottom_toBottomOf="@+id/spinner_gender"
-                app:layout_constraintEnd_toEndOf="@+id/spinner_gender"
-                app:layout_constraintTop_toTopOf="@+id/spinner_gender" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_edt_reg_email"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:hint="Email"
+                    app:endIconMode="clear_text"
+                    app:errorEnabled="true"
+                    app:layout_constraintEnd_toEndOf="@+id/spinner_gender"
+                    app:layout_constraintStart_toStartOf="@+id/spinner_gender"
+                    app:layout_constraintTop_toBottomOf="@+id/spinner_gender"
+                    app:startIconDrawable="@drawable/ic_svg_carbon_email">
 
-            <EditText
-                android:id="@+id/edt_reg_password"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:background="#F1F1F1"
-                android:drawableStart="@drawable/ic_svg_carbon_password"
-                android:drawablePadding="10dp"
-                android:ems="10"
-                android:fontFamily="@font/roboto_medium"
-                android:hint="Kata Sandi"
-                android:inputType="textPassword"
-                android:padding="10dp"
-                android:textColorHint="#C5C5C5"
-                app:layout_constraintEnd_toEndOf="@+id/edt_reg_email"
-                app:layout_constraintStart_toStartOf="@+id/edt_reg_email"
-                app:layout_constraintTop_toBottomOf="@+id/edt_reg_phone" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_reg_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="textEmailAddress" />
 
-            <EditText
-                android:id="@+id/edt_reg_confirm_pass"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:background="#F1F1F1"
-                android:drawableStart="@drawable/ic_svg_carbon_password"
-                android:drawablePadding="10dp"
-                android:ems="10"
-                android:fontFamily="@font/roboto_medium"
-                android:hint="Konfirmasi Kata Sandi"
-                android:inputType="textPassword"
-                android:padding="10dp"
-                android:textColorHint="#C5C5C5"
-                app:layout_constraintEnd_toEndOf="@+id/edt_reg_password"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/edt_reg_password"
-                app:layout_constraintTop_toBottomOf="@+id/edt_reg_password" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="36dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginBottom="24dp"
-                android:text="Sudah punya akun?"
-                android:textColor="#878787"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/btn_reg_register"
-                app:layout_constraintTop_toBottomOf="@+id/btn_reg_register" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_edt_reg_phone"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:hint="Nomor Telepon"
+                    app:errorEnabled="true"
+                    app:layout_constraintEnd_toEndOf="@+id/layout_edt_reg_email"
+                    app:layout_constraintStart_toStartOf="@+id/layout_edt_reg_email"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_edt_reg_email"
+                    app:prefixText="+62"
+                    app:startIconDrawable="@drawable/ic_svg_carbon_email">
 
-            <TextView
-                android:id="@+id/tv_reg_login"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="Masuk Disini"
-                android:textColor="@color/black_faloka"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView"
-                app:layout_constraintStart_toEndOf="@+id/textView"
-                app:layout_constraintTop_toTopOf="@+id/textView" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_reg_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="phone" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+                </com.google.android.material.textfield.TextInputLayout>
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_edt_reg_password"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:hint="Password"
+                    app:errorEnabled="true"
+                    app:layout_constraintEnd_toEndOf="@+id/layout_edt_reg_phone"
+                    app:layout_constraintStart_toStartOf="@+id/layout_edt_reg_phone"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_edt_reg_phone"
+                    app:endIconMode="password_toggle"
+                    app:startIconDrawable="@drawable/ic_svg_carbon_password">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_reg_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="textPassword" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_edt_reg_confirm_password"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:hint="Konfirmasi Password"
+                    app:endIconMode="password_toggle"
+                    app:errorEnabled="true"
+                    app:layout_constraintEnd_toEndOf="@+id/layout_edt_reg_password"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/layout_edt_reg_password"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_edt_reg_password"
+                    app:startIconDrawable="@drawable/ic_svg_carbon_password">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_reg_confirm_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="textPassword" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <TextView
+                    android:id="@+id/tv_title_register"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/josefin_sans_semibold"
+                    android:text="Daftar"
+                    android:textAlignment="center"
+                    android:textColor="@color/black_faloka"
+                    android:textSize="28sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/btn_reg_register"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/black_faloka"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Daftar"
+                    android:textAllCaps="false"
+                    android:textColor="#FAFAFA"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="@+id/layout_edt_reg_confirm_password"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/layout_edt_reg_confirm_password"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_edt_reg_confirm_password" />
+
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="24dp"
+                    android:text="Sudah punya akun?"
+                    android:textColor="#878787"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/btn_reg_register"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_reg_register" />
+
+                <TextView
+                    android:id="@+id/tv_reg_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Masuk Disini"
+                    android:textColor="@color/black_faloka"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView"
+                    app:layout_constraintStart_toEndOf="@+id/textView"
+                    app:layout_constraintTop_toTopOf="@+id/textView" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
 </RelativeLayout>

@@ -1,22 +1,20 @@
 package com.example.faloka_mobile.Register;
 
-import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.faloka_mobile.API.ApiConfig;
-import com.example.faloka_mobile.Login.LoginResponse;
 import com.example.faloka_mobile.Login.TokenManager;
-import com.example.faloka_mobile.Model.Message;
 import com.example.faloka_mobile.Model.UserRegister;
-import com.google.android.material.snackbar.Snackbar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RegisterRepository {
-    public static final void userRegister(View view, UserRegister userRegister, RegisterValidListener registerValidListener){
+
+    public static final  void userRegister(View view, UserRegister userRegister, RegisterListener registerValidListener){
         TokenManager tokenManager = TokenManager.getInstance(view.getContext().getSharedPreferences("Token",0));
 
         Call<RegisterResponse> callRegister = ApiConfig.getApiService(tokenManager).addUser(userRegister);
@@ -28,8 +26,10 @@ public class RegisterRepository {
                     registerValidListener.onRegister(registerResponse.getUser());
                     Toast.makeText(view.getContext(), registerResponse.getMessage(), Toast.LENGTH_SHORT).show();
                 }
-                else {
-                    Snackbar.make(view, "Failed register user!", Snackbar.LENGTH_SHORT).show();
+                else{
+                    RegisterErrorResponse error = RegisterErrorUtils.parseError(response);
+                    registerValidListener.onError(error.getError());
+
                 }
             }
 

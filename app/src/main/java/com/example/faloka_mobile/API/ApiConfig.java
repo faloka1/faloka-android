@@ -1,7 +1,5 @@
 package com.example.faloka_mobile.API;
 
-import android.content.Context;
-
 import androidx.annotation.NonNull;
 
 import com.example.faloka_mobile.Login.TokenManager;
@@ -23,6 +21,7 @@ public class ApiConfig {
     public static final String BASE_URL = "http://13.59.13.137:80/api/";
     public static final String BASE_IMAGE_URL = "http://13.59.13.137:80";
     static OkHttpClient client;
+    public static Retrofit retrofit;
     public static ApiService getApiService(TokenManager tokenManager) {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor()
                 .setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -49,11 +48,12 @@ public class ApiConfig {
                 .setLenient()
                 .create();
 
-        Retrofit retrofit = new retrofit2.Retrofit.Builder()
+        retrofit = new retrofit2.Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         return retrofit.create(ApiService.class);
     }
+
 }
