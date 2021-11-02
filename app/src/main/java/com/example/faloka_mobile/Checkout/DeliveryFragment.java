@@ -215,12 +215,22 @@ public class DeliveryFragment extends Fragment{
                 orderUser.setService(courierService.getName());
                 orderUser.setExpeditionName(courier.getName());
                 orderUser.setAddressID(address.getId());
+
                 List<OrderDetail> orderDetailList = new ArrayList<>();
-                OrderDetail orderDetail = new OrderDetail();
+                for(Cart cart : cartList){
+                    OrderDetail orderDetail = new OrderDetail();
+                    orderDetail.setQuantity(cart.getQuantity());
+                    orderDetail.setProductID(cart.getProductID());
+                    orderDetail.setVariantID(cart.getVariantID());
+                    orderDetail.setVariant(cart.getVariant());
+                    orderDetail.setProduct(cart.getProduct());
+                    orderDetailList.add(orderDetail);
+                }
+
 //                orderDetail.setProduct(product);
 //                orderDetail.setVariant(product.getVariantList().get(0));
-                orderDetail.setQuantity(1);
-                orderDetailList.add(orderDetail);
+//                orderDetail.setQuantity(1);
+//                orderDetailList.add(orderDetail);
                 orderUser.setOrderDetailList(orderDetailList);
                 orderUser.setAddress(address);
 

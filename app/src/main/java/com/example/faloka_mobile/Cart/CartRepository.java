@@ -9,6 +9,7 @@ import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.BodyCart;
 import com.example.faloka_mobile.Model.Cart;
 import com.example.faloka_mobile.Model.Message;
+import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.ProductMixMatch;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -108,6 +109,29 @@ public class CartRepository {
 
             @Override
             public void onFailure(Call<Message> call, Throwable t) {
+                Toast.makeText(view.getContext(), "FAIL API", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public static final void getProductsRelated(View view, CartProductsRelated cartProductsRelated){
+        TokenManager tokenManager = TokenManager.getInstance(view.getContext().getSharedPreferences("Token",0));
+        Call<List<Product>> callCartProductsRelated = ApiConfig.getApiService(tokenManager).getCartProductsRelated(tokenManager.getTypeToken()+" "+tokenManager.getToken());
+
+        callCartProductsRelated.enqueue(new Callback<List<Product>>() {
+            @Override
+            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                if(response.isSuccessful()){
+                    List<Product> productList = response.body();
+                    cartProductsRelated.onProductsRelated(productList);
+                }
+                else {
+                    Toast.makeText(view.getContext(), "FAIL RESPONSE", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Product>> call, Throwable t) {
                 Toast.makeText(view.getContext(), "FAIL API", Toast.LENGTH_SHORT).show();
             }
         });

@@ -7,9 +7,12 @@ import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.faloka_mobile.Adapter.CartBrandAdapter;
+import com.example.faloka_mobile.Adapter.ProductAdapter;
 import com.example.faloka_mobile.Checkout.CheckoutActivity;
 import com.example.faloka_mobile.Model.Cart;
 import com.example.faloka_mobile.Model.CartBrand;
@@ -18,13 +21,14 @@ import com.example.faloka_mobile.Model.Variant;
 import com.example.faloka_mobile.Product.ProductDetailActivity;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.ActivityCartBinding;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class CartViewModel implements CartItemListener, CartCheckedProductListener{
+public class CartViewModel implements CartItemListener, CartCheckedProductListener, CartProductsRelated{
 
     private AppCompatActivity activity;
     private ActivityCartBinding binding;
@@ -36,7 +40,9 @@ public class CartViewModel implements CartItemListener, CartCheckedProductListen
         this.binding = binding;
         view = binding.getRoot();
         checkedCartProduct = new ArrayList<>();
+        binding.cbxSelectAll.setChecked(true);
         CartRepository.getCarts(binding.getRoot(), this::onCart);
+        CartRepository.getProductsRelated(binding.getRoot(), this::onProductsRelated);
     }
 
     public void setToolbar(){
@@ -71,14 +77,34 @@ public class CartViewModel implements CartItemListener, CartCheckedProductListen
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(compoundButton.isChecked()){
                     cartBrandAdapter.setAllChecked(true);
+                    List<Cart> tempCart = new ArrayList<>(checkedCartProduct);
+                    for (int i=0; i<cartList.size(); i++){
+                        if(!isOnCart(cartList.get(i))){
+                            checkedCartProduct.add(cartList.get(i));
+                            System.out.println("HAHA");
+                        }
+                    }
                 }
                 else {
                     cartBrandAdapter.setAllChecked(false);
+                    checkedCartProduct.clear();
                 }
                 binding.rvCartBrandProduct.setAdapter(cartBrandAdapter);
                 binding.rvCartBrandProduct.setLayoutManager(new LinearLayoutManager(view.getContext()));
             }
         });
+    }
+
+    boolean isOnCart(Cart cart){
+        boolean isThere = false;
+        List<Cart> tempCart = new ArrayList<>(checkedCartProduct);
+        for(Cart cartItem : tempCart){
+            if(cartItem.getId() == cart.getId()){
+                isThere = true;
+                break;
+            }
+        }
+        return isThere;
     }
 
     @Override
@@ -117,14 +143,28 @@ public class CartViewModel implements CartItemListener, CartCheckedProductListen
         binding.footerCartCheckout.btnCheckoutNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(binding.getRoot().getContext(), CheckoutActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList(Product.EXTRA_PRODUCT, (ArrayList)checkedCartProduct);
-                intent.putExtras(bundle);
-                binding.getRoot().getContext().startActivity(intent);
+                if(checkedCartProduct!=null) {
+                    Intent intent = new Intent(binding.getRoot().getContext(), CheckoutActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelableArrayList(Product.EXTRA_PRODUCT, (ArrayList) checkedCartProduct);
+                    intent.putExtras(bundle);
+                    binding.getRoot().getContext().startActivity(intent);
+                }
+                else {
+                    Snackbar.make(binding.getRoot(), "Cart is empty", Snackbar.LENGTH_SHORT).show();
+                }
             }
         });
     }
+
+    @Override
+    public void onProductsRelated(List<Product> productList) {
+        ProductAdapter productAdapter = new ProductAdapter(productList);
+        binding.rvProductsRelated.setLayoutManager(new GridLayoutManager(binding.getRoot().getContext(),2, GridLayoutManager.VERTICAL, false));
+        binding.rvProductsRelated.setAdapter(productAdapter);
+    }
+
+//    public void setProductsRelated()
 
 //    public List<Product> initProductList(List<Cart> cartList){
 //        List<Product> productList = new ArrayList<>();
