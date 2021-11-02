@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Adapter.PaymentAdapter;
+import com.example.faloka_mobile.Cart.CartRepository;
 import com.example.faloka_mobile.Cart.CartViewModel;
 import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.BodyCheckout;
@@ -237,6 +238,7 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
                                     public void onResponse(Call<OrderResponse> call, Response<OrderResponse> response) {
                                         if(response.isSuccessful()){
                                             OrderResponse orderResponse = response.body();
+                                            CartRepository.deleteAllCart(view);
                                             System.out.println("PESAN RAHASIA: "+orderResponse.getMessage());
                                             Bundle bundlePayment = new Bundle();
                                             Intent intent = new Intent(getActivity(), ConfirmCheckoutActivity.class);

@@ -150,6 +150,9 @@ public interface ApiService {
     @POST("cart")
     Call<Message> addCart(@Header("Authorization") String auth, @Body BodyCart bodyCart);
 
+    @DELETE("cart-user")
+    Call<Message> deleteAllCart(@Header("Authorization") String auth);
+
     @PATCH("cart/{cart_id}")
     Call<Message> editCartQuantity(
             @Header("Authorization") String auth,

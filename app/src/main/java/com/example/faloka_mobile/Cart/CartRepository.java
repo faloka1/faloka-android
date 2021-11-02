@@ -44,6 +44,28 @@ public class CartRepository {
         });
     }
 
+    public static final void deleteAllCart(View view){
+        TokenManager tokenManager = TokenManager.getInstance(view.getContext().getSharedPreferences("Token",0));
+        Call<Message> callDeleteAllCart = ApiConfig.getApiService(tokenManager).deleteAllCart(tokenManager.getTypeToken()+" "+tokenManager.getToken() );
+
+        callDeleteAllCart.enqueue(new Callback<Message>() {
+            @Override
+            public void onResponse(Call<Message> call, Response<Message> response) {
+                if(response.isSuccessful()){
+                    Message message = response.body();
+                }
+                else {
+                    Toast.makeText(view.getContext(), "FAIL RESPONSE", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Message> call, Throwable t) {
+                Toast.makeText(view.getContext(), "FAIL API", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     public static final void getCountCarts(Context context, CartCountItemListener cartCountItemListener){
         TokenManager tokenManager = TokenManager.getInstance(context.getSharedPreferences("Token",0));
         Call<List<Cart>> callCarts = ApiConfig.getApiService(tokenManager).getCarts(tokenManager.getTypeToken()+" "+tokenManager.getToken() );
@@ -62,7 +84,7 @@ public class CartRepository {
 
             @Override
             public void onFailure(Call<List<Cart>> call, Throwable t) {
-                Toast.makeText(context, "FAIL API", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "FAIL API", Toast.LENGTH_SHORT).show();
             }
         });
     }
