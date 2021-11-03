@@ -28,4 +28,6 @@
     <color name="netral_200">#F4F4F4</color>
     <color name="netral_100">#FAFAFA</color>
 
+    <color name="danger">#df0000</color>
+
 </resources>
