@@ -76,6 +76,8 @@ public class ProductDetailActivity extends BaseActivity implements CartAddItemLi
                 cart.setProduct(product);
                 cart.setVariant(variant);
                 cart.setQuantity(1);
+                cart.setProductID(product.getId());
+                cart.setVariantID(product.getVariantList().get(0).getId());
                 cartList.add(cart);
                 Intent intent = new Intent(ProductDetailActivity.this, CheckoutActivity.class);
                 Bundle bundle = new Bundle();
