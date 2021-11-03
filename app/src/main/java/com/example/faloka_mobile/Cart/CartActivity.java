@@ -74,33 +74,23 @@ public class CartActivity extends AppCompatActivity{
         while (it.hasNext()){
             Brand brand = (Brand) it.next();
             CartBrand cartBrand = new CartBrand();
-            List<Product> productList = new ArrayList<>();
-//            List<Integer> quantityList = new ArrayList<>();
+            List<Cart> cartListTemp = new ArrayList<>();
             cartBrand.setBrand(brand);
             for(Cart cart : cartList){
                 if(brand.getName().equals(cart.getProduct().getBrand().getName())){
-                    Product product = cart.getProduct();
-                    List<Variant> variantList = new ArrayList<>();
-                    Variant variant = cart.getVariant();
-                    variantList.add(variant);
-                    product.setVariantList(variantList);
-                    product.setQuantity(cart.getQuantity());
-                    productList.add(product);
-//                    quantityList.add(cart.getQuantity());
+                    cartListTemp.add(cart);
                 }
             }
-            cartBrand.setProductList(productList);
-//            cartBrand.setQuantityList(quantityList);
+            cartBrand.setCartList(cartListTemp);
             cartBrandList.add(cartBrand);
         }
-
         return cartBrandList;
     }
 
-    public static final int getTotal(List<Product> productList){
+    public static final int getTotal(List<Cart> cartList){
         int total = 0;
-        for(Product product : productList){
-            int sub = product.getQuantity() * product.getPrice();
+        for(Cart cart : cartList){
+            int sub = cart.getQuantity() * cart.getProduct().getPrice();
             total += sub;
         }
         return total;

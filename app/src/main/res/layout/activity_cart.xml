@@ -137,6 +137,7 @@
                     android:text="Yang Mungkin Kamu Sukai" />
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_products_related"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/textView9"

@@ -20,19 +20,29 @@ import com.bumptech.glide.Glide;
 import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Adapter.AddressAdapter;
 import com.example.faloka_mobile.Adapter.AddressAddAdapter;
+import com.example.faloka_mobile.Adapter.CartBrandAdapter;
+import com.example.faloka_mobile.Adapter.CheckoutBrandAdapter;
+import com.example.faloka_mobile.Cart.CartActivity;
+import com.example.faloka_mobile.Cart.CartRepository;
 import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.Address;
+import com.example.faloka_mobile.Model.Brand;
+import com.example.faloka_mobile.Model.Cart;
+import com.example.faloka_mobile.Model.CartBrand;
 import com.example.faloka_mobile.Model.Courier;
 import com.example.faloka_mobile.Model.CourierService;
 import com.example.faloka_mobile.Model.OrderDetail;
 import com.example.faloka_mobile.Model.OrderUser;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.User;
+import com.example.faloka_mobile.Model.Variant;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.FragmentDeliveryBinding;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -49,12 +59,10 @@ public class DeliveryFragment extends Fragment{
     public static final String EXTRA_PRICE_EXPEDITION = "EXTRA_PRICE_EXPEDITION";
     public static final int DELIVERY_STEP = 0;
 
-    Product product;
-//    Checkout checkout;
+    List<Cart> cartList;
     CourierService courierService;
     Courier courier;
     Address address;
-    int totalOrder;
     StepViewSelectedListener stepViewSelectedListener;
 
     FragmentDeliveryBinding binding;
@@ -86,9 +94,8 @@ public class DeliveryFragment extends Fragment{
 
     private void setContentProduct(){
         if(getArguments() != null){
-            product = getArguments().getParcelable(Product.EXTRA_PRODUCT);
-            setProductOrder();
-            binding.tvDeliveryBrand.setText(product.getBrand().getName());
+            cartList = getArguments().getParcelableArrayList(Product.EXTRA_PRODUCT);
+            setProductOrder(cartList);
             binding.tvDeliverySubtotalValue.setText(String.valueOf(getFormatRupiah(0 ) ));
         }
     }
@@ -118,30 +125,18 @@ public class DeliveryFragment extends Fragment{
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == DeliveryFragment.REQUEST_CHOOSE_DELIVERY && resultCode == RESULT_CHOOSE_DELIVERY){
-//            String result = data.getStringExtra(DeliveryFragment.EXTRA_CHOOSE_DELIVERY);
-
+            int totalOrder = 0;
             Bundle bundle = data.getBundleExtra(DeliveryFragment.EXTRA_CHOOSE_DELIVERY);
             courier = bundle.getParcelable(Courier.EXTRA_COURIER);
             courierService = bundle.getParcelable(CourierService.EXTRA_COURIER_SERVICE);
-            totalOrder = product.getPrice()+courierService.getCost().get(0).getValue();
+            totalOrder = CartActivity.getTotal(cartList) +courierService.getCost().get(0).getValue();
 
-//            String codeCourier = data.getStringExtra(DeliveryFragment.EXTRA_CODE_EXPEDITION);
-//            int priceCourier = data.getIntExtra(DeliveryFragment.EXTRA_PRICE_EXPEDITION, 0);
-//            int subTotal = product.getPrice() + priceCourier;
-//            Toast.makeText(getContext(), "HAHA"+result, Toast.LENGTH_SHORT).show();
             binding.tvDeliveryEkspedition.setText(courier.getName()+" "+courierService.getName());
             binding.tvDeliveryExpeditionPrice.setText(getFormatRupiah(courierService.getCost().get(0).getValue()));
             binding.tvDeliverySubtotalValue.setText(getFormatRupiah(totalOrder));
             TextView tvTotal = view.findViewById(R.id.tv_total_price);
             tvTotal.setText(getFormatRupiah(totalOrder));
-//            Button button = view.findViewById(R.id.btn_checkout_next);
-//            button.setEnabled(true);
-//            button.setBackgroundColor(getResources().getColor(R.color.black_faloka));
-//            checkout.setExpeditionName(courier.getCode());
-//            checkout.setQuantity(1);
-//            checkout.setShippingPrice(courierService.getCost().get(0).getValue());
-//            checkout.setServiceExpedition(courierService.getName());
-//            checkout.setProductID(product.getId());
+
             if(address != null){
                 binding.footerCheckout.btnCheckoutNext.setEnabled(true);
                 binding.footerCheckout.btnCheckoutNext.setTextColor(getResources().getColor(R.color.white));
@@ -154,20 +149,11 @@ public class DeliveryFragment extends Fragment{
         }
     }
 
-    private void setProductOrder(){
-        TextView tvOrderProductName = view.findViewById(R.id.tv_order_product_name);
-        TextView tvOrderProductPrice = view.findViewById(R.id.tv_order_product_price);
-        ImageView imgOrderProduct = view.findViewById(R.id.image_order_product);
-        TextView tvOrderProductSize = view.findViewById(R.id.tv_order_product_size_value);
-
-        tvOrderProductSize.setText(product.getSizeProduct());
-        tvOrderProductPrice.setText(String.valueOf(getFormatRupiah(product.getPrice())));
-        tvOrderProductName.setText(product.getName());
-
-        Glide.with(imgOrderProduct.getContext())
-                .load(ApiConfig.BASE_IMAGE_URL+product.getProductImageURL())
-                .into(imgOrderProduct);
-//        checkout.setVariantID(product.getVariantList().get(0).getId());
+    private void setProductOrder(List<Cart> cartList){
+        List<CartBrand> cartBrandList = CartActivity.brandClassification(cartList);
+        CheckoutBrandAdapter checkoutBrandAdapter = new CheckoutBrandAdapter(cartBrandList);
+        binding.rvCheckoutBrand.setAdapter(checkoutBrandAdapter);
+        binding.rvCheckoutBrand.setLayoutManager(new LinearLayoutManager(view.getContext()));
     }
 
     private void setAddressSection(){
@@ -224,26 +210,27 @@ public class DeliveryFragment extends Fragment{
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-//                Order order = new Order();
-//                order.setCheckout(checkout);
-//                order.setProduct(product);
-//                order.setAddress(address);
-//                order.setCourier(courier);
-//                order.setCourierService(courierService);
-//                order.setTotalOrder(totalOrder);
-
                 OrderUser orderUser = new OrderUser();
                 orderUser.setShippingPrice(courierService.getCost().get(0).getValue());
                 orderUser.setService(courierService.getName());
                 orderUser.setExpeditionName(courier.getName());
                 orderUser.setAddressID(address.getId());
+
                 List<OrderDetail> orderDetailList = new ArrayList<>();
-                OrderDetail orderDetail = new OrderDetail();
-                orderDetail.setProduct(product);
-                orderDetail.setVariant(product.getVariantList().get(0));
-                orderDetail.setQuantity(1);
-                orderDetailList.add(orderDetail);
+                for(Cart cart : cartList){
+                    OrderDetail orderDetail = new OrderDetail();
+                    orderDetail.setQuantity(cart.getQuantity());
+                    orderDetail.setProductID(cart.getProductID());
+                    orderDetail.setVariantID(cart.getVariantID());
+                    orderDetail.setVariant(cart.getVariant());
+                    orderDetail.setProduct(cart.getProduct());
+                    orderDetailList.add(orderDetail);
+                }
+
+//                orderDetail.setProduct(product);
+//                orderDetail.setVariant(product.getVariantList().get(0));
+//                orderDetail.setQuantity(1);
+//                orderDetailList.add(orderDetail);
                 orderUser.setOrderDetailList(orderDetailList);
                 orderUser.setAddress(address);
 

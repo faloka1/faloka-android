@@ -19,7 +19,12 @@ import android.widget.TextView;
 
 import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Adapter.PaymentAdapter;
+import com.example.faloka_mobile.Cart.CartRepository;
+import com.example.faloka_mobile.Cart.CartViewModel;
 import com.example.faloka_mobile.Login.TokenManager;
+import com.example.faloka_mobile.Model.BodyCheckout;
+import com.example.faloka_mobile.Model.BodyOrderDetail;
+import com.example.faloka_mobile.Model.OrderDetail;
 import com.example.faloka_mobile.Model.OrderResponse;
 import com.example.faloka_mobile.Model.OrderUser;
 import com.example.faloka_mobile.Model.Payment;
@@ -28,6 +33,7 @@ import com.example.faloka_mobile.R;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -77,7 +83,8 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
     }
     private void setSummaryPrice(){
         int total = 0;
-        total = orderUser.getShippingPrice() + orderUser.getOrderDetailList().get(0).getProduct().getPrice();
+//        total = orderUser.getShippingPrice() + orderUser.getOrderDetailList().get(0).getProduct().getPrice();
+        total = orderUser.getShippingPrice() + PaymentFragment.getTotalOrderUserProduct(orderUser);
         TextView tvSubTotal = view.findViewById(R.id.tv_payment_value_subtotal);
 //        tvSubTotal.setText(String.valueOf(order.getTotalOrder()));
         tvSubTotal.setText(String.valueOf(total));
@@ -104,6 +111,16 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
 
             }
         });
+    }
+
+    public static final int getTotalOrderUserProduct(OrderUser orderUser){
+        int total = 0;
+        List<OrderDetail> orderDetailList = orderUser.getOrderDetailList();
+        for(OrderDetail orderDetail : orderDetailList){
+            int sub = orderDetail.getProduct().getPrice() * orderDetail.getQuantity();
+            total += sub;
+        }
+        return total;
     }
 
     private void setRecycleView(List<Payment> paymentList){
@@ -197,6 +214,7 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
                                 TokenManager tokenManager = TokenManager.getInstance(getContext().getSharedPreferences("Token",0));
                                 Call<OrderResponse> callCheckout = ApiConfig.getApiService(tokenManager).isCheckout(
                                         tokenManager.getTypeToken()+" "+tokenManager.getToken(),
+                                            getBodyCheckout(orderUser)
 //                                        order.getCheckout().getShippingPrice(),
 //                                        order.getCheckout().getExpeditionName(),
 //                                        order.getCheckout().getPaymentID(),
@@ -205,20 +223,22 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
 //                                        order.getCheckout().getVariantID(),
 //                                        order.getCheckout().getProductID(),
 //                                        order.getCheckout().getServiceExpedition()
-                                        orderUser.getShippingPrice(),
-                                        orderUser.getExpeditionName(),
-                                        orderUser.getPaymentID(),
-                                        orderUser.getAddressID(),
-                                        orderUser.getOrderDetailList().get(0).getQuantity(),
-                                        orderUser.getOrderDetailList().get(0).getVariant().getId(),
-                                        orderUser.getOrderDetailList().get(0).getProduct().getId(),
-                                        orderUser.getService()
+//                                        orderUser.getShippingPrice(),
+//                                        orderUser.getExpeditionName(),
+//                                        orderUser.getService(),
+//                                        orderUser.getPaymentID(),
+//                                        orderUser.getAddressID(),
+//                                        orderUser.getOrderDetailList().get(0).getQuantity(),
+//                                        orderUser.getOrderDetailList().get(0).getVariant().getId(),
+//                                        orderUser.getOrderDetailList().get(0).getProduct().getId(),
+//                                        getBodyOrderDetails(orderUser)
                                 );
                                 callCheckout.enqueue(new Callback<OrderResponse>() {
                                     @Override
                                     public void onResponse(Call<OrderResponse> call, Response<OrderResponse> response) {
                                         if(response.isSuccessful()){
                                             OrderResponse orderResponse = response.body();
+                                            CartRepository.deleteAllCart(view);
                                             System.out.println("PESAN RAHASIA: "+orderResponse.getMessage());
                                             Bundle bundlePayment = new Bundle();
                                             Intent intent = new Intent(getActivity(), ConfirmCheckoutActivity.class);
@@ -261,6 +281,27 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
         });
         setFooterPayment();
     }
+
+    private BodyCheckout getBodyCheckout(OrderUser orderUser){
+        BodyCheckout bodyCheckout = new BodyCheckout();
+        List<BodyOrderDetail> bodyOrderDetailList = new ArrayList<>();
+        List<OrderDetail> orderDetailList = orderUser.getOrderDetailList();
+        for(int i=0; i<orderDetailList.size(); i++){
+            BodyOrderDetail bodyOrderDetail = new BodyOrderDetail();
+            bodyOrderDetail.setQuantity(orderDetailList.get(i).getQuantity());
+            bodyOrderDetail.setProductID(orderDetailList.get(i).getProductID());
+            bodyOrderDetail.setVariantID(orderDetailList.get(i).getVariantID());
+            bodyOrderDetailList.add(bodyOrderDetail);
+        }
+        bodyCheckout.setBodyOrderDetailList(bodyOrderDetailList);
+        bodyCheckout.setShippingPrice(orderUser.getShippingPrice());
+        bodyCheckout.setExpeditionName(orderUser.getExpeditionName());
+        bodyCheckout.setService(orderUser.getService());
+        bodyCheckout.setPaymentID(orderUser.getPaymentID());
+        bodyCheckout.setAddressID(orderUser.getAddressID());
+        return bodyCheckout;
+    }
+
     private LiveData<String> getTotal(){
 
         TextView tvSubTotal = view.findViewById(R.id.tv_payment_value_subtotal);

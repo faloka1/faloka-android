@@ -18,7 +18,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Cart.CartCheckedProductListener;
+import com.example.faloka_mobile.Cart.CartRepository;
+import com.example.faloka_mobile.Model.Cart;
 import com.example.faloka_mobile.Model.Product;
+import com.example.faloka_mobile.Model.Variant;
 import com.example.faloka_mobile.R;
 
 import org.w3c.dom.Text;
@@ -29,19 +32,14 @@ import java.util.List;
 import java.util.Locale;
 
 public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.CartProductViewHolder>{
-    List<Product> productList;
-    List<Product> checkedProductList;
-//    List<Integer> quantityList;
+    List<Cart> cartList;
     private boolean isBrandChecked;
     private CartCheckedProductListener cartCheckedProductListener;
-//    private static int qty = 1;
 
-    public CartProductAdapter(List<Product> productList, List<Integer> quantityList, CartCheckedProductListener cartCheckedProductListener){
-        this.productList = productList;
-//        this.quantityList = quantityList;
+    public CartProductAdapter(List<Cart> cartList, CartCheckedProductListener cartCheckedProductListener){
+        this.cartList = cartList;
         this.cartCheckedProductListener = cartCheckedProductListener;
-        this.checkedProductList = new ArrayList<>(productList);
-        cartCheckedProductListener.onCartProductChecked(checkedProductList, true, "");
+        cartCheckedProductListener.onCartProductChecked(cartList, true, 0);
     }
 
     public void setBrandChecked(boolean isBrandChecked){
@@ -57,34 +55,34 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull CartProductAdapter.CartProductViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        Product product = productList.get(position);
-        holder.tvCartProductName.setText(product.getName());
+        Cart cart = cartList.get(position);
+        holder.tvCartProductName.setText(cart.getProduct().getName());
         holder.cbxCartProduct.setChecked(isBrandChecked);
         Glide.with(holder.imgCartProduct.getContext())
-                .load(ApiConfig.BASE_IMAGE_URL+product.getImageMixMatchURL() )
+                .load(ApiConfig.BASE_IMAGE_URL+cart.getVariant().getVariantImageList().get(0).getImageURL() )
                 .into(holder.imgCartProduct);
-        holder.tvCartProductSize.setText(product.getSizeProduct());
-        holder.tvCartProductPrice.setText(getFormatRupiah(product.getPrice()));
-//        holder.tvCartQty.setText(String.valueOf(quantityList.get(position)));
-        holder.tvCartQty.setText(String.valueOf(product.getQuantity()));
-        //        cartCheckedProductListener.onCartProductChecked(checkedProductList);
+        holder.tvCartProductSize.setText(cart.getVariant().getName());
+        holder.tvCartProductPrice.setText(getFormatRupiah(cart.getProduct().getPrice()));
+        holder.tvCartQty.setText(String.valueOf(cart.getQuantity()));
         holder.btnCartQtyMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(product.getQuantity() > 1){
-                    product.setQuantity(product.getQuantity()-1);
-//                    quantityList.set(position, quantityList.get(position)-1);
+                if(cart.getQuantity() > 1){
+                    int qty = cart.getQuantity()-1;
+                    cart.setQuantity(qty);
+                    CartRepository.editCartQuantity(view, cart.getId(), qty);
                 }
-                holder.tvCartQty.setText(String.valueOf(product.getQuantity() ));
+                holder.tvCartQty.setText(String.valueOf(cart.getQuantity() ));
                 Toast.makeText(holder.itemView.getContext(), "MINUS", Toast.LENGTH_SHORT).show();
             }
         });
         holder.btnCartQtyPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                quantityList.set(position, quantityList.get(position)+1);
-                product.setQuantity(product.getQuantity()+1);
-                holder.tvCartQty.setText(String.valueOf(product.getQuantity()));
+                int qty = cart.getQuantity()+1;
+                cart.setQuantity(qty);
+                CartRepository.editCartQuantity(view, cart.getId(), qty);
+                holder.tvCartQty.setText(String.valueOf(cart.getQuantity()));
                 Toast.makeText(holder.itemView.getContext(), "PLUS", Toast.LENGTH_SHORT).show();
             }
         });
@@ -93,12 +91,12 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(compoundButton.isChecked()){
-                    List<Product> productListTemp = new ArrayList<>();
-                    productListTemp.add(productList.get(position));
-                    cartCheckedProductListener.onCartProductChecked(productListTemp, true, "");
+                    List<Cart> cartListTemp = new ArrayList<>();
+                    cartListTemp.add(cartList.get(position));
+                    cartCheckedProductListener.onCartProductChecked(cartListTemp, true, 0);
                 }
                 else {
-                    cartCheckedProductListener.onCartProductChecked(productList, false, productList.get(position).getSlug());
+                    cartCheckedProductListener.onCartProductChecked(cartList, false, cartList.get(position).getId() );
                 }
             }
         });
@@ -115,7 +113,7 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
 
     @Override
     public int getItemCount() {
-        return productList.size();
+        return cartList.size();
     }
 
     public class CartProductViewHolder extends RecyclerView.ViewHolder {

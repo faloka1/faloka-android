@@ -45,13 +45,15 @@
 
         <TextView
             android:id="@+id/tv_cart_total_cart"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
             android:fontFamily="@font/lato_bold"
-            android:text="SASASASASASASA"
+            android:text="Rp 0                            "
             android:textColor="#DB317A"
             android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/btn_checkout_next"
             app:layout_constraintStart_toStartOf="@+id/tv_title_total"
             app:layout_constraintTop_toBottomOf="@+id/tv_title_total" />
     </androidx.constraintlayout.widget.ConstraintLayout>

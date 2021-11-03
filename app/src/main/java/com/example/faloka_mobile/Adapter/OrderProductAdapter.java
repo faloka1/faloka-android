@@ -51,7 +51,7 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
         if(orderUser.getOrderDetailList().get(0).getProduct() == null){
             return;
         }
-        if(orderUser.getStatus().equals("dikirim")){
+        if(orderUser.getStatus().equals("pending")){
             holder.btnUploadPayment.setVisibility(View.GONE);
         }
         OrderDetail orderDetail = orderUser.getOrderDetailList().get(0);

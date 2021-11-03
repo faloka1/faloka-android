@@ -32,7 +32,8 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/detail_order_toolbar"
         app:layout_constraintTop_toBottomOf="@+id/detail_order_toolbar">
@@ -134,15 +135,16 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tv_detail_order_title_service_price"
                     app:layout_constraintVertical_bias="1.0" />
+
                 <TextView
                     android:id="@+id/tv_detail_order_title_total_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:fontFamily="@font/lato_black"
                     android:letterSpacing="0.015"
                     android:text="Total Pembelian"
                     android:textColor="@color/netral_900"
-                    android:fontFamily="@font/lato_black"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="@+id/tv_detail_order_title_service_price"
                     app:layout_constraintTop_toBottomOf="@+id/tv_detail_order_title_service_price" />
@@ -162,6 +164,7 @@
                     app:layout_constraintVertical_bias="1.0" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -183,7 +186,8 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-            <androidx.constraintlayout.widget.ConstraintLayout
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
@@ -191,35 +195,11 @@
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="17dp">
 
-                <TextView
-                    android:id="@+id/tv_delivery_brand"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/lato"
-                    android:letterSpacing="0.015"
-                    android:text="Surabaya-Brand"
-                    android:textColor="@color/netral_900"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <LinearLayout
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_detail_brand_product"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/tv_delivery_brand"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_delivery_brand">
-
-                    <include
-                        android:id="@+id/grid_detail_product"
-                        layout="@layout/grid_product_order"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_delivery_brand"></include>
-
-                </LinearLayout>
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -293,8 +273,6 @@
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 
         </LinearLayout>

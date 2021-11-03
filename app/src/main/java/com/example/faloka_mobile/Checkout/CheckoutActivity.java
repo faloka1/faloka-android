@@ -14,18 +14,22 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.faloka_mobile.Model.Address;
+import com.example.faloka_mobile.Model.Cart;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.ActivityCheckoutBinding;
 import com.shuhart.stepview.StepView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CheckoutActivity extends AppCompatActivity implements StepViewSelectedListener, StepView.OnStepClickListener {
 
     public ActivityCheckoutBinding binding;
     public ArrayList<String> label = new ArrayList<>();
-    private Product product;
+//    private Product product;
+//    private List<Product> productList;
+    private List<Cart> cartList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,9 +64,12 @@ public class CheckoutActivity extends AppCompatActivity implements StepViewSelec
         binding.stepView.setOnStepClickListener(this);
     }
     private void setContent(){
-        product = getIntent().getParcelableExtra(Product.EXTRA_PRODUCT);
+//        productList = getIntent().getParcelableArrayListExtra(Product.EXTRA_PRODUCT);
+        cartList = getIntent().getParcelableArrayListExtra(Product.EXTRA_PRODUCT);
+//        product = getIntent().getParcelableExtra(Product.EXTRA_PRODUCT);
         Bundle bundle = new Bundle();
-        bundle.putParcelable(Product.EXTRA_PRODUCT, product);
+//        bundle.putParcelable(Product.EXTRA_PRODUCT, product);
+        bundle.putParcelableArrayList(Product.EXTRA_PRODUCT, (ArrayList)cartList);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         DeliveryFragment deliveryFragment = new DeliveryFragment(this::onStep);

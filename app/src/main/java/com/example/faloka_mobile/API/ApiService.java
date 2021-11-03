@@ -5,12 +5,15 @@ import android.database.Observable;
 import com.example.faloka_mobile.Login.LoginResponse;
 import com.example.faloka_mobile.Model.Address;
 import com.example.faloka_mobile.Model.BodyCart;
+import com.example.faloka_mobile.Model.BodyCheckout;
+import com.example.faloka_mobile.Model.BodyOrderDetail;
 import com.example.faloka_mobile.Model.Cart;
 import com.example.faloka_mobile.Model.Category;
 import com.example.faloka_mobile.Model.Courier;
 import com.example.faloka_mobile.Model.District;
 import com.example.faloka_mobile.Model.Login;
 import com.example.faloka_mobile.Model.Message;
+import com.example.faloka_mobile.Model.OrderDetail;
 import com.example.faloka_mobile.Model.OrderResponse;
 import com.example.faloka_mobile.Model.OrderUser;
 import com.example.faloka_mobile.Model.Payment;
@@ -110,18 +113,22 @@ public interface ApiService {
     @GET("payment")
     Call<List<Payment>> getPayments();
 
-    @FormUrlEncoded
+//    @POST("checkout")
+//    Call<OrderResponse> isCheckout(
+//            @Header("Authorization") String auth,
+//            @Field("shipping_price") int shippingPrice,
+//            @Field("expedition_name") String expeditionName,
+//            @Field("service") String serviceExpedition,
+//            @Field("payment_id") int paymentID,
+//            @Field("address_id") int addressID,
+////            @Field("quantity") int quantity,
+////            @Field("variant_id") int variantID,
+////            @Field("product_id") int productID,
+//            @Field("orderDetails") List<BodyOrderDetail> bodyOrderDetails
+//    );
     @POST("checkout")
     Call<OrderResponse> isCheckout(
-            @Header("Authorization") String auth,
-            @Field("shipping_price") int shippingPrice,
-            @Field("expedition_name") String expeditionName,
-            @Field("payment_id") int paymentID,
-            @Field("address_id") int addressID,
-            @Field("quantity") int quantity,
-            @Field("variant_id") int variantID,
-            @Field("product_id") int productID,
-            @Field("service") String serviceExpedition
+            @Header("Authorization") String auth, @Body BodyCheckout bodyCheckout
     );
 
     @Multipart
@@ -143,7 +150,17 @@ public interface ApiService {
     @POST("cart")
     Call<Message> addCart(@Header("Authorization") String auth, @Body BodyCart bodyCart);
 
+    @DELETE("cart-user")
+    Call<Message> deleteAllCart(@Header("Authorization") String auth);
 
+    @PATCH("cart/{cart_id}")
+    Call<Message> editCartQuantity(
+            @Header("Authorization") String auth,
+            @Path("cart_id") int cartID,
+            @Query("quantity") int quantity
+    );
 
+    @GET("cart-related")
+    Call<List<Product>> getCartProductsRelated(@Header("Authorization") String auth);
 }
 

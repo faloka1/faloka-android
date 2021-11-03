@@ -2,6 +2,7 @@ package com.example.faloka_mobile.Checkout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,12 +10,19 @@ import android.view.MenuItem;
 
 import com.bumptech.glide.Glide;
 import com.example.faloka_mobile.API.ApiConfig;
+import com.example.faloka_mobile.Adapter.CheckoutBrandAdapter;
+import com.example.faloka_mobile.Cart.CartActivity;
+import com.example.faloka_mobile.Model.Cart;
+import com.example.faloka_mobile.Model.CartBrand;
 import com.example.faloka_mobile.Model.Order;
+import com.example.faloka_mobile.Model.OrderDetail;
 import com.example.faloka_mobile.Model.OrderUser;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.ActivityDetailOrderBinding;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class DetailOrderActivity extends AppCompatActivity {
@@ -64,13 +72,26 @@ public class DetailOrderActivity extends AppCompatActivity {
 //        Glide.with(binding.gridDetailProduct.imageOrderProduct.getContext())
 //                .load(ApiConfig.BASE_IMAGE_URL+order.getProduct().getProductImageURL() )
 //                .into(binding.gridDetailProduct.imageOrderProduct);
-        binding.tvDeliveryBrand.setText(orderUser.getOrderDetailList().get(0).getProduct().getBrand().getName());
-        binding.gridDetailProduct.tvOrderProductSizeValue.setText(orderUser.getOrderDetailList().get(0).getVariant().getName());
-        binding.gridDetailProduct.tvOrderProductName.setText(orderUser.getOrderDetailList().get(0).getProduct().getName());
-        binding.gridDetailProduct.tvOrderProductPrice.setText(getFormatRupiah(orderUser.getOrderDetailList().get(0).getProduct().getPrice()));
-        Glide.with(binding.gridDetailProduct.imageOrderProduct.getContext())
-                .load(ApiConfig.BASE_IMAGE_URL+orderUser.getOrderDetailList().get(0).getVariant().getVariantImageList().get(0).getImageURL() )
-                .into(binding.gridDetailProduct.imageOrderProduct);
+        List<Cart> cartList = new ArrayList<>();
+        for(OrderDetail orderDetail : orderUser.getOrderDetailList()){
+            Cart cart = new Cart();
+            cart.setProduct(orderDetail.getProduct());
+            cart.setVariant(orderDetail.getVariant());
+            cart.setQuantity(orderDetail.getQuantity());
+            cartList.add(cart);
+        }
+        List<CartBrand> cartBrandList = CartActivity.brandClassification(cartList);
+        CheckoutBrandAdapter checkoutBrandAdapter = new CheckoutBrandAdapter(cartBrandList);
+        binding.rvDetailBrandProduct.setAdapter(checkoutBrandAdapter);
+        binding.rvDetailBrandProduct.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
+
+//        binding.tvDeliveryBrand.setText(orderUser.getOrderDetailList().get(0).getProduct().getBrand().getName());
+//        binding.gridDetailProduct.tvOrderProductSizeValue.setText(orderUser.getOrderDetailList().get(0).getVariant().getName());
+//        binding.gridDetailProduct.tvOrderProductName.setText(orderUser.getOrderDetailList().get(0).getProduct().getName());
+//        binding.gridDetailProduct.tvOrderProductPrice.setText(getFormatRupiah(orderUser.getOrderDetailList().get(0).getProduct().getPrice()));
+//        Glide.with(binding.gridDetailProduct.imageOrderProduct.getContext())
+//                .load(ApiConfig.BASE_IMAGE_URL+orderUser.getOrderDetailList().get(0).getVariant().getVariantImageList().get(0).getImageURL() )
+//                .into(binding.gridDetailProduct.imageOrderProduct);
     }
 
     private void setDetailExpedition(){

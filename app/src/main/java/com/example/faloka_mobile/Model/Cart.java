@@ -19,6 +19,10 @@ public class Cart implements Parcelable {
     @SerializedName("products")
     private Product product;
 
+    public Cart(){
+
+    }
+
     protected Cart(Parcel in) {
         setId(in.readInt());
         setQuantity(in.readInt());
