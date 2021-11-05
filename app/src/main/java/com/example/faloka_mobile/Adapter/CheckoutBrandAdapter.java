@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.faloka_mobile.Checkout.CheckoutBrandListener;
 import com.example.faloka_mobile.Checkout.ChooseDeliveryDialog;
 import com.example.faloka_mobile.Checkout.DeliveryListener;
 import com.example.faloka_mobile.Model.CartBrand;
@@ -27,8 +28,14 @@ public class CheckoutBrandAdapter extends RecyclerView.Adapter<CheckoutBrandAdap
 
     private List<CartBrand> cartBrandList;
     private Context context;
+    private CheckoutBrandListener checkoutBrandListener;
+
     public CheckoutBrandAdapter(List<CartBrand> cartBrandList){
         this.cartBrandList = cartBrandList;
+    }
+
+    public void setCheckoutBrandListener(CheckoutBrandListener checkoutBrandListener) {
+        this.checkoutBrandListener = checkoutBrandListener;
     }
 
     @NonNull
@@ -81,6 +88,9 @@ public class CheckoutBrandAdapter extends RecyclerView.Adapter<CheckoutBrandAdap
         public void onDelivery(Courier courier, CourierService courierService) {
             tvCheckoutDelivery.setText(courier.getName()+" "+courierService.getName());
             tvCheckoutDeliveryPrice.setText(getFormatRupiah(courierService.getCost().get(0).getValue()));
+            cartBrandList.get(getAdapterPosition()).setCourier(courier);
+            cartBrandList.get(getAdapterPosition()).setCourierService(courierService);
+            checkoutBrandListener.onCartBrand(cartBrandList);
         }
     }
     public String getFormatRupiah(int price){

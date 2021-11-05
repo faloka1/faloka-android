@@ -6,17 +6,25 @@ import android.os.Parcelable;
 import java.util.List;
 
 public class CartBrand implements Parcelable {
+
+    public static final String EXTRA_CART_BRAND = "EXTRA_CART_BRAND";
+
     private Brand brand;
 //    private List<Product> productList;
 //    private List<Integer> quantityList;
+    private Courier courier;
+    private CourierService courierService;
     private List<Cart> cartList;
 
     public CartBrand(){
 
     }
 
+
     protected CartBrand(Parcel in) {
         setBrand(in.readParcelable(Brand.class.getClassLoader()));
+        setCourier(in.readParcelable(Courier.class.getClassLoader()));
+        setCourierService(in.readParcelable(CourierService.class.getClassLoader()));
         setCartList(in.createTypedArrayList(Cart.CREATOR));
     }
 
@@ -40,6 +48,8 @@ public class CartBrand implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeParcelable(getBrand(), i);
+        parcel.writeParcelable(getCourier(), i);
+        parcel.writeParcelable(getCourierService(), i);
         parcel.writeTypedList(getCartList());
     }
 
@@ -49,6 +59,22 @@ public class CartBrand implements Parcelable {
 
     public void setBrand(Brand brand) {
         this.brand = brand;
+    }
+
+    public Courier getCourier() {
+        return courier;
+    }
+
+    public void setCourier(Courier courier) {
+        this.courier = courier;
+    }
+
+    public CourierService getCourierService() {
+        return courierService;
+    }
+
+    public void setCourierService(CourierService courierService) {
+        this.courierService = courierService;
     }
 
     public List<Cart> getCartList() {
