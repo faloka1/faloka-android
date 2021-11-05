@@ -28,8 +28,8 @@ import java.util.Locale;
 public class DetailOrderActivity extends AppCompatActivity {
 
     ActivityDetailOrderBinding binding;
-//    Order order;
-    OrderUser orderUser;
+    Order order;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,8 +43,7 @@ public class DetailOrderActivity extends AppCompatActivity {
 
         if(getIntent() != null){
             Bundle bundle = getIntent().getBundleExtra("DATA_ORDER");
-//            order = bundle.getParcelable(Order.EXTRA_ORDER);
-            orderUser = bundle.getParcelable(OrderUser.EXTRA_ORDER_USER);
+            order = bundle.getParcelable(Order.EXTRA_ORDER);
         }
         setDetailPrice();
         setDetailProduct();
@@ -52,64 +51,26 @@ public class DetailOrderActivity extends AppCompatActivity {
     }
 
     private void setDetailPrice(){
-//        binding.tvDeliveryValueTotalProductPrice.setText(getFormatRupiah(order.getProduct().getPrice()));
-//        binding.tvDeliveryValueTotalDeliveryPrice.setText(getFormatRupiah(order.getCourierService().getCost().get(0).getValue()));
-//        binding.tvOrderDetailValueServicePrice.setText(getFormatRupiah(order.getPayment().getPriceService()));
-//        binding.tvOrderDetailValueTotalPrice.setText(getFormatRupiah(order.getTotalOrder()));
         int total = 0;
-        total = orderUser.getShippingPrice() + orderUser.getOrderDetailList().get(0).getProduct().getPrice() +2000;
-        binding.tvDeliveryValueTotalProductPrice.setText(getFormatRupiah(orderUser.getOrderDetailList().get(0).getProduct().getPrice()));
-        binding.tvDeliveryValueTotalDeliveryPrice.setText(getFormatRupiah(orderUser.getShippingPrice()));
+        total = PaymentFragment.getTotal(order.getCartBrandList()) +2000;
+        binding.tvDeliveryValueTotalProductPrice.setText(getFormatRupiah(PaymentFragment.getTotalProductPrice(order.getCartBrandList())));
+        binding.tvDeliveryValueTotalDeliveryPrice.setText(getFormatRupiah(PaymentFragment.getTotalExpeditionPrice(order.getCartBrandList())));
         binding.tvOrderDetailValueServicePrice.setText(getFormatRupiah(2000));
         binding.tvOrderDetailValueTotalPrice.setText(getFormatRupiah(total));
     }
 
     private void setDetailProduct(){
-//        binding.tvDeliveryBrand.setText(order.getProduct().getBrand().getName());
-//        binding.gridDetailProduct.tvOrderProductSizeValue.setText(order.getProduct().getSizeProduct());
-//        binding.gridDetailProduct.tvOrderProductName.setText(order.getProduct().getName());
-//        binding.gridDetailProduct.tvOrderProductPrice.setText(getFormatRupiah(order.getProduct().getPrice()));
-//        Glide.with(binding.gridDetailProduct.imageOrderProduct.getContext())
-//                .load(ApiConfig.BASE_IMAGE_URL+order.getProduct().getProductImageURL() )
-//                .into(binding.gridDetailProduct.imageOrderProduct);
-        List<Cart> cartList = new ArrayList<>();
-        for(OrderDetail orderDetail : orderUser.getOrderDetailList()){
-            Cart cart = new Cart();
-            cart.setProduct(orderDetail.getProduct());
-            cart.setVariant(orderDetail.getVariant());
-            cart.setQuantity(orderDetail.getQuantity());
-            cartList.add(cart);
-        }
-        List<CartBrand> cartBrandList = CartActivity.brandClassification(cartList);
-        CheckoutBrandAdapter checkoutBrandAdapter = new CheckoutBrandAdapter(cartBrandList);
+        CheckoutBrandAdapter checkoutBrandAdapter = new CheckoutBrandAdapter(order.getCartBrandList());
+        checkoutBrandAdapter.setOpenDialog(false);
         binding.rvDetailBrandProduct.setAdapter(checkoutBrandAdapter);
         binding.rvDetailBrandProduct.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
-
-//        binding.tvDeliveryBrand.setText(orderUser.getOrderDetailList().get(0).getProduct().getBrand().getName());
-//        binding.gridDetailProduct.tvOrderProductSizeValue.setText(orderUser.getOrderDetailList().get(0).getVariant().getName());
-//        binding.gridDetailProduct.tvOrderProductName.setText(orderUser.getOrderDetailList().get(0).getProduct().getName());
-//        binding.gridDetailProduct.tvOrderProductPrice.setText(getFormatRupiah(orderUser.getOrderDetailList().get(0).getProduct().getPrice()));
-//        Glide.with(binding.gridDetailProduct.imageOrderProduct.getContext())
-//                .load(ApiConfig.BASE_IMAGE_URL+orderUser.getOrderDetailList().get(0).getVariant().getVariantImageList().get(0).getImageURL() )
-//                .into(binding.gridDetailProduct.imageOrderProduct);
     }
 
     private void setDetailExpedition(){
-//        String expedition = order.getCourier().getName()+" "+order.getCourierService().getName();
-//        binding.tvDeliveryEkspedition.setText(expedition);
-//        binding.tvDeliveryExpeditionPrice.setText(getFormatRupiah(order.getCourierService().getCost().get(0).getValue()));
-//        String address = order.getAddress().getLocation()+", "
-//                +order.getAddress().getProvince().getName()+", "
-//                +order.getAddress().getDistrict().getName()+", "
-//                +order.getAddress().getSubDistrict();
-//        binding.tvDeliveryName.setText(address);
-        String expedition = orderUser.getExpeditionName()+" "+orderUser.getService();
-        binding.tvDeliveryEkspedition.setText(expedition);
-        binding.tvDeliveryExpeditionPrice.setText(getFormatRupiah(orderUser.getShippingPrice()));
-        String address = orderUser.getAddress().getLocation()+", "
-                +orderUser.getAddress().getProvince().getName()+", "
-                +orderUser.getAddress().getDistrict().getName()+", "
-                +orderUser.getAddress().getSubDistrict();
+        String address = order.getAddress().getLocation()+", "
+                +order.getAddress().getProvince().getName()+", "
+                +order.getAddress().getDistrict().getName()+", "
+                +order.getAddress().getSubDistrict();
         binding.tvDeliveryName.setText(address);
     }
 

@@ -8,29 +8,20 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class BodyCheckout implements Parcelable {
-    @SerializedName("shipping_price")
-    private int shippingPrice;
-    @SerializedName("expedition_name")
-    private String expeditionName;
-    private String service;
     @SerializedName("payment_id")
     private int paymentID;
     @SerializedName("address_id")
     private int addressID;
-    @SerializedName("orderDetails")
-    private List<BodyOrderDetail> bodyOrderDetailList;
+    @SerializedName("order_brands")
+    private List<BodyOrderBrand> bodyOrderBrandList;
 
     public BodyCheckout(){
 
     }
-
     protected BodyCheckout(Parcel in) {
-        setShippingPrice(in.readInt());
-        setExpeditionName(in.readString());
-        setService(in.readString());
         setPaymentID(in.readInt());
         setAddressID(in.readInt());
-        setBodyOrderDetailList(in.createTypedArrayList(BodyOrderDetail.CREATOR));
+        setBodyOrderBrandList(in.createTypedArrayList(BodyOrderBrand.CREATOR));
     }
 
     public static final Creator<BodyCheckout> CREATOR = new Creator<BodyCheckout>() {
@@ -52,36 +43,9 @@ public class BodyCheckout implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(getShippingPrice());
-        parcel.writeString(getExpeditionName());
-        parcel.writeString(getService());
         parcel.writeInt(getPaymentID());
         parcel.writeInt(getAddressID());
-        parcel.writeTypedList(getBodyOrderDetailList());
-    }
-
-    public int getShippingPrice() {
-        return shippingPrice;
-    }
-
-    public void setShippingPrice(int shippingPrice) {
-        this.shippingPrice = shippingPrice;
-    }
-
-    public String getExpeditionName() {
-        return expeditionName;
-    }
-
-    public void setExpeditionName(String expeditionName) {
-        this.expeditionName = expeditionName;
-    }
-
-    public String getService() {
-        return service;
-    }
-
-    public void setService(String service) {
-        this.service = service;
+        parcel.writeTypedList(getBodyOrderBrandList());
     }
 
     public int getPaymentID() {
@@ -100,11 +64,11 @@ public class BodyCheckout implements Parcelable {
         this.addressID = addressID;
     }
 
-    public List<BodyOrderDetail> getBodyOrderDetailList() {
-        return bodyOrderDetailList;
+    public List<BodyOrderBrand> getBodyOrderBrandList() {
+        return bodyOrderBrandList;
     }
 
-    public void setBodyOrderDetailList(List<BodyOrderDetail> bodyOrderDetailList) {
-        this.bodyOrderDetailList = bodyOrderDetailList;
+    public void setBodyOrderBrandList(List<BodyOrderBrand> bodyOrderBrandList) {
+        this.bodyOrderBrandList = bodyOrderBrandList;
     }
 }

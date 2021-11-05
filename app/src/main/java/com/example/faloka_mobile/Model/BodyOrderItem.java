@@ -5,32 +5,32 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-public class BodyOrderDetail implements Parcelable {
+public class BodyOrderItem implements Parcelable {
     private int quantity;
     @SerializedName("variant_id")
     private int variantID;
     @SerializedName("product_id")
     private int productID;
 
-    public BodyOrderDetail(){
+    public BodyOrderItem(){
 
     }
 
-    protected BodyOrderDetail(Parcel in) {
+    protected BodyOrderItem(Parcel in) {
         setQuantity(in.readInt());
         setVariantID(in.readInt());
         setProductID(in.readInt());
     }
 
-    public static final Creator<BodyOrderDetail> CREATOR = new Creator<BodyOrderDetail>() {
+    public static final Creator<BodyOrderItem> CREATOR = new Creator<BodyOrderItem>() {
         @Override
-        public BodyOrderDetail createFromParcel(Parcel in) {
-            return new BodyOrderDetail(in);
+        public BodyOrderItem createFromParcel(Parcel in) {
+            return new BodyOrderItem(in);
         }
 
         @Override
-        public BodyOrderDetail[] newArray(int size) {
-            return new BodyOrderDetail[size];
+        public BodyOrderItem[] newArray(int size) {
+            return new BodyOrderItem[size];
         }
     };
 

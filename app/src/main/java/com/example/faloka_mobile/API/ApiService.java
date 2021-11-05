@@ -1,19 +1,15 @@
 package com.example.faloka_mobile.API;
 
-import android.database.Observable;
-
 import com.example.faloka_mobile.Login.LoginResponse;
 import com.example.faloka_mobile.Model.Address;
 import com.example.faloka_mobile.Model.BodyCart;
 import com.example.faloka_mobile.Model.BodyCheckout;
-import com.example.faloka_mobile.Model.BodyOrderDetail;
 import com.example.faloka_mobile.Model.Cart;
 import com.example.faloka_mobile.Model.Category;
 import com.example.faloka_mobile.Model.Courier;
 import com.example.faloka_mobile.Model.District;
 import com.example.faloka_mobile.Model.Login;
 import com.example.faloka_mobile.Model.Message;
-import com.example.faloka_mobile.Model.OrderDetail;
 import com.example.faloka_mobile.Model.OrderResponse;
 import com.example.faloka_mobile.Model.OrderUser;
 import com.example.faloka_mobile.Model.Payment;
@@ -33,8 +29,6 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;

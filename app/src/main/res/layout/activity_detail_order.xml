@@ -210,53 +210,16 @@
                 android:paddingVertical="17dp">
 
                 <TextView
-                    android:id="@+id/tv_delivery_ekspedition"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_svg_carbon_delivery"
-                    android:drawablePadding="8dp"
-                    android:fontFamily="@font/lato"
-                    android:gravity="center"
-                    android:letterSpacing="0.025"
-                    android:text="-"
-                    android:textColor="@color/netral_500"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_delivery_ekspedition"
-                    app:layout_constraintEnd_toEndOf="parent">
-
-                    <TextView
-                        android:id="@+id/tv_delivery_expedition_price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/lato_bold"
-                        android:letterSpacing="0.015"
-                        android:text="0"
-                        android:textColor="@color/netral_900"
-                        android:textSize="16sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </LinearLayout>
-
-                <TextView
                     android:id="@+id/tv_detail_order_title_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
                     android:fontFamily="@font/lato"
                     android:letterSpacing="0.025"
                     android:text="Alamat Pengiriman"
                     android:textColor="@color/netral_500"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@+id/tv_delivery_ekspedition"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_delivery_ekspedition" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/tv_delivery_name"
