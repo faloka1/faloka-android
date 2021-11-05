@@ -326,4 +326,22 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
         return sumTotalExpedition + sumTotalProduct;
     }
 
+    public static final int getTotalProductPrice(List<CartBrand> cartBrandList){
+        int sumTotalProduct = 0;
+        for(CartBrand cartBrand : cartBrandList){
+            for(Cart cart : cartBrand.getCartList()){
+                sumTotalProduct += cart.getProduct().getPrice() * cart.getQuantity();
+            }
+        }
+        return sumTotalProduct;
+    }
+
+    public static final int getTotalExpeditionPrice(List<CartBrand> cartBrandList){
+        int sumTotalExpedition = 0;
+        for(CartBrand cartBrand : cartBrandList){
+            sumTotalExpedition += cartBrand.getCourierService().getCost().get(0).getValue();
+        }
+        return sumTotalExpedition;
+    }
+
 }

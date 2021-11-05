@@ -29,6 +29,7 @@ public class CheckoutBrandAdapter extends RecyclerView.Adapter<CheckoutBrandAdap
     private List<CartBrand> cartBrandList;
     private Context context;
     private CheckoutBrandListener checkoutBrandListener;
+    private boolean isOpenDialog = true;
 
     public CheckoutBrandAdapter(List<CartBrand> cartBrandList){
         this.cartBrandList = cartBrandList;
@@ -44,15 +45,22 @@ public class CheckoutBrandAdapter extends RecyclerView.Adapter<CheckoutBrandAdap
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_checkout_many_brand,parent,false);
         context = view.getContext();
 
+
         final CheckoutBrandViewHolder checkoutBrandViewHolder = new CheckoutBrandViewHolder(view);
-        checkoutBrandViewHolder.tvCheckoutDelivery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ChooseDeliveryDialog chooseDeliveryDialog = new ChooseDeliveryDialog(checkoutBrandViewHolder::onDelivery);
-                chooseDeliveryDialog.show(((AppCompatActivity) context).getSupportFragmentManager(), null);
-            }
-        });
+        if(isOpenDialog) {
+            checkoutBrandViewHolder.tvCheckoutDelivery.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ChooseDeliveryDialog chooseDeliveryDialog = new ChooseDeliveryDialog(checkoutBrandViewHolder::onDelivery);
+                    chooseDeliveryDialog.show(((AppCompatActivity) context).getSupportFragmentManager(), null);
+                }
+            });
+        }
         return checkoutBrandViewHolder;
+    }
+
+    public void setOpenDialog(boolean isOpenDialog){
+        this.isOpenDialog = isOpenDialog;
     }
 
     @Override
@@ -62,6 +70,11 @@ public class CheckoutBrandAdapter extends RecyclerView.Adapter<CheckoutBrandAdap
         CheckoutProductAdapter checkoutProductAdapter = new CheckoutProductAdapter(cartBrand.getCartList());
         holder.rvCheckoutProduct.setAdapter(checkoutProductAdapter);
         holder.rvCheckoutProduct.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
+
+        if(cartBrand.getCourier() != null && cartBrand.getCourierService() != null){
+            holder.tvCheckoutDelivery.setText(cartBrand.getCourier().getName()+" "+cartBrand.getCourierService().getName());
+            holder.tvCheckoutDeliveryPrice.setText(getFormatRupiah(cartBrand.getCourierService().getCost().get(0).getValue()));
+        }
     }
 
     @Override
