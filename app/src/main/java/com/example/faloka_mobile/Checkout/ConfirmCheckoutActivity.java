@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.faloka_mobile.Account.AccountFragment;
 import com.example.faloka_mobile.MainActivity;
 import com.example.faloka_mobile.Model.Message;
+import com.example.faloka_mobile.Model.Order;
 import com.example.faloka_mobile.Model.OrderUser;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.ActivityConfrimCheckoutBinding;
@@ -31,8 +32,8 @@ public class ConfirmCheckoutActivity extends AppCompatActivity implements View.O
     private static final int PERMISSION_REQUEST_STORAGE = 2;
 
     ActivityConfrimCheckoutBinding binding;
-//    Order order;
-    OrderUser orderUser;
+    Order order;
+//    OrderUser orderUser;
     Bundle bundle;
     private Uri uri;
 
@@ -42,14 +43,14 @@ public class ConfirmCheckoutActivity extends AppCompatActivity implements View.O
         binding = ActivityConfrimCheckoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-//        order = new Order();
-        orderUser = new OrderUser();
+        order = new Order();
+//        orderUser = new OrderUser();
         bundle = new Bundle();
 
         if(getIntent() != null){
             bundle = getIntent().getBundleExtra("DATA_ORDER");
-//            order = bundle.getParcelable(Order.EXTRA_ORDER);
-            orderUser = bundle.getParcelable(OrderUser.EXTRA_ORDER_USER);
+            order = bundle.getParcelable(Order.EXTRA_ORDER);
+//            orderUser = bundle.getParcelable(OrderUser.EXTRA_ORDER_USER);
         }
 
 //        Bundle bundle = getIntent().getParcelableExtra("DATA_CHECKOUT");
@@ -65,12 +66,12 @@ public class ConfirmCheckoutActivity extends AppCompatActivity implements View.O
 //        binding.tvConfirmValuePaymentCode.setText(order.getPayment().getAccountNumber()
 //                + " (" + order.getPayment().getAccountName() + ")");
 //        binding.tvConfirmValueTotalPayment.setText(getFormatRupiah(order.getTotalOrder()));
-        binding.tvConfirmValueMethodPayment.setText(orderUser.getPayment().getPaymentName());
-        binding.tvConfirmValuePaymentCode.setText(orderUser.getPayment().getAccountNumber()
-                + " (" + orderUser.getPayment().getAccountName() + ")");
-        int total = orderUser.getShippingPrice() + orderUser.getOrderDetailList().get(0).getProduct().getPrice() + 2000;
+//        binding.tvConfirmValueMethodPayment.setText(orderUser.getPayment().getPaymentName());
+//        binding.tvConfirmValuePaymentCode.setText(orderUser.getPayment().getAccountNumber()
+//                + " (" + orderUser.getPayment().getAccountName() + ")");
+//        int total = orderUser.getShippingPrice() + orderUser.getOrderDetailList().get(0).getProduct().getPrice() + 2000;
 //        binding.tvConfirmValueTotalPayment.setText(getFormatRupiah(order.getTotalOrder()));
-        binding.tvConfirmValueTotalPayment.setText(getFormatRupiah(total));
+//        binding.tvConfirmValueTotalPayment.setText(getFormatRupiah(total));
         binding.btnDetail.setOnClickListener(this);
         binding.btnHowToPay.setOnClickListener(this);
         binding.btnUpload.setOnClickListener(this);
@@ -91,7 +92,7 @@ public class ConfirmCheckoutActivity extends AppCompatActivity implements View.O
             Intent intent = new Intent(this, DetailOrderActivity.class);
             Bundle bundle = new Bundle();
 //            bundle.putParcelable(Order.EXTRA_ORDER, order);
-            bundle.putParcelable(OrderUser.EXTRA_ORDER_USER, orderUser);
+//            bundle.putParcelable(OrderUser.EXTRA_ORDER_USER, orderUser);
             intent.putExtra("DATA_ORDER", bundle);
             startActivity(intent);
         }
@@ -169,7 +170,7 @@ public class ConfirmCheckoutActivity extends AppCompatActivity implements View.O
                 System.out.println(uri);
                 if(uri != null) {
                     File file = FileUtils.getFile(getApplicationContext(), uri);
-                    CheckoutRepository.uploadMultipart(binding.getRoot(), file,orderUser, this::onUpload);
+//                    CheckoutRepository.uploadMultipart(binding.getRoot(), file,orderUser, this::onUpload);
                 }else{
                     Toast.makeText(getApplicationContext(), "You must choose the image", Toast.LENGTH_SHORT).show();
                 }
