@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.faloka_mobile.Adapter.CartBrandAdapter;
 import com.example.faloka_mobile.Adapter.ProductAdapter;
 import com.example.faloka_mobile.Checkout.CheckoutActivity;
+import com.example.faloka_mobile.Checkout.ChooseDeliveryDialog;
 import com.example.faloka_mobile.Model.Cart;
 import com.example.faloka_mobile.Model.CartBrand;
 import com.example.faloka_mobile.Model.Product;
@@ -149,6 +150,8 @@ public class CartViewModel implements CartItemListener, CartCheckedProductListen
                     bundle.putParcelableArrayList(Product.EXTRA_PRODUCT, (ArrayList) checkedCartProduct);
                     intent.putExtras(bundle);
                     binding.getRoot().getContext().startActivity(intent);
+//                    ChooseDeliveryDialog chooseDeliveryDialog = new ChooseDeliveryDialog();
+//                    chooseDeliveryDialog.show(activity.getSupportFragmentManager(), null);
                 }
                 else {
                     Snackbar.make(binding.getRoot(), "Cart is empty", Snackbar.LENGTH_SHORT).show();

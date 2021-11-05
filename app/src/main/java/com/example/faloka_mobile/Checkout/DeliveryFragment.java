@@ -64,7 +64,7 @@ public class DeliveryFragment extends Fragment{
     Courier courier;
     Address address;
     StepViewSelectedListener stepViewSelectedListener;
-
+    CheckoutBrandAdapter checkoutBrandAdapter;
     FragmentDeliveryBinding binding;
     View view;
 
@@ -108,50 +108,53 @@ public class DeliveryFragment extends Fragment{
     }
 
     private void setExpedition(){
-        binding.tvDeliveryEkspedition.setText("Pilih Ekspedisimu");
-        Button button = view.findViewById(R.id.btn_checkout_next);
-        button.setEnabled(false);
-        binding.tvDeliveryEkspedition.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), DeliveryChooseActivity.class);
-                startActivityForResult(intent, DeliveryFragment.REQUEST_CHOOSE_DELIVERY);
-            }
-        });
+//        binding.tvDeliveryEkspedition.setText("Pilih Ekspedisimu");
+//        Button button = view.findViewById(R.id.btn_checkout_next);
+//        button.setEnabled(false);
+//        binding.tvDeliveryEkspedition.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getActivity(), DeliveryChooseActivity.class);
+//                startActivityForResult(intent, DeliveryFragment.REQUEST_CHOOSE_DELIVERY);
+//            }
+//        });
 
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == DeliveryFragment.REQUEST_CHOOSE_DELIVERY && resultCode == RESULT_CHOOSE_DELIVERY){
-            int totalOrder = 0;
-            Bundle bundle = data.getBundleExtra(DeliveryFragment.EXTRA_CHOOSE_DELIVERY);
-            courier = bundle.getParcelable(Courier.EXTRA_COURIER);
-            courierService = bundle.getParcelable(CourierService.EXTRA_COURIER_SERVICE);
-            totalOrder = CartActivity.getTotal(cartList) +courierService.getCost().get(0).getValue();
-
-            binding.tvDeliveryEkspedition.setText(courier.getName()+" "+courierService.getName());
-            binding.tvDeliveryExpeditionPrice.setText(getFormatRupiah(courierService.getCost().get(0).getValue()));
-            binding.tvDeliverySubtotalValue.setText(getFormatRupiah(totalOrder));
-            TextView tvTotal = view.findViewById(R.id.tv_total_price);
-            tvTotal.setText(getFormatRupiah(totalOrder));
-
-            if(address != null){
-                binding.footerCheckout.btnCheckoutNext.setEnabled(true);
-                binding.footerCheckout.btnCheckoutNext.setTextColor(getResources().getColor(R.color.white));
-                binding.footerCheckout.btnCheckoutNext.setBackgroundColor(getResources().getColor(R.color.black_faloka));
-            }
-            else {
-                binding.footerCheckout.btnCheckoutNext.setEnabled(false);
-                binding.footerCheckout.btnCheckoutNext.setBackgroundColor(getResources().getColor(R.color.white_faloka));
-            }
-        }
-    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        System.out.println("MASUK INI");
+//        checkoutBrandAdapter.onActivityResult(requestCode, resultCode, data);
+//        binding.rvCheckoutBrand.setAdapter(checkoutBrandAdapter);
+//        if(requestCode == DeliveryFragment.REQUEST_CHOOSE_DELIVERY && resultCode == RESULT_CHOOSE_DELIVERY){
+//            int totalOrder = 0;
+//            Bundle bundle = data.getBundleExtra(DeliveryFragment.EXTRA_CHOOSE_DELIVERY);
+//            courier = bundle.getParcelable(Courier.EXTRA_COURIER);
+//            courierService = bundle.getParcelable(CourierService.EXTRA_COURIER_SERVICE);
+//            totalOrder = CartActivity.getTotal(cartList) +courierService.getCost().get(0).getValue();
+//
+//            binding.tvDeliveryEkspedition.setText(courier.getName()+" "+courierService.getName());
+//            binding.tvDeliveryExpeditionPrice.setText(getFormatRupiah(courierService.getCost().get(0).getValue()));
+//            binding.tvDeliverySubtotalValue.setText(getFormatRupiah(totalOrder));
+//            TextView tvTotal = view.findViewById(R.id.tv_total_price);
+//            tvTotal.setText(getFormatRupiah(totalOrder));
+//
+//            if(address != null){
+//                binding.footerCheckout.btnCheckoutNext.setEnabled(true);
+//                binding.footerCheckout.btnCheckoutNext.setTextColor(getResources().getColor(R.color.white));
+//                binding.footerCheckout.btnCheckoutNext.setBackgroundColor(getResources().getColor(R.color.black_faloka));
+//            }
+//            else {
+//                binding.footerCheckout.btnCheckoutNext.setEnabled(false);
+//                binding.footerCheckout.btnCheckoutNext.setBackgroundColor(getResources().getColor(R.color.white_faloka));
+//            }
+//        }
+//    }
 
     private void setProductOrder(List<Cart> cartList){
         List<CartBrand> cartBrandList = CartActivity.brandClassification(cartList);
-        CheckoutBrandAdapter checkoutBrandAdapter = new CheckoutBrandAdapter(cartBrandList);
+        checkoutBrandAdapter = new CheckoutBrandAdapter(cartBrandList);
         binding.rvCheckoutBrand.setAdapter(checkoutBrandAdapter);
         binding.rvCheckoutBrand.setLayoutManager(new LinearLayoutManager(view.getContext()));
     }
