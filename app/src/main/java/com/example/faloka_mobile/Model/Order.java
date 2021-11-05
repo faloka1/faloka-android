@@ -9,6 +9,7 @@ public class Order implements Parcelable {
 
     public  static final String EXTRA_ORDER = "EXTRA_ORDER";
 
+    private int id;
     private Address address;
     private Payment payment;
     private List<CartBrand> cartBrandList;
@@ -18,6 +19,7 @@ public class Order implements Parcelable {
     }
 
     protected Order(Parcel in) {
+        setId(in.readInt());
         setAddress(in.readParcelable(Address.class.getClassLoader()));
         setPayment(in.readParcelable(Payment.class.getClassLoader()));
         setCartBrandList(in.createTypedArrayList(CartBrand.CREATOR));
@@ -42,9 +44,18 @@ public class Order implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(getId());
         parcel.writeParcelable(getAddress(), i);
         parcel.writeParcelable(getPayment(), i);
         parcel.writeTypedList(getCartBrandList());
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Address getAddress() {

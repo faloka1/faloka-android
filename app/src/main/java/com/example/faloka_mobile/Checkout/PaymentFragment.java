@@ -24,6 +24,8 @@ import com.example.faloka_mobile.Cart.CartViewModel;
 import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.BodyCheckout;
 import com.example.faloka_mobile.Model.BodyOrderDetail;
+import com.example.faloka_mobile.Model.Cart;
+import com.example.faloka_mobile.Model.CartBrand;
 import com.example.faloka_mobile.Model.Order;
 import com.example.faloka_mobile.Model.OrderDetail;
 import com.example.faloka_mobile.Model.OrderResponse;
@@ -85,7 +87,7 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
     private void setSummaryPrice(){
         int total = 0;
 //        total = orderUser.getShippingPrice() + orderUser.getOrderDetailList().get(0).getProduct().getPrice();
-//        total = orderUser.getShippingPrice() + PaymentFragment.getTotalOrderUserProduct(orderUser);
+        total = getTotal(order.getCartBrandList());
         TextView tvSubTotal = view.findViewById(R.id.tv_payment_value_subtotal);
 //        tvSubTotal.setText(String.valueOf(order.getTotalOrder()));
         tvSubTotal.setText(String.valueOf(total));
@@ -185,6 +187,7 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
         buttonNext.setBackgroundResource(R.color.netral_900);
 //        order.getCheckout().setPaymentID(paymentMethod.getId());
 //        orderUser.setPaymentID(paymentMethod.getId());
+        order.setPayment(paymentMethod);
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -212,10 +215,10 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-//                                TokenManager tokenManager = TokenManager.getInstance(getContext().getSharedPreferences("Token",0));
-//                                Call<OrderResponse> callCheckout = ApiConfig.getApiService(tokenManager).isCheckout(
-//                                        tokenManager.getTypeToken()+" "+tokenManager.getToken(),
-//                                            getBodyCheckout(orderUser)
+                                TokenManager tokenManager = TokenManager.getInstance(getContext().getSharedPreferences("Token",0));
+                                Call<OrderResponse> callCheckout = ApiConfig.getApiService(tokenManager).isCheckout(
+                                        tokenManager.getTypeToken()+" "+tokenManager.getToken(),
+                                            getBodyCheckout(order)
 //                                        order.getCheckout().getShippingPrice(),
 //                                        order.getCheckout().getExpeditionName(),
 //                                        order.getCheckout().getPaymentID(),
@@ -233,35 +236,36 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
 //                                        orderUser.getOrderDetailList().get(0).getVariant().getId(),
 //                                        orderUser.getOrderDetailList().get(0).getProduct().getId(),
 //                                        getBodyOrderDetails(orderUser)
-//                                );
-//                                callCheckout.enqueue(new Callback<OrderResponse>() {
-//                                    @Override
-//                                    public void onResponse(Call<OrderResponse> call, Response<OrderResponse> response) {
-//                                        if(response.isSuccessful()){
-//                                            OrderResponse orderResponse = response.body();
-//                                            CartRepository.deleteAllCart(view);
-//                                            System.out.println("PESAN RAHASIA: "+orderResponse.getMessage());
-//                                            Bundle bundlePayment = new Bundle();
-//                                            Intent intent = new Intent(getActivity(), ConfirmCheckoutActivity.class);
-////                                            order.setPayment(paymentMethod);
-////                                            order.setOrderID(orderResponse.getOrderID());
-////                                            orderUser.setPayment(paymentMethod);
-////                                            orderUser.getOrderDetailList().get(0).setOrderID(orderResponse.getOrderID());
-////                                            bundlePayment.putParcelable(Order.EXTRA_ORDER, order);
-////                                            bundlePayment.putParcelable(OrderUser.EXTRA_ORDER_USER, orderUser);
-//                                            intent.putExtra("DATA_ORDER",bundlePayment);
-//                                            startActivity(intent);
-//                                        }
-//                                        else {
-//                                            Snackbar.make(view, "Maaf, gagal order", Snackbar.LENGTH_SHORT).show();
-//                                        }
-//                                    }
-//
-//                                    @Override
-//                                    public void onFailure(Call<OrderResponse> call, Throwable t) {
-//
-//                                    }
-//                                });
+                                );
+                                callCheckout.enqueue(new Callback<OrderResponse>() {
+                                    @Override
+                                    public void onResponse(Call<OrderResponse> call, Response<OrderResponse> response) {
+                                        if(response.isSuccessful()){
+                                            OrderResponse orderResponse = response.body();
+                                            CartRepository.deleteAllCart(view);
+                                            System.out.println("PESAN RAHASIA: "+orderResponse.getMessage());
+                                            Bundle bundlePayment = new Bundle();
+                                            Intent intent = new Intent(getActivity(), ConfirmCheckoutActivity.class);
+//                                            order.setPayment(paymentMethod);
+//                                            order.setOrderID(orderResponse.getOrderID());
+//                                            orderUser.setPayment(paymentMethod);
+                                            order.setId(orderResponse.getOrderID());
+//                                            orderUser.getOrderDetailList().get(0).setOrderID(orderResponse.getOrderID());
+                                            bundlePayment.putParcelable(Order.EXTRA_ORDER, order);
+//                                            bundlePayment.putParcelable(OrderUser.EXTRA_ORDER_USER, orderUser);
+                                            intent.putExtra("DATA_ORDER",bundlePayment);
+                                            startActivity(intent);
+                                        }
+                                        else {
+                                            Snackbar.make(view, "Maaf, gagal order", Snackbar.LENGTH_SHORT).show();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<OrderResponse> call, Throwable t) {
+
+                                    }
+                                });
                             }
                         }
                 );
@@ -283,23 +287,23 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
         setFooterPayment();
     }
 
-    private BodyCheckout getBodyCheckout(OrderUser orderUser){
+    private BodyCheckout getBodyCheckout(Order order){
         BodyCheckout bodyCheckout = new BodyCheckout();
-        List<BodyOrderDetail> bodyOrderDetailList = new ArrayList<>();
-        List<OrderDetail> orderDetailList = orderUser.getOrderDetailList();
-        for(int i=0; i<orderDetailList.size(); i++){
-            BodyOrderDetail bodyOrderDetail = new BodyOrderDetail();
-            bodyOrderDetail.setQuantity(orderDetailList.get(i).getQuantity());
-            bodyOrderDetail.setProductID(orderDetailList.get(i).getProductID());
-            bodyOrderDetail.setVariantID(orderDetailList.get(i).getVariantID());
-            bodyOrderDetailList.add(bodyOrderDetail);
-        }
-        bodyCheckout.setBodyOrderDetailList(bodyOrderDetailList);
-        bodyCheckout.setShippingPrice(orderUser.getShippingPrice());
-        bodyCheckout.setExpeditionName(orderUser.getExpeditionName());
-        bodyCheckout.setService(orderUser.getService());
-        bodyCheckout.setPaymentID(orderUser.getPaymentID());
-        bodyCheckout.setAddressID(orderUser.getAddressID());
+//        List<BodyOrderDetail> bodyOrderDetailList = new ArrayList<>();
+//        List<OrderDetail> orderDetailList = orderUser.getOrderDetailList();
+//        for(int i=0; i<orderDetailList.size(); i++){
+//            BodyOrderDetail bodyOrderDetail = new BodyOrderDetail();
+//            bodyOrderDetail.setQuantity(orderDetailList.get(i).getQuantity());
+//            bodyOrderDetail.setProductID(orderDetailList.get(i).getProductID());
+//            bodyOrderDetail.setVariantID(orderDetailList.get(i).getVariantID());
+//            bodyOrderDetailList.add(bodyOrderDetail);
+//        }
+//        bodyCheckout.setBodyOrderDetailList(bodyOrderDetailList);
+//        bodyCheckout.setShippingPrice(orderUser.getShippingPrice());
+//        bodyCheckout.setExpeditionName(orderUser.getExpeditionName());
+//        bodyCheckout.setService(orderUser.getService());
+//        bodyCheckout.setPaymentID(orderUser.getPaymentID());
+//        bodyCheckout.setAddressID(orderUser.getAddressID());
         return bodyCheckout;
     }
 
@@ -309,6 +313,18 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
         TextView tvServicePrice = view.findViewById(R.id.tv_payment_value_total_service);
 
         return viewModel.getTotalPrice(tvSubTotal.getText().toString(),tvServicePrice.getText().toString());
+    }
+
+    public static final int getTotal(List<CartBrand> cartBrandList){
+        int sumTotalProduct = 0;
+        int sumTotalExpedition = 0;
+        for(CartBrand cartBrand : cartBrandList){
+            sumTotalExpedition += cartBrand.getCourierService().getCost().get(0).getValue();
+            for(Cart cart : cartBrand.getCartList()){
+                sumTotalProduct += cart.getProduct().getPrice() * cart.getQuantity();
+            }
+        }
+        return sumTotalExpedition + sumTotalProduct;
     }
 
 }
