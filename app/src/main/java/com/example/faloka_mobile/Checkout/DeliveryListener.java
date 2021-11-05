@@ -9,5 +9,5 @@ import java.io.Serializable;
 
 
 public interface DeliveryListener{
-    public void onDelivery(Courier courier, CourierService courierService, String text);
+    public void onDelivery(Courier courier, CourierService courierService);
 }

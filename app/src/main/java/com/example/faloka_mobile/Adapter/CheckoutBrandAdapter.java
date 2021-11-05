@@ -19,7 +19,9 @@ import com.example.faloka_mobile.Model.Courier;
 import com.example.faloka_mobile.Model.CourierService;
 import com.example.faloka_mobile.R;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class CheckoutBrandAdapter extends RecyclerView.Adapter<CheckoutBrandAdapter.CheckoutBrandViewHolder>{
 
@@ -40,8 +42,7 @@ public class CheckoutBrandAdapter extends RecyclerView.Adapter<CheckoutBrandAdap
             @Override
             public void onClick(View view) {
                 ChooseDeliveryDialog chooseDeliveryDialog = new ChooseDeliveryDialog(checkoutBrandViewHolder::onDelivery);
-                chooseDeliveryDialog.show(((AppCompatActivity) context).getSupportFragmentManager(), "haha");
-                Toast.makeText(context, "TEST: "+String.valueOf(checkoutBrandViewHolder.getAdapterPosition()), Toast.LENGTH_SHORT).show();
+                chooseDeliveryDialog.show(((AppCompatActivity) context).getSupportFragmentManager(), null);
             }
         });
         return checkoutBrandViewHolder;
@@ -54,42 +55,6 @@ public class CheckoutBrandAdapter extends RecyclerView.Adapter<CheckoutBrandAdap
         CheckoutProductAdapter checkoutProductAdapter = new CheckoutProductAdapter(cartBrand.getCartList());
         holder.rvCheckoutProduct.setAdapter(checkoutProductAdapter);
         holder.rvCheckoutProduct.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
-//        holder.tvCheckoutDelivery.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(holder.itemView.getContext(), "BISA DONG", Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(context, DeliveryChooseActivity.class);
-//                intent.putExtra("EXTRA_I_DELIVERY", new DeliveryListener() {
-//                    @Override
-//                    public void onDelivery(Courier courier, CourierService courierService) {
-//                        Toast.makeText(view.getContext(), "BISA NIHHHH!!!!", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//                ModelDeliveryListener modelDeliveryListener = new ModelDeliveryListener(new DeliveryListener() {
-//                    @Override
-//                    public void onDelivery(Courier courier, CourierService courierService) {
-//
-//                    }
-//                });
-//                intent.putExtra("EXTRA_I_DELIVERY", new ModelDeliveryListener(){
-//                    @Override
-//                    public void onDelivery(Courier courier, CourierService courierService) {
-//                        Toast.makeText(view.getContext(), "BISA NIHHHH!!!!", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//                ModelDeliveryListener modelDeliveryListener = new ModelDeliveryListener();
-//                modelDeliveryListener.setDeliveryListener(this::);
-//                view.getContext().startActivity(intent);
-//                ((Activity)context).startActivityForResult(intent, DeliveryFragment.REQUEST_CHOOSE_DELIVERY);
-//            }
-//        });
-//        holder.tvCheckoutDelivery.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                ChooseDeliveryDialog chooseDeliveryDialog = new ChooseDeliveryDialog();
-//                chooseDeliveryDialog.show(((AppCompatActivity) context).getSupportFragmentManager(), "haha");
-//            }
-//        });
     }
 
     @Override
@@ -113,10 +78,16 @@ public class CheckoutBrandAdapter extends RecyclerView.Adapter<CheckoutBrandAdap
         }
 
         @Override
-        public void onDelivery(Courier courier, CourierService courierService, String text) {
-            Toast.makeText(context, "MASUK DUNG!!!!!!!!!!!!!!!!!!!!!!!!!"+ text, Toast.LENGTH_SHORT).show();
-            tvCheckoutBrandName.setText(text);
+        public void onDelivery(Courier courier, CourierService courierService) {
+            tvCheckoutDelivery.setText(courier.getName()+" "+courierService.getName());
+            tvCheckoutDeliveryPrice.setText(getFormatRupiah(courierService.getCost().get(0).getValue()));
         }
+    }
+    public String getFormatRupiah(int price){
+        Double tempPrice = Double.parseDouble(String.valueOf(price));
+        Locale localeID = new Locale("in", "ID");
+        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+        return  formatRupiah.format(tempPrice);
     }
 
 }
