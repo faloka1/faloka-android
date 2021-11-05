@@ -11,6 +11,7 @@ import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Home.HomeRepository;
 import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.Message;
+import com.example.faloka_mobile.Model.Order;
 import com.example.faloka_mobile.Model.OrderUser;
 import com.example.faloka_mobile.Model.PaymentMethod;
 
@@ -54,13 +55,13 @@ public class CheckoutRepository {
 
     }
 
-    public static final void uploadMultipart(View view, File file, OrderUser orderUser, UploadFileListener uploadFileListener) {
+    public static final void uploadMultipart(View view, File file, Order order, UploadFileListener uploadFileListener) {
 
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part photoPart = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
         RequestBody method = RequestBody.create(MediaType.parse("multipart/form-data"), "PATCH");
         TokenManager tokenManager = TokenManager.getInstance(view.getContext().getSharedPreferences("Token",0));
-        Call<Message> callUploadPayment = ApiConfig.getApiService(tokenManager).uploadPhotoMultipart(method, photoPart, orderUser.getOrderDetailList().get(0).getOrderID() );
+        Call<Message> callUploadPayment = ApiConfig.getApiService(tokenManager).uploadPhotoMultipart(method, photoPart, order.getId() );
         callUploadPayment.enqueue(new Callback<Message>() {
             @Override
             public void onResponse(Call<Message> call, Response<Message> response) {

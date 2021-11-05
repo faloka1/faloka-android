@@ -1,10 +1,12 @@
 package com.example.faloka_mobile.Checkout;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -15,17 +17,26 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Account.AccountFragment;
+import com.example.faloka_mobile.Cart.CartRepository;
+import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.MainActivity;
 import com.example.faloka_mobile.Model.Message;
 import com.example.faloka_mobile.Model.Order;
+import com.example.faloka_mobile.Model.OrderResponse;
 import com.example.faloka_mobile.Model.OrderUser;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.ActivityConfrimCheckoutBinding;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
 import java.text.NumberFormat;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ConfirmCheckoutActivity extends AppCompatActivity implements View.OnClickListener ,UploadFileListener {
     private static final int PICK_IMAGE = 1;
@@ -66,12 +77,12 @@ public class ConfirmCheckoutActivity extends AppCompatActivity implements View.O
 //        binding.tvConfirmValuePaymentCode.setText(order.getPayment().getAccountNumber()
 //                + " (" + order.getPayment().getAccountName() + ")");
 //        binding.tvConfirmValueTotalPayment.setText(getFormatRupiah(order.getTotalOrder()));
-//        binding.tvConfirmValueMethodPayment.setText(orderUser.getPayment().getPaymentName());
-//        binding.tvConfirmValuePaymentCode.setText(orderUser.getPayment().getAccountNumber()
-//                + " (" + orderUser.getPayment().getAccountName() + ")");
-//        int total = orderUser.getShippingPrice() + orderUser.getOrderDetailList().get(0).getProduct().getPrice() + 2000;
+        binding.tvConfirmValueMethodPayment.setText(order.getPayment().getPaymentName());
+        binding.tvConfirmValuePaymentCode.setText(order.getPayment().getAccountNumber()
+                + " (" + order.getPayment().getAccountName() + ")");
+        int total = PaymentFragment.getTotal(order.getCartBrandList()) + 2000;
 //        binding.tvConfirmValueTotalPayment.setText(getFormatRupiah(order.getTotalOrder()));
-//        binding.tvConfirmValueTotalPayment.setText(getFormatRupiah(total));
+        binding.tvConfirmValueTotalPayment.setText(getFormatRupiah(total));
         binding.btnDetail.setOnClickListener(this);
         binding.btnHowToPay.setOnClickListener(this);
         binding.btnUpload.setOnClickListener(this);
@@ -91,7 +102,7 @@ public class ConfirmCheckoutActivity extends AppCompatActivity implements View.O
         if(view.findViewById(R.id.btn_detail) == binding.btnDetail){
             Intent intent = new Intent(this, DetailOrderActivity.class);
             Bundle bundle = new Bundle();
-//            bundle.putParcelable(Order.EXTRA_ORDER, order);
+            bundle.putParcelable(Order.EXTRA_ORDER, order);
 //            bundle.putParcelable(OrderUser.EXTRA_ORDER_USER, orderUser);
             intent.putExtra("DATA_ORDER", bundle);
             startActivity(intent);
@@ -117,41 +128,7 @@ public class ConfirmCheckoutActivity extends AppCompatActivity implements View.O
             finish();
         }
         else if(view.findViewById(R.id.btn_upload) == binding.btnUpload){
-
-
-//            if(uri == null){
-                choosePhoto();
-//            }
-//            else {
-//                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(view.getContext() );
-//                alertBuilder.setMessage("Apakah kamu yakin upload ini?");
-//                alertBuilder.setCancelable(true);
-//                alertBuilder.setPositiveButton(
-//                        "Upload",
-//                        new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialogInterface, int i) {
-//                                if(uri != null) {
-//                                    File file = FileUtils.getFile(view.getContext(), uri);
-//                                    uploadMultipart(file);
-//                                }else{
-//                                    Toast.makeText(view.getContext(), "You must choose the image", Toast.LENGTH_SHORT).show();
-//                                }
-//                            }
-//                        }
-//                );
-//                alertBuilder.setNegativeButton(
-//                        "Batal",
-//                        new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialogInterface, int i) {
-//                                dialogInterface.cancel();
-//                            }
-//                        }
-//                );
-//            }
-
-
+            choosePhoto();
         }
         else if(view.getId() == binding.btnProfile.getId()){
             Intent intent = new Intent(this, MainActivity.class);
@@ -161,6 +138,38 @@ public class ConfirmCheckoutActivity extends AppCompatActivity implements View.O
         }
     }
 
+    public void confirmUpload(Uri uri){
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(binding.getRoot().getContext());
+        alertBuilder.setMessage("Apakah kamu yakin upload bukti pembayaran?");
+        alertBuilder.setCancelable(true);
+        alertBuilder.setPositiveButton(
+                "Upload",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if(uri != null) {
+                            File file = FileUtils.getFile(getApplicationContext(), uri);
+                            CheckoutRepository.uploadMultipart(binding.getRoot(), file,order, ConfirmCheckoutActivity.this::onUpload);
+                        }else{
+                            Toast.makeText(getApplicationContext(), "You must choose the image", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+        );
+        alertBuilder.setNegativeButton(
+                "Batal",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                }
+        );
+
+        AlertDialog alertDialog = alertBuilder.create();
+        alertDialog.show();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -168,12 +177,7 @@ public class ConfirmCheckoutActivity extends AppCompatActivity implements View.O
             if(data != null) {
                 uri = data.getData();
                 System.out.println(uri);
-                if(uri != null) {
-                    File file = FileUtils.getFile(getApplicationContext(), uri);
-//                    CheckoutRepository.uploadMultipart(binding.getRoot(), file,orderUser, this::onUpload);
-                }else{
-                    Toast.makeText(getApplicationContext(), "You must choose the image", Toast.LENGTH_SHORT).show();
-                }
+                confirmUpload(uri);
             }
             else {
                 Toast.makeText(getApplicationContext(), "GAGAL UPLOAD", Toast.LENGTH_SHORT).show();
@@ -197,51 +201,6 @@ public class ConfirmCheckoutActivity extends AppCompatActivity implements View.O
             }
         }
     }
-
-//    public static final void uploadMultipart(View view, File file, OrderUser orderUser, UploadFileListener uploadFileListener) {
-//
-//        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-//        MultipartBody.Part photoPart = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
-////
-//        RequestBody method = RequestBody.create(MediaType.parse("multipart/form-data"), "PATCH");
-//        TokenManager tokenManager = TokenManager.getInstance(view.getContext().getSharedPreferences("Token",0));
-////        Call<Message> callUploadPayment = ApiConfig.getApiService(tokenManager).uploadPhotoMultipart(method, photoPart, order.getOrderID());
-//        Call<Message> callUploadPayment = ApiConfig.getApiService(tokenManager).uploadPhotoMultipart(method, photoPart, orderUser.getOrderDetailList().get(0).getOrderID() );
-//        callUploadPayment.enqueue(new Callback<Message>() {
-//            @Override
-//            public void onResponse(Call<Message> call, Response<Message> response) {
-//                if(response.isSuccessful()) {
-//                    Message message = response.body();
-//                    uploadFileListener.onUpload(message);
-////                    Toast.makeText(getApplicationContext(), message.getMessage(), Toast.LENGTH_SHORT).show();
-//                }
-//                else {
-//                    Toast.makeText(view.getContext(),"GAGAL", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Message> call, Throwable t) {
-//
-//            }
-//        });
-////        uploadService = new UploadService();
-////        uploadService.uploadPhotoMultipart(action, photoPart, new Callback() {
-////            @Override
-////            public void onResponse(Call call, Response response) {
-////                BaseResponse baseResponse = (BaseResponse) response.body();
-////
-////                if(baseResponse != null) {
-////                    Toast.makeText(MainActivity.this, baseResponse.getMessage(), Toast.LENGTH_SHORT).show();
-////                }
-////            }
-////
-////            @Override
-////            public void onFailure(Call call, Throwable t) {
-////                t.printStackTrace();
-////            }
-////        });
-//    }
 
     private void choosePhoto() {
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)
