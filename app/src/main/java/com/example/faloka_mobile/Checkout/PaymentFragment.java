@@ -148,7 +148,8 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
         Button buttonNext = view.findViewById(R.id.btn_checkout_next);
         buttonNext.setEnabled(true);
         buttonNext.setTextColor(getResources().getColor(R.color.white));
-        buttonNext.setBackgroundResource(R.color.netral_900);
+        buttonNext.setBackgroundColor(getActivity().getResources().getColor(R.color.netral_900));
+//        buttonNext.setBackgroundResource(R.color.netral_900);
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -175,7 +176,8 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
         tvPriceService.setText(String.valueOf(paymentMethod.getPriceService()));
         buttonNext.setEnabled(true);
         buttonNext.setTextColor(getResources().getColor(R.color.white));
-        buttonNext.setBackgroundResource(R.color.netral_900);
+        buttonNext.setBackgroundColor(getActivity().getResources().getColor(R.color.netral_900));
+//        buttonNext.setBackgroundResource(R.color.netral_900);
 //        order.getCheckout().setPaymentID(paymentMethod.getId());
 //        orderUser.setPaymentID(paymentMethod.getId());
         order.setPayment(paymentMethod);

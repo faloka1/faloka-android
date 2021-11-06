@@ -138,7 +138,8 @@ public class CartViewModel implements CartItemListener, CartCheckedProductListen
     public void setFooterCart(List<Cart> cartList){
         int total = CartActivity.getTotal(cartList);
         binding.footerCartCheckout.btnCheckoutNext.setEnabled(true);
-        binding.footerCartCheckout.btnCheckoutNext.setBackgroundResource(R.color.netral_900);
+        binding.footerCartCheckout.btnCheckoutNext.setBackgroundColor(activity.getResources().getColor(R.color.netral_900));
+//        binding.footerCartCheckout.btnCheckoutNext.setBackgroundResource(R.color.netral_900);
         binding.footerCartCheckout.btnCheckoutNext.setTextColor(activity.getResources().getColor(R.color.white));
         binding.footerCartCheckout.tvCartTotalCart.setText(getFormatRupiah(total));
         binding.footerCartCheckout.btnCheckoutNext.setOnClickListener(new View.OnClickListener() {

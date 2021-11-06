@@ -187,9 +187,8 @@
         <Button
             android:id="@+id/btn_upload_payment"
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
-            android:background="@color/black_faloka"
             android:fontFamily="@font/khula"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"

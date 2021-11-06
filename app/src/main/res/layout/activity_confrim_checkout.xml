@@ -160,16 +160,15 @@
                     android:id="@+id/btn_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@color/netral_100"
+                    android:fontFamily="@font/lato_bold"
+                    android:letterSpacing="0.025"
                     android:text="Detail"
                     android:textColor="@color/secondary_green_light"
-                    android:fontFamily="@font/lato_bold"
                     android:textSize="14sp"
-                    android:letterSpacing="0.025"
-                    android:background="@color/netral_100"
                     app:layout_constraintBottom_toBottomOf="@+id/confirm_total_payment"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/confirm_total_payment">
-                </Button>
+                    app:layout_constraintTop_toTopOf="@+id/confirm_total_payment"></Button>
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -185,7 +184,7 @@
                     android:id="@+id/btn_how_to_pay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/netral_100"
+                    android:backgroundTint="@color/netral_100"
                     android:fontFamily="@font/lato_bold"
                     android:letterSpacing="0.125"
                     android:text="Lihat Cara Pembayaran"
@@ -226,9 +225,9 @@
                     android:id="@+id/btn_profile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/netral_100"
-                    android:fontFamily="@font/khula_semibold"
                     android:layout_marginTop="8dp"
+                    android:backgroundTint="@color/netral_100"
+                    android:fontFamily="@font/khula_semibold"
                     android:letterSpacing="0.125"
                     android:text="Cek Status Pesanan"
                     android:textColor="@color/netral_900"
@@ -243,12 +242,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
-                    android:background="@color/netral_100"
+                    android:backgroundTint="@color/netral_100"
                     android:fontFamily="@font/lato_bold"
                     android:letterSpacing="0.125"
-                    android:textSize="14sp"
                     android:text="Belanja lagi"
                     android:textColor="@color/secondary_green_light"
+                    android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/btn_profile">
