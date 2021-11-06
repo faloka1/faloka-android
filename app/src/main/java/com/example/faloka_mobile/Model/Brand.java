@@ -7,6 +7,10 @@ public class Brand implements Parcelable {
     private int id;
     private String name;
 
+    public Brand(){
+
+    }
+
     protected Brand(Parcel in) {
         id = in.readInt();
         name = in.readString();

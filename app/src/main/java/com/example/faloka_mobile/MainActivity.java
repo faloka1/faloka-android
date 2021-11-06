@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         }
         if(getIntent().getIntExtra(AccountFragment.EXTRA_FRAGMENT_ACCOUNT, 0) == AccountFragment.INDEX_FRAGMENT_ACCOUNT){
             this.fragment = new AccountFragment();
+            binding.buttomNavigation.setSelectedItemId(R.id.bottom_menu_account);
         }
 //        Fragment fragment = new HomeFragment();
         getSupportFragmentManager()

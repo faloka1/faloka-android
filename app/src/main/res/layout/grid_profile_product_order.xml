@@ -5,106 +5,199 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="12dp"
-        android:background="@drawable/round_corner_subcategory"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_product_order_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:fontFamily="@font/lato"
+            android:text="Date"
+            android:textColor="@color/netral_600"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="125dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/round_corner_subcategory"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/img_order_product"
+                android:id="@+id/img_product_order_product"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:scaleType="centerCrop"
-                app:layout_constraintStart_toStartOf="@+id/tv_order_brand"
-                app:layout_constraintTop_toBottomOf="@+id/tv_order_brand"
+                app:layout_constraintStart_toStartOf="@+id/tv_product_order_brand"
+                app:layout_constraintTop_toBottomOf="@+id/tv_product_order_brand"
                 app:srcCompat="@android:drawable/ic_dialog_alert"></ImageView>
 
             <TextView
-                android:id="@+id/tv_order_brand"
+                android:id="@+id/tv_product_order_brand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/lato"
                 android:text="Brand"
-                android:textColor="#000000"
-                android:textSize="22sp"
+                android:textColor="@color/netral_600"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_order_name"
+                android:id="@+id/tv_product_order_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:fontFamily="@font/lato"
+                android:fontFamily="@font/lato_bold"
                 android:text="None"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/img_order_product"
-                app:layout_constraintStart_toEndOf="@+id/img_order_product"
-                app:layout_constraintTop_toTopOf="@+id/img_order_product" />
+                app:layout_constraintBottom_toBottomOf="@+id/img_product_order_product"
+                app:layout_constraintStart_toEndOf="@+id/img_product_order_product"
+                app:layout_constraintTop_toTopOf="@+id/img_product_order_product" />
 
-            <LinearLayout
-                android:id="@+id/linear_layout_detail"
+            <TextView
+                android:id="@+id/tv_product_order_another_product"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_order_name"
+                android:layout_marginEnd="12dp"
+                android:fontFamily="@font/lato"
+                android:text="+0 outfit lagi"
+                android:textColor="@color/netral_500"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_product_order_name"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tv_order_name">
-
-                <TextView
-                    android:id="@+id/tv_order_price"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/lato_bold"
-                    android:text="Rp."
-                    android:textColor="#DB317A"
-                    android:textSize="16sp" />
-
-                <ImageButton
-                    android:id="@+id/img_btn_detail_order"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="12dp"
-                    android:background="#FFFFFF"
-                    app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/btn_upload_payment"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_marginBottom="16dp"
-                android:background="@color/black_faloka"
-                android:fontFamily="@font/khula"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:text="Upload Bukti Pembayaran"
-                android:textAllCaps="false"
-                android:textColor="@color/white_faloka"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/linear_layout_detail" />
+                app:layout_constraintTop_toTopOf="@+id/tv_product_order_name" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.cardview.widget.CardView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_product_order_another_brand"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="2dp"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView">
+
+        <TextView
+            android:id="@+id/tv_product_order_another_brand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:fontFamily="@font/lato"
+            android:text="+0 brand lagi"
+            android:textColor="@color/netral_500"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/ll_product_order_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:background="#FFFFFF"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:fontFamily="@font/lato"
+                android:text="Lihat Detail"
+                android:textSize="14sp" />
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="#FFFFFF"
+                app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="2dp"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cl_product_order_another_brand">
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/lato_black"
+            android:text="Total Pembayaran"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_product_order_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/lato_bold"
+            android:text="Rp."
+            android:textColor="#DB317A"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/textView13"
+            app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+        <Button
+            android:id="@+id/btn_upload_payment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:fontFamily="@font/khula"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:text="Upload Bukti Pembayaran"
+            android:textAllCaps="false"
+            android:textColor="@color/white_faloka"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_product_order_price"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView13" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

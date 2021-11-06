@@ -43,5 +43,13 @@ public class WaitConfirmationFragment extends Fragment implements OrderUserListe
         OrderProductAdapter orderProductAdapter = new OrderProductAdapter(orderUserList);
         binding.rvOrderNotYetPaid.setAdapter(orderProductAdapter);
         binding.rvOrderNotYetPaid.setLayoutManager(new LinearLayoutManager(getContext()));
+//        debugData(orderUserList);
     }
+
+//    public void debugData(List<OrderUser> orderUserList){
+//        for(OrderUser orderUser : orderUserList){
+//            System.out.println("saas: "+orderUser.getCreateDate().toString());
+//
+//        }
+//    }
 }

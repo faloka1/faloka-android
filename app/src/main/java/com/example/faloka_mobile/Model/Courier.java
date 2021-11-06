@@ -15,6 +15,10 @@ public class Courier implements Parcelable {
     @SerializedName("costs")
     private List<CourierService> courierServiceList;
 
+    public Courier(){
+
+    }
+
     protected Courier(Parcel in) {
         setId(in.readInt());
         setCode(in.readString());

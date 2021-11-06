@@ -46,6 +46,7 @@ public class ApiConfig {
 
         Gson gson = new GsonBuilder()
                 .setLenient()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
                 .create();
 
         retrofit = new retrofit2.Retrofit.Builder()
