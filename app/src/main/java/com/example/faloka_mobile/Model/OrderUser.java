@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
 import java.util.List;
 
 public class OrderUser implements Parcelable {
@@ -14,11 +15,6 @@ public class OrderUser implements Parcelable {
     private int id;
     @SerializedName("image_payment_url")
     private String imagePaymentURL;
-    @SerializedName("shipping_price")
-    private int shippingPrice;
-    private String service;
-    @SerializedName("expedition_name")
-    private String expeditionName;
     private String status;
     @SerializedName("address_id")
     private int addressID;
@@ -26,8 +22,12 @@ public class OrderUser implements Parcelable {
     private int paymentID;
     @SerializedName("user_id")
     private int userID;
-    @SerializedName("order_details")
-    private List<OrderDetail> orderDetailList;
+    @SerializedName("created_at")
+    private Date createDate;
+    @SerializedName("updated_at")
+    private Date updateDate;
+    @SerializedName("order_brands")
+    private List<OrderBrand> orderBrandList;
     private Address address;
     private Payment payment;
 
@@ -38,16 +38,15 @@ public class OrderUser implements Parcelable {
     protected OrderUser(Parcel in) {
         setId(in.readInt());
         setImagePaymentURL(in.readString());
-        setShippingPrice(in.readInt());
-        setService(in.readString());
-        setExpeditionName(in.readString());
         setStatus(in.readString());
         setAddressID(in.readInt());
         setPaymentID(in.readInt());
         setUserID(in.readInt());
-        setOrderDetailList(in.createTypedArrayList(OrderDetail.CREATOR));
+        setOrderBrandList(in.createTypedArrayList(OrderBrand.CREATOR));
         setAddress(in.readParcelable(Address.class.getClassLoader()));
         setPayment(in.readParcelable(Payment.class.getClassLoader()));
+        setCreateDate((Date) in.readSerializable());
+        setUpdateDate((Date) in.readSerializable());
     }
 
     public static final Creator<OrderUser> CREATOR = new Creator<OrderUser>() {
@@ -71,16 +70,15 @@ public class OrderUser implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(getId());
         parcel.writeString(getImagePaymentURL());
-        parcel.writeInt(getShippingPrice());
-        parcel.writeString(getService());
-        parcel.writeString(getExpeditionName());
         parcel.writeString(getStatus());
         parcel.writeInt(getAddressID());
         parcel.writeInt(getPaymentID());
         parcel.writeInt(getUserID());
-        parcel.writeTypedList(getOrderDetailList());
+        parcel.writeTypedList(getOrderBrandList());
         parcel.writeParcelable(getAddress(), i);
         parcel.writeParcelable(getPayment(), i);
+        parcel.writeSerializable(getCreateDate());
+        parcel.writeSerializable(getUpdateDate());
     }
 
     public int getId() {
@@ -97,30 +95,6 @@ public class OrderUser implements Parcelable {
 
     public void setImagePaymentURL(String imagePaymentURL) {
         this.imagePaymentURL = imagePaymentURL;
-    }
-
-    public int getShippingPrice() {
-        return shippingPrice;
-    }
-
-    public void setShippingPrice(int shippingPrice) {
-        this.shippingPrice = shippingPrice;
-    }
-
-    public String getService() {
-        return service;
-    }
-
-    public void setService(String service) {
-        this.service = service;
-    }
-
-    public String getExpeditionName() {
-        return expeditionName;
-    }
-
-    public void setExpeditionName(String expeditionName) {
-        this.expeditionName = expeditionName;
     }
 
     public String getStatus() {
@@ -155,12 +129,28 @@ public class OrderUser implements Parcelable {
         this.userID = userID;
     }
 
-    public List<OrderDetail> getOrderDetailList() {
-        return orderDetailList;
+    public Date getCreateDate() {
+        return createDate;
     }
 
-    public void setOrderDetailList(List<OrderDetail> orderDetailList) {
-        this.orderDetailList = orderDetailList;
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public List<OrderBrand> getOrderBrandList() {
+        return orderBrandList;
+    }
+
+    public void setOrderBrandList(List<OrderBrand> orderBrandList) {
+        this.orderBrandList = orderBrandList;
     }
 
     public Address getAddress() {

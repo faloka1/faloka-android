@@ -10,6 +10,8 @@ public class OrderDetail implements Parcelable {
     private int quantity;
     @SerializedName("order_id")
     private int orderID;
+    @SerializedName("order_brand_id")
+    private int orderBrandID;
     @SerializedName("variant_id")
     private int variantID;
     @SerializedName("product_id")
@@ -27,6 +29,7 @@ public class OrderDetail implements Parcelable {
         setId(in.readInt());
         setQuantity(in.readInt());
         setOrderID(in.readInt());
+        setOrderBrandID(in.readInt());
         setVariantID(in.readInt());
         setProductID(in.readInt());
         setVariant(in.readParcelable(Variant.class.getClassLoader()));
@@ -55,6 +58,7 @@ public class OrderDetail implements Parcelable {
         parcel.writeInt(getId());
         parcel.writeInt(getQuantity());
         parcel.writeInt(getOrderID());
+        parcel.writeInt(getOrderBrandID());
         parcel.writeInt(getVariantID());
         parcel.writeInt(getProductID());
         parcel.writeParcelable(getVariant(), i);
@@ -83,6 +87,14 @@ public class OrderDetail implements Parcelable {
 
     public void setOrderID(int orderID) {
         this.orderID = orderID;
+    }
+
+    public int getOrderBrandID() {
+        return orderBrandID;
+    }
+
+    public void setOrderBrandID(int orderBrandID) {
+        this.orderBrandID = orderBrandID;
     }
 
     public int getVariantID() {

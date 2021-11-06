@@ -8,6 +8,10 @@ public class Cost implements Parcelable {
     private String etd;
     private String note;
 
+    public Cost(){
+
+    }
+
     protected Cost(Parcel in) {
         setValue(in.readInt());
         setEtd(in.readString());

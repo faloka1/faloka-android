@@ -12,10 +12,20 @@ import com.example.faloka_mobile.Adapter.AddressAdapter;
 import com.example.faloka_mobile.Adapter.AddressAddAdapter;
 import com.example.faloka_mobile.Login.LoginActivity;
 import com.example.faloka_mobile.Login.TokenManager;
+import com.example.faloka_mobile.Model.Brand;
+import com.example.faloka_mobile.Model.Cart;
+import com.example.faloka_mobile.Model.CartBrand;
+import com.example.faloka_mobile.Model.Cost;
+import com.example.faloka_mobile.Model.Courier;
+import com.example.faloka_mobile.Model.CourierService;
 import com.example.faloka_mobile.Model.Message;
+import com.example.faloka_mobile.Model.Order;
+import com.example.faloka_mobile.Model.OrderBrand;
+import com.example.faloka_mobile.Model.OrderDetail;
 import com.example.faloka_mobile.Model.OrderUser;
 import com.example.faloka_mobile.Model.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -97,6 +107,45 @@ public class AccountRepository {
                 Toast.makeText(view.getContext(), "FAIL API "+t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public static final Order getOrder(OrderUser orderUser){
+        Order order = new Order();
+        order.setId(orderUser.getId());
+        order.setAddress(orderUser.getAddress());
+        order.setPayment(orderUser.getPayment());
+        List<CartBrand> cartBrandList = new ArrayList<>();
+        for(OrderBrand orderBrand : orderUser.getOrderBrandList()){
+            CartBrand cartBrand = new CartBrand();
+            Brand brand = new Brand();
+            brand.setName("AHHA - STORE");
+            cartBrand.setBrand(brand);
+            Courier courier = new Courier();
+            CourierService courierService = new CourierService();
+            courier.setName(orderBrand.getOrderShipping().getExpeditionName());
+            courierService.setName(orderBrand.getOrderShipping().getService());
+            Cost cost = new Cost();
+            cost.setValue(orderBrand.getOrderShipping().getShippingPrice());
+            List<Cost> costList = new ArrayList<>();
+            costList.add(cost);
+            courierService.setCost(costList);
+            cartBrand.setCourier(courier);
+            cartBrand.setCourierService(courierService);
+            List<Cart> cartList = new ArrayList<>();
+            for(OrderDetail orderDetail : orderBrand.getOrderDetailList()){
+                Cart cart = new Cart();
+                cart.setVariant(orderDetail.getVariant());
+                cart.setProduct(orderDetail.getProduct());
+                cart.setVariantID(orderDetail.getVariantID());
+                cart.setProductID(orderDetail.getProductID());
+                cart.setQuantity(orderDetail.getQuantity());
+                cartList.add(cart);
+            }
+            cartBrand.setCartList(cartList);
+            cartBrandList.add(cartBrand);
+        }
+        order.setCartBrandList(cartBrandList);
+        return order;
     }
 
 }

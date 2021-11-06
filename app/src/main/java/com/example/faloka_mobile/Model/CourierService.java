@@ -14,6 +14,10 @@ public class CourierService implements Parcelable {
     private String description;
     private List<Cost> cost;
 
+    public CourierService(){
+
+    }
+
     protected CourierService(Parcel in) {
         setName(in.readString());
         setDescription(in.readString());

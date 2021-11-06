@@ -117,16 +117,6 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
         });
     }
 
-    public static final int getTotalOrderUserProduct(OrderUser orderUser){
-        int total = 0;
-        List<OrderDetail> orderDetailList = orderUser.getOrderDetailList();
-        for(OrderDetail orderDetail : orderDetailList){
-            int sub = orderDetail.getProduct().getPrice() * orderDetail.getQuantity();
-            total += sub;
-        }
-        return total;
-    }
-
     private void setRecycleView(List<Payment> paymentList){
         PaymentAdapter paymentAdapter = new PaymentAdapter(paymentList, this::onPaymentSelected);
         RecyclerView rvPayment = view.findViewById(R.id.rv_payment_method);
