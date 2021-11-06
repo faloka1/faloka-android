@@ -15,16 +15,19 @@ public class OrderBrand implements Parcelable {
     private int brandID;
     @SerializedName("shipping_id")
     private int shippingID;
+    private Brand brand;
     @SerializedName("shipping")
     private OrderShipping orderShipping;
     @SerializedName("order_details")
     private List<OrderDetail> orderDetailList;
+
 
     protected OrderBrand(Parcel in) {
         setId(in.readInt());
         setOrderID(in.readInt());
         setBrandID(in.readInt());
         setShippingID(in.readInt());
+        setBrand(in.readParcelable(Brand.class.getClassLoader()));
         setOrderShipping(in.readParcelable(OrderShipping.class.getClassLoader()));
         setOrderDetailList(in.createTypedArrayList(OrderDetail.CREATOR));
     }
@@ -52,6 +55,7 @@ public class OrderBrand implements Parcelable {
         parcel.writeInt(getOrderID());
         parcel.writeInt(getBrandID());
         parcel.writeInt(getShippingID());
+        parcel.writeParcelable(getBrand(), i);
         parcel.writeParcelable(getOrderShipping(), i);
         parcel.writeTypedList(getOrderDetailList());
     }
@@ -86,6 +90,14 @@ public class OrderBrand implements Parcelable {
 
     public void setShippingID(int shippingID) {
         this.shippingID = shippingID;
+    }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
     }
 
     public OrderShipping getOrderShipping() {

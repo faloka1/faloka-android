@@ -117,9 +117,7 @@ public class AccountRepository {
         List<CartBrand> cartBrandList = new ArrayList<>();
         for(OrderBrand orderBrand : orderUser.getOrderBrandList()){
             CartBrand cartBrand = new CartBrand();
-            Brand brand = new Brand();
-            brand.setName("AHHA - STORE");
-            cartBrand.setBrand(brand);
+            cartBrand.setBrand(orderBrand.getBrand());
             Courier courier = new Courier();
             CourierService courierService = new CourierService();
             courier.setName(orderBrand.getOrderShipping().getExpeditionName());

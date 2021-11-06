@@ -76,7 +76,7 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
             holder.tvProductOrderPrice.setText(getFormatRupiah(getTotalOrderPrice(orderUser)));
         }
 
-        holder.tvProductOrderBrand.setText(String.valueOf(orderBrand.getBrandID()));
+        holder.tvProductOrderBrand.setText(orderBrand.getBrand().getName());
         String dateOrder = convertDate(orderUser.getCreateDate(), "dd MMMM yyyy", null);
         holder.tvProductOrderDate.setText(dateOrder);
 
