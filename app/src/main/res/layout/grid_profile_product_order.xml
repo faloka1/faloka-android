@@ -100,7 +100,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_product_order_another_brand"
         android:layout_width="0dp"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:layout_marginTop="2dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
