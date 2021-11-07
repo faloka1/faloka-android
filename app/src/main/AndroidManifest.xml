@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Falokamobile">
         <activity
+            android:name=".InspireMe.InpireMeUploadInspireMe"
+            android:exported="true" />
+        <activity
             android:name=".Cart.CartActivity"
             android:exported="true" />
         <activity
@@ -46,7 +49,7 @@
             android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".Checkout.checkoutCobaCoba"
             android:exported="true" />
