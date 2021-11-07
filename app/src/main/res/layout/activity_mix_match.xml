@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:titleTextColor="@color/black" />
+        app:titleTextColor="@color/primary_dark" />
 
     <RelativeLayout
         android:id="@+id/relative_layout_mix_match"

@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Category implements Parcelable {
@@ -17,7 +18,7 @@ public class Category implements Parcelable {
     @SerializedName("carousels")
     private List<Carousel> carouselList;
     @SerializedName("sub_categories")
-    private List<SubCategory> subCategoryList;
+    private ArrayList<SubCategory> subCategoryList;
     @SerializedName("products")
     private List<Product> productList;
 
@@ -90,11 +91,11 @@ public class Category implements Parcelable {
         this.carouselList = carouselList;
     }
 
-    public List<SubCategory> getSubCategoryList() {
+    public ArrayList<SubCategory> getSubCategoryList() {
         return subCategoryList;
     }
 
-    public void setSubCategoryList(List<SubCategory> subCategoryList) {
+    public void setSubCategoryList(ArrayList<SubCategory> subCategoryList) {
         this.subCategoryList = subCategoryList;
     }
 

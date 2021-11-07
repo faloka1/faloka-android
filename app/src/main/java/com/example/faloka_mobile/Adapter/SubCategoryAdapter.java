@@ -2,6 +2,8 @@ package com.example.faloka_mobile.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,15 +20,16 @@ import com.example.faloka_mobile.Model.SubCategory;
 import com.example.faloka_mobile.Product.ProductListActivity;
 import com.example.faloka_mobile.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.SubCategoryViewHolder> {
 
-    List<SubCategory> subCategories;
+    ArrayList<SubCategory> subCategories;
     LayoutInflater inflater;
     Context context;
 
-    public SubCategoryAdapter(Context context, List<SubCategory> subCategories){
+    public SubCategoryAdapter(Context context, ArrayList<SubCategory> subCategories){
         this.context = context;
         this.subCategories = subCategories;
         this.inflater = LayoutInflater.from(context);
@@ -51,10 +54,10 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
             public void onClick(View view) {
                 Intent intent = new Intent(context, ProductListActivity.class);
                 intent.putExtra(SubCategory.EXTRA_SUBCATEGORY, subCategory);
+                intent.putExtra("subcategories", subCategories);
                 view.getContext().startActivity(intent);
             }
         });
-
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.example.faloka_mobile.Home;
 
+import android.annotation.SuppressLint;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
@@ -24,6 +25,7 @@ import com.example.faloka_mobile.BaseFragment;
 import com.example.faloka_mobile.Model.Category;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.FragmentHomeBinding;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.List;
 
@@ -62,6 +64,8 @@ public class HomeFragment extends BaseFragment {
         homeViewModel.getCategories().observe(getActivity(), this::initTabHost);
 
     }
+
+    @SuppressLint("ResourceType")
     void initTabHost(List<Category> categories){
         int i=0;
         tabHost.setup(getActivity(), getChildFragmentManager(), R.id.home_content);
@@ -73,17 +77,18 @@ public class HomeFragment extends BaseFragment {
 
             tabHost.addTab(tabHost.newTabSpec(category.getName()).setIndicator(category.getName()), ContentHomeFragment.class, bundle);
             TextView tv = tabHost.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
-            tv.setAllCaps(false);
-            tv.setTextSize(13);
             if(tabHost.getTabWidget().getChildAt(i).isSelected()){
-                tv.setTextColor(getResources().getColor(R.color.faloka_accent_green));
+                tv.setTextColor(getResources().getColorStateList(R.color.primary_light));
+
             }
             else{
-                tv.setTextColor(getResources().getColor(R.color.white_faloka));
+                tv.setTextColor(getResources().getColor(R.color.netral_500));
             }
 
             Typeface typeface = ResourcesCompat.getFont(getContext(), R.font.khula_semibold);
             tv.setTypeface(typeface);
+            tv.setAllCaps(false);
+            tv.setLetterSpacing(0.015f);
 
             i++;
         }
@@ -97,14 +102,15 @@ public class HomeFragment extends BaseFragment {
         });
     }
 
+
     void updateTabs() {
         for (int i = 0; i < tabHost.getTabWidget().getChildCount(); i++) {
             TextView tv = tabHost.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
-            if (tabHost.getTabWidget().getChildAt(i).isSelected()) {
-                tv.setTextColor(getResources().getColor(R.color.faloka_accent_green));
+            if(tabHost.getTabWidget().getChildAt(i).isSelected()){
+                tv.setTextColor(getResources().getColorStateList(R.color.primary_light));
             }
             else{
-                tv.setTextColor(getResources().getColor(R.color.white_faloka));
+                tv.setTextColor(getResources().getColor(R.color.netral_500));
             }
         }
     }

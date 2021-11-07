@@ -23,7 +23,7 @@
             android:background="@color/white"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:title=""
-            app:titleTextColor="@color/black" />
+            app:titleTextColor="@color/primary_dark" />
 
         <include
             android:id="@+id/account"

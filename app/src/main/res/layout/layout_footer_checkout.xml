@@ -6,8 +6,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/round_corner_navbar_bottom"
+        android:layout_height="100dp"
+        android:background="@color/netral_100"
         android:paddingHorizontal="20dp"
         android:paddingVertical="17dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -42,15 +42,11 @@
 
         <Button
             android:id="@+id/btn_checkout_next"
+            style="@style/ButtonPrimary"
             android:layout_width="196dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:enabled="false"
-            android:fontFamily="@font/lato_black"
-            android:letterSpacing="0.125"
             android:text="Lanjut"
-            android:textAlignment="center"
-            android:textColor="@color/netral_500"
-            android:textSize="16dp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_total_price"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_title_total"></Button>

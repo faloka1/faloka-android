@@ -40,7 +40,7 @@
                 android:fontFamily="@font/lato_bold"
                 android:gravity="center_vertical"
                 android:text="none"
-                android:textColor="@color/primary_color"
+                android:textColor="@color/primary_light"
                 android:textSize="20sp"></TextView>
 
         </LinearLayout>

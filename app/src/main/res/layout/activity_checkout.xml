@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:titleTextColor="@color/black" />
+        app:titleTextColor="@color/primary_dark" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -41,15 +41,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:sv_animationType="Line"
-            app:sv_doneCircleColor="@color/primary_color"
+            app:sv_doneCircleColor="@color/primary_light"
             app:sv_doneCircleRadius="12dp"
-            app:sv_doneStepLineColor="@color/primary_color"
+            app:sv_doneStepLineColor="@color/primary_light"
             app:sv_doneStepMarkColor="@color/netral_100"
             app:sv_doneTextColor="@color/netral_900"
             app:sv_nextStepCircleColor="@color/netral_300"
             app:sv_nextStepLineColor="@color/netral_300"
             app:sv_nextTextColor="@color/netral_500"
-            app:sv_selectedCircleColor="@color/primary_color"
+            app:sv_selectedCircleColor="@color/primary_light"
             app:sv_selectedCircleRadius="12dp"
             app:sv_selectedStepNumberColor="@color/netral_100"
             app:sv_selectedTextColor="@color/netral_900"

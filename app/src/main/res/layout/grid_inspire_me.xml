@@ -73,7 +73,7 @@
                 android:textAllCaps="false"
                 android:textSize="17dp"
                 android:fontFamily="@font/khula"
-                android:backgroundTint="@color/primary_color"
+                android:backgroundTint="@color/primary_light"
                 android:textColor="@color/netral_100"
                 android:letterSpacing="0.105"/>
         </LinearLayout>

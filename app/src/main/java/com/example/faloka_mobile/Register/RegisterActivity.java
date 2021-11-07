@@ -33,7 +33,6 @@ public class RegisterActivity extends AppCompatActivity implements RegisterListe
         setAutoCompleteSpinnerGender();
         setAfterError();
     }
-
     private void setAutoCompleteSpinnerGender(){
         String[] option = {"L", "P"};
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, R.layout.layout_option_regist_gender,option);

@@ -133,9 +133,9 @@ public class ActionAddressActivity extends AppCompatActivity {
             public void onResponse(Call<List<Province>> call, Response<List<Province>> response) {
                 List<Province> provinceList = response.body();
 
-                ArrayAdapter<Province> provinceArrayAdapter = new ArrayAdapter<Province>(getApplicationContext(), R.layout.spinner_item, provinceList);
+                ArrayAdapter<Province> provinceArrayAdapter = new ArrayAdapter<Province>(getApplicationContext(), R.layout.layout_spinner_gender_item, provinceList);
                 binding.spinnerProvince.setPrompt("Select province");
-                provinceArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+                provinceArrayAdapter.setDropDownViewResource(R.layout.layout_spinner_gender_item);
                 binding.spinnerProvince.setAdapter(provinceArrayAdapter);
                 binding.spinnerProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
@@ -183,9 +183,9 @@ public class ActionAddressActivity extends AppCompatActivity {
                 public void onResponse(Call<List<District>> call, Response<List<District>> response) {
                     List<District> districtList = response.body();
 
-                    ArrayAdapter<District> districtArrayAdapter = new ArrayAdapter<District>(getApplicationContext(), R.layout.spinner_item, districtList);
+                    ArrayAdapter<District> districtArrayAdapter = new ArrayAdapter<District>(getApplicationContext(), R.layout.layout_spinner_gender_item, districtList);
 //                    binding.spinnerProvince.setPrompt("Select province");
-                    districtArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+                    districtArrayAdapter.setDropDownViewResource(R.layout.layout_spinner_gender_item);
                     binding.spinnerDistrict.setAdapter(districtArrayAdapter);
                     binding.spinnerDistrict.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override

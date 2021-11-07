@@ -9,6 +9,7 @@ public class SubCategory implements Parcelable {
 
     public static final String EXTRA_SUBCATEGORY = "extra_subcategory";
 
+
     private int id;
     private String slugCategory;
     private String name;
