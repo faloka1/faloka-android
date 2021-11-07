@@ -68,7 +68,7 @@ public class CheckoutRepository {
                 if(response.isSuccessful()) {
                     Message message = response.body();
                     uploadFileListener.onUpload(message);
-//                    Toast.makeText(getApplicationContext(), message.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(view.getContext(), message.getMessage(), Toast.LENGTH_SHORT).show();
                 }
                 else {
                     Toast.makeText(view.getContext(),"GAGAL", Toast.LENGTH_SHORT).show();
@@ -77,7 +77,8 @@ public class CheckoutRepository {
 
             @Override
             public void onFailure(Call<Message> call, Throwable t) {
-
+                Toast.makeText(view.getContext(), "FAIL API"+ call.toString(), Toast.LENGTH_SHORT).show();
+                System.out.println("FAIL API"+ call.toString()+" <> "+t.getMessage());
             }
         });
     }

@@ -51,13 +51,13 @@ public class ChooseDeliveryDialog extends AppCompatDialogFragment implements Cou
 
         builder.setView(view)
                 .setTitle("Pilih Ekspedisi")
-                .setNegativeButton("batal", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Batal", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                     }
                 })
-                .setPositiveButton("pilih", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Pilih", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if(chooseCourier != null && chooseCourierService != null){

@@ -24,6 +24,7 @@
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginBottom="-15dp"
         app:layout_constraintBottom_toTopOf="@+id/layout_bottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -169,8 +170,8 @@
     <RelativeLayout
         android:id="@+id/layout_bottom"
         android:layout_width="0dp"
-        android:layout_height="100dp"
-        android:background="@color/netral_100"
+        android:layout_height="80dp"
+        android:background="@drawable/round_corner_navbar_bottom"
         android:paddingHorizontal="20dp"
         android:paddingTop="13dp"
         android:paddingBottom="12dp"
@@ -180,28 +181,30 @@
 
         <Button
             android:id="@+id/btn_cart"
-            style="@style/ButtonSecondary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="55dp"
-            android:layout_marginBottom="4dp"
-            android:layout_toStartOf="@+id/btn_buy_now"
-            android:text="Masukkan Tas " />
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:backgroundTint="@color/white"
+            android:text="Masukkan Tas "
+            android:textColor="#000000"
+            android:textSize="14sp"
+            app:strokeColor="@android:color/black"
+            app:strokeWidth="1dp" />
 
         <Button
             android:id="@+id/btn_buy_now"
-            style="@style/ButtonPrimary"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:text="Beli Sekarang" />
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:text="Beli Sekarang"
+            android:textSize="14sp" />
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
