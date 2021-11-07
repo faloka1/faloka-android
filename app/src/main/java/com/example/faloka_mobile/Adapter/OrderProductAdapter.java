@@ -149,7 +149,7 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
         for(OrderBrand orderBrand : orderUser.getOrderBrandList()){
             sumExpeditionPrice += orderBrand.getOrderShipping().getShippingPrice();
             for (OrderDetail orderDetail : orderBrand.getOrderDetailList()){
-                sumProductPrice += orderDetail.getProduct().getPrice();
+                sumProductPrice += orderDetail.getProduct().getPrice() * orderDetail.getQuantity();
             }
         }
         return (sumExpeditionPrice + sumProductPrice + 2000);
