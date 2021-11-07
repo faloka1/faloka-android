@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.faloka_mobile.Cart.CartCheckedProductListener;
+import com.example.faloka_mobile.Cart.CartUpdateQtyListener;
 import com.example.faloka_mobile.Model.CartBrand;
 import com.example.faloka_mobile.R;
 
@@ -21,10 +22,12 @@ public class CartBrandAdapter extends RecyclerView.Adapter<CartBrandAdapter.Cart
     private List<CartBrand> cartBrandList;
     private boolean isAllChecked;
     private CartCheckedProductListener cartCheckedProductListener;
+    private CartUpdateQtyListener cartUpdateQtyListener;
 
-    public CartBrandAdapter(List<CartBrand> cartBrandList, CartCheckedProductListener cartCheckedProductListener){
+    public CartBrandAdapter(List<CartBrand> cartBrandList, CartCheckedProductListener cartCheckedProductListener, CartUpdateQtyListener cartUpdateQtyListener){
         this.cartBrandList = cartBrandList;
         this.cartCheckedProductListener = cartCheckedProductListener;
+        this.cartUpdateQtyListener = cartUpdateQtyListener;
     }
 
     public void setAllChecked(boolean isAllChecked){
@@ -42,12 +45,12 @@ public class CartBrandAdapter extends RecyclerView.Adapter<CartBrandAdapter.Cart
     public void onBindViewHolder(@NonNull CartBrandAdapter.CartBrandViewHolder holder, int position) {
         CartBrand cartBrand = cartBrandList.get(position);
         holder.cbxCartBrandName.setText(cartBrand.getBrand().getName());
-        CartProductAdapter cartProductAdapter = new CartProductAdapter(cartBrand.getCartList(), cartCheckedProductListener);
+        CartProductAdapter cartProductAdapter = new CartProductAdapter(cartBrand.getCartList(), cartCheckedProductListener, cartUpdateQtyListener);
         cartProductAdapter.setBrandChecked(isAllChecked);
         holder.rvCartBrand.setAdapter(cartProductAdapter);
         holder.rvCartBrand.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
         holder.cbxCartBrandName.setChecked(isAllChecked);
-
+        System.out.println("HAHAHA"+" HIIHI");
         holder.cbxCartBrandName.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {

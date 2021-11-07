@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class CartViewModel implements CartItemListener, CartCheckedProductListener, CartProductsRelated{
+public class CartViewModel implements CartItemListener, CartCheckedProductListener, CartProductsRelated, CartUpdateQtyListener{
 
     private AppCompatActivity activity;
     private ActivityCartBinding binding;
@@ -69,7 +69,7 @@ public class CartViewModel implements CartItemListener, CartCheckedProductListen
     @Override
     public void onCart(List<Cart> cartList) {
         List<CartBrand> cartBrandList = CartActivity.brandClassification(cartList);
-        CartBrandAdapter cartBrandAdapter = new CartBrandAdapter(cartBrandList, this::onCartProductChecked);
+        CartBrandAdapter cartBrandAdapter = new CartBrandAdapter(cartBrandList, this::onCartProductChecked, this::onUpdateQtyCart);
         cartBrandAdapter.setAllChecked(true);
         binding.rvCartBrandProduct.setAdapter(cartBrandAdapter);
         binding.rvCartBrandProduct.setLayoutManager(new LinearLayoutManager(view.getContext()));
@@ -78,34 +78,18 @@ public class CartViewModel implements CartItemListener, CartCheckedProductListen
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(compoundButton.isChecked()){
                     cartBrandAdapter.setAllChecked(true);
-                    List<Cart> tempCart = new ArrayList<>(checkedCartProduct);
-                    for (int i=0; i<cartList.size(); i++){
-                        if(!isOnCart(cartList.get(i))){
-                            checkedCartProduct.add(cartList.get(i));
-                            System.out.println("HAHA");
-                        }
-                    }
+
                 }
                 else {
                     cartBrandAdapter.setAllChecked(false);
                     checkedCartProduct.clear();
                 }
+                setTotalProduct(checkedCartProduct);
+                setFooterCart(checkedCartProduct);
                 binding.rvCartBrandProduct.setAdapter(cartBrandAdapter);
                 binding.rvCartBrandProduct.setLayoutManager(new LinearLayoutManager(view.getContext()));
             }
         });
-    }
-
-    boolean isOnCart(Cart cart){
-        boolean isThere = false;
-        List<Cart> tempCart = new ArrayList<>(checkedCartProduct);
-        for(Cart cartItem : tempCart){
-            if(cartItem.getId() == cart.getId()){
-                isThere = true;
-                break;
-            }
-        }
-        return isThere;
     }
 
     @Override
@@ -121,11 +105,6 @@ public class CartViewModel implements CartItemListener, CartCheckedProductListen
                 if(cartChecked.getId() == cartID){
                     checkedCartProduct.remove(i);
                 }
-//                Product productChecked = checkedCartProduct.get(i);
-//                if(productChecked.getSlug().equals(slug)){
-//                    checkedCartProduct.remove(i);
-//                    System.out.println("REMOVe: "+productChecked.getSlug());
-//                }
             }
         }
         for(Cart cart : this.checkedCartProduct){
@@ -166,6 +145,17 @@ public class CartViewModel implements CartItemListener, CartCheckedProductListen
         ProductAdapter productAdapter = new ProductAdapter(productList);
         binding.rvProductsRelated.setLayoutManager(new GridLayoutManager(binding.getRoot().getContext(),2, GridLayoutManager.VERTICAL, false));
         binding.rvProductsRelated.setAdapter(productAdapter);
+    }
+
+    @Override
+    public void onUpdateQtyCart(Cart cart, int qty) {
+        for(Cart checkedCart : checkedCartProduct){
+            if(cart.getId() == checkedCart.getId()){
+                checkedCart.setQuantity(qty);
+            }
+        }
+        setTotalProduct(checkedCartProduct);
+        setFooterCart(checkedCartProduct);
     }
 
 //    public void setProductsRelated()

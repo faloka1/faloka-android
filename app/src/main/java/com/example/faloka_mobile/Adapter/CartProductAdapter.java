@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Cart.CartCheckedProductListener;
 import com.example.faloka_mobile.Cart.CartRepository;
+import com.example.faloka_mobile.Cart.CartUpdateQtyListener;
 import com.example.faloka_mobile.Model.Cart;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.Variant;
@@ -35,11 +36,12 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
     List<Cart> cartList;
     private boolean isBrandChecked;
     private CartCheckedProductListener cartCheckedProductListener;
-
-    public CartProductAdapter(List<Cart> cartList, CartCheckedProductListener cartCheckedProductListener){
+    private CartUpdateQtyListener cartUpdateQtyListener;
+    public CartProductAdapter(List<Cart> cartList, CartCheckedProductListener cartCheckedProductListener, CartUpdateQtyListener cartUpdateQtyListener){
         this.cartList = cartList;
+        this.cartUpdateQtyListener = cartUpdateQtyListener;
         this.cartCheckedProductListener = cartCheckedProductListener;
-        cartCheckedProductListener.onCartProductChecked(cartList, true, 0);
+//        cartCheckedProductListener.onCartProductChecked(cartList, true, 0);
     }
 
     public void setBrandChecked(boolean isBrandChecked){
@@ -57,7 +59,22 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
     public void onBindViewHolder(@NonNull CartProductAdapter.CartProductViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Cart cart = cartList.get(position);
         holder.tvCartProductName.setText(cart.getProduct().getName());
-        holder.cbxCartProduct.setChecked(isBrandChecked);
+
+        if(!isBrandChecked){
+            holder.cbxCartProduct.setChecked(false);
+            cartCheckedProductListener.onCartProductChecked(cartList, false, cartList.get(position).getId() );
+            holder.btnCartQtyPlus.setEnabled(false);
+            holder.btnCartQtyMinus.setEnabled(false);
+        }
+        else {
+            holder.cbxCartProduct.setChecked(true);
+            List<Cart> cartListTemp = new ArrayList<>();
+            cartListTemp.add(cartList.get(position));
+            cartCheckedProductListener.onCartProductChecked(cartListTemp, true, 0);
+            holder.btnCartQtyPlus.setEnabled(true);
+            holder.btnCartQtyMinus.setEnabled(true);
+        }
+
         Glide.with(holder.imgCartProduct.getContext())
                 .load(ApiConfig.BASE_IMAGE_URL+cart.getVariant().getVariantImageList().get(0).getImageURL() )
                 .into(holder.imgCartProduct);
@@ -71,9 +88,10 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
                     int qty = cart.getQuantity()-1;
                     cart.setQuantity(qty);
                     CartRepository.editCartQuantity(view, cart.getId(), qty);
+                    cartUpdateQtyListener.onUpdateQtyCart(cart, qty);
                 }
                 holder.tvCartQty.setText(String.valueOf(cart.getQuantity() ));
-                Toast.makeText(holder.itemView.getContext(), "MINUS", Toast.LENGTH_SHORT).show();
+
             }
         });
         holder.btnCartQtyPlus.setOnClickListener(new View.OnClickListener() {
@@ -82,8 +100,8 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
                 int qty = cart.getQuantity()+1;
                 cart.setQuantity(qty);
                 CartRepository.editCartQuantity(view, cart.getId(), qty);
+                cartUpdateQtyListener.onUpdateQtyCart(cart, qty);
                 holder.tvCartQty.setText(String.valueOf(cart.getQuantity()));
-                Toast.makeText(holder.itemView.getContext(), "PLUS", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -94,9 +112,13 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
                     List<Cart> cartListTemp = new ArrayList<>();
                     cartListTemp.add(cartList.get(position));
                     cartCheckedProductListener.onCartProductChecked(cartListTemp, true, 0);
+                    holder.btnCartQtyPlus.setEnabled(true);
+                    holder.btnCartQtyMinus.setEnabled(true);
                 }
                 else {
                     cartCheckedProductListener.onCartProductChecked(cartList, false, cartList.get(position).getId() );
+                    holder.btnCartQtyPlus.setEnabled(false);
+                    holder.btnCartQtyMinus.setEnabled(false);
                 }
             }
         });
