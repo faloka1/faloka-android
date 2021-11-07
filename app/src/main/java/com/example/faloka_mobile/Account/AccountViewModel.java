@@ -42,7 +42,6 @@ public class AccountViewModel extends ViewModel implements UserProfileListener, 
     public ActionBarDrawerToggle actionBarDrawerToggle;
     public View view;
     private DrawerOptionListener drawerOptionListener;
-    private String[] titles = new String[]{"Movies", "Events", "Tickets"};
 
     private FragmentAccountBinding binding;
     private AppCompatActivity activity;

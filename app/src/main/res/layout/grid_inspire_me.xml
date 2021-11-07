@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/card_border"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_margin="4dp"
+    android:background="@drawable/card_border">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,17 +16,16 @@
             android:id="@+id/inspire_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scaleType="fitXY"
             android:adjustViewBounds="true"
-            android:src="@drawable/img_profile" >
-        </ImageView>
+            android:scaleType="fitXY"
+            android:src="@drawable/img_profile"></ImageView>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:paddingHorizontal="20dp"
-            android:paddingVertical="16dp"
-            android:orientation="vertical">
+            android:paddingVertical="16dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -37,45 +37,49 @@
                     android:id="@+id/inspire_photo_profile"
                     android:layout_width="27dp"
                     android:layout_height="27dp"
-                    android:src="@drawable/img_profile"/>
+                    android:src="@drawable/img_profile" />
+
                 <Space
                     android:layout_width="11dp"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent" />
+
                 <TextView
                     android:id="@+id/inspire_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/lato_bold"
-                    android:textSize="16dp"
                     android:layout_gravity="center_vertical"
+                    android:fontFamily="@font/lato_bold"
                     android:letterSpacing="0.015"
+                    android:text="Kookie"
                     android:textColor="@color/netral_900"
-                    android:text="Kookie"/>
+                    android:textSize="16dp" />
             </LinearLayout>
+
             <TextView
                 android:id="@+id/inspire_caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Miror selfie check! lagi seneng banget pakek baju ini"
                 android:fontFamily="@font/khula"
-                android:textSize="16dp"
                 android:letterSpacing="0.05"
                 android:lineHeight="20dp"
-                android:textColor="@color/netral_600"/>
+                android:text="Miror selfie check! lagi seneng banget pakek baju ini"
+                android:textColor="@color/netral_600"
+                android:textSize="16dp" />
+
             <Button
                 android:id="@+id/inspire_button_relate_product"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_gravity="right"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/primary_light"
+                android:fontFamily="@font/khula"
+                android:letterSpacing="0.105"
                 android:text="Lihat relate product"
                 android:textAllCaps="false"
-                android:textSize="17dp"
-                android:fontFamily="@font/khula"
-                android:backgroundTint="@color/primary_light"
                 android:textColor="@color/netral_100"
-                android:letterSpacing="0.105"/>
+                android:textSize="17dp" />
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
