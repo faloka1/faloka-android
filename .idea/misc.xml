@@ -47,11 +47,16 @@
         <entry key="..\:/AndroidStudioFile/Falokamobile/app/src/main/res/menu/bottom_menu.xml" value="0.1796875" />
         <entry key="..\:/AndroidStudioFile/Falokamobile/app/src/main/res/menu/top_menu.xml" value="0.1796875" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/drawable/badge_background.xml" value="0.19583333333333333" />
+        <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/drawable/button_black_border.xml" value="0.19583333333333333" />
+        <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/drawable/button_popup.xml" value="0.19583333333333333" />
+        <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/drawable/button_quantity_border.xml" value="0.19583333333333333" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.19583333333333333" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/drawable/ic_baseline_arrow_back_ios_24.xml" value="0.19583333333333333" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/drawable/ic_baseline_arrow_forward_ios_24.xml" value="0.19583333333333333" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/drawable/ic_baseline_done_24.xml" value="0.1" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/drawable/ic_svg_cart.xml" value="0.19583333333333333" />
+        <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/drawable/ic_svg_outlined_add_photo.xml" value="0.19583333333333333" />
+        <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/drawable/ic_svg_sad_cart.xml" value="0.19583333333333333" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/drawable/mix_match_border.xml" value="0.19583333333333333" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/drawable/mix_match_product_border.xml" value="0.2078125" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/drawable/mix_match_product_default.xml" value="0.19583333333333333" />
@@ -64,6 +69,7 @@
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/drawable/tabs_selector.xml" value="0.19583333333333333" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/activity_action_adress.xml" value="0.4466666666666667" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/activity_cart.xml" value="0.3333333333333333" />
+        <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/activity_cart_empty.xml" value="0.22" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/activity_checkout.xml" value="0.15172101449275363" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/activity_confrim_checkout.xml" value="0.6" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/activity_delivery_choose.xml" value="0.3333333333333333" />
@@ -89,7 +95,7 @@
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/fragment_wait_confirmation.xml" value="0.12409420289855072" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/grid_address.xml" value="0.14666666666666667" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/grid_cart_many_brand.xml" value="0.3333333333333333" />
-        <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/grid_cart_many_product.xml" value="0.5" />
+        <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/grid_cart_many_product.xml" value="0.16666666666666666" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/grid_cart_product.xml" value="0.13994565217391305" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/grid_checkout_many_brand.xml" value="0.4761215629522431" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/grid_courier.xml" value="0.15715579710144928" />
@@ -100,6 +106,7 @@
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/grid_product_mix_match.xml" value="0.4466666666666667" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/grid_product_order.xml" value="0.3333333333333333" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/grid_profile_product_order.xml" value="0.4466666666666667" />
+        <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/layout_cart_empty.xml" value="0.13949275362318841" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/layout_content_profile.xml" value="0.14666666666666667" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/layout_dialog_delivery.xml" value="0.22" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/layout_footer_cart.xml" value="0.3333333333333333" />

@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.faloka_mobile.Cart.CartActivity;
 import com.example.faloka_mobile.Cart.CartCountItemListener;
+import com.example.faloka_mobile.Cart.CartEmptyActivity;
 import com.example.faloka_mobile.Cart.CartRepository;
 
 import ru.nikartm.support.BadgePosition;
@@ -26,7 +27,7 @@ import ru.nikartm.support.ImageBadgeView;
 public class BaseFragment extends Fragment implements CartCountItemListener {
 
     private ImageBadgeView badgeView;
-
+    private int count;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         CartRepository.getCountCarts(getContext() , this::onItemCount);
@@ -69,9 +70,16 @@ public class BaseFragment extends Fragment implements CartCountItemListener {
         badgeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(((AppCompatActivity)getActivity()).getApplicationContext(), "CART", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity().getApplicationContext(), CartActivity.class);
-                startActivity(intent);
+                if(count <= 0){
+                    Toast.makeText(((AppCompatActivity) getActivity()).getApplicationContext(), "CART", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity().getApplicationContext(), CartEmptyActivity.class);
+                    startActivity(intent);
+                }
+                else {
+                    Toast.makeText(((AppCompatActivity) getActivity()).getApplicationContext(), "CART", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity().getApplicationContext(), CartActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -80,6 +88,7 @@ public class BaseFragment extends Fragment implements CartCountItemListener {
 
     @Override
     public void onItemCount(int count) {
+        this.count = count;
         badgeView.setBadgeValue(count)
                 .setBadgeOvalAfterFirst(true)
                 .setBadgeTextSize(8)
