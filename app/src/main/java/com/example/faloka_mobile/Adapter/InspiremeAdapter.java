@@ -11,11 +11,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.faloka_mobile.InspireMe.InpireMeUploadInspireMe;
+import com.example.faloka_mobile.InspireMe.InspireMeUploadInspireMe;
 import com.example.faloka_mobile.Model.InspireMe;
 import com.example.faloka_mobile.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -67,7 +66,7 @@ public class InspiremeAdapter extends RecyclerView.Adapter<InspiremeAdapter.Insp
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(itemView.getContext(),InpireMeUploadInspireMe.class);
+                    Intent intent = new Intent(itemView.getContext(), InspireMeUploadInspireMe.class);
                     itemView.getContext().startActivity(intent);
                 }
             });

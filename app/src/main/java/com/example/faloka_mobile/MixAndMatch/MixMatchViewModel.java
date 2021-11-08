@@ -1,5 +1,7 @@
 package com.example.faloka_mobile.MixAndMatch;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,28 +17,35 @@ import com.bumptech.glide.Glide;
 import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Adapter.ProductAdapter;
 import com.example.faloka_mobile.Adapter.ProductMixMatchAdapter;
+import com.example.faloka_mobile.Checkout.CheckoutActivity;
+import com.example.faloka_mobile.Model.Cart;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.ProductMixMatch;
+import com.example.faloka_mobile.Product.ProductListener;
+import com.example.faloka_mobile.Product.ProductRepository;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.ActivityMixMatchBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MixMatchViewModel extends ViewModel implements View.OnTouchListener, ProductMxMatchListener, SelectedImageListener, View.OnClickListener {
+public class MixMatchViewModel extends ViewModel implements View.OnTouchListener, ProductMxMatchListener, SelectedImageListener, View.OnClickListener, ProductListener {
 
     private ActivityMixMatchBinding binding;
     private AppCompatActivity activity;
     private ImageToLayoutListener imageToLayoutListener;
     private static int imageID = 0;
     private List<ImageView> imageViewList;
+    private List<Cart> cartList;
 
     public MixMatchViewModel(ActivityMixMatchBinding binding, AppCompatActivity activity, ImageToLayoutListener imageToLayoutListener){
         this.binding = binding;
         this.activity = activity;
         this.imageToLayoutListener = imageToLayoutListener;
         this.imageViewList = new ArrayList<>();
+        this.cartList = new ArrayList<>();
         binding.btnMixMatchDelete.setOnClickListener(this);
+        binding.btnMixMatchCheckout.setOnClickListener(this);
 //        MixMatchRepository.getMixMatchProducts(binding.getRoot(), this::onProduct);
         MixMatchRepository.getProductsMixMatch(binding.getRoot(), this::onProduct);
         setToolbar();
@@ -90,7 +99,7 @@ public class MixMatchViewModel extends ViewModel implements View.OnTouchListener
                 .load(ApiConfig.BASE_IMAGE_URL + product.getImageURL())
                 .into(imageView);
         addImageView(imageView, 350, 350);
-
+        ProductRepository.getProductBySlug(binding.getRoot(), product.getSlug(), this::onProduct);
     }
 
     @Override
@@ -98,7 +107,34 @@ public class MixMatchViewModel extends ViewModel implements View.OnTouchListener
         if(view.getId() == binding.btnMixMatchDelete.getId()){
             binding.relativeLayoutMixMatch.removeAllViews();
             imageViewList.clear();
+            cartList.clear();
             MixMatchRepository.getProductsMixMatch(binding.getRoot(), this::onProduct);
+        }
+        else if(view.getId() == binding.btnMixMatchCheckout.getId()){
+            if(!cartList.isEmpty()) {
+                Intent intent = new Intent(binding.getRoot().getContext(), CheckoutActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList(Product.EXTRA_PRODUCT, (ArrayList) cartList);
+                intent.putExtras(bundle);
+                binding.getRoot().getContext().startActivity(intent);
+            }
+            else {
+                Toast.makeText(binding.getRoot().getContext(), "Pilih outfitmu dahulu!", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
+    public void onProduct(Product product) {
+        Cart cart = new Cart();
+        cart.setProduct(product);
+        cart.setVariant(product.getVariantList().get(0));
+        cart.setQuantity(1);
+        cart.setProductID(product.getId());
+        cart.setVariantID(product.getVariantList().get(0).getId());
+        this.cartList.add(cart);
+        for(Cart cart1 : cartList){
+            System.out.println(cart1.getProduct().getName());
         }
     }
 }

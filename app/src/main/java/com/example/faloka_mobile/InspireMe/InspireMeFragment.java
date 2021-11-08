@@ -1,5 +1,6 @@
 package com.example.faloka_mobile.InspireMe;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,7 +22,7 @@ import com.example.faloka_mobile.Adapter.InspiremeAdapter;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.FragmentInpireMeBinding;
 
-public class InpireMeFragment extends Fragment {
+public class InspireMeFragment extends Fragment {
 
     InspireMeViewModel viewModel;
     private FragmentInpireMeBinding binding;
@@ -69,6 +70,8 @@ public class InpireMeFragment extends Fragment {
         switch (item.getItemId()){
             case R.id.inspo_add_outfit:
                 Toast.makeText(((AppCompatActivity)getActivity()).getApplicationContext(), "ADD", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(activity, InspireMeUploadInspireMe.class);
+                startActivity(intent);
                 break;
         }
 
