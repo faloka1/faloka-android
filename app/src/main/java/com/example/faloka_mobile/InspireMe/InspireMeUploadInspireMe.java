@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.example.faloka_mobile.R;
 
-public class InpireMeUploadInspireMe extends AppCompatActivity {
+public class InspireMeUploadInspireMe extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

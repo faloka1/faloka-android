@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Falokamobile">
         <activity
-            android:name=".InspireMe.InpireMeUploadInspireMe"
+            android:name=".InspireMe.InspireMeUploadInspireMe"
             android:exported="true" />
         <activity
             android:name=".Cart.CartActivity"
