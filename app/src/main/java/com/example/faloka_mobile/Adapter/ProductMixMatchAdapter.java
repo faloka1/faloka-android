@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Login.TokenManager;
+import com.example.faloka_mobile.MixAndMatch.RemoveProductListener;
 import com.example.faloka_mobile.MixAndMatch.SelectedImageListener;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.ProductMixMatch;
@@ -30,12 +31,14 @@ import retrofit2.Response;
 public class ProductMixMatchAdapter extends RecyclerView.Adapter<ProductMixMatchAdapter.ProductMixMatchViewHolder>{
     List<ProductMixMatch> productMixMatchList;
     SelectedImageListener selectedImageListener;
+    RemoveProductListener removeProductListener;
     View view;
 
-    public ProductMixMatchAdapter(List<ProductMixMatch> productMixMatchList, SelectedImageListener selectedImageListener){
+    public ProductMixMatchAdapter(List<ProductMixMatch> productMixMatchList, SelectedImageListener selectedImageListener, RemoveProductListener removeProductListener){
 //        this.productList = productList;
         this.productMixMatchList = productMixMatchList;
         this.selectedImageListener = selectedImageListener;
+        this.removeProductListener = removeProductListener;
     }
 
     @NonNull
@@ -47,7 +50,7 @@ public class ProductMixMatchAdapter extends RecyclerView.Adapter<ProductMixMatch
 
     @Override
     public void onBindViewHolder(@NonNull ProductMixMatchAdapter.ProductMixMatchViewHolder holder, int position) {
-//        Product product = productList.get(position);
+        //        Product product = productList.get(position);
         ProductMixMatch productMixMatch = productMixMatchList.get(position);
         holder.imgSelected.setVisibility(View.GONE);
         Glide.with(holder.imgMixMatchProduct.getContext())
@@ -81,10 +84,20 @@ public class ProductMixMatchAdapter extends RecyclerView.Adapter<ProductMixMatch
             }
         });
         holder.cvMixMatchProduct.setOnClickListener(new View.OnClickListener() {
+            int toogle = 0;
             @Override
             public void onClick(View view) {
-                holder.imgSelected.setVisibility(View.VISIBLE);
-                selectedImageListener.onSelected(productMixMatch);
+                toogle++;
+                if(toogle % 2 == 1){
+//                    Toast.makeText(view.getContext(), String.valueOf(toogle), Toast.LENGTH_SHORT).show();
+                    holder.imgSelected.setVisibility(View.VISIBLE);
+                    selectedImageListener.onSelected(productMixMatch);
+                }
+                else {
+//                    Toast.makeText(view.getContext(), String.valueOf(toogle), Toast.LENGTH_SHORT).show();
+                    removeProductListener.onRemoveProduct(productMixMatch);
+                    holder.imgSelected.setVisibility(View.INVISIBLE);
+                }
             }
         });
     }

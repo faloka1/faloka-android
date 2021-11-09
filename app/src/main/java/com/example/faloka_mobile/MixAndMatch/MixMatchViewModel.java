@@ -29,12 +29,12 @@ import com.example.faloka_mobile.databinding.ActivityMixMatchBinding;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MixMatchViewModel extends ViewModel implements View.OnTouchListener, ProductMxMatchListener, SelectedImageListener, View.OnClickListener, ProductListener {
+public class MixMatchViewModel extends ViewModel implements View.OnTouchListener, ProductMxMatchListener, SelectedImageListener, View.OnClickListener, ProductListener, RemoveProductListener {
 
     private ActivityMixMatchBinding binding;
     private AppCompatActivity activity;
     private ImageToLayoutListener imageToLayoutListener;
-    private static int imageID = 0;
+//    private static int imageID = 0;
     private List<ImageView> imageViewList;
     private List<Cart> cartList;
 
@@ -57,10 +57,10 @@ public class MixMatchViewModel extends ViewModel implements View.OnTouchListener
         activity.getSupportActionBar().setTitle("Mix and match");
     }
 
-    private void addImageView(ImageView imageView, int width, int height) {
+    private void addImageView(int imageID, ImageView imageView, int width, int height) {
         RelativeLayout.LayoutParams imParams =
                 new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        imageView.setId(imageID++);
+        imageView.setId(imageID);
         imageView.setLayoutParams(imParams);
         imageView.getLayoutParams().height = height;
         imageView.getLayoutParams().width = width;
@@ -87,18 +87,13 @@ public class MixMatchViewModel extends ViewModel implements View.OnTouchListener
 
     @Override
     public void onProduct(List<ProductMixMatch> productMixMatchList) {
-        ProductMixMatchAdapter productMixMatchAdapter = new ProductMixMatchAdapter(productMixMatchList, this::onSelected);
+        ProductMixMatchAdapter productMixMatchAdapter = new ProductMixMatchAdapter(productMixMatchList, this::onSelected, this::onRemoveProduct);
         binding.rvMixMatchProduct.setLayoutManager(new GridLayoutManager(binding.getRoot().getContext(),3, GridLayoutManager.VERTICAL, false));
         binding.rvMixMatchProduct.setAdapter(productMixMatchAdapter);
     }
 
     @Override
     public void onSelected(ProductMixMatch product) {
-        ImageView imageView = new ImageView(activity);
-        Glide.with(imageView.getContext())
-                .load(ApiConfig.BASE_IMAGE_URL + product.getImageURL())
-                .into(imageView);
-        addImageView(imageView, 350, 350);
         ProductRepository.getProductBySlug(binding.getRoot(), product.getSlug(), this::onProduct);
     }
 
@@ -133,8 +128,33 @@ public class MixMatchViewModel extends ViewModel implements View.OnTouchListener
         cart.setProductID(product.getId());
         cart.setVariantID(product.getVariantList().get(0).getId());
         this.cartList.add(cart);
-        for(Cart cart1 : cartList){
-            System.out.println(cart1.getProduct().getName());
+        ImageView imageView = new ImageView(activity);
+        Glide.with(imageView.getContext())
+                .load(ApiConfig.BASE_IMAGE_URL + product.getImageMixMatchURL())
+                .into(imageView);
+        addImageView(product.getId(), imageView, 350, 350);
+    }
+
+    @Override
+    public void onRemoveProduct(ProductMixMatch productMixMatch) {
+        Product product = null;
+        ImageView imageView = null;
+        int i=0;
+        for(Cart cart : cartList){
+            if(cart.getProduct().getSlug().equals(productMixMatch.getSlug())){
+                product = cart.getProduct();
+                cartList.remove(i);
+            }
+            i++;
         }
+        i=0;
+        for(ImageView img : imageViewList){
+            if(img.getId() == product.getId()){
+                imageView = img;
+                imageViewList.remove(i);
+            }
+            i++;
+        }
+        binding.relativeLayoutMixMatch.removeViewInLayout(imageView);
     }
 }
