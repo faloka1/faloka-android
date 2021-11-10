@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.faloka_mobile.Cart.CartActivity;
 import com.example.faloka_mobile.Cart.CartCountItemListener;
+import com.example.faloka_mobile.Cart.CartEmptyActivity;
 import com.example.faloka_mobile.Cart.CartRepository;
 
 import ru.nikartm.support.BadgePosition;
@@ -22,6 +23,7 @@ import ru.nikartm.support.ImageBadgeView;
 public class BaseActivity extends AppCompatActivity implements CartCountItemListener {
 
     private ImageBadgeView badgeView;
+    private int count;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,9 +69,16 @@ public class BaseActivity extends AppCompatActivity implements CartCountItemList
         badgeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "CART", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(), CartActivity.class);
-                startActivity(intent);
+                if(count <= 0){
+                    Toast.makeText(getApplicationContext(), "CART", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), CartEmptyActivity.class);
+                    startActivity(intent);
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "CART", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), CartActivity.class);
+                    startActivity(intent);
+                }
             }
         });
         return super.onPrepareOptionsMenu(menu);
@@ -77,6 +86,7 @@ public class BaseActivity extends AppCompatActivity implements CartCountItemList
 
     @Override
     public void onItemCount(int count) {
+        this.count = count;
         badgeView.setBadgeValue(count)
                 .setBadgeOvalAfterFirst(true)
                 .setBadgeTextSize(8)

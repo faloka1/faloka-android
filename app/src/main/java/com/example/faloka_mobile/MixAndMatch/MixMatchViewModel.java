@@ -27,6 +27,7 @@ import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.ActivityMixMatchBinding;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class MixMatchViewModel extends ViewModel implements View.OnTouchListener, ProductMxMatchListener, SelectedImageListener, View.OnClickListener, ProductListener, RemoveProductListener {
@@ -94,7 +95,7 @@ public class MixMatchViewModel extends ViewModel implements View.OnTouchListener
 
     @Override
     public void onSelected(ProductMixMatch product) {
-        ProductRepository.getProductBySlug(binding.getRoot(), product.getSlug(), this::onProduct);
+        ProductRepository.getProductBySlug(binding.getRoot(), product.getSlug(), this::onProductSlug);
     }
 
     @Override
@@ -120,7 +121,7 @@ public class MixMatchViewModel extends ViewModel implements View.OnTouchListener
     }
 
     @Override
-    public void onProduct(Product product) {
+    public void onProductSlug(Product product) {
         Cart cart = new Cart();
         cart.setProduct(product);
         cart.setVariant(product.getVariantList().get(0));
@@ -140,21 +141,15 @@ public class MixMatchViewModel extends ViewModel implements View.OnTouchListener
         Product product = null;
         ImageView imageView = null;
         int i=0;
-        for(Cart cart : cartList){
-            if(cart.getProduct().getSlug().equals(productMixMatch.getSlug())){
+        for (Cart cart : cartList) {
+            if (cart.getProduct().getSlug().equalsIgnoreCase(productMixMatch.getSlug())) {
                 product = cart.getProduct();
-                cartList.remove(i);
+                cartList.remove(product);
+                imageView = imageViewList.get(i);
             }
             i++;
         }
-        i=0;
-        for(ImageView img : imageViewList){
-            if(img.getId() == product.getId()){
-                imageView = img;
-                imageViewList.remove(i);
-            }
-            i++;
-        }
+
         binding.relativeLayoutMixMatch.removeViewInLayout(imageView);
     }
 }

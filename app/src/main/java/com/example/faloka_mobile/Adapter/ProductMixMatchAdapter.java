@@ -95,8 +95,8 @@ public class ProductMixMatchAdapter extends RecyclerView.Adapter<ProductMixMatch
                 }
                 else {
 //                    Toast.makeText(view.getContext(), String.valueOf(toogle), Toast.LENGTH_SHORT).show();
-                    removeProductListener.onRemoveProduct(productMixMatch);
                     holder.imgSelected.setVisibility(View.INVISIBLE);
+                    removeProductListener.onRemoveProduct(productMixMatch);
                 }
             }
         });

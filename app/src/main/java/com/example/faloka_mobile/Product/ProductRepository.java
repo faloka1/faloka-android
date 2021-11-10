@@ -65,7 +65,7 @@ public class ProductRepository {
             public void onResponse(Call<Product> call, Response<Product> response) {
                 if(response.isSuccessful()){
                     Product product = response.body();
-                    productListener.onProduct(product);
+                    productListener.onProductSlug(product);
                 }
                 else {
                     Toast.makeText(view.getContext(), "FAIL RESPONSE", Toast.LENGTH_SHORT).show();
