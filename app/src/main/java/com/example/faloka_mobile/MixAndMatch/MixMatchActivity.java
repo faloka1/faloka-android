@@ -2,6 +2,7 @@ package com.example.faloka_mobile.MixAndMatch;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MotionEventCompat;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -29,8 +31,11 @@ public class MixMatchActivity extends BaseActivity implements ImageToLayoutListe
     private ActivityMixMatchBinding binding;
     private View view;
     private ImageView imageView;
-    private float x,y;
+    private ScaleGestureDetector scaleGestureDetector;
+    private float factor = 1.0f;
     private float dx, dy;
+    private float lastX, lastY;
+    private int pointerID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,34 +45,68 @@ public class MixMatchActivity extends BaseActivity implements ImageToLayoutListe
 
         setContentView(view);
         MixMatchViewModel mixMatchViewModel = new MixMatchViewModel(binding, this, this::onLayout);
+        scaleGestureDetector = new ScaleGestureDetector(this, new ScaleListener());
     }
-
 
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
         if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
-            x = motionEvent.getX();
-            y = motionEvent.getY();
-//            imageView.setBackgroundResource(R.drawable.mix_match_product_border);
+            final int pointerIndex = MotionEventCompat.getActionIndex(motionEvent);
+            final float x = MotionEventCompat.getX(motionEvent, pointerIndex);
+            final float y = MotionEventCompat.getY(motionEvent, pointerIndex);
+            lastX = x;
+            lastY = y;
+            pointerID = MotionEventCompat.getPointerId(motionEvent, 0);
+            imageView.setBackgroundResource(R.drawable.mix_match_product_border);
         }
-        else if(motionEvent.getAction() == MotionEvent.ACTION_UP){
-//            imageView.setBackgroundResource(R.drawable.mix_match_product_default);
-        }
-        if(motionEvent.getAction() == MotionEvent.ACTION_MOVE){
-            dx = motionEvent.getX() - x;
-            dy = motionEvent.getY() - y;
+        else if(motionEvent.getAction() == MotionEvent.ACTION_MOVE){
+            final int pointerIndex = MotionEventCompat.findPointerIndex(motionEvent, pointerID);
+            final float x = MotionEventCompat.getX(motionEvent, pointerIndex);
+            final float y = MotionEventCompat.getY(motionEvent, pointerIndex);
+            dx = x - lastX;
+            dy = y - lastY;
             if(imageView != null) {
                 imageView.setX(imageView.getX() + dx);
                 imageView.setY(imageView.getY() + dy);
             }
-            x = motionEvent.getX();
-            y = motionEvent.getY();
+            lastX = x;
+            lastY = y;
         }
+        else if(motionEvent.getAction() == MotionEvent.ACTION_UP){
+            pointerID = MotionEvent.INVALID_POINTER_ID;
+        }
+        else if(motionEvent.getAction() == MotionEvent.ACTION_CANCEL){
+            pointerID = MotionEvent.INVALID_POINTER_ID;
+        }
+        else if(motionEvent.getAction() == MotionEvent.ACTION_POINTER_UP){
+            final int pointerIndex = MotionEventCompat.getActionIndex(motionEvent);
+            final int pointerId = MotionEventCompat.getPointerId(motionEvent, pointerIndex);
+
+            if (pointerId == pointerID) {
+                final int newPointerIndex = pointerIndex == 0 ? 1 : 0;
+                lastX = MotionEventCompat.getX(motionEvent, newPointerIndex);
+                lastY = MotionEventCompat.getY(motionEvent, newPointerIndex);
+                pointerID = MotionEventCompat.getPointerId(motionEvent, newPointerIndex);
+            }
+        }
+        scaleGestureDetector.onTouchEvent(motionEvent);
         return super.onTouchEvent(motionEvent);
     }
 
     @Override
     public void onLayout(ImageView imageView) {
         this.imageView = imageView;
+    }
+
+    class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+        @Override
+        public boolean onScale(ScaleGestureDetector scaleGestureDetector) {
+            factor *= scaleGestureDetector.getScaleFactor();
+            factor = Math.max(0.1f, Math.min(factor,10.f));
+            imageView.setScaleX(factor);
+            imageView.setScaleY(factor);
+            return true;
+        }
+
     }
 }
