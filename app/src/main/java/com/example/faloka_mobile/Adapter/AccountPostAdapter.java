@@ -1,5 +1,6 @@
 package com.example.faloka_mobile.Adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +15,14 @@ import com.example.faloka_mobile.Model.InspireMe;
 import com.example.faloka_mobile.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AccountPostAdapter extends RecyclerView.Adapter<AccountPostAdapter.ViewHolder> {
-    ArrayList<InspireMe> inspireMeList = new ArrayList<>();
+    List<InspireMe> inspireMeList = new ArrayList<>();
+
+    public AccountPostAdapter(List<InspireMe> inspireMeList){
+        this.inspireMeList = inspireMeList;
+    }
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -39,10 +45,11 @@ public class AccountPostAdapter extends RecyclerView.Adapter<AccountPostAdapter.
         ImageView imageView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemView.findViewById(R.id.iv_account_post);
+            imageView = itemView.findViewById(R.id.iv_account_post);
         }
         public void bind(InspireMe inspireMe){
-            Glide.with(imageView).load(ApiConfig.BASE_IMAGE_URL + inspireMe.getImageUrl())
+            Glide.with(imageView).
+                    load(ApiConfig.BASE_IMAGE_URL + inspireMe.getImageUrl())
                     .into(imageView);
         }
     }

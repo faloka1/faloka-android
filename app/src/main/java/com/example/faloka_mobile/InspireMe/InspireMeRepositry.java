@@ -12,6 +12,7 @@ import com.example.faloka_mobile.Model.InspireMe;
 import com.example.faloka_mobile.Model.Message;
 import com.example.faloka_mobile.Model.OrderResponseForInspireMe;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.MultipartBody;
@@ -115,7 +116,8 @@ public class InspireMeRepositry {
             @Override
             public void onResponse(Call<List<InspireMe>> call, Response<List<InspireMe>> response) {
                 if(response.isSuccessful()){
-                    Log.d("berhasil",response.message());
+                    List<InspireMe> inspireMeList = response.body();
+                    inspireMe.setValue(inspireMeList);
                 }
                 else{
                     Log.d("gagal response",response.message());

@@ -55,7 +55,7 @@ public class InspireMeViewModel extends ViewModel {
     }
 
     public LiveData<List<InspireMe>> getInspireMeById(){
-        return inspireMeRepositry.getInspireMeById();
+       return inspireMeRepositry.getInspireMeById();
     }
 
     public ArrayList<InspireMeProductVariant> getProductVariants(){
