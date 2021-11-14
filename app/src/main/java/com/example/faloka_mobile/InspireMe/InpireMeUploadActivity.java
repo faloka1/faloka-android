@@ -33,6 +33,7 @@ import com.example.faloka_mobile.Model.InspireMeProductVariant;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.ActivityInpireMeUploadInspireMeBinding;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -204,7 +205,10 @@ public class InpireMeUploadActivity extends AppCompatActivity {
         }
         else if(requestCode==REQUEST_OPEN_CAMERA){
             Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-            imageView.setImageBitmap(bitmap);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, new ByteArrayOutputStream());
+            String path = MediaStore.Images.Media.insertImage(this.getContentResolver(), bitmap, "Title", null);
+            uri = Uri.parse(path);
+            imageView.setImageURI(uri);
             buttonUploadPhoto.setText("Ganti Gambar");
         }
         else if(requestCode == REQUEST_TAG_PRODUCT){
