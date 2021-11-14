@@ -10,7 +10,6 @@ import com.example.faloka_mobile.Model.BodyCart;
 import com.example.faloka_mobile.Model.Cart;
 import com.example.faloka_mobile.Model.Message;
 import com.example.faloka_mobile.Model.Product;
-import com.example.faloka_mobile.Model.ProductMixMatch;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
