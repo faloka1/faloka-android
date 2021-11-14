@@ -138,14 +138,14 @@ public class MixMatchViewModel extends ViewModel implements View.OnTouchListener
 
     @Override
     public void onRemoveProduct(ProductMixMatch productMixMatch) {
-        Product product = null;
+        List<Cart> cartListTemp = new ArrayList<>(cartList);
         ImageView imageView = null;
         int i=0;
-        for (Cart cart : cartList) {
+        for (Cart cart : cartListTemp) {
             if (cart.getProduct().getSlug().equalsIgnoreCase(productMixMatch.getSlug())) {
-                product = cart.getProduct();
-                cartList.remove(product);
+                cartList.remove(i);
                 imageView = imageViewList.get(i);
+                imageViewList.remove(i);
             }
             i++;
         }
