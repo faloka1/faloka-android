@@ -121,14 +121,13 @@
                     android:id="@+id/tv_upload_inspire_label_relateProduct"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="119dp"
+                    android:layout_marginStart="16dp"
                     android:letterSpacing="0.025"
                     android:text="Pilih produk yang sama"
                     android:textColor="@color/netral_900"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/button_add_product"
-                    app:layout_constraintEnd_toStartOf="@+id/button_add_product"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/button_add_product" />
 
                 <Button
