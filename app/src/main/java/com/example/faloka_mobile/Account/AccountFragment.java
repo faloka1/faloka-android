@@ -17,7 +17,7 @@ import com.example.faloka_mobile.databinding.FragmentAccountBinding;
 public class AccountFragment extends BaseFragment implements DrawerOptionListener {
 
     public static final String EXTRA_FRAGMENT_ACCOUNT = "EXTRA_FRAGMENT_ACCOUNT";
-    public static final int INDEX_FRAGMENT_ACCOUNT = 3;
+    public static final int INDEX_FRAGMENT_ACCOUNT = 4;
 
     private FragmentAccountBinding binding;
     private AppCompatActivity activity;

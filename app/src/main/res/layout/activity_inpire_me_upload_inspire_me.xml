@@ -24,10 +24,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         android:paddingHorizontal="20dp"
         android:paddingVertical="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <LinearLayout
@@ -52,20 +53,22 @@
                 android:layout_width="200dp"
                 android:layout_height="150dp"
                 android:layout_marginTop="2dp"
-                android:scaleType="centerCrop"
                 android:background="@drawable/card_border"
-                android:src="@drawable/ic_baseline_image_24"
-                android:paddingHorizontal="80dp" />
+                android:paddingHorizontal="80dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_baseline_image_24" />
+
             <Button
                 android:id="@+id/button_upload_image"
+                style="@style/ButtonSecondary"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                style="@style/ButtonSecondary"
                 android:text="Upload Foto">
 
             </Button>
 
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/upload_inspire_caption"
             android:layout_width="match_parent"
@@ -87,89 +90,90 @@
 
             <EditText
                 android:id="@+id/upload_inspire_etCaption"
+                style="@style/TextAppearance.App.Body1"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:layout_marginTop="2dp"
                 android:background="@drawable/card_border"
+                android:hint="ex:Outfit senja hari"
                 android:inputType="textMultiLine"
                 android:letterSpacing="0.025"
                 android:paddingHorizontal="12dp"
-                android:hint="ex:Outfit senja hari"
-                style="@style/TextAppearance.App.Body1"
                 android:textSize="14sp" />
         </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/upload_inspire_relateProduct"
+        <LinearLayout
+            android:id="@+id/upload_inspire_relateProduct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="@+id/upload_inspire_caption"
+            app:layout_constraintStart_toStartOf="@id/upload_inspire_caption"
+            app:layout_constraintTop_toBottomOf="@+id/upload_inspire_caption">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="@+id/upload_inspire_caption"
-                app:layout_constraintStart_toStartOf="@id/upload_inspire_caption"
-                app:layout_constraintTop_toBottomOf="@+id/upload_inspire_caption">
+                android:orientation="horizontal">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/tv_upload_inspire_label_relateProduct"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_marginEnd="119dp"
+                    android:letterSpacing="0.025"
+                    android:text="Pilih produk yang sama"
+                    android:textColor="@color/netral_900"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/button_add_product"
+                    app:layout_constraintEnd_toStartOf="@+id/button_add_product"
+                    app:layout_constraintTop_toTopOf="@+id/button_add_product" />
 
-                    <TextView
-                        android:id="@+id/tv_upload_inspire_label_relateProduct"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="119dp"
-                        android:letterSpacing="0.025"
-                        android:text="Pilih produk yang sama"
-                        android:textColor="@color/netral_900"
-                        android:textSize="14sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/button_add_product"
-                        app:layout_constraintEnd_toStartOf="@+id/button_add_product"
-                        app:layout_constraintTop_toTopOf="@+id/button_add_product" />
-
-                    <Button
-                        android:id="@+id/button_add_product"
-                        style="@style/ButtonSecondary"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="0dp"
-                        android:text="Tambah"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                <Button
+                    android:id="@+id/button_add_product"
+                    style="@style/ButtonSecondary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="0dp"
+                    android:text="Tambah"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_inspire_me_product"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-            </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_inspire_me_product"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/button_add_inspireme"
+            style="@style/ButtonPrimary"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
-            style="@style/ButtonPrimary"
-            android:text= "Upload"
+            android:text="Upload"
             app:layout_constraintEnd_toEndOf="@+id/upload_inspire_relateProduct"
             app:layout_constraintTop_toBottomOf="@+id/upload_inspire_relateProduct" />
+
         <Button
             android:id="@+id/button_reset"
+            style="@style/ButtonSecondary"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="12dp"
-            style="@style/ButtonSecondary"
             android:text="Reset"
             app:layout_constraintBottom_toBottomOf="@+id/button_add_inspireme"
             app:layout_constraintEnd_toEndOf="@+id/upload_inspire_relateProduct"
             app:layout_constraintEnd_toStartOf="@+id/button_add_inspireme"
-            app:layout_constraintTop_toTopOf="@+id/button_add_inspireme"/>
+            app:layout_constraintTop_toTopOf="@+id/button_add_inspireme" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import com.bumptech.glide.Glide;
 import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Adapter.ProductAdapter;
+import com.example.faloka_mobile.BaseActivity;
 import com.example.faloka_mobile.Cart.CartActivity;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.Variant;
@@ -24,7 +25,7 @@ import com.example.faloka_mobile.databinding.ActivityInspireMeRelateProductBindi
 
 import java.util.ArrayList;
 
-public class InspireMeRelateProductListActivity extends AppCompatActivity {
+public class InspireMeRelateProductListActivity extends BaseActivity {
 
     ActivityInspireMeRelateProductBinding binding;
     InspireMeViewModel viewModel;
@@ -60,23 +61,4 @@ public class InspireMeRelateProductListActivity extends AppCompatActivity {
         rv.setAdapter(adapter);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.top_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        switch (item.getItemId()){
-            case R.id.cart_menu_item:
-                startActivity(new Intent(this, CartActivity.class));
-                break;
-            case R.id.wishlist_menu_item:
-                break;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }

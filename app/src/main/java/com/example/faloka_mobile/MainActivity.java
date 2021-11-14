@@ -71,6 +71,10 @@ public class MainActivity extends AppCompatActivity {
             this.fragment = new AccountFragment();
             binding.buttomNavigation.setSelectedItemId(R.id.bottom_menu_account);
         }
+        else if(getIntent().getIntExtra(InspireMeFragment.EXTRA_FRAGMENT_INSPO, 0) == InspireMeFragment.INDEX_FRAGMENT_ACCOUNT){
+            this.fragment = new InspireMeFragment();
+            binding.buttomNavigation.setSelectedItemId(R.id.bottom_menu_inspire);
+        }
 //        Fragment fragment = new HomeFragment();
         getSupportFragmentManager()
                 .beginTransaction()

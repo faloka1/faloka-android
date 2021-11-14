@@ -18,12 +18,16 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.example.faloka_mobile.Account.AccountFragment;
 import com.example.faloka_mobile.Adapter.InspiremeUploadProductAdapter;
+import com.example.faloka_mobile.MainActivity;
 import com.example.faloka_mobile.Model.InspireMe;
 import com.example.faloka_mobile.Model.InspireMeProductVariant;
 import com.example.faloka_mobile.R;
@@ -177,7 +181,7 @@ public class InpireMeUploadActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 viewModel.addInspireme(uri, etCaption.getText().toString(), getApplicationContext());
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new InspireMeFragment()).commit();
+//                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new InspireMeFragment()).commit();
             }
         });
         buttonReset.setOnClickListener(new View.OnClickListener() {
@@ -208,5 +212,17 @@ public class InpireMeUploadActivity extends AppCompatActivity {
                 setRelateProduct();
             }
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()){
+            case android.R.id.home:
+                this.finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
