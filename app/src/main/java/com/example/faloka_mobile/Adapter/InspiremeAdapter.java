@@ -79,7 +79,17 @@ public class InspiremeAdapter extends RecyclerView.Adapter<InspiremeAdapter.Insp
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(itemView.getContext(), InspireMeUploadInspireMe.class);
+                    ArrayList<Product> products= new ArrayList<>();
+
+                    for(InspiremeProducts product : inspireMe.getInspiremeproducts()){
+                        ArrayList<Variant> variants= new ArrayList<>();
+                        variants.add(product.getVariants());
+                        product.getProduct().setVariantList(variants);
+                        products.add(product.getProduct());
+                    }
+                    Intent intent = new Intent(itemView.getContext(), InspireMeRelateProductListActivity.class);
+                    intent.putParcelableArrayListExtra("relateProducts",products);
+                    intent.putExtra("image", inspireMe.getImageUrl());
                     itemView.getContext().startActivity(intent);
                 }
             });
