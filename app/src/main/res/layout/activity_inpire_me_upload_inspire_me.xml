@@ -121,7 +121,6 @@
                     android:id="@+id/tv_upload_inspire_label_relateProduct"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
                     android:letterSpacing="0.025"
                     android:text="Pilih produk yang sama"
                     android:textColor="@color/netral_900"
