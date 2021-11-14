@@ -24,6 +24,9 @@ import com.example.faloka_mobile.databinding.FragmentInpireMeBinding;
 
 public class InspireMeFragment extends Fragment {
 
+    public static final String EXTRA_FRAGMENT_INSPO = "EXTRA_FRAGMENT_INSPO";
+    public static final int INDEX_FRAGMENT_ACCOUNT = 2;
+
     InspireMeViewModel viewModel;
     private FragmentInpireMeBinding binding;
     private AppCompatActivity activity;

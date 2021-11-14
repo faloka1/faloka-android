@@ -1,13 +1,17 @@
 package com.example.faloka_mobile.InspireMe;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Login.TokenManager;
+import com.example.faloka_mobile.MainActivity;
 import com.example.faloka_mobile.Model.InspireMe;
 import com.example.faloka_mobile.Model.Message;
 import com.example.faloka_mobile.Model.OrderResponseForInspireMe;
@@ -94,10 +98,17 @@ public class InspireMeRepositry {
             @Override
             public void onResponse(Call<Message> call, Response<Message> response) {
                 if(response.isSuccessful()){
+                    Message message = response.body();
+                    Toast.makeText(context, message.getMessage(), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(context, MainActivity.class);
+                    intent.putExtra(InspireMeFragment.EXTRA_FRAGMENT_INSPO, InspireMeFragment.INDEX_FRAGMENT_ACCOUNT);
+                    ((Activity) context).startActivity(intent);
+                    ((Activity) context).finish();
                     Log.d("berhasil", response.message());
                 }
                 else{
                     Log.e("gagal upload", response.message());
+                    Toast.makeText(context, "GAGAL UPLOAD", Toast.LENGTH_SHORT).show();
                 }
             }
 
