@@ -1,23 +1,33 @@
 package com.example.faloka_mobile.InspireMe;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.faloka_mobile.Checkout.CheckoutRepository;
-import com.example.faloka_mobile.Home.HomeRepository;
+import com.example.faloka_mobile.API.ApiConfig;
+import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.InspireMe;
+import com.example.faloka_mobile.Model.Message;
+import com.example.faloka_mobile.Model.OrderResponseForInspireMe;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.MultipartBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class InspireMeRepositry {
     private volatile static InspireMeRepositry INSTANCE = null;
     private Context context;
+    private TokenManager tokenManager;
 
     public InspireMeRepositry(Context context){
         this.context = context;
+        tokenManager = TokenManager.
+                getInstance(context.getSharedPreferences("Token",0));
     }
 
     public static InspireMeRepositry getINSTANCE(Context context){
@@ -29,15 +39,95 @@ public class InspireMeRepositry {
         return INSTANCE;
     }
     public LiveData<List<InspireMe>> getPost(){
-        MutableLiveData<List<InspireMe>> data = new MutableLiveData<>();
-        List<InspireMe> inspireMeList = new ArrayList<>();
+        MutableLiveData<List<InspireMe>> inspireMeData = new MutableLiveData<>();
 
-        inspireMeList.add(new InspireMe(1, "elaamr7", "Miror selfie check! lagi seneng banget pakek baju ini"));
-        inspireMeList.add(new InspireMe(2, "elaamr8", "Miror selfie check! lagi seneng banget pakek baju ini"));
-        inspireMeList.add(new InspireMe(3, "elaamr9", "Miror selfie check! lagi seneng banget pakek baju ini"));
-        inspireMeList.add(new InspireMe(4, "elaamr10", "Miror selfie check! lagi seneng banget pakek baju ini"));
+        Call<List<InspireMe>> response = ApiConfig.getApiService(tokenManager).getInspireMe();
 
-        data.setValue(inspireMeList);
+        response.enqueue(new Callback<List<InspireMe>>() {
+            @Override
+            public void onResponse(Call<List<InspireMe>> call, Response<List<InspireMe>> response) {
+                if(response.isSuccessful()){
+                   List<InspireMe> inspireMeList = response.body();
+                   inspireMeData.setValue(inspireMeList);
+                }
+                else{
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<InspireMe>> call, Throwable t) {
+                Log.e("####", String.valueOf(t));
+            }
+
+        });
+        return inspireMeData;
+    }
+    public MutableLiveData<List<OrderResponseForInspireMe>> getOrder(){
+        MutableLiveData<List<OrderResponseForInspireMe>> data = new MutableLiveData<>();
+
+        Call<List<OrderResponseForInspireMe>> response = ApiConfig.getApiService(tokenManager).getOrderForProduct(tokenManager.getTypeToken()+" "+tokenManager.getToken());
+        response.enqueue(new Callback<List<OrderResponseForInspireMe>>() {
+            @Override
+            public void onResponse(Call<List<OrderResponseForInspireMe>> call, Response<List<OrderResponseForInspireMe>> response) {
+                if(response.isSuccessful()){
+                    List<OrderResponseForInspireMe> orderProductsList = response.body();
+                    data.setValue(orderProductsList);
+                }
+                else{
+                    Log.e("gagal", response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<OrderResponseForInspireMe>> call, Throwable t) {
+                Log.e("####", String.valueOf(t));
+            }
+        });
         return data;
     }
+    public void add(MultipartBody body){
+        Call<Message> response = ApiConfig.getApiService(tokenManager).addInspireMe(
+                tokenManager.getTypeToken()+" "+tokenManager.getToken(),body);
+        response.enqueue(new Callback<Message>() {
+            @Override
+            public void onResponse(Call<Message> call, Response<Message> response) {
+                if(response.isSuccessful()){
+                    Log.d("berhasil", response.message());
+                }
+                else{
+                    Log.e("gagal upload", response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Message> call, Throwable t) {
+                Log.e("gagal", String.valueOf(t));
+            }
+        });
+    }
+    public LiveData<List<InspireMe>> getInspireMeById(){
+        MutableLiveData<List<InspireMe>> inspireMe = new MutableLiveData<>();
+
+        Call<List<InspireMe>> response = ApiConfig.getApiService(tokenManager).getInspireMeById(
+                tokenManager.getTypeToken()+tokenManager.getToken());
+        response.enqueue(new Callback<List<InspireMe>>() {
+            @Override
+            public void onResponse(Call<List<InspireMe>> call, Response<List<InspireMe>> response) {
+                if(response.isSuccessful()){
+                    Log.d("berhasil",response.message());
+                }
+                else{
+                    Log.d("gagal response",response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<InspireMe>> call, Throwable t) {
+                Log.d("gagal",String.valueOf(t));
+            }
+        });
+        return inspireMe;
+    }
+
 }

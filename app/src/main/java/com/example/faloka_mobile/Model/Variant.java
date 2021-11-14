@@ -15,7 +15,8 @@ public class Variant implements Parcelable {
     @SerializedName("variants_image")
     private List<VariantImage> variantImageList;
 
-    protected Variant(Parcel in) {
+    public Variant(){}
+    public Variant(Parcel in) {
         setId(in.readInt());
         setName(in.readString());
         setProductID(in.readInt());

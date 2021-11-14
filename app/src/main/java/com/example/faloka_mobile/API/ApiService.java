@@ -8,9 +8,11 @@ import com.example.faloka_mobile.Model.Cart;
 import com.example.faloka_mobile.Model.Category;
 import com.example.faloka_mobile.Model.Courier;
 import com.example.faloka_mobile.Model.District;
+import com.example.faloka_mobile.Model.InspireMe;
 import com.example.faloka_mobile.Model.Login;
 import com.example.faloka_mobile.Model.Message;
 import com.example.faloka_mobile.Model.OrderResponse;
+import com.example.faloka_mobile.Model.OrderResponseForInspireMe;
 import com.example.faloka_mobile.Model.OrderUser;
 import com.example.faloka_mobile.Model.Payment;
 import com.example.faloka_mobile.Model.Product;
@@ -22,7 +24,9 @@ import com.example.faloka_mobile.Model.User;
 import com.example.faloka_mobile.Model.UserRegister;
 import com.example.faloka_mobile.Register.RegisterResponse;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -36,6 +40,7 @@ import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -156,5 +161,24 @@ public interface ApiService {
 
     @GET("cart-related")
     Call<List<Product>> getCartProductsRelated(@Header("Authorization") String auth);
+
+    @GET("inspireme")
+    Call<List<InspireMe>> getInspireMe();
+
+    @GET("inspireme/user/products")
+    Call<List<OrderResponseForInspireMe>> getOrderForProduct(@Header("Authorization") String auth);
+
+
+
+    @POST("inspireme")
+    Call<Message> addInspireMe(
+            @Header("Authorization") String auth,
+            @Body RequestBody body
+    );
+
+    @GET("inspireme/user/posts")
+    Call<List<InspireMe>> getInspireMeById(
+            @Header("Authorization") String auth
+    );
 }
 

@@ -126,7 +126,6 @@ public class ProductDetailActivity extends BaseActivity implements CartAddItemLi
         });
 
         binding.tvDetailName.setText(product.getName());
-        binding.tvDetailBrand.setText(product.getBrand().getName());
         Double price = Double.parseDouble(String.valueOf(product.getPrice()));
         Locale localeID = new Locale("in", "ID");
         NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);

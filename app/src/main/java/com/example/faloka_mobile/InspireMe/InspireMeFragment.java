@@ -33,6 +33,7 @@ public class InspireMeFragment extends Fragment {
 
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
         InspireMeViewModelFactory factory = new InspireMeViewModelFactory(new InspireMeRepositry(getContext()));
         viewModel = new ViewModelProvider(this,factory).get(InspireMeViewModel.class);
     }
@@ -70,7 +71,7 @@ public class InspireMeFragment extends Fragment {
         switch (item.getItemId()){
             case R.id.inspo_add_outfit:
                 Toast.makeText(((AppCompatActivity)getActivity()).getApplicationContext(), "ADD", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(activity, InspireMeUploadInspireMe.class);
+                Intent intent = new Intent(activity, InpireMeUploadActivity.class);
                 startActivity(intent);
                 break;
         }

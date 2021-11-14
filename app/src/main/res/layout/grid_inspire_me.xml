@@ -76,7 +76,7 @@
                 android:backgroundTint="@color/primary_light"
                 android:fontFamily="@font/khula"
                 android:letterSpacing="0.105"
-                android:text="Lihat relate product"
+                android:text="Lihat relate outfit"
                 android:textAllCaps="false"
                 android:textColor="@color/netral_100"
                 android:textSize="17dp" />

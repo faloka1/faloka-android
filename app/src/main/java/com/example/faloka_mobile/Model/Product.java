@@ -28,7 +28,8 @@ public class Product implements Parcelable {
     private String imageMixMatchURL;
     private static int quantity;
 
-    protected Product(Parcel in) {
+    public Product(){}
+    public Product(Parcel in) {
         id = in.readInt();
         name = in.readString();
         variantList = in.createTypedArrayList(Variant.CREATOR);

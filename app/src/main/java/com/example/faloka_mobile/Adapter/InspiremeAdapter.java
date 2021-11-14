@@ -11,10 +11,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.faloka_mobile.InspireMe.InspireMeUploadInspireMe;
+import com.bumptech.glide.Glide;
+import com.example.faloka_mobile.API.ApiConfig;
+import com.example.faloka_mobile.InspireMe.InspireMeRelateProductListActivity;
 import com.example.faloka_mobile.Model.InspireMe;
+import com.example.faloka_mobile.Model.InspiremeProducts;
+import com.example.faloka_mobile.Model.Product;
+import com.example.faloka_mobile.Model.Variant;
 import com.example.faloka_mobile.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -24,6 +30,7 @@ public class InspiremeAdapter extends RecyclerView.Adapter<InspiremeAdapter.Insp
 
     List<InspireMe> inspireMeList;
     public InspiremeAdapter(List<InspireMe> inspireMeList){
+
         this.inspireMeList = inspireMeList;
     }
 
@@ -61,7 +68,13 @@ public class InspiremeAdapter extends RecyclerView.Adapter<InspiremeAdapter.Insp
             button = itemView.findViewById(R.id.inspire_button_relate_product);
         }
         void bind(InspireMe inspireMe){
-            username.setText(inspireMe.getUsername());
+            Glide.with(photoProfile.getContext())
+                    .load(ApiConfig.BASE_IMAGE_URL+inspireMe.getUser().getImageProfile())
+                    .into(photoProfile);
+            Glide.with(image.getContext())
+                    .load(ApiConfig.BASE_IMAGE_URL+inspireMe.getImageUrl())
+                    .into(image);
+            username.setText(inspireMe.getUser().getName());
             caption.setText(inspireMe.getCaption());
             button.setOnClickListener(new View.OnClickListener() {
                 @Override

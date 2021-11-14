@@ -49,7 +49,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 .into(holder.img);
 
         holder.name.setText(product.getName());
-        holder.brand.setText(product.getBrand().getName());
 
         Double price = Double.parseDouble(String.valueOf(product.getPrice()));
         Locale localeID = new Locale("in", "ID");
