@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.MenuItem;
@@ -141,12 +142,36 @@ public class InpireMeUploadActivity extends AppCompatActivity {
             if(grantResults.length<0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
                 openCamera();
             }
+            else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                            != PackageManager.PERMISSION_GRANTED) {
+                                showMessageOKCancel("You need to allow access permissions",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                            ActivityCompat.requestPermissions(getParent(), new String[] {Manifest.permission.CAMERA}, CAMERA_PERM_CODE);
+                                        }
+                                    }
+                                });
+                    }
+                }
+            }
         }
         if(requestCode==GALLERY_PERM_CODE){
             if(grantResults.length<0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
                 openGallery();
             }
         }
+    }
+    private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
+        new AlertDialog.Builder(InpireMeUploadActivity.this)
+                .setMessage(message)
+                .setPositiveButton("OK", okListener)
+                .setNegativeButton("Cancel", null)
+                .create()
+                .show();
     }
     private void openGallery(){
         Intent intent = new  Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
