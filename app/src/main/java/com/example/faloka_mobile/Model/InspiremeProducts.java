@@ -26,10 +26,13 @@ public class InspiremeProducts implements Parcelable {
 	private int id;
 
 	@SerializedName("variants")
-	private Variant variants;
+	private Variant variant;
 
 	@SerializedName("products")
-	private Product products;
+	private Product product;
+
+	@SerializedName("brands")
+	private Brand brand;
 
 	protected InspiremeProducts(Parcel in) {
 		variantId = in.readInt();
@@ -38,7 +41,10 @@ public class InspiremeProducts implements Parcelable {
 		productId = in.readInt();
 		createdAt = in.readString();
 		id = in.readInt();
-		variants = in.readParcelable(Variant.class.getClassLoader());
+		variant = in.readParcelable(Variant.class.getClassLoader());
+		product = in.readParcelable(Product.class.getClassLoader());
+		brand = in.readParcelable(Product.class.getClassLoader());
+
 	}
 
 	@Override
@@ -49,7 +55,9 @@ public class InspiremeProducts implements Parcelable {
 		dest.writeInt(productId);
 		dest.writeString(createdAt);
 		dest.writeInt(id);
-		dest.writeParcelable(variants, flags);
+		dest.writeParcelable(variant, flags);
+		dest.writeParcelable(product, flags);
+		dest.writeParcelable(brand, flags);
 	}
 
 	@Override
@@ -118,18 +126,25 @@ public class InspiremeProducts implements Parcelable {
 	}
 
 	public void setVariants(Variant variants){
-		this.variants = variants;
+		this.variant = variants;
 	}
 
 	public Variant getVariants(){
-		return variants;
+		return variant;
 	}
 
 	public void setProduct(Product product){
-		this.products = products;
+		this.product = product;
 	}
 
 	public Product getProduct(){
-		return products;
+		return product;
+	}
+	public void setBrand(Brand brand){
+		this.brand= brand;
+	}
+
+	public Brand getBrand(){
+		return brand;
 	}
 }
