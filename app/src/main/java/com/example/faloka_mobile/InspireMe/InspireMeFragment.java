@@ -78,7 +78,7 @@ public class InspireMeFragment extends Fragment {
                 if(!LoginRepository.isValidationLogin(getActivity())){
                     return super.onOptionsItemSelected(item);
                 }
-                Toast.makeText(((AppCompatActivity)getActivity()).getApplicationContext(), "ADD", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(((AppCompatActivity)getActivity()).getApplicationContext(), "ADD", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(activity, InpireMeUploadActivity.class);
                 startActivity(intent);
                 break;
