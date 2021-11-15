@@ -1,6 +1,7 @@
 package com.example.faloka_mobile.Home;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
@@ -79,13 +80,13 @@ public class HomeFragment extends BaseFragment {
             TextView tv = tabHost.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
             if(tabHost.getTabWidget().getChildAt(i).isSelected()){
                 tv.setTextColor(getResources().getColorStateList(R.color.primary_light));
-
             }
             else{
                 tv.setTextColor(getResources().getColor(R.color.netral_500));
             }
 
             Typeface typeface = ResourcesCompat.getFont(getContext(), R.font.khula_semibold);
+            tv.setTextSize(13);
             tv.setTypeface(typeface);
             tv.setAllCaps(false);
             tv.setLetterSpacing(0.015f);

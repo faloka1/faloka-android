@@ -41,12 +41,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
         if(view.getId() == binding.btnLogLogin.getId()){
             loginViewModel = new LoginViewModel(binding, this::onLogin);
-//            if(loginViewModel.login(view, view.getContext() )){
-//                onSuccess();
-//            }
-//            else {
-//                Toast.makeText(view.getContext(), "Maaf, Login gagal", Toast.LENGTH_SHORT).show();
-//            }
             loginViewModel.login(view, view.getContext() );
 
         }

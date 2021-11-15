@@ -57,11 +57,13 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="600dp"
+            android:paddingHorizontal="20dp"
             android:gravity="center"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_title_login"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -100,61 +102,60 @@
                 app:layout_constraintStart_toStartOf="@+id/btn_log_login"
                 app:layout_constraintTop_toBottomOf="@+id/btn_log_login" />
 
-            <EditText
-                android:id="@+id/edt_log_email"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_edt_reg_email"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="#F1F1F1"
-                android:drawableStart="@drawable/ic_svg_carbon_email"
-                android:drawablePadding="10dp"
-                android:ems="10"
-                android:fontFamily="@font/roboto_medium"
+                android:layout_marginTop="4dp"
                 android:hint="Email"
-                android:inputType="textPersonName"
-                android:padding="10dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="50dp"
-                android:textColor="@color/black_faloka"
-                android:textColorHint="#C5C5C5"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true"
                 app:layout_constraintEnd_toEndOf="@+id/tv_title_login"
                 app:layout_constraintStart_toStartOf="@+id/tv_title_login"
-                app:layout_constraintTop_toBottomOf="@+id/tv_title_login" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_login"
+                app:startIconDrawable="@drawable/ic_svg_carbon_email">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_log_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textPersonName" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_edt_reg_password"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:hint="Password"
+                app:endIconMode="password_toggle"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="@+id/layout_edt_reg_email"
+                app:layout_constraintStart_toStartOf="@+id/layout_edt_reg_email"
+                app:layout_constraintTop_toBottomOf="@+id/layout_edt_reg_email"
+                app:startIconDrawable="@drawable/ic_svg_user">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_log_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textPersonName" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
 
             <Button
                 android:id="@+id/btn_log_login"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:background="@color/black_faloka"
-                android:fontFamily="@font/roboto_medium"
+                style="@style/ButtonPrimary"
                 android:text="Masuk"
-                android:textAllCaps="false"
-                android:textColor="#FAFAFA"
-                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="@+id/tv_log_lupapassword"
-                app:layout_constraintStart_toStartOf="@+id/edt_log_password"
+                app:layout_constraintStart_toStartOf="@+id/layout_edt_reg_password"
                 app:layout_constraintTop_toBottomOf="@+id/tv_log_lupapassword" />
-
-            <EditText
-                android:id="@+id/edt_log_password"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="#F1F1F1"
-                android:drawableStart="@drawable/ic_svg_carbon_password"
-                android:drawablePadding="10dp"
-                android:ems="10"
-                android:fontFamily="@font/roboto_medium"
-                android:hint="Kata Sandi"
-                android:inputType="textPassword"
-                android:padding="10dp"
-                android:textColorHint="#C5C5C5"
-                app:layout_constraintEnd_toEndOf="@+id/edt_log_email"
-                app:layout_constraintStart_toStartOf="@+id/edt_log_email"
-                app:layout_constraintTop_toBottomOf="@+id/edt_log_email" />
 
             <TextView
                 android:id="@+id/tv_log_lupapassword"
@@ -164,8 +165,8 @@
                 android:text="Lupa kata sandi?"
                 android:textColor="#292929"
                 android:textSize="14dp"
-                app:layout_constraintEnd_toEndOf="@+id/edt_log_password"
-                app:layout_constraintTop_toBottomOf="@+id/edt_log_password" />
+                app:layout_constraintEnd_toEndOf="@+id/layout_edt_reg_password"
+                app:layout_constraintTop_toBottomOf="@+id/layout_edt_reg_password" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
