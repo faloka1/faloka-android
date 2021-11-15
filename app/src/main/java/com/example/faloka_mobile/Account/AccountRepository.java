@@ -12,6 +12,7 @@ import com.example.faloka_mobile.Adapter.AddressAdapter;
 import com.example.faloka_mobile.Adapter.AddressAddAdapter;
 import com.example.faloka_mobile.Login.LoginActivity;
 import com.example.faloka_mobile.Login.TokenManager;
+import com.example.faloka_mobile.MainActivity;
 import com.example.faloka_mobile.Model.Brand;
 import com.example.faloka_mobile.Model.Cart;
 import com.example.faloka_mobile.Model.CartBrand;
@@ -44,13 +45,13 @@ public class AccountRepository {
                     Message logout = response.body();
                     tokenManager.deleteToken();
 
-                    activity.startActivity(new Intent(view.getContext(), LoginActivity.class));
+                    activity.startActivity(new Intent(view.getContext(), MainActivity.class));
                     Toast.makeText(view.getContext(), logout.getMessage(), Toast.LENGTH_SHORT).show();
                     activity.finish();
                 }
                 else {
                     tokenManager.deleteToken();
-                    activity.startActivity(new Intent(view.getContext(), LoginActivity.class));
+                    activity.startActivity(new Intent(view.getContext(), MainActivity.class));
                     Toast.makeText(view.getContext(), "Login First", Toast.LENGTH_SHORT).show();
                     activity.finish();
                 }
@@ -75,7 +76,7 @@ public class AccountRepository {
                     userProfileListener.onUserProfile(user);
                 }
                 else {
-                    Toast.makeText(view.getContext(), "FAIL", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(view.getContext(), "FAIL", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -98,13 +99,13 @@ public class AccountRepository {
                     orderUserListener.onOrder(orderUserList);
                 }
                 else {
-                    Toast.makeText(view.getContext(), "FAIL RESPONSE", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(view.getContext(), "FAIL RESPONSE", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<OrderUser>> call, Throwable t) {
-                Toast.makeText(view.getContext(), "FAIL API "+t.getMessage(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(view.getContext(), "FAIL API "+t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -16,6 +16,7 @@ import com.example.faloka_mobile.Cart.CartActivity;
 import com.example.faloka_mobile.Cart.CartCountItemListener;
 import com.example.faloka_mobile.Cart.CartEmptyActivity;
 import com.example.faloka_mobile.Cart.CartRepository;
+import com.example.faloka_mobile.Login.TokenManager;
 
 import ru.nikartm.support.BadgePosition;
 import ru.nikartm.support.ImageBadgeView;
@@ -33,12 +34,21 @@ public class BaseActivity extends AppCompatActivity implements CartCountItemList
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        TokenManager tokenManager = TokenManager.getInstance(getApplicationContext().getSharedPreferences("Token",0));
+        if(!tokenManager.isLogin()){
+            return super.onCreateOptionsMenu(menu);
+        }
         getMenuInflater().inflate(R.menu.top_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     protected void onResume() {
+        TokenManager tokenManager = TokenManager.getInstance(getApplicationContext().getSharedPreferences("Token",0));
+        if(!tokenManager.isLogin()){
+            super.onResume();
+            return;
+        }
         CartRepository.getCountCarts(getApplicationContext(), this::onItemCount);
         super.onResume();
     }
@@ -64,6 +74,10 @@ public class BaseActivity extends AppCompatActivity implements CartCountItemList
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
+        TokenManager tokenManager = TokenManager.getInstance(getApplicationContext().getSharedPreferences("Token",0));
+        if(!tokenManager.isLogin()){
+            return super.onPrepareOptionsMenu(menu);
+        }
         MenuItem menuItem = menu.findItem(R.id.top_menu_cart);
         badgeView = menuItem.getActionView().findViewById(R.id.cart_badge);
         badgeView.setOnClickListener(new View.OnClickListener() {
@@ -87,13 +101,15 @@ public class BaseActivity extends AppCompatActivity implements CartCountItemList
     @Override
     public void onItemCount(int count) {
         this.count = count;
-        badgeView.setBadgeValue(count)
-                .setBadgeOvalAfterFirst(true)
-                .setBadgeTextSize(8)
-                .setMaxBadgeValue(999)
-                .setBadgePosition(BadgePosition.TOP_RIGHT)
-                .setBadgeTextStyle(Typeface.NORMAL)
-                .setShowCounter(true)
-                .setBadgePadding(4);
+        if(badgeView != null) {
+            badgeView.setBadgeValue(count)
+                    .setBadgeOvalAfterFirst(true)
+                    .setBadgeTextSize(8)
+                    .setMaxBadgeValue(999)
+                    .setBadgePosition(BadgePosition.TOP_RIGHT)
+                    .setBadgeTextStyle(Typeface.NORMAL)
+                    .setShowCounter(true)
+                    .setBadgePadding(4);
+        }
     }
 }

@@ -1,10 +1,12 @@
 package com.example.faloka_mobile.Login;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -30,7 +32,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot() );
-
+        setToolbar();
         binding.btnLogLogin.setOnClickListener(this);
         binding.tvLogRegister.setOnClickListener(this);
 
@@ -75,5 +77,28 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         else {
             Toast.makeText(binding.getRoot().getContext(), "Maaf, Login gagal", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void setToolbar(){
+        setSupportActionBar(binding.toolbarLogin);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Login");
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()){
+            case android.R.id.home:
+                this.finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

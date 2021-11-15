@@ -21,7 +21,10 @@ import com.example.faloka_mobile.BaseActivity;
 import com.example.faloka_mobile.Cart.CartAddItemListener;
 import com.example.faloka_mobile.Cart.CartRepository;
 import com.example.faloka_mobile.Checkout.CheckoutActivity;
+import com.example.faloka_mobile.Login.LoginActivity;
+import com.example.faloka_mobile.Login.LoginRepository;
 import com.example.faloka_mobile.Login.TokenManager;
+import com.example.faloka_mobile.MainActivity;
 import com.example.faloka_mobile.Model.BodyCart;
 import com.example.faloka_mobile.Model.Cart;
 import com.example.faloka_mobile.Model.Product;
@@ -68,6 +71,9 @@ public class ProductDetailActivity extends BaseActivity implements CartAddItemLi
         binding.btnBuyNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(!LoginRepository.isValidationLogin(ProductDetailActivity.this)){
+                    return;
+                }
                 List<Cart> cartList = new ArrayList<>();
 //                List<Product> productList = new ArrayList<>();
 //                productList.add(product);
@@ -93,6 +99,9 @@ public class ProductDetailActivity extends BaseActivity implements CartAddItemLi
         binding.btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(!LoginRepository.isValidationLogin(ProductDetailActivity.this)){
+                    return;
+                }
                 Variant variant = product.getVariantList().get(0);
                 BodyCart bodyCart = new BodyCart();
                 bodyCart.setProductID(product.getId());

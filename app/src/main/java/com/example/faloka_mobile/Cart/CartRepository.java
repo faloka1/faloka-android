@@ -77,7 +77,7 @@ public class CartRepository {
                     cartCountItemListener.onItemCount(cartList.size());
                 }
                 else {
-                    Toast.makeText(context, "FAIL RESPONSE", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, "FAIL RESPONSE", Toast.LENGTH_SHORT).show();
                 }
             }
 
