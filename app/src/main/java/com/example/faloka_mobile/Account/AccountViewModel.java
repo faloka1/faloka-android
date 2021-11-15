@@ -25,6 +25,7 @@ import com.example.faloka_mobile.Model.Message;
 import com.example.faloka_mobile.Model.OrderUser;
 import com.example.faloka_mobile.Model.User;
 import com.example.faloka_mobile.R;
+import com.example.faloka_mobile.Register.RegisterActivity;
 import com.example.faloka_mobile.databinding.FragmentAccountBinding;
 import com.google.android.material.tabs.TabLayout;
 
@@ -174,7 +175,20 @@ public class AccountViewModel extends ViewModel implements UserProfileListener, 
             });
         }
         else{
-
+            btnLogin.setText("Login");
+            btnRegister.setText("Register");
+            btnLogin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    activity.startActivity(new Intent(activity, LoginActivity.class));
+                }
+            });
+            btnRegister.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    activity.startActivity(new Intent(activity, RegisterActivity.class));
+                }
+            });
         }
     }
 

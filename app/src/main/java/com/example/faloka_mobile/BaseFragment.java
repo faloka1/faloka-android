@@ -20,6 +20,7 @@ import com.example.faloka_mobile.Cart.CartActivity;
 import com.example.faloka_mobile.Cart.CartCountItemListener;
 import com.example.faloka_mobile.Cart.CartEmptyActivity;
 import com.example.faloka_mobile.Cart.CartRepository;
+import com.example.faloka_mobile.Login.TokenManager;
 
 import ru.nikartm.support.BadgePosition;
 import ru.nikartm.support.ImageBadgeView;
@@ -27,7 +28,7 @@ import ru.nikartm.support.ImageBadgeView;
 public class BaseFragment extends Fragment implements CartCountItemListener {
 
     private ImageBadgeView badgeView;
-    private int count;
+    private int count = 0;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         CartRepository.getCountCarts(getContext() , this::onItemCount);
@@ -36,12 +37,22 @@ public class BaseFragment extends Fragment implements CartCountItemListener {
 
     @Override
     public void onResume(){
+        TokenManager tokenManager = TokenManager.getInstance(getContext().getSharedPreferences("Token",0));
+        if(!tokenManager.isLogin()){
+            super.onResume();
+            return;
+        }
         CartRepository.getCountCarts(getContext(), this::onItemCount);
         super.onResume();
     }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        TokenManager tokenManager = TokenManager.getInstance(getContext().getSharedPreferences("Token",0));
+        if(!tokenManager.isLogin()){
+            super.onCreateOptionsMenu(menu, inflater);
+            return;
+        }
         ((AppCompatActivity)getActivity()).getMenuInflater().inflate(R.menu.top_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -64,6 +75,11 @@ public class BaseFragment extends Fragment implements CartCountItemListener {
 
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
+        TokenManager tokenManager = TokenManager.getInstance(getContext().getSharedPreferences("Token",0));
+        if(!tokenManager.isLogin()){
+            super.onPrepareOptionsMenu(menu);
+            return;
+        }
 
         MenuItem menuItem = menu.findItem(R.id.top_menu_cart);
         badgeView = menuItem.getActionView().findViewById(R.id.cart_badge);
@@ -89,13 +105,16 @@ public class BaseFragment extends Fragment implements CartCountItemListener {
     @Override
     public void onItemCount(int count) {
         this.count = count;
-        badgeView.setBadgeValue(count)
-                .setBadgeOvalAfterFirst(true)
-                .setBadgeTextSize(8)
-                .setMaxBadgeValue(999)
-                .setBadgePosition(BadgePosition.TOP_RIGHT)
-                .setBadgeTextStyle(Typeface.NORMAL)
-                .setShowCounter(true)
-                .setBadgePadding(4);
+        System.out.println(this.count);
+        if(badgeView != null) {
+            badgeView.setBadgeValue(this.count)
+                    .setBadgeOvalAfterFirst(true)
+                    .setBadgeTextSize(8)
+                    .setMaxBadgeValue(999)
+                    .setBadgePosition(BadgePosition.TOP_RIGHT)
+                    .setBadgeTextStyle(Typeface.NORMAL)
+                    .setShowCounter(true)
+                    .setBadgePadding(4);
+        }
     }
 }

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.faloka_mobile.Adapter.ProductAdapter;
+import com.example.faloka_mobile.MainActivity;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.ActivityCartBinding;
@@ -31,12 +33,25 @@ public class CartEmptyActivity extends AppCompatActivity implements CartProducts
         setContentView(view);
         CartRepository.getProductsRelated(view, this::onProductsRelated);
         setToolbar();
+        setButtonBuy();
     }
 
     public void setToolbar(){
         setSupportActionBar(binding.cartToolbarEmpty);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Tas");
+    }
+
+    public void setButtonBuy(){
+        binding.btnCartGoBuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CartEmptyActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 
     public void setRecycleView(){

@@ -13,8 +13,8 @@
     <Button
         android:id="@+id/btn_profile_login"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/primary_light"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/primary_light"
         android:letterSpacing="0.125"
         android:text="Login"
         android:textColor="@color/netral_100"
@@ -26,13 +26,13 @@
     <Button
         android:id="@+id/btn_profile_register"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:background="@color/netral_100"
+        android:backgroundTint="@color/netral_100"
         android:letterSpacing="0.125"
         android:text="Register"
-        android:textColor="@color/netral_900"
 
+        android:textColor="@color/netral_900"
         android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

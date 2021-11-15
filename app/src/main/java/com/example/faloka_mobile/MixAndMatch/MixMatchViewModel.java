@@ -18,9 +18,11 @@ import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Adapter.ProductAdapter;
 import com.example.faloka_mobile.Adapter.ProductMixMatchAdapter;
 import com.example.faloka_mobile.Checkout.CheckoutActivity;
+import com.example.faloka_mobile.Login.LoginRepository;
 import com.example.faloka_mobile.Model.Cart;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.ProductMixMatch;
+import com.example.faloka_mobile.Product.ProductDetailActivity;
 import com.example.faloka_mobile.Product.ProductListener;
 import com.example.faloka_mobile.Product.ProductRepository;
 import com.example.faloka_mobile.R;
@@ -107,6 +109,9 @@ public class MixMatchViewModel extends ViewModel implements View.OnTouchListener
             MixMatchRepository.getProductsMixMatch(binding.getRoot(), this::onProduct);
         }
         else if(view.getId() == binding.btnMixMatchCheckout.getId()){
+            if(!LoginRepository.isValidationLogin(activity)){
+                return;
+            }
             if(!cartList.isEmpty()) {
                 Intent intent = new Intent(binding.getRoot().getContext(), CheckoutActivity.class);
                 Bundle bundle = new Bundle();

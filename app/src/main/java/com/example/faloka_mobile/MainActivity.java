@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.faloka_mobile.Account.AccountFragment;
 import com.example.faloka_mobile.Home.HomeFragment;
 import com.example.faloka_mobile.InspireMe.InspireMeFragment;
+import com.example.faloka_mobile.Login.LoginRepository;
 import com.example.faloka_mobile.MixAndMatch.MixMatchActivity;
 import com.example.faloka_mobile.Search.SearchFragment;
 import com.example.faloka_mobile.databinding.ActivityMainBinding;
@@ -47,6 +48,10 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new InspireMeFragment();
                         break;
                     case R.id.bottom_menu_mixmatch:
+//                        if(!LoginRepository.isValidationLogin(MainActivity.this)){
+//                            item.setCheckable(false);
+//                            return true;
+//                        }
                         item.setCheckable(false);
                         Toast.makeText(getApplicationContext(), "MIX AND MATCH", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this, MixMatchActivity.class);
@@ -71,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
             this.fragment = new AccountFragment();
             binding.buttomNavigation.setSelectedItemId(R.id.bottom_menu_account);
         }
-        else if(getIntent().getIntExtra(InspireMeFragment.EXTRA_FRAGMENT_INSPO, 0) == InspireMeFragment.INDEX_FRAGMENT_ACCOUNT){
+        if(getIntent().getIntExtra(InspireMeFragment.EXTRA_FRAGMENT_INSPO, 0) == InspireMeFragment.INDEX_FRAGMENT_ACCOUNT){
             this.fragment = new InspireMeFragment();
             binding.buttomNavigation.setSelectedItemId(R.id.bottom_menu_inspire);
         }

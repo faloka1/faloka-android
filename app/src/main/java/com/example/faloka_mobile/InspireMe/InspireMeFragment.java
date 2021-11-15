@@ -19,6 +19,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.faloka_mobile.Adapter.InspiremeAdapter;
+import com.example.faloka_mobile.Login.LoginRepository;
+import com.example.faloka_mobile.Product.ProductDetailActivity;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.FragmentInpireMeBinding;
 
@@ -73,6 +75,9 @@ public class InspireMeFragment extends Fragment {
 
         switch (item.getItemId()){
             case R.id.inspo_add_outfit:
+                if(!LoginRepository.isValidationLogin(getActivity())){
+                    return super.onOptionsItemSelected(item);
+                }
                 Toast.makeText(((AppCompatActivity)getActivity()).getApplicationContext(), "ADD", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(activity, InpireMeUploadActivity.class);
                 startActivity(intent);

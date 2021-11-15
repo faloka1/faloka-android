@@ -1,11 +1,14 @@
 package com.example.faloka_mobile.Login;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.faloka_mobile.API.ApiConfig;
@@ -52,4 +55,16 @@ public class LoginRepository{
 
         });
     }
+
+    public static final boolean isValidationLogin(Activity activity){
+        boolean isValid = true;
+        TokenManager tokenManager = TokenManager.getInstance(activity.getApplication().getSharedPreferences("Token",0));
+        if(!tokenManager.isLogin()){
+            activity.startActivity(new Intent(activity, LoginActivity.class));
+//            activity.finish();
+            isValid = false;
+        }
+        return isValid;
+    }
+
 }

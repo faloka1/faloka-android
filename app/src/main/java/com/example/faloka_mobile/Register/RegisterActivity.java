@@ -1,11 +1,13 @@
 package com.example.faloka_mobile.Register;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
@@ -32,6 +34,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterListe
         binding.btnRegRegister.setOnClickListener(this);
         setAutoCompleteSpinnerGender();
         setAfterError();
+        setToolbar();
     }
     private void setAutoCompleteSpinnerGender(){
         String[] option = {"L", "P"};
@@ -112,7 +115,27 @@ public class RegisterActivity extends AppCompatActivity implements RegisterListe
         }
     }
 
+    private void setToolbar(){
+        setSupportActionBar(binding.toolbarRegister);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Register");
+    }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()){
+            case android.R.id.home:
+                this.finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 }
