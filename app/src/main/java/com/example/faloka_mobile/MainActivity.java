@@ -36,15 +36,15 @@ public class MainActivity extends AppCompatActivity {
                 Fragment fragment = null;
                 switch (item.getItemId()){
                     case R.id.bottom_menu_home:
-                        Toast.makeText(getApplicationContext(), "HOME", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplicationContext(), "HOME", Toast.LENGTH_SHORT).show();
                         fragment = new HomeFragment();
                         break;
                     case R.id.bottom_menu_search:
-                        Toast.makeText(getApplicationContext(), "SEARCH", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplicationContext(), "SEARCH", Toast.LENGTH_SHORT).show();
                         fragment = new SearchFragment();
                         break;
                     case R.id.bottom_menu_inspire:
-                        Toast.makeText(getApplicationContext(), "INSPIRE ME", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplicationContext(), "INSPIRE ME", Toast.LENGTH_SHORT).show();
                         fragment = new InspireMeFragment();
                         break;
                     case R.id.bottom_menu_mixmatch:
@@ -53,12 +53,12 @@ public class MainActivity extends AppCompatActivity {
 //                            return true;
 //                        }
                         item.setCheckable(false);
-                        Toast.makeText(getApplicationContext(), "MIX AND MATCH", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplicationContext(), "MIX AND MATCH", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this, MixMatchActivity.class);
                         startActivity(intent);
                         return true;
                     case R.id.bottom_menu_account:
-                        Toast.makeText(getApplicationContext(), "ACCOUNT", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplicationContext(), "ACCOUNT", Toast.LENGTH_SHORT).show();
                         fragment = new AccountFragment();
                         break;
                 }

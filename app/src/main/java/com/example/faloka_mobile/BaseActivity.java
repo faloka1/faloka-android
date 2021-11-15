@@ -64,7 +64,7 @@ public class BaseActivity extends AppCompatActivity implements CartCountItemList
                 Toast.makeText(getApplicationContext(), "WISHLIST", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.top_menu_cart:
-                Toast.makeText(getApplicationContext(), "CART", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "CART", Toast.LENGTH_SHORT).show();
                 break;
         }
 
@@ -84,12 +84,12 @@ public class BaseActivity extends AppCompatActivity implements CartCountItemList
             @Override
             public void onClick(View view) {
                 if(count <= 0){
-                    Toast.makeText(getApplicationContext(), "CART", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), "CART", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(), CartEmptyActivity.class);
                     startActivity(intent);
                 }
                 else {
-                    Toast.makeText(getApplicationContext(), "CART", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), "CART", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(), CartActivity.class);
                     startActivity(intent);
                 }

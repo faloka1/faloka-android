@@ -66,7 +66,7 @@ public class BaseFragment extends Fragment implements CartCountItemListener {
                 Toast.makeText(((AppCompatActivity)getActivity()).getApplicationContext(), "WISHLIST", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.top_menu_cart:
-                Toast.makeText(((AppCompatActivity)getActivity()).getApplicationContext(), "CART", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(((AppCompatActivity)getActivity()).getApplicationContext(), "CART", Toast.LENGTH_SHORT).show();
                 break;
         }
 
@@ -87,12 +87,12 @@ public class BaseFragment extends Fragment implements CartCountItemListener {
             @Override
             public void onClick(View view) {
                 if(count <= 0){
-                    Toast.makeText(((AppCompatActivity) getActivity()).getApplicationContext(), "CART", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(((AppCompatActivity) getActivity()).getApplicationContext(), "CART", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getActivity().getApplicationContext(), CartEmptyActivity.class);
                     startActivity(intent);
                 }
                 else {
-                    Toast.makeText(((AppCompatActivity) getActivity()).getApplicationContext(), "CART", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(((AppCompatActivity) getActivity()).getApplicationContext(), "CART", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getActivity().getApplicationContext(), CartActivity.class);
                     startActivity(intent);
                 }
