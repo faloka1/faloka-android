@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -43,21 +44,24 @@ public class MixMatchViewModel extends ViewModel implements View.OnTouchListener
     private ImageToLayoutListener imageToLayoutListener;
     private ImageViewUnselectedListener imageViewUnselectedListener;
 //    private static int imageID = 0;
-    private List<ImageView> imageViewList;
+    private LinkedList<ImageView> imageViewList;
     private List<Cart> cartList;
+    private ImageView currentImageView;
+    private int currentIndex;
 
     public MixMatchViewModel(ActivityMixMatchBinding binding, AppCompatActivity activity, ImageToLayoutListener imageToLayoutListener, ImageViewUnselectedListener imageViewUnselectedListener){
         this.binding = binding;
         this.activity = activity;
         this.imageToLayoutListener = imageToLayoutListener;
         this.imageViewUnselectedListener = imageViewUnselectedListener;
-        this.imageViewList = new ArrayList<>();
+        this.imageViewList = new LinkedList<>();
         this.cartList = new ArrayList<>();
         binding.btnMixMatchDelete.setOnClickListener(this);
         binding.btnMixMatchCheckout.setOnClickListener(this);
 //        MixMatchRepository.getMixMatchProducts(binding.getRoot(), this::onProduct);
         MixMatchRepository.getProductsMixMatch(binding.getRoot(), this::onProduct);
         setToolbar();
+        setButtonFlip();
         binding.constrantLayoutMain.setOnTouchListener(this);
     }
 
@@ -75,25 +79,32 @@ public class MixMatchViewModel extends ViewModel implements View.OnTouchListener
         imageView.getLayoutParams().width = width;
         imageView.setY(posX);
         imageView.setX(posY);
-        binding.relativeLayoutMixMatch.addView(imageView);
-        imageViewList.add(imageView);
         imageView.setOnTouchListener(this);
+        imageViewList.add(imageView);
+        binding.relativeLayoutMixMatch.addView(imageView);
+//        print();
     }
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
         if(view instanceof ImageView) {
             ImageView imageView = (ImageView) view;
-            imageView.bringToFront();
+            currentImageView = imageView;
+//            imageView.bringToFront();
+            int i =0;
             for (ImageView img : imageViewList) {
                 if (imageView.getId() == img.getId()) {
                     imageView.setBackgroundResource(R.drawable.mix_match_product_border);
+//                    currentIndex = i;
                 } else {
                     img.setBackgroundResource(R.drawable.mix_match_product_default);
                 }
+                i++;
             }
             imageViewUnselectedListener.onUnselectedImageView(false);
             imageToLayoutListener.onLayout(imageView);
+            updateCurrentIndex();
+//            print();
         }
         if (view instanceof ConstraintLayout){
             for (ImageView img : imageViewList) {
@@ -102,6 +113,88 @@ public class MixMatchViewModel extends ViewModel implements View.OnTouchListener
             imageViewUnselectedListener.onUnselectedImageView(true);
         }
         return activity.onTouchEvent(motionEvent);
+    }
+
+    public void print(){
+        System.out.println("\n");
+        for (ImageView imageView : imageViewList){
+            System.out.println("OUT: "+imageView.getId());
+        }
+        System.out.println("\n");
+
+//        int i =0;
+        for(int i=0; i<binding.relativeLayoutMixMatch.getChildCount(); i++){
+            System.out.println("IN: "+binding.relativeLayoutMixMatch.getChildAt(i).getId());
+//            System.out.print(binding.relativeLayoutMixMatch.getChildAt(i).getId()+" <> ");
+        }
+//        for (ImageView imageView : imageViewList){
+//            i++;
+//        }
+
+//        System.out.println("IN");
+//        ViewGroup myViewGroup = ((ViewGroup) imageViewList.get(0).getParent());
+//        int index = myViewGroup.getChildCount();
+////        System.out.println("aSA: "+index);
+//        for(int i = 0; i<index; i++)
+//        {
+//            System.out.print(myViewGroup.getChildAt(i).getId()+" <> ");
+//        }
+    }
+
+    private void updateCurrentIndex(){
+        int i=0;
+        for(ImageView imageView : imageViewList){
+            if(imageView.getId() == currentImageView.getId()){
+                currentIndex = i;
+            }
+            i++;
+        }
+    }
+
+    private void setButtonFlip(){
+        binding.btnBringToFront.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(currentImageView != null){
+//                    System.out.println("HAHAHAHHA: "+currentIndex+" "+currentImageView.getId());
+                    imageViewList.remove(currentIndex);
+                    imageViewList.addLast(currentImageView);
+                    currentImageView.bringToFront();
+                    currentImageView.invalidate();
+                    updateCurrentIndex();
+//                    print();
+                }
+                else {
+//                    Toast.makeText(activity.getApplicationContext(), "GABISA BRO", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        binding.btnBringToBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(currentImageView != null){
+                    int i=0;
+                    for(ImageView imageView : imageViewList){
+                        if(imageView.getId() == currentImageView.getId()){
+                            currentIndex = i;
+                        }
+                        if(imageView.getId() != currentImageView.getId()){
+                            imageView.bringToFront();
+                            imageView.invalidate();
+                        }
+                        i++;
+                    }
+//                    System.out.println("INDEX REMOVE: "+currentIndex);
+                    imageViewList.remove(currentIndex);
+                    imageViewList.addFirst(currentImageView);
+                    updateCurrentIndex();
+//                    print();
+                }
+                else {
+//                    Toast.makeText(activity.getApplicationContext(), "GABISA BRO", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     @Override

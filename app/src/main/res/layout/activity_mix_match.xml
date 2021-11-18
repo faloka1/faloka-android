@@ -33,7 +33,29 @@
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="4dp"
-        android:background="@drawable/mix_match_border" />
+        android:background="@drawable/mix_match_border" >
+
+    </RelativeLayout>
+
+    <ImageButton
+        android:id="@+id/btn_bring_to_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/relative_layout_mix_match"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        app:srcCompat="@drawable/ic_outline_flip_to_back" />
+
+    <ImageButton
+        android:id="@+id/btn_bring_to_front"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/relative_layout_mix_match"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:layout_toStartOf="@+id/btn_bring_to_back"
+        app:srcCompat="@drawable/ic_outline_flip_to_front" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constrant_layout_main"
