@@ -6,9 +6,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +22,7 @@ import com.example.faloka_mobile.Adapter.ProductMixMatchAdapter;
 import com.example.faloka_mobile.Checkout.CheckoutActivity;
 import com.example.faloka_mobile.Login.LoginRepository;
 import com.example.faloka_mobile.Model.Cart;
+import com.example.faloka_mobile.Model.Category;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.ProductMixMatch;
 import com.example.faloka_mobile.Product.ProductDetailActivity;
@@ -30,6 +33,7 @@ import com.example.faloka_mobile.databinding.ActivityMixMatchBinding;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 public class MixMatchViewModel extends ViewModel implements View.OnTouchListener, ProductMxMatchListener, SelectedImageListener, View.OnClickListener, ProductListener, RemoveProductListener {
@@ -37,14 +41,16 @@ public class MixMatchViewModel extends ViewModel implements View.OnTouchListener
     private ActivityMixMatchBinding binding;
     private AppCompatActivity activity;
     private ImageToLayoutListener imageToLayoutListener;
+    private ImageViewUnselectedListener imageViewUnselectedListener;
 //    private static int imageID = 0;
     private List<ImageView> imageViewList;
     private List<Cart> cartList;
 
-    public MixMatchViewModel(ActivityMixMatchBinding binding, AppCompatActivity activity, ImageToLayoutListener imageToLayoutListener){
+    public MixMatchViewModel(ActivityMixMatchBinding binding, AppCompatActivity activity, ImageToLayoutListener imageToLayoutListener, ImageViewUnselectedListener imageViewUnselectedListener){
         this.binding = binding;
         this.activity = activity;
         this.imageToLayoutListener = imageToLayoutListener;
+        this.imageViewUnselectedListener = imageViewUnselectedListener;
         this.imageViewList = new ArrayList<>();
         this.cartList = new ArrayList<>();
         binding.btnMixMatchDelete.setOnClickListener(this);
@@ -52,6 +58,7 @@ public class MixMatchViewModel extends ViewModel implements View.OnTouchListener
 //        MixMatchRepository.getMixMatchProducts(binding.getRoot(), this::onProduct);
         MixMatchRepository.getProductsMixMatch(binding.getRoot(), this::onProduct);
         setToolbar();
+        binding.constrantLayoutMain.setOnTouchListener(this);
     }
 
     private void setToolbar(){
@@ -60,15 +67,14 @@ public class MixMatchViewModel extends ViewModel implements View.OnTouchListener
         activity.getSupportActionBar().setTitle("Mix and match");
     }
 
-    private void addImageView(int imageID, ImageView imageView, int width, int height) {
-        RelativeLayout.LayoutParams imParams =
-                new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+    private void addImageView(int imageID, ImageView imageView, int width, int height, float posX, float posY) {
+        RelativeLayout.LayoutParams imParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         imageView.setId(imageID);
         imageView.setLayoutParams(imParams);
         imageView.getLayoutParams().height = height;
         imageView.getLayoutParams().width = width;
-        imageView.setY((float)(binding.rvMixMatchProduct.getMinimumWidth()));
-        imageView.setX((float)(binding.rvMixMatchProduct.getHeight()/2));
+        imageView.setY(posX);
+        imageView.setX(posY);
         binding.relativeLayoutMixMatch.addView(imageView);
         imageViewList.add(imageView);
         imageView.setOnTouchListener(this);
@@ -76,15 +82,25 @@ public class MixMatchViewModel extends ViewModel implements View.OnTouchListener
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
-        ImageView imageView = (ImageView) view;
-        for (ImageView img : imageViewList){
-            if(imageView.getId() == img.getId()){
-                imageView.setBackgroundResource(R.drawable.mix_match_product_border);
-            }else {
+        if(view instanceof ImageView) {
+            ImageView imageView = (ImageView) view;
+            imageView.bringToFront();
+            for (ImageView img : imageViewList) {
+                if (imageView.getId() == img.getId()) {
+                    imageView.setBackgroundResource(R.drawable.mix_match_product_border);
+                } else {
+                    img.setBackgroundResource(R.drawable.mix_match_product_default);
+                }
+            }
+            imageViewUnselectedListener.onUnselectedImageView(false);
+            imageToLayoutListener.onLayout(imageView);
+        }
+        if (view instanceof ConstraintLayout){
+            for (ImageView img : imageViewList) {
                 img.setBackgroundResource(R.drawable.mix_match_product_default);
             }
+            imageViewUnselectedListener.onUnselectedImageView(true);
         }
-        imageToLayoutListener.onLayout(imageView);
         return activity.onTouchEvent(motionEvent);
     }
 
@@ -138,7 +154,23 @@ public class MixMatchViewModel extends ViewModel implements View.OnTouchListener
         Glide.with(imageView.getContext())
                 .load(ApiConfig.BASE_IMAGE_URL + product.getImageMixMatchURL())
                 .into(imageView);
-        addImageView(product.getId(), imageView, 350, 350);
+        float posX = (float)(binding.rvMixMatchProduct.getMinimumWidth());
+        float posY = (float)(binding.rvMixMatchProduct.getHeight()/2);
+
+        for(Category category : product.getCategoryList()){
+            if(category.getSlug().equalsIgnoreCase("atasan")){
+                posX = (float)(binding.rvMixMatchProduct.getMinimumWidth());
+                posY = (float)(binding.rvMixMatchProduct.getHeight()/2);
+                break;
+            }
+            if(category.getSlug().equalsIgnoreCase("bawahan")){
+                posX = posX+380;
+                posY = posY;
+                break;
+            }
+        }
+
+        addImageView(product.getId(), imageView, 410, 410, posX, posY);
     }
 
     @Override
