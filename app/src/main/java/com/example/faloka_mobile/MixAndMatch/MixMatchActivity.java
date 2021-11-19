@@ -27,7 +27,7 @@ import java.util.Random;
 import ru.nikartm.support.BadgePosition;
 import ru.nikartm.support.ImageBadgeView;
 
-public class MixMatchActivity extends BaseActivity implements ImageToLayoutListener{
+public class MixMatchActivity extends BaseActivity implements ImageToLayoutListener, ImageViewUnselectedListener{
     private ActivityMixMatchBinding binding;
     private View view;
     private ImageView imageView;
@@ -44,7 +44,7 @@ public class MixMatchActivity extends BaseActivity implements ImageToLayoutListe
         view = binding.getRoot();
 
         setContentView(view);
-        MixMatchViewModel mixMatchViewModel = new MixMatchViewModel(binding, this, this::onLayout);
+        MixMatchViewModel mixMatchViewModel = new MixMatchViewModel(binding, this, this::onLayout, this::onUnselectedImageView);
         scaleGestureDetector = new ScaleGestureDetector(this, new ScaleListener());
     }
 
@@ -98,13 +98,22 @@ public class MixMatchActivity extends BaseActivity implements ImageToLayoutListe
         this.imageView = imageView;
     }
 
+    @Override
+    public void onUnselectedImageView(boolean flag) {
+        if(flag == true){
+            this.imageView = null;
+        }
+    }
+
     class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         @Override
         public boolean onScale(ScaleGestureDetector scaleGestureDetector) {
             factor *= scaleGestureDetector.getScaleFactor();
             factor = Math.max(0.1f, Math.min(factor,10.f));
-            imageView.setScaleX(factor);
-            imageView.setScaleY(factor);
+            if(imageView != null) {
+                imageView.setScaleX(factor);
+                imageView.setScaleY(factor);
+            }
             return true;
         }
 

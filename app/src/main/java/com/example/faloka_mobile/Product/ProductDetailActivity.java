@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.faloka_mobile.API.ApiConfig;
+import com.example.faloka_mobile.Account.AuthFlagListener;
 import com.example.faloka_mobile.Adapter.ProductAdapter;
 import com.example.faloka_mobile.BaseActivity;
 import com.example.faloka_mobile.Cart.CartAddItemListener;
@@ -44,17 +45,18 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProductDetailActivity extends BaseActivity implements CartAddItemListener {
+public class ProductDetailActivity extends BaseActivity implements CartAddItemListener, AuthFlagListener {
 
     ActivityProductDetailBinding binding;
     Product product;
+    private static boolean flagAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityProductDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        flagAuth = false;
         setToolbar();
 
         getDetailProductFromList();
@@ -174,6 +176,14 @@ public class ProductDetailActivity extends BaseActivity implements CartAddItemLi
 
     @Override
     public void onAddToCart() {
-        CartRepository.getCountCarts(getApplicationContext(), ProductDetailActivity.super::onItemCount);
+        if(!flagAuth) {
+            CartRepository.getCountCarts(getApplicationContext(), ProductDetailActivity.super::onItemCount, this::onUnauthorized);
+        }
+    }
+
+    @Override
+    public void onUnauthorized(boolean flag) {
+        this.flagAuth = flag;
+        super.onUnauthorized(flag);
     }
 }

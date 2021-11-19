@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relative_layout_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MixAndMatch.MixMatchActivity">
@@ -24,55 +25,89 @@
         android:id="@+id/relative_layout_mix_match"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btn_mix_match_delete"
+        android:layout_above="@+id/constrant_layout_main"
         android:layout_below="@+id/mix_match_toolbar"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/mix_match_border" />
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/mix_match_border" >
 
-    <Button
-        android:id="@+id/btn_mix_match_delete"
+    </RelativeLayout>
+
+    <ImageButton
+        android:id="@+id/btn_bring_to_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/rv_mix_match_product"
+        android:layout_alignBottom="@+id/relative_layout_mix_match"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="12dp"
-        android:backgroundTint="@color/white"
-        android:text="Hapus"
-        android:textAllCaps="false"
-        android:textColor="@color/primary_dark"
-        app:strokeColor="@color/primary_dark"
-        app:strokeWidth="1dp" />
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        app:srcCompat="@drawable/ic_outline_flip_to_back" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_mix_match_product"
+    <ImageButton
+        android:id="@+id/btn_bring_to_front"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/relative_layout_mix_match"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:layout_toStartOf="@+id/btn_bring_to_back"
+        app:srcCompat="@drawable/ic_outline_flip_to_front" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constrant_layout_main"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="0dp"
-        android:background="@drawable/mix_match_border"
-        android:paddingStart="4dp"
-        android:paddingTop="4dp"
-        android:paddingEnd="4dp"
-        android:paddingBottom="4dp" />
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp">
 
-    <Button
-        android:id="@+id/btn_mix_match_checkout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/rv_mix_match_product"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="11dp"
-        android:layout_marginBottom="12dp"
-        android:text="Checkout" />
+        <Button
+            android:id="@+id/btn_mix_match_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            android:backgroundTint="@color/white"
+            android:text="Hapus"
+            android:textAllCaps="false"
+            android:textColor="@color/primary_dark"
+            app:layout_constraintBottom_toTopOf="@+id/rv_mix_match_product"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:strokeColor="@color/primary_dark"
+            app:strokeWidth="1dp" />
+
+        <Button
+            android:id="@+id/btn_mix_match_checkout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="4dp"
+            android:text="Checkout"
+            app:layout_constraintBottom_toTopOf="@+id/rv_mix_match_product"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_mix_match_product"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/mix_match_border"
+            android:paddingStart="4dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="4dp"
+            android:paddingBottom="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>

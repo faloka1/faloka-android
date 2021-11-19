@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.faloka_mobile.Account.AuthFlagListener;
 import com.example.faloka_mobile.Cart.CartActivity;
 import com.example.faloka_mobile.Cart.CartCountItemListener;
 import com.example.faloka_mobile.Cart.CartEmptyActivity;
@@ -21,14 +22,17 @@ import com.example.faloka_mobile.Login.TokenManager;
 import ru.nikartm.support.BadgePosition;
 import ru.nikartm.support.ImageBadgeView;
 
-public class BaseActivity extends AppCompatActivity implements CartCountItemListener {
+public class BaseActivity extends AppCompatActivity implements CartCountItemListener, AuthFlagListener {
 
     private ImageBadgeView badgeView;
     private int count;
+    private static boolean flagAuth;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        CartRepository.getCountCarts(getApplicationContext(), this::onItemCount);
+        if(!flagAuth){
+            CartRepository.getCountCarts(getApplicationContext(), this::onItemCount, this::onUnauthorized);
+        }
         super.onCreate(savedInstanceState);
     }
 
@@ -49,7 +53,9 @@ public class BaseActivity extends AppCompatActivity implements CartCountItemList
             super.onResume();
             return;
         }
-        CartRepository.getCountCarts(getApplicationContext(), this::onItemCount);
+        if(!flagAuth){
+            CartRepository.getCountCarts(getApplicationContext(), this::onItemCount, this::onUnauthorized);
+        }
         super.onResume();
     }
 
@@ -111,5 +117,10 @@ public class BaseActivity extends AppCompatActivity implements CartCountItemList
                     .setShowCounter(true)
                     .setBadgePadding(4);
         }
+    }
+
+    @Override
+    public void onUnauthorized(boolean flag) {
+        this.flagAuth = flag;
     }
 }
