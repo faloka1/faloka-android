@@ -170,7 +170,7 @@ public class AccountViewModel extends ViewModel implements UserProfileListener, 
             btnLogin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    AccountRepository.logoutUser(view, activity);
+                    AccountRepository.logoutUser(view.getContext());
                 }
             });
         }

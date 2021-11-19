@@ -1,11 +1,16 @@
 package com.example.faloka_mobile.Cart;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.faloka_mobile.API.ApiConfig;
+import com.example.faloka_mobile.Account.AccountRepository;
+import com.example.faloka_mobile.Account.AuthFlagListener;
 import com.example.faloka_mobile.Login.TokenManager;
+import com.example.faloka_mobile.MainActivity;
 import com.example.faloka_mobile.Model.BodyCart;
 import com.example.faloka_mobile.Model.Cart;
 import com.example.faloka_mobile.Model.Message;
@@ -65,7 +70,7 @@ public class CartRepository {
         });
     }
 
-    public static final void getCountCarts(Context context, CartCountItemListener cartCountItemListener){
+    public static final void getCountCarts(Context context, CartCountItemListener cartCountItemListener, AuthFlagListener authFlagListener){
         TokenManager tokenManager = TokenManager.getInstance(context.getSharedPreferences("Token",0));
         Call<List<Cart>> callCarts = ApiConfig.getApiService(tokenManager).getCarts(tokenManager.getTypeToken()+" "+tokenManager.getToken() );
 
@@ -75,6 +80,11 @@ public class CartRepository {
                 if(response.isSuccessful()){
                     List<Cart> cartList = response.body();
                     cartCountItemListener.onItemCount(cartList.size());
+                    authFlagListener.onUnauthorized(false);
+                }
+                if(response.code() == 401){
+                    AccountRepository.logoutUser(context);
+                    authFlagListener.onUnauthorized(true);
                 }
                 else {
 //                    Toast.makeText(context, "FAIL RESPONSE", Toast.LENGTH_SHORT).show();

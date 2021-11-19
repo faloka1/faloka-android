@@ -10,7 +10,7 @@ import java.util.List;
 public class ProductListResponse implements Parcelable {
     @SerializedName("category")
     private List<Category> categoryList;
-    @SerializedName("product")
+    @SerializedName("products")
     private List<Product> productList;
     private int count;
 
