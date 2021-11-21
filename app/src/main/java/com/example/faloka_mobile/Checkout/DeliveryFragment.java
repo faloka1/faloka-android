@@ -196,6 +196,10 @@ public class DeliveryFragment extends Fragment implements CheckoutBrandListener 
 
             }
         });
+        if(address == null){
+            binding.footerCheckout.btnCheckoutNext.setEnabled(false);
+            binding.footerCheckout.btnCheckoutNext.setBackgroundColor(getResources().getColor(R.color.white_faloka));
+        }
     }
 
     private void setFooterDelivery(List<CartBrand> cartBrandList){
@@ -271,6 +275,10 @@ public class DeliveryFragment extends Fragment implements CheckoutBrandListener 
         binding.tvDeliveryTotalExpeditionPrice.setText(getFormatRupiah(sumTotalExpedition));
         binding.tvDeliverySubtotalValue.setText(getFormatRupiah(sumTotalProduct+sumTotalExpedition));
         binding.footerCheckout.tvTotalPrice.setText(getFormatRupiah(sumTotalProduct+sumTotalExpedition));
+        if(address == null){
+            binding.footerCheckout.btnCheckoutNext.setEnabled(false);
+            binding.footerCheckout.btnCheckoutNext.setBackgroundColor(getResources().getColor(R.color.white_faloka));
+        }
         setFooterDelivery(cartBrandList);
     }
 }
