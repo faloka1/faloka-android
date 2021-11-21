@@ -68,6 +68,9 @@ public interface ApiService {
     @GET("products")
     Call<ProductListResponse> getProducts();
 
+    @GET("products")
+    Call<ProductListResponse> getSearchProducts(@Query("search") String text);
+
     @GET("products/{slug}")
     Call<Product> getProductSlug(@Path(value = "slug", encoded = true) String slug);
 

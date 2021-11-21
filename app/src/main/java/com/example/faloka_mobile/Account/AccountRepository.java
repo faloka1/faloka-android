@@ -53,9 +53,9 @@ public class AccountRepository {
                 }
                 else {
                     tokenManager.deleteToken();
-                    ((Activity)context).startActivity(new Intent(context, MainActivity.class));
-                    Toast.makeText(context, "Session Expired", Toast.LENGTH_SHORT).show();
-                    ((Activity)context).finish();
+//                    ((Activity)context).startActivity(new Intent(context, MainActivity.class));
+//                    Toast.makeText(context, "Session Expired", Toast.LENGTH_SHORT).show();
+//                    ((Activity)context).finish();
                 }
             }
 
