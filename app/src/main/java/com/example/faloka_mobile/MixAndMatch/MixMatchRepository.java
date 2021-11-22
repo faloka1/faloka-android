@@ -1,9 +1,11 @@
 package com.example.faloka_mobile.MixAndMatch;
 
+import android.app.Activity;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.faloka_mobile.API.ApiConfig;
+import com.example.faloka_mobile.LoadingDialog;
 import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.ProductListResponse;
@@ -42,6 +44,8 @@ public class MixMatchRepository {
 
     public final static void getProductsMixMatch(View view, ProductMxMatchListener productMxMatchListener){
         TokenManager tokenManager = TokenManager.getInstance(view.getContext().getSharedPreferences("Token",0));
+        tokenManager.setLoadingDialog(new LoadingDialog((Activity) view.getContext()));
+        tokenManager.getLoadingDialog().startLoadingDialog();
         Call<List<ProductMixMatch>> callProducts = ApiConfig.getApiService(tokenManager).getProductsMixMatch();
 
         callProducts.enqueue(new Callback<List<ProductMixMatch>>() {
@@ -50,6 +54,7 @@ public class MixMatchRepository {
                 if(response.isSuccessful()){
                     List<ProductMixMatch> productMixMatchList = response.body();
                     productMxMatchListener.onProduct(productMixMatchList);
+                    tokenManager.getLoadingDialog().dismissLoadingDialog();
                 }
                 else {
                     Toast.makeText(view.getContext(), "FAIL RESPONSE", Toast.LENGTH_SHORT).show();

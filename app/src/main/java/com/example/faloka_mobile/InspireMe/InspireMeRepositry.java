@@ -10,6 +10,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.faloka_mobile.API.ApiConfig;
+import com.example.faloka_mobile.LoadingDialog;
 import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.MainActivity;
 import com.example.faloka_mobile.Model.InspireMe;
@@ -45,7 +46,8 @@ public class InspireMeRepositry {
     }
     public LiveData<List<InspireMe>> getPost(){
         MutableLiveData<List<InspireMe>> inspireMeData = new MutableLiveData<>();
-
+        tokenManager.setLoadingDialog(new LoadingDialog((Activity) context));
+        tokenManager.getLoadingDialog().startLoadingDialog();
         Call<List<InspireMe>> response = ApiConfig.getApiService(tokenManager).getInspireMe();
 
         response.enqueue(new Callback<List<InspireMe>>() {
@@ -53,6 +55,7 @@ public class InspireMeRepositry {
             public void onResponse(Call<List<InspireMe>> call, Response<List<InspireMe>> response) {
                 if(response.isSuccessful()){
                    List<InspireMe> inspireMeList = response.body();
+                   tokenManager.getLoadingDialog().dismissLoadingDialog();
                    inspireMeData.setValue(inspireMeList);
                 }
                 else{
