@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Faloka-mobile</string>
+    <string name="app_name">Faloka</string>
     <string-array name="gender_array">
         <item>Jenis Kelamin</item>
         <item>L</item>
