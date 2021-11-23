@@ -53,12 +53,15 @@ public class HomeRepository {
                     tokenManager.getLoadingDialog().dismissLoadingDialog();
                     Log.e("berhasil", "onResponse: ");
                 }
-                else{}
+                else{
+                    tokenManager.getLoadingDialog().dismissLoadingDialog();
+                }
 
             }
             @Override
             public void onFailure(Call<List<Category>> call, Throwable t) {
                 Log.e("gagal", "onFailure: " + t.getMessage());
+                tokenManager.getLoadingDialog().dismissLoadingDialog();
             }
         });
         return categoryResult;

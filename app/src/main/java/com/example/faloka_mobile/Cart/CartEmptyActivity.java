@@ -74,9 +74,9 @@ public class CartEmptyActivity extends AppCompatActivity implements CartProducts
             case android.R.id.home:
                 this.finish();
                 return true;
-            case R.id.top_menu_wishlist:
-                Toast.makeText(getApplicationContext(), "WISHLIST", Toast.LENGTH_SHORT).show();
-                break;
+//            case R.id.top_menu_wishlist:
+//                Toast.makeText(getApplicationContext(), "WISHLIST", Toast.LENGTH_SHORT).show();
+//                break;
         }
 
         return super.onOptionsItemSelected(item);

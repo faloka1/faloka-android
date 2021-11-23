@@ -2,7 +2,11 @@ package com.example.faloka_mobile;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
+import android.os.Handler;
 import android.view.LayoutInflater;
+
+import com.example.faloka_mobile.Login.TokenManager;
 
 public class LoadingDialog {
 
@@ -20,6 +24,13 @@ public class LoadingDialog {
         builder.setCancelable(false);
         alertDialog = builder.create();
         alertDialog.show();
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dismissLoadingDialog();
+            }
+        }, 4000L);
     }
 
     public void dismissLoadingDialog(){

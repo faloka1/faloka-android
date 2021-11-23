@@ -8,10 +8,10 @@
         app:actionLayout="@layout/cart_action_layout"
         app:showAsAction="always"
         />
-    <item
-        android:title="Wishlist"
-        android:id="@+id/top_menu_wishlist"
-        android:icon="@drawable/ic_svg_wishlist"
-        app:showAsAction="always"
-        />
+<!--    <item-->
+<!--        android:title="Wishlist"-->
+<!--        android:id="@+id/top_menu_wishlist"-->
+<!--        android:icon="@drawable/ic_svg_wishlist"-->
+<!--        app:showAsAction="always"-->
+<!--        />-->
 </menu>

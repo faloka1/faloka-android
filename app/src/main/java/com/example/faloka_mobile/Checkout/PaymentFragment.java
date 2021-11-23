@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Adapter.PaymentAdapter;
 import com.example.faloka_mobile.Cart.CartRepository;
+import com.example.faloka_mobile.LoadingDialog;
 import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.BodyCheckout;
 import com.example.faloka_mobile.Model.BodyOrderBrand;
@@ -210,6 +211,8 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 TokenManager tokenManager = TokenManager.getInstance(getContext().getSharedPreferences("Token",0));
+                                tokenManager.setLoadingDialog(new LoadingDialog(getActivity()));
+                                tokenManager.getLoadingDialog().startLoadingDialog();
                                 Call<OrderResponse> callCheckout = ApiConfig.getApiService(tokenManager).isCheckout(
                                         tokenManager.getTypeToken()+" "+tokenManager.getToken(),
                                             getBodyCheckout(order)
@@ -226,15 +229,17 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
                                             bundlePayment.putParcelable(Order.EXTRA_ORDER, order);
                                             intent.putExtra("DATA_ORDER",bundlePayment);
                                             startActivity(intent);
+                                            tokenManager.getLoadingDialog().dismissLoadingDialog();
                                         }
                                         else {
                                             Snackbar.make(view, "Maaf, gagal order"+ response.code(), Snackbar.LENGTH_SHORT).show();
+                                            tokenManager.getLoadingDialog().dismissLoadingDialog();
                                         }
                                     }
 
                                     @Override
                                     public void onFailure(Call<OrderResponse> call, Throwable t) {
-
+                                        tokenManager.getLoadingDialog().dismissLoadingDialog();
                                     }
                                 });
                             }

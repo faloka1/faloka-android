@@ -55,16 +55,17 @@ public class InspireMeRepositry {
             public void onResponse(Call<List<InspireMe>> call, Response<List<InspireMe>> response) {
                 if(response.isSuccessful()){
                    List<InspireMe> inspireMeList = response.body();
-                   tokenManager.getLoadingDialog().dismissLoadingDialog();
                    inspireMeData.setValue(inspireMeList);
+                    tokenManager.getLoadingDialog().dismissLoadingDialog();
                 }
                 else{
-
+                    tokenManager.getLoadingDialog().dismissLoadingDialog();
                 }
             }
 
             @Override
             public void onFailure(Call<List<InspireMe>> call, Throwable t) {
+                tokenManager.getLoadingDialog().dismissLoadingDialog();
                 Log.e("####", String.valueOf(t));
             }
 
@@ -97,6 +98,7 @@ public class InspireMeRepositry {
     public void add(MultipartBody body){
         Call<Message> response = ApiConfig.getApiService(tokenManager).addInspireMe(
                 tokenManager.getTypeToken()+" "+tokenManager.getToken(),body);
+        tokenManager.getLoadingDialog().startLoadingDialog();
         response.enqueue(new Callback<Message>() {
             @Override
             public void onResponse(Call<Message> call, Response<Message> response) {
@@ -108,16 +110,19 @@ public class InspireMeRepositry {
                     ((Activity) context).startActivity(intent);
                     ((Activity) context).finish();
                     Log.d("berhasil", response.message());
+                    tokenManager.getLoadingDialog().dismissLoadingDialog();
                 }
                 else{
                     Log.e("gagal upload", response.message());
                     Toast.makeText(context, "GAGAL UPLOAD", Toast.LENGTH_SHORT).show();
+                    tokenManager.getLoadingDialog().dismissLoadingDialog();
                 }
             }
 
             @Override
             public void onFailure(Call<Message> call, Throwable t) {
                 Log.e("gagal", String.valueOf(t));
+                tokenManager.getLoadingDialog().dismissLoadingDialog();
             }
         });
     }
