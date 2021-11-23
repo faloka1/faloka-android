@@ -1,11 +1,14 @@
 package com.example.faloka_mobile.Login;
 
+import android.app.Activity;
 import android.content.SharedPreferences;
+
+import com.example.faloka_mobile.LoadingDialog;
 
 public class TokenManager {
     static private SharedPreferences prefs;
     static private SharedPreferences.Editor editor;
-
+    private LoadingDialog loadingDialog;
     public static TokenManager INSTANCE = null;
 
     private TokenManager(SharedPreferences prefs){
@@ -43,6 +46,14 @@ public class TokenManager {
     public String getToken(){
 
         return prefs.getString("ACCESS_TOKEN",null);
+    }
+
+    public void setLoadingDialog(LoadingDialog loadingDialog){
+        this.loadingDialog = loadingDialog;
+    }
+
+    public LoadingDialog getLoadingDialog(){
+        return loadingDialog;
     }
 
 }

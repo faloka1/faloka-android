@@ -68,9 +68,9 @@ public class BaseFragment extends Fragment implements CartCountItemListener, Aut
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()){
-            case R.id.top_menu_wishlist:
-                Toast.makeText(((AppCompatActivity)getActivity()).getApplicationContext(), "WISHLIST", Toast.LENGTH_SHORT).show();
-                break;
+//            case R.id.top_menu_wishlist:
+//                Toast.makeText(((AppCompatActivity)getActivity()).getApplicationContext(), "WISHLIST", Toast.LENGTH_SHORT).show();
+//                break;
             case R.id.top_menu_cart:
 //                Toast.makeText(((AppCompatActivity)getActivity()).getApplicationContext(), "CART", Toast.LENGTH_SHORT).show();
                 break;

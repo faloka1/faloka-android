@@ -1,5 +1,6 @@
 package com.example.faloka_mobile.Checkout;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.widget.Toast;
@@ -9,6 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Home.HomeRepository;
+import com.example.faloka_mobile.LoadingDialog;
 import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.Message;
 import com.example.faloka_mobile.Model.Order;
@@ -61,6 +63,8 @@ public class CheckoutRepository {
         MultipartBody.Part photoPart = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
         RequestBody method = RequestBody.create(MediaType.parse("multipart/form-data"), "PATCH");
         TokenManager tokenManager = TokenManager.getInstance(view.getContext().getSharedPreferences("Token",0));
+        tokenManager.setLoadingDialog(new LoadingDialog((Activity) view.getContext()));
+        tokenManager.getLoadingDialog().startLoadingDialog();
         Call<Message> callUploadPayment = ApiConfig.getApiService(tokenManager).uploadPhotoMultipart(method, photoPart, order.getId() );
         callUploadPayment.enqueue(new Callback<Message>() {
             @Override
@@ -68,15 +72,18 @@ public class CheckoutRepository {
                 if(response.isSuccessful()) {
                     Message message = response.body();
                     uploadFileListener.onUpload(message);
-                    Toast.makeText(view.getContext(), message.getMessage(), Toast.LENGTH_SHORT).show();
+                    tokenManager.getLoadingDialog().dismissLoadingDialog();
+//                    Toast.makeText(view.getContext(), message.getMessage(), Toast.LENGTH_SHORT).show();
                 }
                 else {
+                    tokenManager.getLoadingDialog().dismissLoadingDialog();
                     Toast.makeText(view.getContext(),"GAGAL", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Message> call, Throwable t) {
+                tokenManager.getLoadingDialog().dismissLoadingDialog();
                 Toast.makeText(view.getContext(), "FAIL API"+ call.toString(), Toast.LENGTH_SHORT).show();
                 System.out.println("FAIL API"+ call.toString()+" <> "+t.getMessage());
             }

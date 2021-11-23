@@ -1,6 +1,7 @@
 package com.example.faloka_mobile.Home;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
@@ -8,6 +9,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.faloka_mobile.API.ApiConfig;
+import com.example.faloka_mobile.LoadingDialog;
 import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.Category;
 
@@ -39,22 +41,27 @@ public class HomeRepository {
         MutableLiveData<List<Category>> categoryResult = new MutableLiveData<>();
 
         TokenManager tokenManager = TokenManager.getInstance(context.getSharedPreferences("Token",0));
+        tokenManager.setLoadingDialog(new LoadingDialog((Activity) context));
+        tokenManager.getLoadingDialog().startLoadingDialog();
         Call<List<Category>> callCategories;
         callCategories = ApiConfig.getApiService(tokenManager).getCategories();
         callCategories.enqueue(new Callback<List<Category>>() {
             @Override
             public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
-
                 if(response.isSuccessful()){
-                   categoryResult.postValue(response.body());
+                    categoryResult.postValue(response.body());
+                    tokenManager.getLoadingDialog().dismissLoadingDialog();
                     Log.e("berhasil", "onResponse: ");
                 }
-                else{}
+                else{
+                    tokenManager.getLoadingDialog().dismissLoadingDialog();
+                }
 
             }
             @Override
             public void onFailure(Call<List<Category>> call, Throwable t) {
                 Log.e("gagal", "onFailure: " + t.getMessage());
+                tokenManager.getLoadingDialog().dismissLoadingDialog();
             }
         });
         return categoryResult;
