@@ -1,5 +1,6 @@
 package com.example.faloka_mobile.Product;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -10,8 +11,10 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.faloka_mobile.API.ApiConfig;
+import com.example.faloka_mobile.LoadingDialog;
 import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.Product;
+import com.example.faloka_mobile.Model.ProductListResponse;
 
 import java.util.List;
 
@@ -75,6 +78,32 @@ public class ProductRepository {
             @Override
             public void onFailure(Call<Product> call, Throwable t) {
                 Toast.makeText(view.getContext(), "FAIL API", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public static final void getProducts(View view, ProductListListener productListListener){
+        TokenManager tokenManager = TokenManager.getInstance(view.getContext().getSharedPreferences("Token",0));
+        tokenManager.setLoadingDialog(new LoadingDialog((Activity) view.getContext()));
+        tokenManager.getLoadingDialog().startLoadingDialog();
+        Call<ProductListResponse> callProduct = ApiConfig.getApiService(tokenManager).getProducts();
+        callProduct.enqueue(new Callback<ProductListResponse>() {
+            @Override
+            public void onResponse(Call<ProductListResponse> call, Response<ProductListResponse> response) {
+                if(response.isSuccessful()){
+                    ProductListResponse productListResponse = response.body();
+                    productListListener.onListProduct(productListResponse);
+                    tokenManager.getLoadingDialog().dismissLoadingDialog();
+                }
+                else {
+                    tokenManager.getLoadingDialog().dismissLoadingDialog();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProductListResponse> call, Throwable t) {
+                Toast.makeText(view.getContext(), "FAIL API", Toast.LENGTH_SHORT).show();
+                tokenManager.getLoadingDialog().dismissLoadingDialog();
             }
         });
     }

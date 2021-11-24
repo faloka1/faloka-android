@@ -17,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Falokamobile">
         <activity
+            android:name=".Search.SearchListProductActivity"
+            android:exported="true" />
+        <activity
             android:name=".Search.SearchActivity"
             android:exported="true" />
         <activity
