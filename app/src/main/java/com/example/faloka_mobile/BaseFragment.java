@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.faloka_mobile.Account.AuthFlagListener;
 import com.example.faloka_mobile.Cart.CartActivity;
 import com.example.faloka_mobile.Cart.CartCountItemListener;
 import com.example.faloka_mobile.Cart.CartEmptyActivity;
@@ -25,13 +26,16 @@ import com.example.faloka_mobile.Login.TokenManager;
 import ru.nikartm.support.BadgePosition;
 import ru.nikartm.support.ImageBadgeView;
 
-public class BaseFragment extends Fragment implements CartCountItemListener {
+public class BaseFragment extends Fragment implements CartCountItemListener, AuthFlagListener {
 
     private ImageBadgeView badgeView;
     private int count = 0;
+    private static boolean flagAuth;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        CartRepository.getCountCarts(getContext() , this::onItemCount);
+        if(!flagAuth) {
+            CartRepository.getCountCarts(getContext(), this::onItemCount, this::onUnauthorized);
+        }
         super.onCreate(savedInstanceState);
     }
 
@@ -42,7 +46,9 @@ public class BaseFragment extends Fragment implements CartCountItemListener {
             super.onResume();
             return;
         }
-        CartRepository.getCountCarts(getContext(), this::onItemCount);
+        if(!flagAuth) {
+            CartRepository.getCountCarts(getContext(), this::onItemCount, this::onUnauthorized);
+        }
         super.onResume();
     }
 
@@ -62,9 +68,9 @@ public class BaseFragment extends Fragment implements CartCountItemListener {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()){
-            case R.id.top_menu_wishlist:
-                Toast.makeText(((AppCompatActivity)getActivity()).getApplicationContext(), "WISHLIST", Toast.LENGTH_SHORT).show();
-                break;
+//            case R.id.top_menu_wishlist:
+//                Toast.makeText(((AppCompatActivity)getActivity()).getApplicationContext(), "WISHLIST", Toast.LENGTH_SHORT).show();
+//                break;
             case R.id.top_menu_cart:
 //                Toast.makeText(((AppCompatActivity)getActivity()).getApplicationContext(), "CART", Toast.LENGTH_SHORT).show();
                 break;
@@ -116,5 +122,10 @@ public class BaseFragment extends Fragment implements CartCountItemListener {
                     .setShowCounter(true)
                     .setBadgePadding(4);
         }
+    }
+
+    @Override
+    public void onUnauthorized(boolean flag) {
+        this.flagAuth = flag;
     }
 }

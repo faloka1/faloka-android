@@ -10,6 +10,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.faloka_mobile.API.ApiConfig;
+import com.example.faloka_mobile.LoadingDialog;
 import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.MainActivity;
 import com.example.faloka_mobile.Model.InspireMe;
@@ -45,7 +46,8 @@ public class InspireMeRepositry {
     }
     public LiveData<List<InspireMe>> getPost(){
         MutableLiveData<List<InspireMe>> inspireMeData = new MutableLiveData<>();
-
+        tokenManager.setLoadingDialog(new LoadingDialog((Activity) context));
+        tokenManager.getLoadingDialog().startLoadingDialog();
         Call<List<InspireMe>> response = ApiConfig.getApiService(tokenManager).getInspireMe();
 
         response.enqueue(new Callback<List<InspireMe>>() {
@@ -54,14 +56,16 @@ public class InspireMeRepositry {
                 if(response.isSuccessful()){
                    List<InspireMe> inspireMeList = response.body();
                    inspireMeData.setValue(inspireMeList);
+                    tokenManager.getLoadingDialog().dismissLoadingDialog();
                 }
                 else{
-
+                    tokenManager.getLoadingDialog().dismissLoadingDialog();
                 }
             }
 
             @Override
             public void onFailure(Call<List<InspireMe>> call, Throwable t) {
+                tokenManager.getLoadingDialog().dismissLoadingDialog();
                 Log.e("####", String.valueOf(t));
             }
 
@@ -94,6 +98,7 @@ public class InspireMeRepositry {
     public void add(MultipartBody body){
         Call<Message> response = ApiConfig.getApiService(tokenManager).addInspireMe(
                 tokenManager.getTypeToken()+" "+tokenManager.getToken(),body);
+        tokenManager.getLoadingDialog().startLoadingDialog();
         response.enqueue(new Callback<Message>() {
             @Override
             public void onResponse(Call<Message> call, Response<Message> response) {
@@ -105,16 +110,19 @@ public class InspireMeRepositry {
                     ((Activity) context).startActivity(intent);
                     ((Activity) context).finish();
                     Log.d("berhasil", response.message());
+                    tokenManager.getLoadingDialog().dismissLoadingDialog();
                 }
                 else{
                     Log.e("gagal upload", response.message());
                     Toast.makeText(context, "GAGAL UPLOAD", Toast.LENGTH_SHORT).show();
+                    tokenManager.getLoadingDialog().dismissLoadingDialog();
                 }
             }
 
             @Override
             public void onFailure(Call<Message> call, Throwable t) {
                 Log.e("gagal", String.valueOf(t));
+                tokenManager.getLoadingDialog().dismissLoadingDialog();
             }
         });
     }

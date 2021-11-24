@@ -27,6 +27,10 @@ public class Product implements Parcelable {
     @SerializedName("mix_and_match_image")
     private String imageMixMatchURL;
     private static int quantity;
+    @SerializedName("sub_categories")
+    private SubCategory subCategory;
+    @SerializedName("categories")
+    private List<Category> categoryList;
 
     public Product(){}
     public Product(Parcel in) {
@@ -41,6 +45,8 @@ public class Product implements Parcelable {
         slug = in.readString();
         imageMixMatchURL = in.readString();
         setQuantity(in.readInt());
+        categoryList = in.createTypedArrayList(Category.CREATOR);
+        subCategory = in.readParcelable(SubCategory.class.getClassLoader());
     }
 
     public static final Creator<Product> CREATOR = new Creator<Product>() {
@@ -180,6 +186,8 @@ public class Product implements Parcelable {
         parcel.writeString(slug);
         parcel.writeString(imageMixMatchURL);
         parcel.writeInt(getQuantity());
+        parcel.writeTypedList(categoryList);
+        parcel.writeParcelable(subCategory, i);
     }
 
     public int getQuantity() {
@@ -188,5 +196,21 @@ public class Product implements Parcelable {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public SubCategory getSubCategory() {
+        return subCategory;
+    }
+
+    public void setSubCategory(SubCategory subCategory) {
+        this.subCategory = subCategory;
+    }
+
+    public List<Category> getCategoryList() {
+        return categoryList;
+    }
+
+    public void setCategoryList(List<Category> categoryList) {
+        this.categoryList = categoryList;
     }
 }
