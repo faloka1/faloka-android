@@ -130,18 +130,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:hint="Password"
-                app:endIconMode="password_toggle"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleDrawable="@drawable/show_password_selector"
+                app:passwordToggleTint="@color/netral_600"
                 app:errorEnabled="true"
                 app:layout_constraintEnd_toEndOf="@+id/layout_edt_reg_email"
                 app:layout_constraintStart_toStartOf="@+id/layout_edt_reg_email"
                 app:layout_constraintTop_toBottomOf="@+id/layout_edt_reg_email"
                 app:startIconDrawable="@drawable/ic_svg_user">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <EditText
                     android:id="@+id/edt_log_password"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPassword" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

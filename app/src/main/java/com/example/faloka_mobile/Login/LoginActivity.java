@@ -4,16 +4,23 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.faloka_mobile.MainActivity;
+import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.Register.RegisterActivity;
 import com.example.faloka_mobile.databinding.ActivityLoginBinding;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.List;
 
@@ -27,14 +34,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private ActivityLoginBinding binding;
     private LoginViewModel loginViewModel;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot() );
         setToolbar();
+        setPassword();
         binding.btnLogLogin.setOnClickListener(this);
         binding.tvLogRegister.setOnClickListener(this);
+
+    }
+    public void setPassword(){
+        TextInputLayout password = binding.layoutEdtRegPassword;
 
     }
     @Override

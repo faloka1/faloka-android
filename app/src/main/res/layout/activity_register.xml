@@ -156,10 +156,12 @@
                     android:layout_marginTop="4dp"
                     android:hint="Password"
                     app:errorEnabled="true"
+                    app:passwordToggleDrawable="@drawable/show_password_selector"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="@color/netral_600"
                     app:layout_constraintEnd_toEndOf="@+id/layout_edt_reg_phone"
                     app:layout_constraintStart_toStartOf="@+id/layout_edt_reg_phone"
                     app:layout_constraintTop_toBottomOf="@+id/layout_edt_reg_phone"
-                    app:endIconMode="password_toggle"
                     app:startIconDrawable="@drawable/ic_svg_carbon_password">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -177,7 +179,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:hint="Konfirmasi Password"
-                    app:endIconMode="password_toggle"
+                    app:passwordToggleDrawable="@drawable/show_password_selector"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="@color/netral_600"
                     app:errorEnabled="true"
                     app:layout_constraintEnd_toEndOf="@+id/layout_edt_reg_password"
                     app:layout_constraintHorizontal_bias="0.0"
