@@ -88,6 +88,7 @@
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/activity_product_list.xml" value="0.3333333333333333" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/activity_register.xml" value="0.22" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/activity_search.xml" value="0.3333333333333333" />
+        <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/activity_search_list_product.xml" value="0.3333333333333333" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/cart_action_layout.xml" value="0.13994565217391305" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/custom_action_item_layout.xml" value="0.13994565217391305" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/fragment_account.xml" value="0.16666666666666666" />
@@ -135,7 +136,6 @@
         <entry key="..\:/Ela/Faloka/faloka-android/app/src/main/res/drawable/ic_svg_carbon_password.xml" value="0.19583333333333333" />
         <entry key="..\:/Ela/Faloka/faloka-android/app/src/main/res/drawable/ic_svg_femenine.xml" value="0.19583333333333333" />
         <entry key="..\:/Ela/Faloka/faloka-android/app/src/main/res/drawable/ic_svg_user.xml" value="0.19583333333333333" />
-        <entry key="..\:/Ela/Faloka/faloka-android/app/src/main/res/drawable/show_password_selector.xml" value="0.1734375" />
         <entry key="..\:/Ela/Faloka/faloka-android/app/src/main/res/drawable/text_field.xml" value="0.19583333333333333" />
         <entry key="..\:/Ela/Faloka/faloka-android/app/src/main/res/layout/activity_checkout.xml" value="0.1" />
         <entry key="..\:/Ela/Faloka/faloka-android/app/src/main/res/layout/activity_login.xml" value="0.25" />
