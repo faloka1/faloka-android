@@ -42,6 +42,22 @@
                 android:background="@color/netral_100"
                 android:paddingBottom="20dp">
 
+                <Button
+                    android:id="@+id/btn_mix_match"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:backgroundTint="@color/secondary_green_light"
+                    android:fontFamily="@font/khula"
+                    android:text="Mix match outfit"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp"
+                    app:icon="@drawable/ic_icon_park_outline_clothes_crew_neck"
+                    app:iconSize="18sp"
+                    app:iconTint="@android:color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_detail_brand" />
+
                 <com.synnapps.carouselview.CarouselView
                     android:id="@+id/carousel_detail_image"
                     android:layout_width="match_parent"
@@ -167,18 +183,6 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_mix_match"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="16dp"
-        android:clickable="true"
-        app:backgroundTint="@color/netral_100"
-        app:layout_constraintBottom_toBottomOf="@+id/nestedScrollView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_icon_park_outline_clothes_crew_neck" />
 
     <RelativeLayout
         android:id="@+id/layout_bottom"

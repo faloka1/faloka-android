@@ -117,7 +117,7 @@ public class ProductDetailActivity extends BaseActivity implements CartAddItemLi
     }
 
     public void onClickButtonMixMatch(){
-        binding.fabMixMatch.setOnClickListener(new View.OnClickListener() {
+        binding.btnMixMatch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ProductRepository.getProductBySlug(view, product.getSlug(), ProductDetailActivity.this::onProductSlug);
