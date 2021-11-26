@@ -2,11 +2,15 @@ package com.example.faloka_mobile.Cart;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +19,7 @@ import com.example.faloka_mobile.Adapter.CartBrandAdapter;
 import com.example.faloka_mobile.Adapter.ProductAdapter;
 import com.example.faloka_mobile.Checkout.CheckoutActivity;
 import com.example.faloka_mobile.Checkout.ChooseDeliveryDialog;
+import com.example.faloka_mobile.MixAndMatch.MixMatchActivity;
 import com.example.faloka_mobile.Model.Cart;
 import com.example.faloka_mobile.Model.CartBrand;
 import com.example.faloka_mobile.Model.Product;
@@ -57,6 +62,35 @@ public class CartViewModel implements CartItemListener, CartCheckedProductListen
         binding.tvCartTotalProduct.setText(getFormatRupiah(total));
         binding.tvCartSubTotal.setText(getFormatRupiah(total));
 
+    }
+
+    public void onButtonMixMatchClicked(){
+        binding.btnCartMixMatch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!checkedCartProduct.isEmpty() && checkedCartProduct != null) {
+                    Intent intent = new Intent(binding.getRoot().getContext(), MixMatchActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelableArrayList(Product.EXTRA_PRODUCT, (ArrayList) checkedCartProduct);
+                    intent.putExtras(bundle);
+                    binding.getRoot().getContext().startActivity(intent);
+                }
+                else {
+                    Snackbar snackbar = Snackbar.make(binding.coordinatorLayoutTopCart, "Pilih outfitnya dulu ya", Snackbar.LENGTH_LONG);
+                    snackbar.setAction("OK", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+                    snackbar.setActionTextColor(activity.getResources().getColor(R.color.primary_dark));
+                    snackbar.setTextColor(activity.getResources().getColor(R.color.primary_dark));
+                    snackbar.setBackgroundTint(activity.getResources().getColor(R.color.semantic_warning));
+                    snackbar.show();
+
+                }
+            }
+        });
     }
 
     public String getFormatRupiah(int price){

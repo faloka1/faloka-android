@@ -18,6 +18,7 @@
     <color name="secondary_green_light">#01B8BC</color>
 
     <color name="semantic_danger_dark">#DB317A</color>
+    <color name="semantic_warning">#F9C746</color>
 
     <color name="netral_900">#1E0F14</color>
     <color name="netral_800">#241A1B</color>

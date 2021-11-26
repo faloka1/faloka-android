@@ -53,9 +53,9 @@ public class BaseActivity extends AppCompatActivity implements CartCountItemList
             super.onResume();
             return;
         }
-        if(!flagAuth){
+//        if(!flagAuth){
             CartRepository.getCountCarts(getApplicationContext(), this::onItemCount, this::onUnauthorized);
-        }
+//        }
         super.onResume();
     }
 

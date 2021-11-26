@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Cart.CartActivity">
+
+
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/cart_toolbar"
@@ -19,6 +22,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:titleTextColor="@color/primary_dark" />
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/coordinator_layout_top_cart"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/transparent"
+        tools:ignore="MissingConstraints">
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -41,6 +52,29 @@
                 android:layout_marginTop="8dp"
                 android:background="@color/white">
 
+                <Button
+                    android:id="@+id/btn_cart_mix_match"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="0dp"
+                    android:backgroundTint="@color/white"
+                    android:fontFamily="@font/khula"
+                    android:text="Mix match"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp"
+                    app:icon="@drawable/ic_icon_park_outline_clothes_crew_neck"
+                    app:iconSize="20dp"
+                    app:iconTint="@android:color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_detail_brand"
+                    app:strokeColor="@color/netral_900"
+                    app:strokeWidth="2dp" />
+
                 <CheckBox
                     android:id="@+id/cbx_select_all"
                     android:layout_width="wrap_content"
@@ -50,6 +84,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="0dp"
                     android:text="Pilih Semua" />
+
             </RelativeLayout>
 
             <LinearLayout

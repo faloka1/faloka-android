@@ -46,6 +46,7 @@ public class MixMatchActivity extends BaseActivity implements ImageToLayoutListe
         setContentView(view);
         MixMatchViewModel mixMatchViewModel = new MixMatchViewModel(binding, this, this::onLayout, this::onUnselectedImageView);
         mixMatchViewModel.addProductFromDetail();
+        mixMatchViewModel.addProductFromCart();
         scaleGestureDetector = new ScaleGestureDetector(this, new ScaleListener());
     }
 
