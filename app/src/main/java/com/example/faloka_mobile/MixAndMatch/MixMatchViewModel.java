@@ -236,6 +236,10 @@ public class MixMatchViewModel extends ViewModel implements View.OnTouchListener
 
     @Override
     public void onProductSlug(Product product) {
+        addProduct(product);
+    }
+
+    public void addProduct(Product product){
         Cart cart = new Cart();
         cart.setProduct(product);
         cart.setVariant(product.getVariantList().get(0));
@@ -247,23 +251,46 @@ public class MixMatchViewModel extends ViewModel implements View.OnTouchListener
         Glide.with(imageView.getContext())
                 .load(ApiConfig.BASE_IMAGE_URL + product.getImageMixMatchURL())
                 .into(imageView);
-        float posX = (float)(binding.rvMixMatchProduct.getMinimumWidth());
-        float posY = (float)(binding.rvMixMatchProduct.getHeight()/2);
+        float posY = 16;
+        float posX = 311;
 
         for(Category category : product.getCategoryList()){
             if(category.getSlug().equalsIgnoreCase("atasan")){
-                posX = (float)(binding.rvMixMatchProduct.getMinimumWidth());
-                posY = (float)(binding.rvMixMatchProduct.getHeight()/2);
+                posY = (float)(binding.relativeLayoutMixMatch.getMeasuredHeight()/50);
+                posX = (float)(binding.relativeLayoutMixMatch.getMeasuredWidth()/2 - 205);
+                if(activity.getIntent() != null){
+                    Product p = activity.getIntent().getParcelableExtra(Product.EXTRA_PRODUCT);
+                    if(p != null){
+                        posY = 16;
+                        posX = 311;
+                    }
+                }
                 break;
             }
             if(category.getSlug().equalsIgnoreCase("bawahan")){
-                posX = posX+380;
-                posY = posY;
+                posY = (float)(binding.relativeLayoutMixMatch.getMeasuredHeight()/50)+380;
+                posX = (float)(binding.relativeLayoutMixMatch.getMeasuredWidth()/2 - 205);
+                if(activity.getIntent() != null){
+                    Product p = activity.getIntent().getParcelableExtra(Product.EXTRA_PRODUCT);
+                    if(p != null){
+                        posY = 16+380;
+                        posX = 311;
+                    }
+                }
                 break;
             }
         }
 
-        addImageView(product.getId(), imageView, 410, 410, posX, posY);
+        addImageView(product.getId(), imageView, 410, 410, posY, posX);
+    }
+
+    public void addProductFromDetail(){
+        if(activity.getIntent() != null){
+            Product product = activity.getIntent().getParcelableExtra(Product.EXTRA_PRODUCT);
+            if(product != null){
+                addProduct(product);
+            }
+        }
     }
 
     @Override

@@ -26,6 +26,7 @@ import com.example.faloka_mobile.Login.LoginActivity;
 import com.example.faloka_mobile.Login.LoginRepository;
 import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.MainActivity;
+import com.example.faloka_mobile.MixAndMatch.MixMatchActivity;
 import com.example.faloka_mobile.Model.BodyCart;
 import com.example.faloka_mobile.Model.Cart;
 import com.example.faloka_mobile.Model.Product;
@@ -45,7 +46,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProductDetailActivity extends BaseActivity implements CartAddItemListener, AuthFlagListener {
+public class ProductDetailActivity extends BaseActivity implements CartAddItemListener, AuthFlagListener, ProductListener {
 
     ActivityProductDetailBinding binding;
     Product product;
@@ -66,6 +67,7 @@ public class ProductDetailActivity extends BaseActivity implements CartAddItemLi
             setProductRelate();
             onClickButtonBuy();
             onClickButtonCart();
+            onClickButtonMixMatch();
         }
     }
 
@@ -110,6 +112,15 @@ public class ProductDetailActivity extends BaseActivity implements CartAddItemLi
                 bodyCart.setVariantID(variant.getId());
                 bodyCart.setQuantity(1);
                 CartRepository.addCart(view, bodyCart, ProductDetailActivity.this::onAddToCart);
+            }
+        });
+    }
+
+    public void onClickButtonMixMatch(){
+        binding.btnMixMatch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ProductRepository.getProductBySlug(view, product.getSlug(), ProductDetailActivity.this::onProductSlug);
             }
         });
     }
@@ -185,5 +196,12 @@ public class ProductDetailActivity extends BaseActivity implements CartAddItemLi
     public void onUnauthorized(boolean flag) {
         this.flagAuth = flag;
         super.onUnauthorized(flag);
+    }
+
+    @Override
+    public void onProductSlug(Product product) {
+        Intent intent = new Intent(binding.getRoot().getContext(), MixMatchActivity.class);
+        intent.putExtra(Product.EXTRA_PRODUCT, product);
+        binding.getRoot().getContext().startActivity(intent);
     }
 }

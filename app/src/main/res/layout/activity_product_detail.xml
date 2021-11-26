@@ -42,6 +42,22 @@
                 android:background="@color/netral_100"
                 android:paddingBottom="20dp">
 
+                <Button
+                    android:id="@+id/btn_mix_match"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:backgroundTint="@color/secondary_green_light"
+                    android:fontFamily="@font/khula"
+                    android:text="Mix match outfit"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp"
+                    app:icon="@drawable/ic_icon_park_outline_clothes_crew_neck"
+                    app:iconSize="18sp"
+                    app:iconTint="@android:color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_detail_brand" />
+
                 <com.synnapps.carouselview.CarouselView
                     android:id="@+id/carousel_detail_image"
                     android:layout_width="match_parent"
@@ -163,6 +179,7 @@
                     android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="@id/tv_title_relate"
                     app:layout_constraintTop_toBottomOf="@+id/tv_title_relate"></androidx.recyclerview.widget.RecyclerView>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>
@@ -186,6 +203,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
+            android:layout_marginStart="2dp"
             android:layout_marginTop="2dp"
             android:layout_marginBottom="2dp"
             android:backgroundTint="@color/white"
@@ -203,8 +221,10 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="2dp"
+            android:layout_marginEnd="2dp"
             android:layout_marginBottom="2dp"
             android:text="Beli Sekarang"
             android:textSize="14sp" />
+
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
