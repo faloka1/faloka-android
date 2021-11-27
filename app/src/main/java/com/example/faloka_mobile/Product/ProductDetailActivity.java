@@ -20,6 +20,7 @@ import com.example.faloka_mobile.Account.AuthFlagListener;
 import com.example.faloka_mobile.Adapter.ProductAdapter;
 import com.example.faloka_mobile.BaseActivity;
 import com.example.faloka_mobile.Cart.CartAddItemListener;
+import com.example.faloka_mobile.Cart.CartItemListener;
 import com.example.faloka_mobile.Cart.CartRepository;
 import com.example.faloka_mobile.Checkout.CheckoutActivity;
 import com.example.faloka_mobile.Login.LoginActivity;
@@ -33,6 +34,7 @@ import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.Variant;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.ActivityProductDetailBinding;
+import com.google.android.material.snackbar.Snackbar;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageClickListener;
 import com.synnapps.carouselview.ImageListener;
@@ -46,7 +48,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProductDetailActivity extends BaseActivity implements CartAddItemListener, AuthFlagListener, ProductListener {
+public class ProductDetailActivity extends BaseActivity implements CartAddItemListener, AuthFlagListener, ProductListener, CartItemListener {
 
     ActivityProductDetailBinding binding;
     Product product;
@@ -106,12 +108,7 @@ public class ProductDetailActivity extends BaseActivity implements CartAddItemLi
                 if(!LoginRepository.isValidationLogin(ProductDetailActivity.this)){
                     return;
                 }
-                Variant variant = product.getVariantList().get(0);
-                BodyCart bodyCart = new BodyCart();
-                bodyCart.setProductID(product.getId());
-                bodyCart.setVariantID(variant.getId());
-                bodyCart.setQuantity(1);
-                CartRepository.addCart(view, bodyCart, ProductDetailActivity.this::onAddToCart);
+                CartRepository.getCarts(view, ProductDetailActivity.this::onCart);
             }
         });
     }
@@ -203,5 +200,33 @@ public class ProductDetailActivity extends BaseActivity implements CartAddItemLi
         Intent intent = new Intent(binding.getRoot().getContext(), MixMatchActivity.class);
         intent.putExtra(Product.EXTRA_PRODUCT, product);
         binding.getRoot().getContext().startActivity(intent);
+    }
+
+    @Override
+    public void onCart(List<Cart> cartList) {
+        Cart cartSelected = null;
+        boolean isMultiple = false;
+        Variant variant = product.getVariantList().get(0);
+        BodyCart bodyCart = new BodyCart();
+        bodyCart.setProductID(product.getId());
+        bodyCart.setVariantID(variant.getId());
+        bodyCart.setQuantity(1);
+
+        for(Cart cart : cartList){
+            if(cart.getProduct().getId() == bodyCart.getProductID()){
+                cartSelected = cart;
+                isMultiple = true;
+                break;
+            }
+        }
+
+        if(!isMultiple){
+            CartRepository.addCart(binding.getRoot(), bodyCart, ProductDetailActivity.this::onAddToCart);
+        }
+        else {
+            CartRepository.editCartQuantity(binding.getRoot(), cartSelected.getId(), cartSelected.getQuantity()+1);
+            Snackbar.make(binding.getRoot(), "Tas berhasil diperbaharui", Snackbar.LENGTH_SHORT).show();
+        }
+
     }
 }

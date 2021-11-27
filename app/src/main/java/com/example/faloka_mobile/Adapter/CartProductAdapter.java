@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.faloka_mobile.API.ApiConfig;
+import com.example.faloka_mobile.Cart.CartBrandToProductListener;
 import com.example.faloka_mobile.Cart.CartCheckedProductListener;
 import com.example.faloka_mobile.Cart.CartRepository;
 import com.example.faloka_mobile.Cart.CartUpdateQtyListener;
@@ -37,11 +38,12 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
     private boolean isBrandChecked;
     private CartCheckedProductListener cartCheckedProductListener;
     private CartUpdateQtyListener cartUpdateQtyListener;
-    public CartProductAdapter(List<Cart> cartList, CartCheckedProductListener cartCheckedProductListener, CartUpdateQtyListener cartUpdateQtyListener){
+    private CartBrandToProductListener cartBrandToProductListener;
+    public CartProductAdapter(List<Cart> cartList, CartCheckedProductListener cartCheckedProductListener, CartUpdateQtyListener cartUpdateQtyListener, CartBrandToProductListener cartBrandToProductListener){
         this.cartList = cartList;
         this.cartUpdateQtyListener = cartUpdateQtyListener;
         this.cartCheckedProductListener = cartCheckedProductListener;
-//        cartCheckedProductListener.onCartProductChecked(cartList, true, 0);
+        this.cartBrandToProductListener = cartBrandToProductListener;
     }
 
     public void setBrandChecked(boolean isBrandChecked){
@@ -65,6 +67,7 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
             cartCheckedProductListener.onCartProductChecked(cartList, false, cartList.get(position).getId() );
             holder.btnCartQtyPlus.setEnabled(false);
             holder.btnCartQtyMinus.setEnabled(false);
+            cartBrandToProductListener.onCartBrandToProduct(cart.getId(), false);
         }
         else {
             holder.cbxCartProduct.setChecked(true);
@@ -73,6 +76,7 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
             cartCheckedProductListener.onCartProductChecked(cartListTemp, true, 0);
             holder.btnCartQtyPlus.setEnabled(true);
             holder.btnCartQtyMinus.setEnabled(true);
+            cartBrandToProductListener.onCartBrandToProduct(cart.getId(), true);
         }
 
         Glide.with(holder.imgCartProduct.getContext())
@@ -114,11 +118,13 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
                     cartCheckedProductListener.onCartProductChecked(cartListTemp, true, 0);
                     holder.btnCartQtyPlus.setEnabled(true);
                     holder.btnCartQtyMinus.setEnabled(true);
+                    cartBrandToProductListener.onCartBrandToProduct(cart.getId(), true);
                 }
                 else {
                     cartCheckedProductListener.onCartProductChecked(cartList, false, cartList.get(position).getId() );
                     holder.btnCartQtyPlus.setEnabled(false);
                     holder.btnCartQtyMinus.setEnabled(false);
+                    cartBrandToProductListener.onCartBrandToProduct(cart.getId(), false);
                 }
             }
         });

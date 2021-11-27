@@ -46,9 +46,9 @@ public class BaseFragment extends Fragment implements CartCountItemListener, Aut
             super.onResume();
             return;
         }
-        if(!flagAuth) {
+//        if(!flagAuth) {
             CartRepository.getCountCarts(getContext(), this::onItemCount, this::onUnauthorized);
-        }
+//        }
         super.onResume();
     }
 

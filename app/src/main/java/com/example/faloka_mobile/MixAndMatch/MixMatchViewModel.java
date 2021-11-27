@@ -26,6 +26,7 @@ import com.example.faloka_mobile.Model.Cart;
 import com.example.faloka_mobile.Model.Category;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.ProductMixMatch;
+import com.example.faloka_mobile.Model.Variant;
 import com.example.faloka_mobile.Product.ProductDetailActivity;
 import com.example.faloka_mobile.Product.ProductListener;
 import com.example.faloka_mobile.Product.ProductRepository;
@@ -48,6 +49,7 @@ public class MixMatchViewModel extends ViewModel implements View.OnTouchListener
     private List<Cart> cartList;
     private ImageView currentImageView;
     private int currentIndex;
+    private static int imageID;
 
     public MixMatchViewModel(ActivityMixMatchBinding binding, AppCompatActivity activity, ImageToLayoutListener imageToLayoutListener, ImageViewUnselectedListener imageViewUnselectedListener){
         this.binding = binding;
@@ -56,6 +58,7 @@ public class MixMatchViewModel extends ViewModel implements View.OnTouchListener
         this.imageViewUnselectedListener = imageViewUnselectedListener;
         this.imageViewList = new LinkedList<>();
         this.cartList = new ArrayList<>();
+        imageID = 1;
         binding.btnMixMatchDelete.setOnClickListener(this);
         binding.btnMixMatchCheckout.setOnClickListener(this);
 //        MixMatchRepository.getMixMatchProducts(binding.getRoot(), this::onProduct);
@@ -199,7 +202,23 @@ public class MixMatchViewModel extends ViewModel implements View.OnTouchListener
 
     @Override
     public void onProduct(List<ProductMixMatch> productMixMatchList) {
-        ProductMixMatchAdapter productMixMatchAdapter = new ProductMixMatchAdapter(productMixMatchList, this::onSelected, this::onRemoveProduct);
+        List<ProductMixMatch> productMixMatches = new ArrayList<>(productMixMatchList);
+        if(activity.getIntent() != null){
+            List<Cart> cartList = activity.getIntent().getParcelableArrayListExtra(Product.EXTRA_PRODUCT);
+            if(cartList != null){
+                for(Cart cart : cartList){
+                    int i=0;
+                    for(ProductMixMatch productMixMatch : productMixMatches){
+                        if(cart.getProduct().getSlug().equalsIgnoreCase(productMixMatch.getSlug())){
+                            productMixMatches.remove(i);
+                            break;
+                        }
+                        i++;
+                    }
+                }
+            }
+        }
+        ProductMixMatchAdapter productMixMatchAdapter = new ProductMixMatchAdapter(productMixMatches, this::onSelected, this::onRemoveProduct);
         binding.rvMixMatchProduct.setLayoutManager(new GridLayoutManager(binding.getRoot().getContext(),3, GridLayoutManager.VERTICAL, false));
         binding.rvMixMatchProduct.setAdapter(productMixMatchAdapter);
     }
@@ -281,7 +300,8 @@ public class MixMatchViewModel extends ViewModel implements View.OnTouchListener
             }
         }
 
-        addImageView(product.getId(), imageView, 410, 410, posY, posX);
+        addImageView(imageID, imageView, 410, 410, posY, posX);
+        imageID++;
     }
 
     public void addProductFromDetail(){
@@ -289,6 +309,17 @@ public class MixMatchViewModel extends ViewModel implements View.OnTouchListener
             Product product = activity.getIntent().getParcelableExtra(Product.EXTRA_PRODUCT);
             if(product != null){
                 addProduct(product);
+            }
+        }
+    }
+
+    public void addProductFromCart(){
+        if(activity.getIntent() != null){
+            List<Cart> cartList = activity.getIntent().getParcelableArrayListExtra(Product.EXTRA_PRODUCT);
+            if(cartList != null){
+                for(Cart cart : cartList){
+                    ProductRepository.getProductBySlug(binding.getRoot(), cart.getProduct().getSlug(), this::onProductSlug);
+                }
             }
         }
     }
@@ -303,6 +334,7 @@ public class MixMatchViewModel extends ViewModel implements View.OnTouchListener
                 cartList.remove(i);
                 imageView = imageViewList.get(i);
                 imageViewList.remove(i);
+                break;
             }
             i++;
         }

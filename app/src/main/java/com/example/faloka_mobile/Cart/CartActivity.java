@@ -37,6 +37,7 @@ public class CartActivity extends AppCompatActivity{
         setContentView(view);
         CartViewModel cartViewModel = new CartViewModel(binding, this);
         cartViewModel.setToolbar();
+        cartViewModel.onButtonMixMatchClicked();
     }
 
     @Override
