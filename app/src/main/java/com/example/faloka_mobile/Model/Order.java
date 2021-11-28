@@ -13,6 +13,7 @@ public class Order implements Parcelable {
     private Address address;
     private Payment payment;
     private List<CartBrand> cartBrandList;
+    private String imagePaymentURL;
 
     public Order(){
 
@@ -23,6 +24,7 @@ public class Order implements Parcelable {
         setAddress(in.readParcelable(Address.class.getClassLoader()));
         setPayment(in.readParcelable(Payment.class.getClassLoader()));
         setCartBrandList(in.createTypedArrayList(CartBrand.CREATOR));
+        setImagePaymentURL(in.readString());
     }
 
     public static final Creator<Order> CREATOR = new Creator<Order>() {
@@ -48,6 +50,7 @@ public class Order implements Parcelable {
         parcel.writeParcelable(getAddress(), i);
         parcel.writeParcelable(getPayment(), i);
         parcel.writeTypedList(getCartBrandList());
+        parcel.writeString(getImagePaymentURL());
     }
 
     public int getId() {
@@ -80,5 +83,13 @@ public class Order implements Parcelable {
 
     public void setCartBrandList(List<CartBrand> cartBrandList) {
         this.cartBrandList = cartBrandList;
+    }
+
+    public String getImagePaymentURL() {
+        return imagePaymentURL;
+    }
+
+    public void setImagePaymentURL(String imagePaymentURL) {
+        this.imagePaymentURL = imagePaymentURL;
     }
 }

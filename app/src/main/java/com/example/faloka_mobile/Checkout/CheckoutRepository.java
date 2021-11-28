@@ -16,6 +16,7 @@ import com.example.faloka_mobile.Model.Message;
 import com.example.faloka_mobile.Model.Order;
 import com.example.faloka_mobile.Model.OrderUser;
 import com.example.faloka_mobile.Model.PaymentMethod;
+import com.example.faloka_mobile.Model.PaymentUploadResponse;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -65,13 +66,13 @@ public class CheckoutRepository {
         TokenManager tokenManager = TokenManager.getInstance(view.getContext().getSharedPreferences("Token",0));
         tokenManager.setLoadingDialog(new LoadingDialog((Activity) view.getContext()));
         tokenManager.getLoadingDialog().startLoadingDialog();
-        Call<Message> callUploadPayment = ApiConfig.getApiService(tokenManager).uploadPhotoMultipart(method, photoPart, order.getId() );
-        callUploadPayment.enqueue(new Callback<Message>() {
+        Call<PaymentUploadResponse> callUploadPayment = ApiConfig.getApiService(tokenManager).uploadPhotoMultipart(method, photoPart, order.getId() );
+        callUploadPayment.enqueue(new Callback<PaymentUploadResponse>() {
             @Override
-            public void onResponse(Call<Message> call, Response<Message> response) {
+            public void onResponse(Call<PaymentUploadResponse> call, Response<PaymentUploadResponse> response) {
                 if(response.isSuccessful()) {
-                    Message message = response.body();
-                    uploadFileListener.onUpload(message);
+                    PaymentUploadResponse paymentUploadResponse = response.body();
+                    uploadFileListener.onUpload(paymentUploadResponse);
                     tokenManager.getLoadingDialog().dismissLoadingDialog();
 //                    Toast.makeText(view.getContext(), message.getMessage(), Toast.LENGTH_SHORT).show();
                 }
@@ -82,7 +83,7 @@ public class CheckoutRepository {
             }
 
             @Override
-            public void onFailure(Call<Message> call, Throwable t) {
+            public void onFailure(Call<PaymentUploadResponse> call, Throwable t) {
                 tokenManager.getLoadingDialog().dismissLoadingDialog();
                 Toast.makeText(view.getContext(), "FAIL API"+ call.toString(), Toast.LENGTH_SHORT).show();
                 System.out.println("FAIL API"+ call.toString()+" <> "+t.getMessage());

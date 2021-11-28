@@ -195,7 +195,7 @@
             android:text="Upload Bukti Pembayaran"
             android:textAllCaps="false"
             android:textColor="@color/white_faloka"
-            android:textSize="14sp"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_product_order_price"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView13" />

@@ -14,9 +14,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Account.AccountFragment;
 import com.example.faloka_mobile.Cart.CartRepository;
@@ -26,6 +30,7 @@ import com.example.faloka_mobile.Model.Message;
 import com.example.faloka_mobile.Model.Order;
 import com.example.faloka_mobile.Model.OrderResponse;
 import com.example.faloka_mobile.Model.OrderUser;
+import com.example.faloka_mobile.Model.PaymentUploadResponse;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.ActivityConfrimCheckoutBinding;
 import com.google.android.material.snackbar.Snackbar;
@@ -142,6 +147,12 @@ public class ConfirmCheckoutActivity extends AppCompatActivity implements View.O
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(binding.getRoot().getContext());
         alertBuilder.setMessage("Apakah kamu yakin upload bukti pembayaran?");
         alertBuilder.setCancelable(true);
+        ImageView imageView = new ImageView(binding.getRoot().getContext());
+        Glide.with(binding.getRoot().getContext())
+                .load(uri)
+                .apply(new RequestOptions().override(500, 500))
+                .into(imageView);
+        alertBuilder.setView(imageView);
         alertBuilder.setPositiveButton(
                 "Upload",
                 new DialogInterface.OnClickListener() {
@@ -225,8 +236,9 @@ public class ConfirmCheckoutActivity extends AppCompatActivity implements View.O
     }
 
     @Override
-    public void onUpload(Message message) {
-        Toast.makeText(getApplicationContext(), message.getMessage(), Toast.LENGTH_SHORT).show();
+    public void onUpload(PaymentUploadResponse paymentUploadResponse) {
+        order.setImagePaymentURL(paymentUploadResponse.getImagePaymentURL());
+        Toast.makeText(getApplicationContext(), paymentUploadResponse.getMessage(), Toast.LENGTH_SHORT).show();
         binding.btnUpload.setVisibility(View.GONE);
 //        binding.btnUpload.setEnabled(false);
 //        binding.btnUpload.setBackgroundColor(getResources().getColor(R.color.white_faloka));
