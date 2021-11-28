@@ -32,6 +32,7 @@ import com.example.faloka_mobile.Product.ProductListener;
 import com.example.faloka_mobile.Product.ProductRepository;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.ActivityMixMatchBinding;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -248,7 +249,17 @@ public class MixMatchViewModel extends ViewModel implements View.OnTouchListener
                 binding.getRoot().getContext().startActivity(intent);
             }
             else {
-                Toast.makeText(binding.getRoot().getContext(), "Pilih outfitmu dahulu!", Toast.LENGTH_SHORT).show();
+                Snackbar snackbar = Snackbar.make(binding.coordinatorLayoutTopMixMatch, "Pilih outfitnya dulu ya", Snackbar.LENGTH_LONG);
+                snackbar.setAction("OK", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
+                snackbar.setActionTextColor(activity.getResources().getColor(R.color.primary_dark));
+                snackbar.setTextColor(activity.getResources().getColor(R.color.primary_dark));
+                snackbar.setBackgroundTint(activity.getResources().getColor(R.color.semantic_warning));
+                snackbar.show();
             }
         }
     }
