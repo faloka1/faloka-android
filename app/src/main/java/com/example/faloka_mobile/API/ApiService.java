@@ -15,6 +15,7 @@ import com.example.faloka_mobile.Model.OrderResponse;
 import com.example.faloka_mobile.Model.OrderResponseForInspireMe;
 import com.example.faloka_mobile.Model.OrderUser;
 import com.example.faloka_mobile.Model.Payment;
+import com.example.faloka_mobile.Model.PaymentUploadResponse;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.ProductListResponse;
 import com.example.faloka_mobile.Model.ProductMixMatch;
@@ -135,7 +136,7 @@ public interface ApiService {
 
     @Multipart
     @POST("uploadpayment/{order_id}")
-    Call<Message> uploadPhotoMultipart(
+    Call<PaymentUploadResponse> uploadPhotoMultipart(
             @Part("_method") RequestBody method,
             @Part MultipartBody.Part image,
             @Path("order_id") int orderID);

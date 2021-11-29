@@ -21,6 +21,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:titleTextColor="@color/primary_dark" />
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/coordinator_layout_top_mix_match"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/transparent"
+        tools:ignore="MissingConstraints">
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
     <RelativeLayout
         android:id="@+id/relative_layout_mix_match"
         android:layout_width="match_parent"
