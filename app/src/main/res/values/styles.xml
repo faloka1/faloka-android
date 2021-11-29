@@ -41,7 +41,6 @@
     </style>
 
     <style name="ButtonPrimary" parent="Widget.MaterialComponents.Button">
-        <item name="materialThemeOverlay">@style/BlackButton</item>
         <item name="cornerRadius">0dp</item>
         <item name="elevation">0dp</item>
     </style>
@@ -51,9 +50,6 @@
     </style>
     <style name="TextButton" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:textColor">?attr/colorSecondary</item>
-    </style>
-    <style name="BlackButton">
-        <item name="color">?attr/colorPrimary</item>
     </style>
     <style name="TextAppearance.App.Button" parent="TextAppearance.MaterialComponents.Button">
         <item name="fontFamily">@font/khula_semibold</item>

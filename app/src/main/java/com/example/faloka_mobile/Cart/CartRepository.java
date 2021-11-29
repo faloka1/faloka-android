@@ -3,6 +3,7 @@ package com.example.faloka_mobile.Cart;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -48,6 +49,26 @@ public class CartRepository {
         });
     }
 
+    public static final void deleteCart(View view, int id){
+        TokenManager tokenManager = TokenManager.getInstance(view.getContext().getSharedPreferences("Token",0));
+        Call<Message> callDelete = ApiConfig.getApiService(tokenManager).deleteCart(tokenManager.getTypeToken()+" "+tokenManager.getToken(),id);
+        callDelete.enqueue(new Callback<Message>() {
+            @Override
+            public void onResponse(Call<Message> call, Response<Message> response) {
+                if(response.isSuccessful()){
+                    Message message = response.body();
+                }
+                else{
+                    Log.e("gagal", response.errorBody().toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Message> call, Throwable t) {
+                Log.e("gagal tersambung", t.getMessage());
+            }
+        });
+    }
     public static final void deleteAllCart(View view){
         TokenManager tokenManager = TokenManager.getInstance(view.getContext().getSharedPreferences("Token",0));
         Call<Message> callDeleteAllCart = ApiConfig.getApiService(tokenManager).deleteAllCart(tokenManager.getTypeToken()+" "+tokenManager.getToken() );

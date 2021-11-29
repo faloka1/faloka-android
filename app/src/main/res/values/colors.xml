@@ -11,24 +11,33 @@
     <color name="black_faloka">#323232</color>
     <color name="faloka_accent_green">#01B8BC</color>
 
-    <color name="primary_light">#1E0F14</color>
-    <color name="primary_dark">#FF000000</color>
+    <color name="primary_light">#E3E3E3</color>
+    <color name="primary_dark">#131313</color>
 
-    <color name="secondary_green_dark">#006E87</color>
-    <color name="secondary_green_light">#01B8BC</color>
+    <color name="secondary_green_dark">#127E92</color>
+    <color name="secondary_green_light">#60C6D9</color>
 
-    <color name="semantic_danger_dark">#DB317A</color>
-    <color name="semantic_warning">#F9C746</color>
+    <color name="semantic_info">#ff0069C9</color>
+    <color name="semantic_success">#ff5FBA2A</color>
+    <color name="semantic_warning">#ffF9C746</color>
+    <color name="semantic_error">#ffE32C2C</color>
 
-    <color name="netral_900">#1E0F14</color>
-    <color name="netral_800">#241A1B</color>
-    <color name="netral_700">#2A2424</color>
+    <color name="background">#FAFAFA</color>
+    <color name="onBackground">#ff161616</color>
+
+    <color name="surface">#ffFAFAFA</color>
+    <color name="onSurface">#ff161616</color>
+
+    <color name="netral_900">#ff090305</color>
+    <color name="netral_800">#FF0B0607</color>
+    <color name="netral_700">#FF717171</color>
+    <color name="netral_300">#FFEAEAEA</color>
+    <color name="netral_200">#FFE7E7E7</color>
+    <color name="netral_100">#FFF3F3F3</color>
+
     <color name="netral_600">#323232</color>
     <color name="netral_500">#848484</color>
     <color name="netral_400">#C1C1C1</color>
-    <color name="netral_300">#EAEAEA</color>
-    <color name="netral_200">#F4F4F4</color>
-    <color name="netral_100">#FAFAFA</color>
 
     <color name="danger">#df0000</color>
 

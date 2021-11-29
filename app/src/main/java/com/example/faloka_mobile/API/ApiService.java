@@ -155,6 +155,12 @@ public interface ApiService {
     @DELETE("cart-user")
     Call<Message> deleteAllCart(@Header("Authorization") String auth);
 
+    @DELETE("cart/{cart_id}")
+    Call<Message> deleteCart(
+            @Header("Authorization") String auth,
+            @Path("cart_id") int cartID
+    );
+
     @PATCH("cart/{cart_id}")
     Call<Message> editCartQuantity(
             @Header("Authorization") String auth,
@@ -170,8 +176,6 @@ public interface ApiService {
 
     @GET("inspireme/user/products")
     Call<List<OrderResponseForInspireMe>> getOrderForProduct(@Header("Authorization") String auth);
-
-
 
     @POST("inspireme")
     Call<Message> addInspireMe(

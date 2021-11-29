@@ -1,32 +1,29 @@
 package com.example.faloka_mobile.Adapter;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.faloka_mobile.API.ApiConfig;
+import com.example.faloka_mobile.Cart.CartBrandToProductDelete;
 import com.example.faloka_mobile.Cart.CartBrandToProductListener;
 import com.example.faloka_mobile.Cart.CartCheckedProductListener;
 import com.example.faloka_mobile.Cart.CartRepository;
 import com.example.faloka_mobile.Cart.CartUpdateQtyListener;
 import com.example.faloka_mobile.Model.Cart;
-import com.example.faloka_mobile.Model.Product;
-import com.example.faloka_mobile.Model.Variant;
 import com.example.faloka_mobile.R;
-
-import org.w3c.dom.Text;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -39,11 +36,16 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
     private CartCheckedProductListener cartCheckedProductListener;
     private CartUpdateQtyListener cartUpdateQtyListener;
     private CartBrandToProductListener cartBrandToProductListener;
-    public CartProductAdapter(List<Cart> cartList, CartCheckedProductListener cartCheckedProductListener, CartUpdateQtyListener cartUpdateQtyListener, CartBrandToProductListener cartBrandToProductListener){
+    private CartBrandToProductDelete cartBrandDelete;
+    public CartProductAdapter(List<Cart> cartList, CartCheckedProductListener cartCheckedProductListener,
+                              CartUpdateQtyListener cartUpdateQtyListener,
+                              CartBrandToProductListener cartBrandToProductListener,
+                              CartBrandToProductDelete cartBrandDelete){
         this.cartList = cartList;
         this.cartUpdateQtyListener = cartUpdateQtyListener;
         this.cartCheckedProductListener = cartCheckedProductListener;
         this.cartBrandToProductListener = cartBrandToProductListener;
+        this.cartBrandDelete = cartBrandDelete;
     }
 
     public void setBrandChecked(boolean isBrandChecked){
@@ -108,7 +110,26 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
                 holder.tvCartQty.setText(String.valueOf(cart.getQuantity()));
             }
         });
-
+        holder.btnCartDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(view.getContext())
+                        .setMessage("Apakah kamu yakin untuk menghapus?")
+                        .setPositiveButton("Hapus",new DialogInterface.OnClickListener(){
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                CartRepository.deleteCart(view,cart.getId());
+                                cartList.remove(cart);
+                                notifyDataSetChanged();
+                                if(cartList.size()==0){
+                                    cartBrandDelete.onDelete();
+                                }
+                            }
+                        })
+                        .setNegativeButton("Cancel",null)
+                        .show();
+            }
+        });
         holder.cbxCartProduct.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -154,6 +175,7 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
         TextView tvCartProductPrice;
         ImageButton btnCartQtyMinus;
         ImageButton btnCartQtyPlus;
+        ImageButton btnCartDelete;
 
         public CartProductViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -165,6 +187,7 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
             tvCartProductPrice = itemView.findViewById(R.id.tv_cart_product_price);
             btnCartQtyMinus = itemView.findViewById(R.id.btn_cart_qty_minus);
             btnCartQtyPlus = itemView.findViewById(R.id.btn_cart_qty_plus);
+            btnCartDelete = itemView.findViewById(R.id.btn_cart_delete);
         }
     }
 }

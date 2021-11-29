@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.Falokamobile" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/primary_light</item>
-        <item name="colorPrimaryVariant">@color/primary_dark</item>
+        <item name="colorPrimary">@color/primary_dark</item>
+        <item name="colorPrimaryVariant">@color/primary_light</item>
         <item name="colorOnPrimary">@color/netral_100</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/secondary_green_light</item>

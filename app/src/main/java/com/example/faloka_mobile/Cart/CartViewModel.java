@@ -1,30 +1,23 @@
 package com.example.faloka_mobile.Cart;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.Gravity;
+import android.util.Log;
 import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.faloka_mobile.Adapter.CartBrandAdapter;
 import com.example.faloka_mobile.Adapter.ProductAdapter;
 import com.example.faloka_mobile.Checkout.CheckoutActivity;
-import com.example.faloka_mobile.Checkout.ChooseDeliveryDialog;
 import com.example.faloka_mobile.MixAndMatch.MixMatchActivity;
 import com.example.faloka_mobile.Model.Cart;
 import com.example.faloka_mobile.Model.CartBrand;
 import com.example.faloka_mobile.Model.Product;
-import com.example.faloka_mobile.Model.Variant;
-import com.example.faloka_mobile.Product.ProductDetailActivity;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.ActivityCartBinding;
 import com.google.android.material.snackbar.Snackbar;
@@ -38,13 +31,20 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-public class CartViewModel implements CartItemListener, CartCheckedProductListener, CartProductsRelated, CartUpdateQtyListener, CartAllToBrandListener{
+public class CartViewModel implements
+        CartItemListener,
+        CartCheckedProductListener,
+        CartProductsRelated,
+        CartUpdateQtyListener,
+        CartAllToBrandListener, CountPriceListener{
 
     private AppCompatActivity activity;
     private ActivityCartBinding binding;
     private View view;
     private List<Cart> checkedCartProduct;
     private HashMap<Integer, Boolean> cartBooleanHashMap = new HashMap<>();
+    private CartBrandAdapter cartBrandAdapter;
+    private List<CartBrand> cartBrandList;
 
     public CartViewModel(ActivityCartBinding binding, AppCompatActivity activity){
         this.activity = activity;
@@ -97,6 +97,60 @@ public class CartViewModel implements CartItemListener, CartCheckedProductListen
             }
         });
     }
+    public void onDeleteAll(){
+        binding.btnCartDeleteAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!checkedCartProduct.isEmpty() && checkedCartProduct != null) {
+                    new AlertDialog.Builder(activity)
+                            .setMessage("Apakah yakin ingin menghapus item?")
+                            .setPositiveButton("Hapus", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    for(Cart cart : checkedCartProduct){
+                                        CartRepository.deleteCart(view, cart.getId());
+                                    }
+                                    CartRepository.getCarts(view, new CartItemListener() {
+                                        @Override
+                                        public void onCart(List<Cart> cartList) {
+                                            if(cartList.size()==0){
+                                                emptyCart(true);
+                                            }
+                                            else {
+                                                CartViewModel cartViewModel = new CartViewModel(binding, activity);
+                                                cartViewModel.setToolbar();
+                                                cartViewModel.onButtonMixMatchClicked();
+                                                cartViewModel.onDeleteAll();
+                                            }
+                                        }
+                                    });
+                                }
+                            })
+                            .setNegativeButton("Cancel", null)
+                            .show();
+                }
+                else {
+                    Snackbar snackbar = Snackbar.make(binding.coordinatorLayoutTopCart, "Pilih outfitnya dulu ya", Snackbar.LENGTH_LONG);
+                    snackbar.setAction("OK", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+                    snackbar.setActionTextColor(activity.getResources().getColor(R.color.primary_dark));
+                    snackbar.setTextColor(activity.getResources().getColor(R.color.primary_dark));
+                    snackbar.setBackgroundTint(activity.getResources().getColor(R.color.semantic_warning));
+                    snackbar.show();
+
+                }
+            }
+        });
+    }
+    public void emptyCart(boolean empty){
+        if(empty){
+            view.getContext().startActivity(new Intent(activity,CartEmptyActivity.class));
+        }
+    }
 
     public String getFormatRupiah(int price){
         Double tempPrice = Double.parseDouble(String.valueOf(price));
@@ -107,9 +161,12 @@ public class CartViewModel implements CartItemListener, CartCheckedProductListen
 
     @Override
     public void onCart(List<Cart> cartList) {
-        List<CartBrand> cartBrandList = CartActivity.brandClassification(cartList);
+        cartBrandList = CartActivity.brandClassification(cartList);
         initCartBooleanHashMap(cartBrandList);
-        CartBrandAdapter cartBrandAdapter = new CartBrandAdapter(cartBrandList, this::onCartProductChecked, this::onUpdateQtyCart, this::onCartAllToBrand);
+        cartBrandAdapter = new CartBrandAdapter(
+                cartBrandList,
+                this::onCartProductChecked, this::onUpdateQtyCart,
+                this::onCartAllToBrand, this::onCount);
         cartBrandAdapter.setAllChecked(true);
         binding.rvCartBrandProduct.setAdapter(cartBrandAdapter);
         binding.rvCartBrandProduct.setLayoutManager(new LinearLayoutManager(view.getContext()));
@@ -123,12 +180,11 @@ public class CartViewModel implements CartItemListener, CartCheckedProductListen
                     cartBrandAdapter.setAllChecked(false);
                     checkedCartProduct.clear();
                 }
-                setTotalProduct(checkedCartProduct);
-                setFooterCart(checkedCartProduct);
                 binding.rvCartBrandProduct.setAdapter(cartBrandAdapter);
                 binding.rvCartBrandProduct.setLayoutManager(new LinearLayoutManager(view.getContext()));
             }
         });
+
     }
 
     public void initCartBooleanHashMap(List<CartBrand> cartBrandList){
@@ -136,7 +192,6 @@ public class CartViewModel implements CartItemListener, CartCheckedProductListen
             this.cartBooleanHashMap.put(cartBrand.getBrand().getId(), true);
         }
     }
-
     @Override
     public void onCartAllToBrand(int brandID, boolean checked) {
         boolean isAllChecked = true;
@@ -233,6 +288,12 @@ public class CartViewModel implements CartItemListener, CartCheckedProductListen
                 checkedCart.setQuantity(qty);
             }
         }
+        setTotalProduct(checkedCartProduct);
+        setFooterCart(checkedCartProduct);
+    }
+    @Override
+    public void onCount(Cart cart) {
+        checkedCartProduct.remove(cart);
         setTotalProduct(checkedCartProduct);
         setFooterCart(checkedCartProduct);
     }
