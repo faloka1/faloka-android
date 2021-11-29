@@ -115,6 +115,7 @@ public class AccountRepository {
     public static final Order getOrder(OrderUser orderUser){
         Order order = new Order();
         order.setId(orderUser.getId());
+        order.setImagePaymentURL(orderUser.getImagePaymentURL());
         order.setAddress(orderUser.getAddress());
         order.setPayment(orderUser.getPayment());
         List<CartBrand> cartBrandList = new ArrayList<>();

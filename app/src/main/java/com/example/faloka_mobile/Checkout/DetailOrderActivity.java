@@ -1,14 +1,19 @@
 package com.example.faloka_mobile.Checkout;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Adapter.CheckoutBrandAdapter;
 import com.example.faloka_mobile.Cart.CartActivity;
@@ -48,6 +53,7 @@ public class DetailOrderActivity extends AppCompatActivity {
         setDetailPrice();
         setDetailProduct();
         setDetailExpedition();
+        setShowPayment();
     }
 
     private void setDetailPrice(){
@@ -79,6 +85,39 @@ public class DetailOrderActivity extends AppCompatActivity {
         Locale localeID = new Locale("in", "ID");
         NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
         return  formatRupiah.format(tempPrice);
+    }
+
+    public void setShowPayment(){
+        if(order.getImagePaymentURL() != null) {
+            binding.btnOrderShowPayment.setVisibility(View.VISIBLE);
+            binding.btnOrderShowPayment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (order.getImagePaymentURL() != null) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                        builder.setMessage("Bukti pembayaran kamu");
+
+                        ImageView imageView = new ImageView(view.getContext());
+                        Glide.with(view.getContext())
+                                .load(ApiConfig.BASE_IMAGE_URL + order.getImagePaymentURL())
+                                .apply(new RequestOptions().override(500, 500))
+                                .into(imageView);
+                        builder.setView(imageView);
+                        builder.setNegativeButton(" ", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        });
+                        builder.create();
+                        builder.show();
+                    }
+                }
+            });
+        }
+        else {
+            binding.btnOrderShowPayment.setVisibility(View.GONE);
+        }
     }
 
     @Override
