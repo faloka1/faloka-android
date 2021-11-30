@@ -184,6 +184,25 @@
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="17dp">
 
+                <Button
+                    android:id="@+id/btn_detail_order_inspo_outfit"
+                    style="@style/ButtonSecondary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:text="Inspo outfit"
+                    android:textSize="12sp"
+                    app:icon="@drawable/ic_svg_inspire"
+                    app:iconSize="20dp"
+                    app:iconTint="@android:color/black"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_detail_order_title_product"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_detail_order_title_product"
+                    app:strokeColor="@color/netral_900"
+                    app:strokeWidth="2dp" />
+
                 <TextView
                     android:id="@+id/tv_detail_order_title_product"
                     android:layout_width="wrap_content"
@@ -193,6 +212,7 @@
                     android:text="Barang Pembelian"
                     android:textColor="@color/netral_900"
                     android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 

@@ -65,6 +65,7 @@
 
                 <Button
                     android:id="@+id/btn_cart_mix_match"
+                    style="@style/ButtonSecondary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
@@ -73,7 +74,6 @@
                     android:layout_marginTop="0dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="0dp"
-                    style="@style/ButtonSecondary"
                     android:text="mix match"
                     app:icon="@drawable/ic_icon_park_outline_clothes_crew_neck"
                     app:iconSize="20dp"

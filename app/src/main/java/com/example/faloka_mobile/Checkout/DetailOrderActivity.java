@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,12 +17,17 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Adapter.CheckoutBrandAdapter;
+import com.example.faloka_mobile.Adapter.InspiremeUploadProductAdapter;
 import com.example.faloka_mobile.Cart.CartActivity;
+import com.example.faloka_mobile.InspireMe.InpireMeUploadActivity;
+import com.example.faloka_mobile.InspireMe.InspireMeTagProductActivity;
 import com.example.faloka_mobile.Model.Cart;
 import com.example.faloka_mobile.Model.CartBrand;
 import com.example.faloka_mobile.Model.Order;
 import com.example.faloka_mobile.Model.OrderDetail;
 import com.example.faloka_mobile.Model.OrderUser;
+import com.example.faloka_mobile.Model.Product;
+import com.example.faloka_mobile.Model.Variant;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.ActivityDetailOrderBinding;
 
@@ -54,6 +60,7 @@ public class DetailOrderActivity extends AppCompatActivity {
         setDetailProduct();
         setDetailExpedition();
         setShowPayment();
+        setUploadInspireMe();
     }
 
     private void setDetailPrice(){
@@ -85,6 +92,39 @@ public class DetailOrderActivity extends AppCompatActivity {
         Locale localeID = new Locale("in", "ID");
         NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
         return  formatRupiah.format(tempPrice);
+    }
+
+    public void setUploadInspireMe(){
+        if(order.getImagePaymentURL() != null) {
+            binding.btnDetailOrderInspoOutfit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(view.getContext(), InpireMeUploadActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelableArrayList(Product.EXTRA_PRODUCT, (ArrayList) getProductFromCartBrand(order.getCartBrandList()));
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
+            });
+        }
+        else {
+            binding.btnDetailOrderInspoOutfit.setVisibility(View.GONE);
+        }
+    }
+
+    public static final List<Product> getProductFromCartBrand(List<CartBrand> cartBrandList){
+        List<Product> productList = new ArrayList<>();
+        for(CartBrand cartBrand : cartBrandList){
+            for(Cart cart : cartBrand.getCartList()){
+                Product product = cart.getProduct();
+                List<Variant> variantList = new ArrayList<>();
+                Variant variant = cart.getVariant();
+                variantList.add(variant);
+                product.setVariantList(variantList);
+                productList.add(product);
+            }
+        }
+        return productList;
     }
 
     public void setShowPayment(){
