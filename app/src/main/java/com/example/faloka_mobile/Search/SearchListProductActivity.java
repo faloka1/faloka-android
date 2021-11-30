@@ -1,6 +1,5 @@
 package com.example.faloka_mobile.Search;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.net.Uri;
@@ -9,11 +8,16 @@ import android.view.View;
 
 import com.example.faloka_mobile.Adapter.ProductAdapter;
 import com.example.faloka_mobile.BaseActivity;
+import com.example.faloka_mobile.Checkout.FileUtils;
+import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.ProductListResponse;
 import com.example.faloka_mobile.Product.ProductListListener;
+import com.example.faloka_mobile.Product.ProductListResponseListener;
 import com.example.faloka_mobile.Product.ProductRepository;
-import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.ActivitySearchListProductBinding;
+
+import java.io.File;
+import java.util.List;
 
 public class SearchListProductActivity extends BaseActivity implements ProductListListener {
 
@@ -30,9 +34,11 @@ public class SearchListProductActivity extends BaseActivity implements ProductLi
         if(getIntent() != null){
             uri = Uri.parse(getIntent().getExtras().getString("IMAGE_URI"));
             binding.imgVisSearchResult.setImageURI(uri);
+            File file = FileUtils.getFile(view.getContext(), uri);
+            SearchRepository.getVisualSearchProducts(view, file, this::onProductList);
         }
         setToolbar();
-        ProductRepository.getProducts(view, this::onListProduct);
+
     }
 
     public void setToolbar(){
@@ -42,8 +48,8 @@ public class SearchListProductActivity extends BaseActivity implements ProductLi
     }
 
     @Override
-    public void onListProduct(ProductListResponse productListResponse) {
-        ProductAdapter productAdapter = new ProductAdapter(productListResponse.getProductList());
+    public void onProductList(List<Product> productList) {
+        ProductAdapter productAdapter = new ProductAdapter(productList);
         binding.rvSearchListProduct.setLayoutManager(new GridLayoutManager(getApplicationContext(),2, GridLayoutManager.VERTICAL, false));
         binding.rvSearchListProduct.setAdapter(productAdapter);
     }

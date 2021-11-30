@@ -141,6 +141,12 @@ public interface ApiService {
             @Part MultipartBody.Part image,
             @Path("order_id") int orderID);
 
+    @Multipart
+    @POST("visual-search/search")
+    Call<List<Product>> getVisualSearchProducts(
+            @Header("Authorization") String auth,
+            @Part MultipartBody.Part img);
+
     @GET("user/orders")
     Call<List<OrderUser>> getOrders(@Header("Authorization") String auth, @Query("status") String status);
 

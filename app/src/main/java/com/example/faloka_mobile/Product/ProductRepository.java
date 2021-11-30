@@ -2,21 +2,14 @@ package com.example.faloka_mobile.Product;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.LoadingDialog;
 import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.ProductListResponse;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -82,7 +75,7 @@ public class ProductRepository {
         });
     }
 
-    public static final void getProducts(View view, ProductListListener productListListener){
+    public static final void getProducts(View view, ProductListResponseListener productListResponseListener){
         TokenManager tokenManager = TokenManager.getInstance(view.getContext().getSharedPreferences("Token",0));
         tokenManager.setLoadingDialog(new LoadingDialog((Activity) view.getContext()));
         tokenManager.getLoadingDialog().startLoadingDialog();
@@ -92,7 +85,7 @@ public class ProductRepository {
             public void onResponse(Call<ProductListResponse> call, Response<ProductListResponse> response) {
                 if(response.isSuccessful()){
                     ProductListResponse productListResponse = response.body();
-                    productListListener.onListProduct(productListResponse);
+                    productListResponseListener.onListProductResponse(productListResponse);
                     tokenManager.getLoadingDialog().dismissLoadingDialog();
                 }
                 else {
