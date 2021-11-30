@@ -29,8 +29,10 @@ import android.widget.Toast;
 import com.example.faloka_mobile.Account.AccountFragment;
 import com.example.faloka_mobile.Adapter.InspiremeUploadProductAdapter;
 import com.example.faloka_mobile.MainActivity;
+import com.example.faloka_mobile.Model.Cart;
 import com.example.faloka_mobile.Model.InspireMe;
 import com.example.faloka_mobile.Model.InspireMeProductVariant;
+import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.ActivityInpireMeUploadInspireMeBinding;
 
@@ -185,6 +187,15 @@ public class InpireMeUploadActivity extends AppCompatActivity {
     private void setRelateProduct(){
         RecyclerView rv = binding.rvInspireMeProduct;
         List<String> images = new ArrayList<>();
+
+        if(getIntent() != null){
+            List<Product> productList = getIntent().getParcelableArrayListExtra(Product.EXTRA_PRODUCT);
+            for(Product product : productList){
+                InspireMeProductVariant inspireMeProductVariant = new InspireMeProductVariant(product, product.getVariantList().get(0));
+                InspireMeViewModel.productVariants.add(inspireMeProductVariant);
+            }
+        }
+
         for(InspireMeProductVariant productVariant : InspireMeViewModel.productVariants){
             images.add(productVariant.getVariant().getVariantImageList().get(0).getImageURL());
         }
