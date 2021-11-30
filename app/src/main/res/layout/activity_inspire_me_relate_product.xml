@@ -29,6 +29,21 @@
             android:paddingHorizontal="20dp"
             android:paddingVertical="12dp">
 
+            <Button
+                android:id="@+id/btn_inpso_mix_match"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/secondary_green_light"
+                android:fontFamily="@font/khula"
+                android:text="Mix match outfit"
+                android:textColor="@android:color/black"
+                android:textSize="12sp"
+                app:icon="@drawable/ic_icon_park_outline_clothes_crew_neck"
+                app:iconSize="18sp"
+                app:iconTint="@android:color/black"
+                app:layout_constraintEnd_toEndOf="@+id/header_inspireme_product_list"
+                app:layout_constraintTop_toBottomOf="@+id/header_inspireme_product_list" />
+
             <LinearLayout
                 android:id="@+id/header_inspireme_product_list"
                 android:layout_width="match_parent"
@@ -61,15 +76,14 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/header_inspireme_product_list">
+                app:layout_constraintTop_toBottomOf="@+id/btn_inpso_mix_match">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_inspireme_product_list"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="100dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                     />
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="100dp" />
 
             </LinearLayout>
 
