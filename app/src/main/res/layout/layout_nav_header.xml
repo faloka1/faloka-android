@@ -14,7 +14,7 @@
         android:id="@+id/btn_profile_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/primary_light"
+        android:backgroundTint="@color/primary_dark"
         android:letterSpacing="0.125"
         android:text="Login"
         android:textColor="@color/netral_100"
