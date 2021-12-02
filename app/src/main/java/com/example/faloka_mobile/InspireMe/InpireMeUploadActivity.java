@@ -190,9 +190,11 @@ public class InpireMeUploadActivity extends AppCompatActivity {
 
         if(getIntent() != null){
             List<Product> productList = getIntent().getParcelableArrayListExtra(Product.EXTRA_PRODUCT);
-            for(Product product : productList){
-                InspireMeProductVariant inspireMeProductVariant = new InspireMeProductVariant(product, product.getVariantList().get(0));
-                InspireMeViewModel.productVariants.add(inspireMeProductVariant);
+            if(productList != null) {
+                for (Product product : productList) {
+                    InspireMeProductVariant inspireMeProductVariant = new InspireMeProductVariant(product, product.getVariantList().get(0));
+                    InspireMeViewModel.productVariants.add(inspireMeProductVariant);
+                }
             }
         }
 

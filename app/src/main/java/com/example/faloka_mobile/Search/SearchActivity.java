@@ -21,11 +21,17 @@ import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.faloka_mobile.Adapter.ProductAdapter;
 import com.example.faloka_mobile.Adapter.SearchAdapter;
+import com.example.faloka_mobile.Checkout.CheckoutRepository;
+import com.example.faloka_mobile.Checkout.ConfirmCheckoutActivity;
+import com.example.faloka_mobile.Checkout.FileUtils;
 import com.example.faloka_mobile.InspireMe.InpireMeUploadActivity;
 import com.example.faloka_mobile.InspireMe.InspireMeTagProductActivity;
 import com.example.faloka_mobile.Model.Product;
@@ -34,6 +40,7 @@ import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.ActivitySearchBinding;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -187,20 +194,55 @@ public class SearchActivity extends AppCompatActivity implements SearchProductLi
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==REQUEST_OPEN_GALLERY){
             Uri uri = data.getData();
-            Intent intent = new Intent(SearchActivity.this, SearchListProductActivity.class);
-            intent.putExtra("IMAGE_URI", uri.toString());
-            startActivity(intent);
+            confirmImageSearch(uri);
         }
         else if(requestCode==REQUEST_OPEN_CAMERA){
             Bitmap bitmap = (Bitmap) data.getExtras().get("data");
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, new ByteArrayOutputStream());
             String path = MediaStore.Images.Media.insertImage(this.getContentResolver(), bitmap, "Title", null);
             Uri uri = Uri.parse(path);
-            Intent intent = new Intent(SearchActivity.this, SearchListProductActivity.class);
-            intent.putExtra("IMAGE_URI", uri.toString());
-            startActivity(intent);
+            confirmImageSearch(uri);
         }
 
+    }
+
+    public void confirmImageSearch(Uri uri){
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(binding.getRoot().getContext());
+        alertBuilder.setMessage("Apakah kamu yakin mencari outfit ini?");
+        alertBuilder.setCancelable(true);
+        ImageView imageView = new ImageView(binding.getRoot().getContext());
+        Glide.with(binding.getRoot().getContext())
+                .load(uri)
+                .apply(new RequestOptions().override(500, 500))
+                .into(imageView);
+        alertBuilder.setView(imageView);
+        alertBuilder.setPositiveButton(
+                "Cari",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if(uri != null) {
+                            Intent intent = new Intent(SearchActivity.this, SearchListProductActivity.class);
+                            intent.putExtra("IMAGE_URI", uri.toString());
+                            startActivity(intent);
+                        }else{
+                            Toast.makeText(getApplicationContext(), "You must choose the image", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+        );
+        alertBuilder.setNegativeButton(
+                "Batal",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                }
+        );
+
+        AlertDialog alertDialog = alertBuilder.create();
+        alertDialog.show();
     }
 
     @Override
