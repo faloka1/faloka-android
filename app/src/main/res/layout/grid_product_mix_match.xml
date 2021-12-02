@@ -9,7 +9,7 @@
         android:id="@+id/cv_mix_match_product"
         android:layout_width="100dp"
         android:layout_height="170dp"
-        android:layout_marginTop="4dp"
+        android:layout_margin="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
