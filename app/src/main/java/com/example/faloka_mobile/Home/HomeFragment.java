@@ -79,10 +79,10 @@ public class HomeFragment extends BaseFragment {
             tabHost.addTab(tabHost.newTabSpec(category.getName()).setIndicator(category.getName()), ContentHomeFragment.class, bundle);
             TextView tv = tabHost.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
             if(tabHost.getTabWidget().getChildAt(i).isSelected()){
-                tv.setTextColor(getResources().getColorStateList(R.color.primary_light));
+                tv.setTextColor(getResources().getColorStateList(R.color.primary_dark));
             }
             else{
-                tv.setTextColor(getResources().getColor(R.color.netral_500));
+                tv.setTextColor(getResources().getColor(R.color.primary_light));
             }
 
             Typeface typeface = ResourcesCompat.getFont(getContext(), R.font.khula_semibold);
@@ -101,6 +101,7 @@ public class HomeFragment extends BaseFragment {
                 updateTabs();
             }
         });
+
     }
 
 
@@ -108,10 +109,10 @@ public class HomeFragment extends BaseFragment {
         for (int i = 0; i < tabHost.getTabWidget().getChildCount(); i++) {
             TextView tv = tabHost.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
             if(tabHost.getTabWidget().getChildAt(i).isSelected()){
-                tv.setTextColor(getResources().getColorStateList(R.color.primary_light));
+                tv.setTextColor(getResources().getColorStateList(R.color.primary_dark));
             }
             else{
-                tv.setTextColor(getResources().getColor(R.color.netral_500));
+                tv.setTextColor(getResources().getColor(R.color.primary_light));
             }
         }
     }
