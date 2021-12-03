@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import com.bumptech.glide.Glide;
 import com.example.faloka_mobile.API.ApiConfig;
@@ -29,15 +30,22 @@ public class InspiremeAdapter extends RecyclerView.Adapter<InspiremeAdapter.Insp
 
 
     List<InspireMe> inspireMeList;
-    public InspiremeAdapter(List<InspireMe> inspireMeList){
+    View view;
+    public InspiremeAdapter(){
+        this.inspireMeList = new ArrayList<>();
+    }
 
-        this.inspireMeList = inspireMeList;
+    public void addInspireMe(List<InspireMe> inspireMeList){
+        for(InspireMe inspireMe : inspireMeList){
+            this.inspireMeList.add(inspireMe);
+        }
+        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
     public InspiremeAdapter.InspiremeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_inspire_me,parent,false);
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_inspire_me,parent,false);
         return new InspiremeViewHolder(view);
     }
 
@@ -71,8 +79,14 @@ public class InspiremeAdapter extends RecyclerView.Adapter<InspiremeAdapter.Insp
             Glide.with(photoProfile.getContext())
                     .load(ApiConfig.BASE_IMAGE_URL+inspireMe.getUser().getImageProfile())
                     .into(photoProfile);
+
+            CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(view.getContext());
+            circularProgressDrawable.setStrokeWidth(5f);
+            circularProgressDrawable.setCenterRadius(30f);
+            circularProgressDrawable.start();
             Glide.with(image.getContext())
                     .load(ApiConfig.BASE_IMAGE_URL+inspireMe.getImageUrl())
+                    .placeholder(circularProgressDrawable)
                     .into(image);
             username.setText(inspireMe.getUser().getName());
             caption.setText(inspireMe.getCaption());

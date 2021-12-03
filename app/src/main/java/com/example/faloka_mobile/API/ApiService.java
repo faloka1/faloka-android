@@ -9,6 +9,7 @@ import com.example.faloka_mobile.Model.Category;
 import com.example.faloka_mobile.Model.Courier;
 import com.example.faloka_mobile.Model.District;
 import com.example.faloka_mobile.Model.InspireMe;
+import com.example.faloka_mobile.Model.InspireMeResponse;
 import com.example.faloka_mobile.Model.Login;
 import com.example.faloka_mobile.Model.Message;
 import com.example.faloka_mobile.Model.OrderResponse;
@@ -179,7 +180,7 @@ public interface ApiService {
     Call<List<Product>> getCartProductsRelated(@Header("Authorization") String auth);
 
     @GET("inspireme")
-    Call<List<InspireMe>> getInspireMe();
+    Call<InspireMeResponse> getInspireMe(@Query("page") int page);
 
     @GET("inspireme/user/products")
     Call<List<OrderResponseForInspireMe>> getOrderForProduct(@Header("Authorization") String auth);

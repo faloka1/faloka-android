@@ -14,6 +14,7 @@ import com.example.faloka_mobile.LoadingDialog;
 import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.MainActivity;
 import com.example.faloka_mobile.Model.InspireMe;
+import com.example.faloka_mobile.Model.InspireMeResponse;
 import com.example.faloka_mobile.Model.Message;
 import com.example.faloka_mobile.Model.OrderResponseForInspireMe;
 
@@ -44,28 +45,21 @@ public class InspireMeRepositry {
         }
         return INSTANCE;
     }
-    public LiveData<List<InspireMe>> getPost(){
-        MutableLiveData<List<InspireMe>> inspireMeData = new MutableLiveData<>();
-        tokenManager.setLoadingDialog(new LoadingDialog((Activity) context));
-        tokenManager.getLoadingDialog().startLoadingDialog();
-        Call<List<InspireMe>> response = ApiConfig.getApiService(tokenManager).getInspireMe();
+    public LiveData<InspireMeResponse> getPost(int page){
+        MutableLiveData<InspireMeResponse> inspireMeData = new MutableLiveData<>();
+        Call<InspireMeResponse> response = ApiConfig.getApiService(tokenManager).getInspireMe(page);
 
-        response.enqueue(new Callback<List<InspireMe>>() {
+        response.enqueue(new Callback<InspireMeResponse>() {
             @Override
-            public void onResponse(Call<List<InspireMe>> call, Response<List<InspireMe>> response) {
+            public void onResponse(Call<InspireMeResponse> call, Response<InspireMeResponse> response) {
                 if(response.isSuccessful()){
-                   List<InspireMe> inspireMeList = response.body();
-                   inspireMeData.setValue(inspireMeList);
-                    tokenManager.getLoadingDialog().dismissLoadingDialog();
-                }
-                else{
-                    tokenManager.getLoadingDialog().dismissLoadingDialog();
+                    InspireMeResponse inspireMeResponse = response.body();
+                    inspireMeData.setValue(inspireMeResponse);
                 }
             }
 
             @Override
-            public void onFailure(Call<List<InspireMe>> call, Throwable t) {
-                tokenManager.getLoadingDialog().dismissLoadingDialog();
+            public void onFailure(Call<InspireMeResponse> call, Throwable t) {
                 Log.e("####", String.valueOf(t));
             }
 
