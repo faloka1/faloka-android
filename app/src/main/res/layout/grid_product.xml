@@ -9,8 +9,8 @@
         android:id="@+id/cv_product"
         android:layout_width="160dp"
         android:layout_height="260dp"
+        android:layout_margin="16dp"
         app:cardElevation="0dp"
-        android:layout_margin="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.1"
@@ -19,8 +19,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:background="@drawable/card_border"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/card_border">
 
             <ImageView
                 android:id="@+id/product_image"
@@ -46,7 +46,7 @@
                 android:textColor="#1E0F14"
                 android:textSize="17sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/product_image"/>" />
+                app:layout_constraintTop_toBottomOf="@+id/product_image" />" />
 
             <TextView
                 android:id="@+id/product_name"
