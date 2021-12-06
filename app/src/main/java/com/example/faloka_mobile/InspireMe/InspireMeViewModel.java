@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.faloka_mobile.Checkout.FileUtils;
 import com.example.faloka_mobile.Model.InspireMe;
 import com.example.faloka_mobile.Model.InspireMeProductVariant;
+import com.example.faloka_mobile.Model.InspireMeResponse;
 import com.example.faloka_mobile.Model.OrderResponseForInspireMe;
 import com.example.faloka_mobile.Model.Product;
 
@@ -31,8 +32,8 @@ public class InspireMeViewModel extends ViewModel {
         this.inspireMeRepositry = inspireMeRepositry;
     }
 
-    public LiveData<List<InspireMe>> getPost() {
-        return inspireMeRepositry.getPost();
+    public LiveData<InspireMeResponse> getPost(int page) {
+        return inspireMeRepositry.getPost(page);
     }
 
     public LiveData<List<OrderResponseForInspireMe>> getOrder() {

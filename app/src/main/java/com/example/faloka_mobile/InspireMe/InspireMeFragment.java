@@ -5,11 +5,13 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,9 +22,13 @@ import android.widget.Toast;
 
 import com.example.faloka_mobile.Adapter.InspiremeAdapter;
 import com.example.faloka_mobile.Login.LoginRepository;
+import com.example.faloka_mobile.Model.InspireMe;
 import com.example.faloka_mobile.Product.ProductDetailActivity;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.FragmentInpireMeBinding;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class InspireMeFragment extends Fragment {
 
@@ -33,6 +39,12 @@ public class InspireMeFragment extends Fragment {
     private FragmentInpireMeBinding binding;
     private AppCompatActivity activity;
     private View view;
+    private int page;
+    private InspiremeAdapter adapter;
+    private int totalItemCount, previousTotal=0;
+    private boolean isLoading = true;
+    private RecyclerView.LayoutManager layoutManager;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -49,13 +61,46 @@ public class InspireMeFragment extends Fragment {
         binding = FragmentInpireMeBinding.inflate(getLayoutInflater());
         activity = ((AppCompatActivity)getActivity());
         view = binding.getRoot();
-        viewModel.getPost().observe(getActivity(),posts->{
-            InspiremeAdapter adapter = new InspiremeAdapter(posts);
-            binding.rvInspireMeList.setLayoutManager(new LinearLayoutManager(getActivity()));
-            binding.rvInspireMeList.setAdapter(adapter);
-        });
+        page = 1;
+        layoutManager = new LinearLayoutManager(getActivity());
+        binding.rvInspireMeList.setLayoutManager(layoutManager);
+        adapter = new InspiremeAdapter();
+        binding.rvInspireMeList.setAdapter(adapter);
+        getPost(page);
         setToolbar();
+        setScroll();
         return view;
+    }
+
+    public void setScroll(){
+        binding.rvInspireMeList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                totalItemCount = layoutManager.getItemCount();
+                if(dy > 0){
+                    if(isLoading){
+                        if(totalItemCount>previousTotal){
+                            isLoading = false;
+                            previousTotal = totalItemCount;
+                        }
+                    }
+                    if(!isLoading){
+                        page++;
+                        getPost(page);
+                        isLoading = true;
+                    }
+                }
+            }
+        });
+    }
+
+    public void getPost(int page){
+        binding.progressBarInspireMe.setVisibility(View.VISIBLE);
+        viewModel.getPost(page).observe(getActivity(),posts->{
+            adapter.addInspireMe(posts.getInspireMeList());
+            binding.progressBarInspireMe.setVisibility(View.GONE);
+        });
     }
 
     private void setToolbar(){
