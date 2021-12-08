@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/netral_300"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Checkout.PaymentFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="@color/netral_100"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="17dp">
+
+                <TextView
+                    android:id="@+id/tv_payment_title_summary_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lato_bold"
+                    android:letterSpacing="0.015"
+                    android:text="Batas Akhir Pembayaran"
+                    android:textColor="@color/netral_900"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@color/netral_100"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="17dp">
+
+                <TextView
+                    android:id="@+id/tv_payment_title_choose_bank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lato_bold"
+                    android:letterSpacing="0.015"
+                    android:text="Detail Pembayaran"
+                    android:textColor="@color/netral_900"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/confirm_payment_method"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toStartOf="@id/tv_payment_title_choose_bank"
+                    app:layout_constraintTop_toBottomOf="@id/tv_payment_title_choose_bank">
+
+                    <TextView
+                        android:id="@+id/tv_confirm_title_method_payment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/khula"
+                        android:letterSpacing="0.025"
+                        android:text="Metode Pembayaran"
+                        android:textColor="@color/netral_500"
+                        android:textSize="14sp"
+                        />
+                    <TextView
+                        android:id="@+id/tv_confirm_value_method_payment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/khula_semibold"
+                        android:letterSpacing="0.025"
+                        android:text="BNI"
+                        android:textColor="@color/netral_900"
+                        android:textSize="14sp"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/confirm_payment_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toStartOf="@id/confirm_payment_method"
+                    app:layout_constraintTop_toBottomOf="@id/confirm_payment_method">
+
+                    <TextView
+                        android:id="@+id/tv_confirm_title_payment_code"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/khula"
+                        android:letterSpacing="0.025"
+                        android:text="Rekening Pembayaran"
+                        android:textColor="@color/netral_500"
+                        android:textSize="14sp"
+                        />
+                    <TextView
+                        android:id="@+id/tv_confirm_value_payment_code"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/khula_semibold"
+                        android:letterSpacing="0.025"
+                        android:text="27172817827 (Ela)"
+                        android:textColor="@color/netral_900"
+                        android:textSize="14sp"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/confirm_total_payment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toStartOf="@id/confirm_payment_code"
+                    app:layout_constraintTop_toBottomOf="@id/confirm_payment_code">
+
+                    <TextView
+                        android:id="@+id/tv_confirm_title_total_payment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/khula"
+                        android:letterSpacing="0.025"
+                        android:text="Total Pembayaran"
+                        android:textColor="@color/netral_500"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_confirm_value_total_payment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/khula_semibold"
+                        android:letterSpacing="0.025"
+                        android:text="Rp 92.000"
+                        android:textColor="@color/netral_900"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/netral_100"
+                    android:fontFamily="@font/lato_bold"
+                    android:letterSpacing="0.025"
+                    android:text="Detail"
+                    android:textColor="@color/secondary_light"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/confirm_total_payment"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/confirm_total_payment"></Button>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="@color/netral_100"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="17dp">
+
+                <Button
+                    android:id="@+id/btn_how_to_pay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/netral_100"
+                    android:fontFamily="@font/lato_bold"
+                    android:letterSpacing="0.125"
+                    android:text="Lihat Cara Pembayaran"
+                    android:textColor="@color/secondary_light"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </Button>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@color/netral_100"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="17dp">
+
+                <Button
+                    android:id="@+id/btn_upload"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/primary_light"
+                    android:fontFamily="@font/khula_semibold"
+                    android:letterSpacing="0.125"
+                    android:text="Upload Pembayaran"
+                    android:textColor="@color/netral_100"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </Button>
+
+                <Button
+                    android:id="@+id/btn_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:backgroundTint="@color/netral_100"
+                    android:fontFamily="@font/khula_semibold"
+                    android:letterSpacing="0.125"
+                    android:text="Cek Status Pesanan"
+                    android:textColor="@color/netral_900"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_upload">
+
+                </Button>
+
+                <Button
+                    android:id="@+id/btn_shopping"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:backgroundTint="@color/netral_100"
+                    android:fontFamily="@font/lato_bold"
+                    android:letterSpacing="0.125"
+                    android:text="Belanja lagi"
+                    android:textColor="@color/secondary_light"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_profile">
+
+                </Button>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</FrameLayout>

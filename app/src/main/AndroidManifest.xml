@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.faloka_mobile">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher_faloka"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/ic_launcher_faloka_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Falokamobile">
+        <activity
+            android:name=".Search.SearchListProductActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Search.SearchActivity"
+            android:exported="true" />
+        <activity
+            android:name=".InspireMe.InspireMeRelateProductListActivity"
+            android:exported="true" />
+        <activity
+            android:name=".InspireMe.InspireMeTagProductActivity"
+            android:exported="true" />
+        <activity
+            android:name=".InspireMe.InpireMeUploadActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Cart.CartActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Cart.CartEmptyActivity"
+            android:exported="true" />
+        <activity
+            android:name=".MixAndMatch.MixMatchActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Checkout.DetailOrderActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Checkout.ConfirmCheckoutActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Checkout.DeliveryChooseActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Checkout.ActionAddressActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Checkout.CheckoutActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Product.ProductDetailActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Login.LoginActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Register.RegisterActivity"
+            android:exported="true" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Checkout.checkoutCobaCoba"
+            android:exported="true" />
+        <activity
+            android:name=".Product.ProductListActivity"
+            android:exported="true"
+            android:label="Product List"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".SplashScreen"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+    </application>
+
+</manifest>
