@@ -27,7 +27,7 @@ public class BaseActivity extends AppCompatActivity implements CartCountItemList
     private ImageBadgeView badgeView;
     private int count;
     private static boolean flagAuth;
-
+ //COBA
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         if(!flagAuth){
