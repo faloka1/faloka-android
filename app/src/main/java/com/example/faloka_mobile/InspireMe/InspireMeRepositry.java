@@ -92,6 +92,7 @@ public class InspireMeRepositry {
     public void add(MultipartBody body){
         Call<Message> response = ApiConfig.getApiService(tokenManager).addInspireMe(
                 tokenManager.getTypeToken()+" "+tokenManager.getToken(),body);
+        tokenManager.setLoadingDialog(new LoadingDialog((Activity) context));
         tokenManager.getLoadingDialog().startLoadingDialog();
         response.enqueue(new Callback<Message>() {
             @Override

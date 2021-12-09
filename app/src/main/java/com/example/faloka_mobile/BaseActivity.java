@@ -1,5 +1,6 @@
 package com.example.faloka_mobile;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import com.example.faloka_mobile.Cart.CartActivity;
 import com.example.faloka_mobile.Cart.CartCountItemListener;
 import com.example.faloka_mobile.Cart.CartEmptyActivity;
 import com.example.faloka_mobile.Cart.CartRepository;
+import com.example.faloka_mobile.Login.LoginRepository;
 import com.example.faloka_mobile.Login.TokenManager;
 
 import ru.nikartm.support.BadgePosition;
@@ -38,10 +40,6 @@ public class BaseActivity extends AppCompatActivity implements CartCountItemList
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        TokenManager tokenManager = TokenManager.getInstance(getApplicationContext().getSharedPreferences("Token",0));
-        if(!tokenManager.isLogin()){
-            return super.onCreateOptionsMenu(menu);
-        }
         getMenuInflater().inflate(R.menu.top_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
@@ -53,9 +51,7 @@ public class BaseActivity extends AppCompatActivity implements CartCountItemList
             super.onResume();
             return;
         }
-//        if(!flagAuth){
-            CartRepository.getCountCarts(getApplicationContext(), this::onItemCount, this::onUnauthorized);
-//        }
+        CartRepository.getCountCarts(getApplicationContext(), this::onItemCount, this::onUnauthorized);
         super.onResume();
     }
 
@@ -66,11 +62,7 @@ public class BaseActivity extends AppCompatActivity implements CartCountItemList
             case android.R.id.home:
                 this.finish();
                 return true;
-//            case R.id.top_menu_wishlist:
-//                Toast.makeText(getApplicationContext(), "WISHLIST", Toast.LENGTH_SHORT).show();
-//                break;
             case R.id.top_menu_cart:
-//                Toast.makeText(getApplicationContext(), "CART", Toast.LENGTH_SHORT).show();
                 break;
         }
 
@@ -80,22 +72,19 @@ public class BaseActivity extends AppCompatActivity implements CartCountItemList
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        TokenManager tokenManager = TokenManager.getInstance(getApplicationContext().getSharedPreferences("Token",0));
-        if(!tokenManager.isLogin()){
-            return super.onPrepareOptionsMenu(menu);
-        }
         MenuItem menuItem = menu.findItem(R.id.top_menu_cart);
         badgeView = menuItem.getActionView().findViewById(R.id.cart_badge);
         badgeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(count <= 0){
-//                    Toast.makeText(getApplicationContext(), "CART", Toast.LENGTH_SHORT).show();
+                    if(!LoginRepository.isValidationLogin(BaseActivity.this)){
+                        return;
+                    }
                     Intent intent = new Intent(getApplicationContext(), CartEmptyActivity.class);
                     startActivity(intent);
                 }
                 else {
-//                    Toast.makeText(getApplicationContext(), "CART", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(), CartActivity.class);
                     startActivity(intent);
                 }

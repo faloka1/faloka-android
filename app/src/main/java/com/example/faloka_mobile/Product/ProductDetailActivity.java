@@ -45,6 +45,7 @@ public class ProductDetailActivity extends BaseActivity implements CartAddItemLi
 
     ActivityProductDetailBinding binding;
     Product product;
+    VariantSize selectedVariantSize;
     private static boolean flagAuth;
 
     @Override
@@ -76,15 +77,18 @@ public class ProductDetailActivity extends BaseActivity implements CartAddItemLi
                 List<Cart> cartList = new ArrayList<>();
                 Cart cart = new Cart();
                 Variant variant = product.getVariantList().get(0);
+                List<VariantSize> variantSizes = new ArrayList<>();
+                variantSizes.add(selectedVariantSize);
+                variant.setVariantSizes(variantSizes);
                 cart.setVariant(variant);
                 cart.setQuantity(1);
                 cart.setProductID(product.getId());
+                cart.setProduct(product);
                 cart.setVariantID(product.getVariantList().get(0).getId());
                 cartList.add(cart);
                 Intent intent = new Intent(ProductDetailActivity.this, CheckoutActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelableArrayList(Product.EXTRA_PRODUCT, (ArrayList)cartList);
-//                intent.putExtra(Product.EXTRA_PRODUCT, product);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -130,13 +134,16 @@ public class ProductDetailActivity extends BaseActivity implements CartAddItemLi
             mChip.setCheckable(true);
             if(i==0){
                 mChip.setChecked(true);
+                selectedVariantSize = variantSizes.get(i);
             }
+            int finalI = i;
             mChip.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View view) {
-                   mChip.setChecked(true);
-               }
-           });
+                @Override
+                public void onClick(View view) {
+                    mChip.setChecked(true);
+                    selectedVariantSize = variantSizes.get(finalI);
+                }
+            });
             binding.cgDetailProduct.addView(mChip);
         }
         binding.carouselDetailImage.setPageCount(product.getProductCarouselImageURL().size());
@@ -218,13 +225,7 @@ public class ProductDetailActivity extends BaseActivity implements CartAddItemLi
         BodyCart bodyCart = new BodyCart();
         bodyCart.setProductID(product.getId());
         bodyCart.setVariantID(variant.getId());
-        for(int i=0; i<binding.cgDetailProduct.getChildCount(); i++){
-            Chip chip = (Chip) binding.cgDetailProduct.getChildAt(i);
-            if(chip.isChecked()){
-                Log.d("######", String.valueOf(product.getVariantList().get(0).getVariantSizes().get(i).getId()));
-               bodyCart.setVariantSizeID(product.getVariantList().get(0).getVariantSizes().get(i).getId());
-            }
-        }
+        bodyCart.setVariantSizeID(selectedVariantSize.getId());
         bodyCart.setQuantity(1);
         for(Cart cart : cartList){
             if(cart.getProduct().getId() == bodyCart.getProductID()){

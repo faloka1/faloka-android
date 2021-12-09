@@ -1,5 +1,6 @@
 package com.example.faloka_mobile;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -21,7 +22,10 @@ import com.example.faloka_mobile.Cart.CartActivity;
 import com.example.faloka_mobile.Cart.CartCountItemListener;
 import com.example.faloka_mobile.Cart.CartEmptyActivity;
 import com.example.faloka_mobile.Cart.CartRepository;
+import com.example.faloka_mobile.Login.LoginActivity;
+import com.example.faloka_mobile.Login.LoginRepository;
 import com.example.faloka_mobile.Login.TokenManager;
+import com.example.faloka_mobile.Product.ProductDetailActivity;
 
 import ru.nikartm.support.BadgePosition;
 import ru.nikartm.support.ImageBadgeView;
@@ -46,19 +50,12 @@ public class BaseFragment extends Fragment implements CartCountItemListener, Aut
             super.onResume();
             return;
         }
-//        if(!flagAuth) {
-            CartRepository.getCountCarts(getContext(), this::onItemCount, this::onUnauthorized);
-//        }
+        CartRepository.getCountCarts(getContext(), this::onItemCount, this::onUnauthorized);
         super.onResume();
     }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        TokenManager tokenManager = TokenManager.getInstance(getContext().getSharedPreferences("Token",0));
-        if(!tokenManager.isLogin()){
-            super.onCreateOptionsMenu(menu, inflater);
-            return;
-        }
         ((AppCompatActivity)getActivity()).getMenuInflater().inflate(R.menu.top_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -68,11 +65,7 @@ public class BaseFragment extends Fragment implements CartCountItemListener, Aut
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()){
-//            case R.id.top_menu_wishlist:
-//                Toast.makeText(((AppCompatActivity)getActivity()).getApplicationContext(), "WISHLIST", Toast.LENGTH_SHORT).show();
-//                break;
             case R.id.top_menu_cart:
-//                Toast.makeText(((AppCompatActivity)getActivity()).getApplicationContext(), "CART", Toast.LENGTH_SHORT).show();
                 break;
         }
 
@@ -81,24 +74,19 @@ public class BaseFragment extends Fragment implements CartCountItemListener, Aut
 
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
-        TokenManager tokenManager = TokenManager.getInstance(getContext().getSharedPreferences("Token",0));
-        if(!tokenManager.isLogin()){
-            super.onPrepareOptionsMenu(menu);
-            return;
-        }
-
         MenuItem menuItem = menu.findItem(R.id.top_menu_cart);
         badgeView = menuItem.getActionView().findViewById(R.id.cart_badge);
         badgeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(count <= 0){
-//                    Toast.makeText(((AppCompatActivity) getActivity()).getApplicationContext(), "CART", Toast.LENGTH_SHORT).show();
+                    if(!LoginRepository.isValidationLogin(((Activity)getContext()))){
+                        return;
+                    }
                     Intent intent = new Intent(getActivity().getApplicationContext(), CartEmptyActivity.class);
                     startActivity(intent);
                 }
                 else {
-//                    Toast.makeText(((AppCompatActivity) getActivity()).getApplicationContext(), "CART", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getActivity().getApplicationContext(), CartActivity.class);
                     startActivity(intent);
                 }

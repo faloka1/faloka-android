@@ -124,11 +124,10 @@
                         android:id="@+id/cg_detail_product"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="-7dp"
                         app:chipSpacingHorizontal="1dp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:singleSelection="true"
-                        >
-                    </com.google.android.material.chip.ChipGroup>
+                        app:singleSelection="true"></com.google.android.material.chip.ChipGroup>
                 </LinearLayout>
 
 
@@ -212,27 +211,29 @@
 
             <Button
                 android:id="@+id/btn_cart"
-                android:layout_columnWeight=".5"
+                style="@style/ButtonSecondary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_columnWeight=".5"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentBottom="true"
+                android:layout_gravity="left"
                 android:layout_marginTop="2dp"
-                android:layout_marginBottom="2dp"
                 android:layout_marginRight="12dp"
-                style="@style/ButtonSecondary"
+                android:layout_marginBottom="2dp"
                 android:text="Masukkan Tas " />
 
             <Button
                 android:id="@+id/btn_buy_now"
-                android:layout_columnWeight=".5"
+                style="@style/ButtonPrimary"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_columnWeight=".5"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                style="@style/ButtonPrimary"
+                android:layout_gravity="right"
                 android:layout_margin="2dp"
                 android:text="Beli Sekarang"
                 android:textSize="14sp" />
