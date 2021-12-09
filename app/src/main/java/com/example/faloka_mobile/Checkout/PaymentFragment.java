@@ -53,9 +53,8 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
     StepViewSelectedListener stepViewSelectedListener;
     PaymentViewModel viewModel;
     View view;
-//    Checkout checkout;
     Order order;
-//    OrderUser orderUser;
+    int priceService;
 
     public PaymentFragment(StepViewSelectedListener stepViewSelectedListener){
         this.stepViewSelectedListener = stepViewSelectedListener;
@@ -88,11 +87,9 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
     }
     private void setSummaryPrice(){
         int total = 0;
-//        total = orderUser.getShippingPrice() + orderUser.getOrderDetailList().get(0).getProduct().getPrice();
         total = getTotal(order.getCartBrandList());
         TextView tvSubTotal = view.findViewById(R.id.tv_payment_value_subtotal);
-//        tvSubTotal.setText(String.valueOf(order.getTotalOrder()));
-        tvSubTotal.setText(String.valueOf(total));
+        tvSubTotal.setText(getFormatRupiah(total));
     }
     private void setPaymentMethod(){
 //        viewModel.getPaymentMethod().observe(getActivity(),paymentMethods -> {
@@ -172,35 +169,17 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
 
     @Override
     public void onPaymentSelected(Payment paymentMethod) {
+        priceService = paymentMethod.getPriceService();
         Button buttonNext = view.findViewById(R.id.btn_checkout_next);
         TextView tvPriceService = view.findViewById(R.id.tv_payment_value_total_service);
-        tvPriceService.setText(String.valueOf(paymentMethod.getPriceService()));
+        tvPriceService.setText(getFormatRupiah(priceService));
         buttonNext.setEnabled(true);
         buttonNext.setTextColor(getResources().getColor(R.color.white));
         buttonNext.setBackgroundColor(getActivity().getResources().getColor(R.color.netral_900));
-//        buttonNext.setBackgroundResource(R.color.netral_900);
-//        order.getCheckout().setPaymentID(paymentMethod.getId());
-//        orderUser.setPaymentID(paymentMethod.getId());
         order.setPayment(paymentMethod);
-//        Toast.makeText(view.getContext(), String.valueOf(order.getPayment().getId()), Toast.LENGTH_SHORT).show();
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Bundle bundlePayment = new Bundle();
-//                Intent intent = new Intent(getActivity(), ConfirmCheckoutActivity.class);
-//
-//                getTotal().observe(getActivity(),total->{
-//                    bundlePayment.putString("TOTAL_PRICE", total);
-//                });
-//
-//                bundlePayment.putParcelable("PAYMENT_METHOD",paymentMethod);
-//                intent.putExtra("DATA_CHECKOUT",bundlePayment);
-//                startActivity(intent);
-
-//                getTotal().observe(getActivity(),total->{
-//                    order.getCheckout().setTotalPrice(Integer.parseInt(total));
-//                });
-
 
                 AlertDialog.Builder alertBuilder = new AlertDialog.Builder(view.getContext());
                 alertBuilder.setMessage("Apakah kamu yakin memesan ini?");
@@ -287,29 +266,11 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
             bodyOrderBrandList.add(bodyOrderBrand);
         }
         bodyCheckout.setBodyOrderBrandList(bodyOrderBrandList);
-//        System.out.println("\npayment_id: "+bodyCheckout.getPaymentID());
-//        System.out.println("address_id: "+bodyCheckout.getAddressID());
-//        for (BodyOrderBrand bodyOrderBrand : bodyCheckout.getBodyOrderBrandList()){
-//            System.out.println("   payment_id: "+bodyOrderBrand.getBrandID());
-//            System.out.println("   shipping_price: "+bodyOrderBrand.getShippingPrice());
-//            System.out.println("   expedition_name: "+bodyOrderBrand.getExpeditionName());
-//            System.out.println("   service: "+bodyOrderBrand.getService());
-//            for(BodyOrderItem bodyOrderItem : bodyOrderBrand.getBodyOrderItemList()){
-//                System.out.println("      quantity: "+bodyOrderItem.getQuantity());
-//                System.out.println("      variant_id: "+bodyOrderItem.getVariantID());
-//                System.out.println("      product_id: "+bodyOrderItem.getProductID());
-//            }
-//        }
-
         return bodyCheckout;
     }
 
     private LiveData<String> getTotal(){
-
-        TextView tvSubTotal = view.findViewById(R.id.tv_payment_value_subtotal);
-        TextView tvServicePrice = view.findViewById(R.id.tv_payment_value_total_service);
-
-        return viewModel.getTotalPrice(tvSubTotal.getText().toString(),tvServicePrice.getText().toString());
+        return viewModel.getTotalPrice(String.valueOf(getTotal(order.getCartBrandList())),String.valueOf(priceService));
     }
 
     public static final int getTotal(List<CartBrand> cartBrandList){

@@ -100,7 +100,11 @@ public class CartRepository {
             public void onResponse(Call<List<Cart>> call, Response<List<Cart>> response) {
                 if(response.isSuccessful()){
                     List<Cart> cartList = response.body();
-                    cartCountItemListener.onItemCount(cartList.size());
+                    int count = 0;
+                    for(Cart cart : cartList){
+                        count += cart.getQuantity();
+                    }
+                    cartCountItemListener.onItemCount(count);
                     authFlagListener.onUnauthorized(false);
                 }
                 if(response.code() == 401){

@@ -116,7 +116,7 @@
 
             <TextView
                 android:id="@+id/tv_cart_qty"
-                android:layout_width="60dp"
+                android:layout_width="40dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="8dp"
                 android:background="@drawable/card_border"
@@ -130,11 +130,13 @@
                 android:id="@+id/btn_cart_delete"
                 android:layout_width="30dp"
                 android:layout_height="25dp"
-                android:src="@drawable/ic_carbon_delete"
                 android:layout_marginStart="8dp"
+                android:background="#FFFFFF"
+                android:src="@drawable/ic_carbon_delete"
                 app:layout_constraintBottom_toBottomOf="@+id/btn_cart_qty_plus"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/btn_cart_qty_plus"
-                app:layout_constraintTop_toTopOf="@+id/btn_cart_qty_plus"/>
+                app:layout_constraintTop_toTopOf="@+id/btn_cart_qty_plus" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

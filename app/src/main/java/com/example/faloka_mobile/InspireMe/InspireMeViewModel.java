@@ -2,7 +2,9 @@ package com.example.faloka_mobile.InspireMe;
 
 import android.content.Context;
 import android.net.Uri;
+import android.view.View;
 
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -13,6 +15,8 @@ import com.example.faloka_mobile.Model.InspireMeProductVariant;
 import com.example.faloka_mobile.Model.InspireMeResponse;
 import com.example.faloka_mobile.Model.OrderResponseForInspireMe;
 import com.example.faloka_mobile.Model.Product;
+import com.example.faloka_mobile.R;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
 import java.util.ArrayList;

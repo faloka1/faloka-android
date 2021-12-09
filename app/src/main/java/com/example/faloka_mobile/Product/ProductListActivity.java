@@ -118,6 +118,7 @@ public class ProductListActivity extends BaseActivity {
             @Override
             public void onResponse(Call<ProductListResponse> call, Response<ProductListResponse> response) {
                 ProductListResponse productListResponses = response.body();
+                toolbar.setSubtitle(productListResponses.getCount()+" product ditemukan");
                 List<Product> respProduct = productListResponses.getProductList();
                 RecyclerView rvProductList = findViewById(R.id.rv_product_list);
                 ProductAdapter productAdapter = new ProductAdapter(respProduct);
