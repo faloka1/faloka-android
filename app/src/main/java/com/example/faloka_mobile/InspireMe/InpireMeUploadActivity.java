@@ -35,6 +35,7 @@ import com.example.faloka_mobile.Model.InspireMeProductVariant;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.ActivityInpireMeUploadInspireMeBinding;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -70,8 +71,6 @@ public class InpireMeUploadActivity extends AppCompatActivity {
         buttonRelateProduct = binding.buttonAddProduct;
         imageView = binding.ivPost;
         etCaption= binding.uploadInspireEtCaption;
-
-
 
         InspireMeViewModelFactory factory = new InspireMeViewModelFactory(new InspireMeRepositry(this));
         viewModel = new ViewModelProvider(this, factory).get(InspireMeViewModel.class);
@@ -219,8 +218,31 @@ public class InpireMeUploadActivity extends AppCompatActivity {
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                boolean isValid = true;
+                if(uri == null){
+                    isValid = false;
+                }
+                if(etCaption.getText().toString().isEmpty()){
+                    isValid = false;
+                }
+                if(viewModel.getProductVariants().isEmpty()){
+                    isValid = false;
+                }
+                if(!isValid){
+                    Snackbar snackbar = Snackbar.make(binding.coordinatorLayoutTopUploadInspire, "Lengkapi upload outfitmu!", Snackbar.LENGTH_LONG);
+                    snackbar.setAction("OK", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+                    snackbar.setActionTextColor(InpireMeUploadActivity.this.getResources().getColor(R.color.primary_dark));
+                    snackbar.setTextColor(InpireMeUploadActivity.this.getResources().getColor(R.color.primary_dark));
+                    snackbar.setBackgroundTint(InpireMeUploadActivity.this.getResources().getColor(R.color.semantic_warning));
+                    snackbar.show();
+                    return;
+                }
                 viewModel.addInspireme(uri, etCaption.getText().toString(), getApplicationContext());
-//                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,new InspireMeFragment()).commit();
             }
         });
         buttonReset.setOnClickListener(new View.OnClickListener() {

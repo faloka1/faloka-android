@@ -54,7 +54,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         Double price = Double.parseDouble(String.valueOf(product.getPrice()));
         Locale localeID = new Locale("in", "ID");
         NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
-        holder.price.setText(String.valueOf(formatRupiah.format(price)));
+        holder.price.setText(String.valueOf(formatRupiah.format((double)price)));
         holder.product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
