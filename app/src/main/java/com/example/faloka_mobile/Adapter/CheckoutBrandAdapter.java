@@ -30,6 +30,9 @@ public class CheckoutBrandAdapter extends RecyclerView.Adapter<CheckoutBrandAdap
     private Context context;
     private CheckoutBrandListener checkoutBrandListener;
     private boolean isOpenDialog = true;
+//    private static String courierName;
+//    private static Courier selectedCourier;
+//    private static CourierService selectedCourierService;
 
     public CheckoutBrandAdapter(List<CartBrand> cartBrandList){
         this.cartBrandList = cartBrandList;
@@ -72,7 +75,8 @@ public class CheckoutBrandAdapter extends RecyclerView.Adapter<CheckoutBrandAdap
         holder.rvCheckoutProduct.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
 
         if(cartBrand.getCourier() != null && cartBrand.getCourierService() != null){
-            holder.tvCheckoutDelivery.setText(cartBrand.getCourier().getName()+" "+cartBrand.getCourierService().getName());
+            String courierName = cartBrand.getCourier().getName()+" "+cartBrand.getCourierService().getName();
+            holder.tvCheckoutDelivery.setText(courierName);
             holder.tvCheckoutDeliveryPrice.setText(getFormatRupiah(cartBrand.getCourierService().getCost().get(0).getValue()));
         }
     }
@@ -99,11 +103,14 @@ public class CheckoutBrandAdapter extends RecyclerView.Adapter<CheckoutBrandAdap
 
         @Override
         public void onDelivery(Courier courier, CourierService courierService) {
+//            selectedCourier = courier;
+//            selectedCourierService = courierService;
             tvCheckoutDelivery.setText(courier.getName()+" "+courierService.getName());
             tvCheckoutDeliveryPrice.setText(getFormatRupiah(courierService.getCost().get(0).getValue()));
             cartBrandList.get(getAdapterPosition()).setCourier(courier);
             cartBrandList.get(getAdapterPosition()).setCourierService(courierService);
             checkoutBrandListener.onCartBrand(cartBrandList);
+            System.out.println("HMMMMMMM: "+courier.getName()+" "+courierService.getName());
         }
     }
     public String getFormatRupiah(int price){

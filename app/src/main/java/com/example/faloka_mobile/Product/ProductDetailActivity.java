@@ -111,7 +111,20 @@ public class ProductDetailActivity extends BaseActivity implements CartAddItemLi
         binding.btnMixMatch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ProductRepository.getProductBySlug(view, product.getSlug(), ProductDetailActivity.this::onProductSlug);
+//                ProductRepository.getProductBySlug(view, product.getSlug(), ProductDetailActivity.this::onProductSlug);
+                Cart cart = new Cart();
+                Variant variant = product.getVariantList().get(0);
+                List<VariantSize> variantSizes = new ArrayList<>();
+                variantSizes.add(selectedVariantSize);
+                variant.setVariantSizes(variantSizes);
+                cart.setVariant(variant);
+                cart.setQuantity(1);
+                cart.setProductID(product.getId());
+                cart.setProduct(product);
+                cart.setVariantID(product.getVariantList().get(0).getId());
+                Intent intent = new Intent(binding.getRoot().getContext(), MixMatchActivity.class);
+                intent.putExtra(Product.EXTRA_PRODUCT, cart);
+                binding.getRoot().getContext().startActivity(intent);
             }
         });
     }
@@ -212,9 +225,9 @@ public class ProductDetailActivity extends BaseActivity implements CartAddItemLi
 
     @Override
     public void onProductSlug(Product product) {
-        Intent intent = new Intent(binding.getRoot().getContext(), MixMatchActivity.class);
-        intent.putExtra(Product.EXTRA_PRODUCT, product);
-        binding.getRoot().getContext().startActivity(intent);
+//        Intent intent = new Intent(binding.getRoot().getContext(), MixMatchActivity.class);
+//        intent.putExtra(Product.EXTRA_PRODUCT, product);
+//        binding.getRoot().getContext().startActivity(intent);
     }
 
     @Override
