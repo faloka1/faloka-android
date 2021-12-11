@@ -256,31 +256,6 @@ public class MixMatchViewModel extends ViewModel implements
                         alertDialog.dismiss();
                     }
                 });
-
-
-//                View v = LayoutInflater.from(activity).inflate(R.layout.layout_mix_match_cart_2, null);
-//                RecyclerView recyclerView = v.findViewById(R.id.rv_mix_match_cart_2);
-//                Button button = v.findViewById(R.id.button);
-//                RecyclerView recyclerView = new RecyclerView(activity);
-//
-//                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(activity);
-//                bottomSheetDialog.setTitle("Pilih ukuran outfit kamu");
-//                bottomSheetDialog.setContentView(recyclerView);
-//                MixMatchCartAdapter mixMatchCartAdapter = new MixMatchCartAdapter(this.cartList, this::onMixMatchVariantSize);
-//                recyclerView.setAdapter(mixMatchCartAdapter);
-//                recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-//                bottomSheetDialog.show();
-//                bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-//                    @Override
-//                    public void onDismiss(DialogInterface dialogInterface) {
-//                        Intent intent = new Intent(binding.getRoot().getContext(), CheckoutActivity.class);
-//                        Bundle bundle = new Bundle();
-//                        bundle.putParcelableArrayList(Product.EXTRA_PRODUCT, (ArrayList) cartList);
-//                        intent.putExtras(bundle);
-//                        binding.getRoot().getContext().startActivity(intent);
-//                    }
-//                });
-
             }
             else {
                 Snackbar snackbar = Snackbar.make(binding.coordinatorLayoutTopMixMatch, "Pilih outfitnya dulu ya", Snackbar.LENGTH_LONG);
