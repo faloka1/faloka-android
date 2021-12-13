@@ -132,7 +132,6 @@ public class CartRepository {
             public void onResponse(Call<Message> call, Response<Message> response) {
                 if(response.isSuccessful()){
                     Message message = response.body();
-                    Snackbar.make(view, message.getMessage(), Snackbar.LENGTH_SHORT).show();
                     cartAddItemListener.onAddToCart();
                 }
                 else {

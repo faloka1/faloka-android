@@ -28,9 +28,6 @@ public class CheckoutActivity extends AppCompatActivity implements StepViewSelec
 
     public ActivityCheckoutBinding binding;
     public ArrayList<String> label = new ArrayList<>();
-//    private Product product;
-//    private List<Product> productList;
-//    Bundle bundle;
     private List<Cart> cartList;
 
     @Override
@@ -66,11 +63,8 @@ public class CheckoutActivity extends AppCompatActivity implements StepViewSelec
         binding.stepView.setOnStepClickListener(this);
     }
     private void setContent(){
-//        productList = getIntent().getParcelableArrayListExtra(Product.EXTRA_PRODUCT);
         cartList = getIntent().getParcelableArrayListExtra(Product.EXTRA_PRODUCT);
-//        product = getIntent().getParcelableExtra(Product.EXTRA_PRODUCT);
         Bundle bundle = new Bundle();
-//        bundle.putParcelable(Product.EXTRA_PRODUCT, product);
         bundle.putParcelableArrayList(Product.EXTRA_PRODUCT, (ArrayList)cartList);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -103,7 +97,7 @@ public class CheckoutActivity extends AppCompatActivity implements StepViewSelec
                     this.getSupportFragmentManager().popBackStack();
                     onStep(DeliveryFragment.DELIVERY_STEP);
                 }
-                return true;
+                return super.onOptionsItemSelected(item);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -111,19 +105,6 @@ public class CheckoutActivity extends AppCompatActivity implements StepViewSelec
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        if(requestCode == DeliveryFragment.REQUEST_CHOOSE_DELIVERY && resultCode == DeliveryFragment.RESULT_CHOOSE_DELIVERY){
-//            Bundle bundleAha = data.getBundleExtra(DeliveryFragment.EXTRA_CHOOSE_DELIVERY);
-////            Courier courier = bundle.getParcelable(Courier.EXTRA_COURIER);
-////            CourierService courierService = bundle.getParcelable(CourierService.EXTRA_COURIER_SERVICE);
-////            System.out.println(courier.getName()+" "+courierService.getName());
-//            if(bundleAha == null){
-//                Toast.makeText(binding.getRoot().getContext(), "NULL DATA", Toast.LENGTH_SHORT).show();
-//            }
-//            else {
-//                Courier courier = (Courier) bundle.getParcelable(Courier.EXTRA_COURIER);
-//                Toast.makeText(binding.getRoot().getContext(), "NO NULL DATA"+ courier.getName(), Toast.LENGTH_SHORT).show();
-//            }
-//        }
         if(requestCode == Address.REQUEST_EDIT_ADDRESS && resultCode == Address.RESULT_EDIT_ADDRESS){
             setContent();
         }
@@ -147,5 +128,11 @@ public class CheckoutActivity extends AppCompatActivity implements StepViewSelec
             this.getSupportFragmentManager().popBackStack();
         }
         onStep(step);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
     }
 }

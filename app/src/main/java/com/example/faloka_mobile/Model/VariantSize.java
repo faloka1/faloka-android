@@ -16,6 +16,10 @@ public class VariantSize implements Parcelable {
     @SerializedName("updated_at")
     String updatedAtl;
 
+    public VariantSize(){
+
+    }
+
     protected VariantSize(Parcel in) {
         name = in.readString();
         id = in.readInt();

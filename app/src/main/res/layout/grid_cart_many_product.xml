@@ -41,7 +41,7 @@
                 app:srcCompat="@android:drawable/ic_dialog_alert" />
 
             <TextView
-                android:id="@+id/tv_cart_product_name"
+                android:id="@+id/tv_mix_match_cart_name"
                 style="@style/TextAppearance.App.Body1"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
@@ -59,11 +59,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="@+id/tv_cart_product_name"
+                app:layout_constraintEnd_toEndOf="@+id/tv_mix_match_cart_name"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/img_cart_product"
-                app:layout_constraintStart_toStartOf="@+id/tv_cart_product_name"
-                app:layout_constraintTop_toBottomOf="@+id/tv_cart_product_name">
+                app:layout_constraintStart_toStartOf="@+id/tv_mix_match_cart_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_mix_match_cart_name">
 
                 <TextView
                     android:id="@+id/tv_cart_label_product_size"
@@ -84,15 +84,15 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_cart_product_price"
+                android:id="@+id/tv_mix_match_cart_price"
                 style="@style/TextAppearance.App.Subtitle1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:text="Rp."
-                app:layout_constraintBottom_toBottomOf="@+id/tv_cart_product_name"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_mix_match_cart_name"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tv_cart_product_name" />
+                app:layout_constraintTop_toTopOf="@+id/tv_mix_match_cart_name" />
 
             <ImageButton
                 android:id="@+id/btn_cart_qty_minus"
