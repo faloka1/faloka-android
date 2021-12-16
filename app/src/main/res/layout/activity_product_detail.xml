@@ -20,6 +20,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:titleTextAppearance="@style/TextAppearance.App.Subtitle1" />
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinator_layout_top_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/transparent"
+        tools:ignore="MissingConstraints"></androidx.coordinatorlayout.widget.CoordinatorLayout>
+
     <ScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"

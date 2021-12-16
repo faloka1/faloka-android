@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:padding="4dp">
+
+    <androidx.cardview.widget.CardView
+
+        android:id="@+id/cv_mix_match_cart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FFFFFF"
+        app:cardBackgroundColor="?attr/background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="4dp">
+
+            <ImageView
+                android:id="@+id/img_mix_match_cart"
+                android:layout_width="80dp"
+                android:layout_height="82dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@android:drawable/ic_dialog_alert" />
+
+            <TextView
+                android:id="@+id/tv_mix_match_cart_name"
+                style="@style/TextAppearance.App.Body1"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Baju baru"
+                app:layout_constraintStart_toEndOf="@+id/img_mix_match_cart"
+                app:layout_constraintTop_toTopOf="@+id/img_mix_match_cart" />
+
+
+            <LinearLayout
+                android:id="@+id/linearLayout4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@+id/img_mix_match_cart"
+                app:layout_constraintStart_toStartOf="@+id/tv_mix_match_cart_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_mix_match_cart_name">
+
+                <TextView
+                    style="@style/TextAppearance.App.Subtitle2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:text="Pilih ukuran"></TextView>
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/cg_mix_match_cart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="-7dp"
+                    app:chipSpacingHorizontal="1dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:singleSelection="true"></com.google.android.material.chip.ChipGroup>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_mix_match_cart_price"
+                style="@style/TextAppearance.App.Subtitle1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:gravity="start"
+                android:text="Rp."
+                app:layout_constraintStart_toEndOf="@+id/tv_mix_match_cart_name"
+                app:layout_constraintTop_toTopOf="@+id/tv_mix_match_cart_name" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

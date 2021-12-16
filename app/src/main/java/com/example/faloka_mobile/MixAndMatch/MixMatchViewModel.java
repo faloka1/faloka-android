@@ -1,24 +1,26 @@
 package com.example.faloka_mobile.MixAndMatch;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.faloka_mobile.API.ApiConfig;
-import com.example.faloka_mobile.Adapter.ProductAdapter;
+import com.example.faloka_mobile.Adapter.MixMatchCartAdapter;
 import com.example.faloka_mobile.Adapter.ProductMixMatchAdapter;
 import com.example.faloka_mobile.Checkout.CheckoutActivity;
 import com.example.faloka_mobile.Login.LoginRepository;
@@ -27,7 +29,7 @@ import com.example.faloka_mobile.Model.Category;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.ProductMixMatch;
 import com.example.faloka_mobile.Model.Variant;
-import com.example.faloka_mobile.Product.ProductDetailActivity;
+import com.example.faloka_mobile.Model.VariantSize;
 import com.example.faloka_mobile.Product.ProductListener;
 import com.example.faloka_mobile.Product.ProductRepository;
 import com.example.faloka_mobile.R;
@@ -35,11 +37,18 @@ import com.example.faloka_mobile.databinding.ActivityMixMatchBinding;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MixMatchViewModel extends ViewModel implements View.OnTouchListener, ProductMxMatchListener, SelectedImageListener, View.OnClickListener, ProductListener, RemoveProductListener {
+public class MixMatchViewModel extends ViewModel implements
+        View.OnTouchListener,
+        ProductMxMatchListener,
+        SelectedImageListener,
+        View.OnClickListener,
+        ProductListener,
+        RemoveProductListener,
+        MixMatchVariantSizeListener,
+        MixMatchCartVarSizeListener{
 
     private ActivityMixMatchBinding binding;
     private AppCompatActivity activity;
@@ -199,6 +208,7 @@ public class MixMatchViewModel extends ViewModel implements View.OnTouchListener
         ProductRepository.getProductBySlug(binding.getRoot(), product.getSlug(), this::onProductSlug);
     }
 
+    @SuppressLint("ResourceType")
     @Override
     public void onClick(View view) {
         if(view.getId() == binding.btnMixMatchDelete.getId()){
@@ -212,11 +222,40 @@ public class MixMatchViewModel extends ViewModel implements View.OnTouchListener
                 return;
             }
             if(!cartList.isEmpty()) {
-                Intent intent = new Intent(binding.getRoot().getContext(), CheckoutActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList(Product.EXTRA_PRODUCT, (ArrayList) cartList);
-                intent.putExtras(bundle);
-                binding.getRoot().getContext().startActivity(intent);
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+
+                LayoutInflater inflater = activity.getLayoutInflater();
+                View v = inflater.inflate(R.layout.layout_mix_match_cart, null);
+                RecyclerView recyclerView = v.findViewById(R.id.rv_mix_match_cart);
+                MixMatchCartAdapter mixMatchCartAdapter = new MixMatchCartAdapter(this.cartList, this::onMixMatchVariantSize);
+                recyclerView.setAdapter(mixMatchCartAdapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+                Button btnNext = v.findViewById(R.id.btn_mix_match_cart_next);
+                Button btnBack = v.findViewById(R.id.btn_mix_match_cart_back);
+
+                builder.setView(v);
+                builder.setMessage("Pilih ukuran outfit kamu");
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+
+                btnNext.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(binding.getRoot().getContext(), CheckoutActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelableArrayList(Product.EXTRA_PRODUCT, (ArrayList) cartList);
+                        intent.putExtras(bundle);
+                        binding.getRoot().getContext().startActivity(intent);
+                        alertDialog.dismiss();
+                    }
+                });
+
+                btnBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        alertDialog.dismiss();
+                    }
+                });
             }
             else {
                 Snackbar snackbar = Snackbar.make(binding.coordinatorLayoutTopMixMatch, "Pilih outfitnya dulu ya", Snackbar.LENGTH_LONG);
@@ -273,9 +312,10 @@ public class MixMatchViewModel extends ViewModel implements View.OnTouchListener
 
     public void addProductFromDetail(){
         if(activity.getIntent() != null){
-            Product product = activity.getIntent().getParcelableExtra(Product.EXTRA_PRODUCT);
-            if(product != null){
-                ProductRepository.getProductBySlug(binding.getRoot(), product.getSlug(), this::onProductSlug);
+            Cart cart = activity.getIntent().getParcelableExtra(Product.EXTRA_PRODUCT);
+            if(cart != null){
+//                ProductRepository.getProductBySlug(binding.getRoot(), product.getSlug(), this::onProductSlug);
+                MixMatchRepository.getMixMatchCartVariantSize(binding.getRoot(), cart, this::onMixMatchCartVarSize);
             }
         }
     }
@@ -285,7 +325,8 @@ public class MixMatchViewModel extends ViewModel implements View.OnTouchListener
             List<Cart> cartList = activity.getIntent().getParcelableArrayListExtra(Product.EXTRA_PRODUCT);
             if(cartList != null){
                 for(Cart cart : cartList){
-                    ProductRepository.getProductBySlug(binding.getRoot(), cart.getProduct().getSlug(), this::onProductSlug);
+                    MixMatchRepository.getMixMatchCartVariantSize(binding.getRoot(), cart, this::onMixMatchCartVarSize);
+//                    ProductRepository.getProductBySlug(binding.getRoot(), cart.getProduct().getSlug(), this::onProductSlug);
                 }
             }
         }
@@ -307,5 +348,27 @@ public class MixMatchViewModel extends ViewModel implements View.OnTouchListener
         }
 
         binding.relativeLayoutMixMatch.removeViewInLayout(imageView);
+    }
+
+    @Override
+    public void onMixMatchVariantSize(int position, VariantSize variantSize) {
+        List<VariantSize> variantSizeList = new ArrayList<>();
+        variantSizeList.add(variantSize);
+        cartList.get(position).getVariant().setVariantSizes(variantSizeList);
+        for(Cart cart : cartList){
+            System.out.println(cart.getProduct().getName());
+            for(VariantSize v : cart.getVariant().getVariantSizes()){
+                System.out.print(v.getName()+" ");
+            }
+            System.out.println();
+        }
+    }
+
+    @Override
+    public void onMixMatchCartVarSize(Cart cart, Product product) {
+        List<Variant> variantList = new ArrayList<>();
+        variantList.add(cart.getVariant());
+        product.setVariantList(variantList);
+        addProduct(product);
     }
 }

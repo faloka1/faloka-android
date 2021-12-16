@@ -27,6 +27,7 @@ import com.example.faloka_mobile.Model.Cart;
 import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.Variant;
 import com.example.faloka_mobile.Model.VariantSize;
+import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.ActivityProductDetailBinding;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.snackbar.Snackbar;
@@ -111,7 +112,20 @@ public class ProductDetailActivity extends BaseActivity implements CartAddItemLi
         binding.btnMixMatch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ProductRepository.getProductBySlug(view, product.getSlug(), ProductDetailActivity.this::onProductSlug);
+//                ProductRepository.getProductBySlug(view, product.getSlug(), ProductDetailActivity.this::onProductSlug);
+                Cart cart = new Cart();
+                Variant variant = product.getVariantList().get(0);
+                List<VariantSize> variantSizes = new ArrayList<>();
+                variantSizes.add(selectedVariantSize);
+                variant.setVariantSizes(variantSizes);
+                cart.setVariant(variant);
+                cart.setQuantity(1);
+                cart.setProductID(product.getId());
+                cart.setProduct(product);
+                cart.setVariantID(product.getVariantList().get(0).getId());
+                Intent intent = new Intent(binding.getRoot().getContext(), MixMatchActivity.class);
+                intent.putExtra(Product.EXTRA_PRODUCT, cart);
+                binding.getRoot().getContext().startActivity(intent);
             }
         });
     }
@@ -199,6 +213,17 @@ public class ProductDetailActivity extends BaseActivity implements CartAddItemLi
 
     @Override
     public void onAddToCart() {
+        Snackbar snackbar = Snackbar.make(binding.coordinatorLayoutTopDetail, "Produk berhasil ditambahkan", Snackbar.LENGTH_LONG);
+        snackbar.setAction("OK", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        snackbar.setActionTextColor(getResources().getColor(R.color.primary_dark));
+        snackbar.setTextColor(getResources().getColor(R.color.primary_dark));
+        snackbar.setBackgroundTint(getResources().getColor(R.color.semantic_success));
+        snackbar.show();
         if(!flagAuth) {
             CartRepository.getCountCarts(getApplicationContext(), ProductDetailActivity.super::onItemCount, this::onUnauthorized);
         }
@@ -212,9 +237,9 @@ public class ProductDetailActivity extends BaseActivity implements CartAddItemLi
 
     @Override
     public void onProductSlug(Product product) {
-        Intent intent = new Intent(binding.getRoot().getContext(), MixMatchActivity.class);
-        intent.putExtra(Product.EXTRA_PRODUCT, product);
-        binding.getRoot().getContext().startActivity(intent);
+//        Intent intent = new Intent(binding.getRoot().getContext(), MixMatchActivity.class);
+//        intent.putExtra(Product.EXTRA_PRODUCT, product);
+//        binding.getRoot().getContext().startActivity(intent);
     }
 
     @Override
@@ -242,7 +267,17 @@ public class ProductDetailActivity extends BaseActivity implements CartAddItemLi
         }
         else {
             CartRepository.editCartQuantity(binding.getRoot(), cartSelected.getId(), cartSelected.getQuantity()+1);
-            Snackbar.make(binding.getRoot(), "Tas berhasil diperbaharui", Snackbar.LENGTH_SHORT).show();
+            Snackbar snackbar = Snackbar.make(binding.coordinatorLayoutTopDetail, "Tas berhasil diperbaharui", Snackbar.LENGTH_LONG);
+            snackbar.setAction("OK", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+            snackbar.setActionTextColor(getResources().getColor(R.color.primary_dark));
+            snackbar.setTextColor(getResources().getColor(R.color.primary_dark));
+            snackbar.setBackgroundTint(getResources().getColor(R.color.semantic_success));
+            snackbar.show();
         }
 
     }
