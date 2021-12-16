@@ -24,8 +24,6 @@ public class ListProductPaddingDecoration extends RecyclerView.ItemDecoration {
         if (itemPosition == RecyclerView.NO_POSITION) {
             return;
         }
-        outRect.right = mPadding;
-
         final RecyclerView.Adapter adapter = parent.getAdapter();
         if ((adapter != null) && (itemPosition == adapter.getItemCount() - 1)) {
             outRect.bottom = mPadding;

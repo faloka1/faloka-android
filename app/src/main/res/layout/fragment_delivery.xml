@@ -52,8 +52,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@color/netral_100"
+                android:layout_marginTop="6dp"
+                android:background="?attr/backgroundTint"
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="17dp">
 
@@ -76,7 +76,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="6dp"
                 android:background="@color/netral_100"
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="17dp">

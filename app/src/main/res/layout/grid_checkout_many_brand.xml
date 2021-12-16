@@ -5,17 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="4dp"
+    android:layout_marginBottom="16dp"
     android:background="@drawable/round_corner_white">
 
     <TextView
+        android:paddingHorizontal="12dp"
         android:id="@+id/tv_checkout_brand_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/lato_black"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        style="@style/TextAppearance.App.Headline6"
         android:text="Brand"
-        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,20 +31,20 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_checkout_brand_name">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:paddingHorizontal="12dp"
             android:id="@+id/rv_checkout_product"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="12dp" />
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_shipping"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/round_corner_bottom"
-        android:paddingHorizontal="20dp"
+        android:paddingHorizontal="12dp"
         android:paddingVertical="17dp"
+        android:background="@drawable/round_corner_bottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
@@ -54,12 +55,10 @@
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_svg_carbon_delivery"
             android:drawablePadding="8dp"
-            android:fontFamily="@font/lato"
+            style="@style/TextAppearance.App.Subtitle2"
+            android:textColor="@color/secondary_dark"
             android:gravity="center"
-            android:letterSpacing="0.025"
-            android:text="Pilih ekspedisimu"
-            android:textColor="@color/netral_500"
-            android:textSize="14sp"
+            android:text="Pilih ekspedisimu dulu"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
