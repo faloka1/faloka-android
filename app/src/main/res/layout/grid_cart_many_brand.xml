@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="4dp"
+    android:layout_marginTop="2dp"
+    android:paddingHorizontal="12dp"
     android:background="@color/white">
 
     <CheckBox
@@ -29,7 +30,6 @@
             android:id="@+id/rv_cart_brand"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginBottom="8dp" />
 
         <View

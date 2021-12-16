@@ -91,13 +91,12 @@
     <style name="ChipGroup" parent="Widget.MaterialComponents.ChipGroup">
         <item name="chipStartPadding">0dp</item>
     </style>
-
-
-
-
-
-
-
-
+    <style name="App.Toast" parent=""></style>
 
 </resources>
+
+
+
+
+
+

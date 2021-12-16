@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:background="@color/white"
-        android:paddingHorizontal="12dp"
+        android:paddingHorizontal="8dp"
         android:layout_marginTop="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,6 +44,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
             android:text="Kategori lainnya"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"></Button>

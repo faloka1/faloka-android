@@ -5,33 +5,52 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/netral_500"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout5" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/round_corner_navbar_bottom"
-        android:paddingHorizontal="20dp"
-        android:paddingVertical="17dp"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
 
+
         <TextView
-            android:id="@+id/tv_title_total"
+            android:id="@+id/tv_label_total"
+            style="@style/TextAppearance.App.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/lato"
-            android:letterSpacing="0.025"
+            android:gravity="center"
             android:text="Total Tagihan"
-            android:textColor="@color/netral_900"
-            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_cart_total_cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lato_bold"
+            android:gravity="end"
+            android:text="Rp 0                            "
+            android:textColor="#DB317A"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/btn_checkout_next"
-            android:layout_width="196dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:enabled="false"
             android:fontFamily="@font/lato_black"
             android:letterSpacing="0.125"
@@ -39,23 +58,13 @@
             android:textAlignment="center"
             android:textColor="@color/netral_500"
             android:textSize="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_cart_total_cart"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_title_total"></Button>
+            app:layout_constraintBottom_toBottomOf="parent"
 
-        <TextView
-            android:id="@+id/tv_cart_total_cart"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:fontFamily="@font/lato_bold"
-            android:text="Rp 0                            "
-            android:textColor="#DB317A"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toStartOf="@+id/btn_checkout_next"
-            app:layout_constraintStart_toStartOf="@+id/tv_title_total"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title_total" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_cart_total_cart"></Button>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

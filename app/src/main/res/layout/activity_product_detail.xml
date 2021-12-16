@@ -33,20 +33,20 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/backgroundTint"
+            android:background="?attr/background"
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/background"
+                android:background="@color/surface"
                 android:paddingBottom="20dp">
 
                 <Button
                     android:id="@+id/btn_mix_match"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginEnd="12dp"
                     android:layout_marginTop="22dp"
                     android:text="Mix match outfit"
                     style="@style/ButtonPrimary2"
@@ -77,7 +77,7 @@
                     android:id="@+id/tv_detail_brand"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="12dp"
                     android:layout_marginTop="28dp"
                     style="@style/TextAppearance.App.Headline6"
                     android:text="Surabaya-Brand"
@@ -138,8 +138,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:background="?attr/background"
-                android:paddingHorizontal="16dp"
+                android:background="?attr/colorSurface"
+                android:paddingHorizontal="12dp"
                 android:paddingVertical="16dp">
 
                 <TextView
@@ -166,15 +166,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:background="?attr/background"
-                android:paddingHorizontal="16dp"
+                android:background="?attr/colorSurface"
+                android:paddingHorizontal="12dp"
                 android:paddingVertical="16dp">
 
                 <TextView
                     android:id="@+id/tv_title_relate"
+                    style="@style/TextAppearance.App.Subtitle1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/TextAppearance.App.Subtitle1"
                     android:text="Relate Product"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"></TextView>

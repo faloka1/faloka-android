@@ -14,11 +14,13 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:background="@color/white"
+        app:title="Tas"
         android:theme="@style/ThemeOverlay.AppCompat.Light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:titleTextColor="@color/primary_dark" />
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,7 +32,7 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:background="?attr/backgroundTint"
+        android:background="?attr/background"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/footer_cart_checkout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,57 +45,56 @@
             android:orientation="vertical"
             >
 
-            <RelativeLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:paddingVertical="12dp"
-                android:paddingHorizontal="16dp"
+                android:paddingHorizontal="12dp"
                 android:id="@+id/rl_cart_select_all"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white">
 
+
                 <ImageButton
                     android:id="@+id/btn_cart_delete_all"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/btn_cart_mix_match"
-                    android:layout_alignBottom="@+id/btn_cart_mix_match"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="0dp"
-                    android:layout_toStartOf="@+id/btn_cart_mix_match"
-                    android:src="@drawable/ic_carbon_delete" />
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/ic_carbon_delete"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/cbx_select_all"
+                    app:layout_constraintVertical_bias="0.428" />
 
                 <Button
                     android:id="@+id/btn_cart_mix_match"
                     style="@style/ButtonSecondary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginEnd="0dp"
+                    android:layout_marginEnd="12dp"
                     android:text="mix match"
-                    app:icon="@drawable/ic_icon_park_outline_clothes_crew_neck"
                     app:iconSize="20dp"
                     app:iconTint="@android:color/black"
-                    app:layout_constraintEnd_toEndOf="@id/btn_cart_delete_all"
-                    app:layout_constraintTop_toTopOf="@+id/btn_cart_delete_all" />
+                    app:layout_constraintBottom_toBottomOf="@+id/cbx_select_all"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_cart_delete_all"
+                    app:layout_constraintTop_toTopOf="@+id/cbx_select_all"
+                    app:layout_constraintVertical_bias="0.833" />
 
                 <CheckBox
                     android:id="@+id/cbx_select_all"
+                    style="@style/TextAppearance.App.Body1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginTop="12dp"
-                    style="@style/TextAppearance.App.Body1"
-                    android:text="Pilih Semua" />
+                    android:layout_alignParentEnd="true"
+                    android:text="Pilih Semua"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
-                android:paddingHorizontal="16dp"
                 android:background="?attr/background"
                 android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
@@ -109,8 +110,8 @@
             </LinearLayout>
 
             <RelativeLayout
-                android:paddingHorizontal="16dp"
-                android:layout_marginTop="4dp"
+                android:paddingHorizontal="12dp"
+                android:layout_marginTop="6dp"
                 android:id="@+id/rl_cart_total"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
@@ -162,22 +163,22 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:paddingHorizontal="16dp"
+                android:paddingHorizontal="12dp"
                 android:id="@+id/rl_like_product"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
                 android:background="@color/white">
 
                 <TextView
                     android:id="@+id/textView9"
+                    style="@style/TextAppearance.App.Body1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="20dp"
-                    style="@style/TextAppearance.App.Body1"
                     android:text="Yang Mungkin Kamu Sukai" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -192,9 +193,6 @@
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-
-
-
 
 
     <include
