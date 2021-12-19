@@ -59,7 +59,6 @@ public class MixMatchActivity extends BaseActivity implements ImageToLayoutListe
             lastX = x;
             lastY = y;
             pointerID = MotionEventCompat.getPointerId(motionEvent, 0);
-//            imageView.setBackgroundResource(R.drawable.mix_match_product_border);
         }
         else if(motionEvent.getAction() == MotionEvent.ACTION_MOVE){
             final int pointerIndex = MotionEventCompat.findPointerIndex(motionEvent, pointerID);

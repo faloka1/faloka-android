@@ -30,6 +30,7 @@ import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.Variant;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.ActivityDetailOrderBinding;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -52,10 +53,15 @@ public class DetailOrderActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Detail Order");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        if(getIntent() != null){
+        if(getIntent().getBundleExtra("DATA_ORDER") != null){
             Bundle bundle = getIntent().getBundleExtra("DATA_ORDER");
             order = bundle.getParcelable(Order.EXTRA_ORDER);
         }
+        if(getIntent().getBundleExtra("DATA_ORDER_ACCOUNT") != null){
+            Bundle bundle = getIntent().getBundleExtra("DATA_ORDER_ACCOUNT");
+            order = bundle.getParcelable(Order.EXTRA_ORDER);
+        }
+
         setDetailPrice();
         setDetailProduct();
         setDetailExpedition();

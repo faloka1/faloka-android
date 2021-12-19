@@ -12,17 +12,16 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        app:title="HAHAH"
-        app:subtitle="20 produk ditemukan "
-        app:titleTextAppearance="@style/TextAppearance.App.Subtitle1"
-        app:subtitleTextAppearance="@style/TextAppearance.App.Body2"
         android:layout_alignParentEnd="true"
-
         android:background="@color/white"
         android:theme="@style/ThemeOverlay.AppCompat.Light"
         app:layout_constraintEnd_toEndOf="parent"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:subtitleTextAppearance="@style/TextAppearance.App.Body2"
+        app:title="HAHAH"
+        app:titleTextAppearance="@style/TextAppearance.App.Subtitle1"
         app:titleTextColor="@color/primary_dark" />
 
     <LinearLayout

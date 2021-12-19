@@ -122,18 +122,6 @@ public class MixMatchViewModel extends ViewModel implements
         return activity.onTouchEvent(motionEvent);
     }
 
-    public void print(){
-        System.out.println("\n");
-        for (ImageView imageView : imageViewList){
-            System.out.println("OUT: "+imageView.getId());
-        }
-        System.out.println("\n");
-
-        for(int i=0; i<binding.relativeLayoutMixMatch.getChildCount(); i++){
-            System.out.println("IN: "+binding.relativeLayoutMixMatch.getChildAt(i).getId());
-        }
-    }
-
     private void updateCurrentIndex(){
         int i=0;
         for(ImageView imageView : imageViewList){
@@ -314,7 +302,6 @@ public class MixMatchViewModel extends ViewModel implements
         if(activity.getIntent() != null){
             Cart cart = activity.getIntent().getParcelableExtra(Product.EXTRA_PRODUCT);
             if(cart != null){
-//                ProductRepository.getProductBySlug(binding.getRoot(), product.getSlug(), this::onProductSlug);
                 MixMatchRepository.getMixMatchCartVariantSize(binding.getRoot(), cart, this::onMixMatchCartVarSize);
             }
         }
@@ -326,7 +313,6 @@ public class MixMatchViewModel extends ViewModel implements
             if(cartList != null){
                 for(Cart cart : cartList){
                     MixMatchRepository.getMixMatchCartVariantSize(binding.getRoot(), cart, this::onMixMatchCartVarSize);
-//                    ProductRepository.getProductBySlug(binding.getRoot(), cart.getProduct().getSlug(), this::onProductSlug);
                 }
             }
         }

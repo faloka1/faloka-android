@@ -16,11 +16,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.example.faloka_mobile.Model.Cost;
 import com.example.faloka_mobile.Model.Courier;
 import com.example.faloka_mobile.Model.CourierService;
 import com.example.faloka_mobile.R;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -64,7 +66,18 @@ public class ChooseDeliveryDialog extends AppCompatDialogFragment implements Cou
                             deliveryListener.onDelivery(chooseCourier, chooseCourierService);
                         }
                         else {
-                            Toast.makeText(view.getContext(), "Ekspedisi belum dipilih", Toast.LENGTH_SHORT).show();
+                            CoordinatorLayout coordinatorLayout = getActivity().findViewById(R.id.coordinator_layout_top_checkout);
+                            Snackbar snackbar = Snackbar.make(coordinatorLayout, "Ekspedisi belum dipilih", Snackbar.LENGTH_LONG);
+                            snackbar.setAction("OK", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+
+                                }
+                            });
+                            snackbar.setActionTextColor(getActivity().getResources().getColor(R.color.primary_dark));
+                            snackbar.setTextColor(getActivity().getResources().getColor(R.color.primary_dark));
+                            snackbar.setBackgroundTint(getActivity().getResources().getColor(R.color.semantic_warning));
+                            snackbar.show();
                         }
                     }
                 });

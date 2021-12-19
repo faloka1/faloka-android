@@ -17,9 +17,4 @@ public class ProductViewModel extends ViewModel {
         mProductRepository = productRepository;
     }
 
-//    public LiveData<List<Product>> getProductsBySubCategory(String slugCategory, String slugSubCategory){
-//        return mProductRepository.getProductBySubcategory(slugCategory, slugSubCategory);
-//    }
-
-
 }
