@@ -165,7 +165,6 @@ public class PaymentFragment extends Fragment implements PaymentSelectedListener
                                     public void onResponse(Call<OrderResponse> call, Response<OrderResponse> response) {
                                         if(response.isSuccessful()){
                                             OrderResponse orderResponse = response.body();
-//                                            CartRepository.deleteAllCart(view);
                                             deleteCartByID(view, order);
                                             Bundle bundlePayment = new Bundle();
                                             Intent intent = new Intent(getActivity(), ConfirmCheckoutActivity.class);
