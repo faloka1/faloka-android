@@ -25,18 +25,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:background="@color/netral_100"
-                android:paddingHorizontal="20dp"
+                android:paddingHorizontal="12dp"
                 android:paddingVertical="17dp">
 
                 <TextView
                     android:id="@+id/tv_payment_title_summary_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/lato_bold"
-                    android:letterSpacing="0.015"
+                    style="@style/TextAppearance.App.Subtitle1"
                     android:text="Ringkasan Pembelian"
-                    android:textColor="@color/netral_900"
-                    android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,11 +41,10 @@
                     android:id="@+id/tv_payment_title_subtotal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:letterSpacing="0.015"
+                    android:layout_marginTop="8dp"
                     android:text="Total Tagihan"
-                    android:textColor="@color/netral_900"
-                    android:textSize="16sp"
+                    style="@style/TextAppearance.App.Body1"
+                    android:textColor="@color/netral_500"
                     app:layout_constraintStart_toStartOf="@id/tv_payment_title_summary_price"
                     app:layout_constraintTop_toBottomOf="@id/tv_payment_title_summary_price" />
 
@@ -56,10 +52,8 @@
                     android:id="@+id/tv_payment_value_subtotal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:letterSpacing="0.015"
+                    style="@style/TextAppearance.App.Subtitle1"
                     android:text="90000"
-                    android:textColor="@color/netral_900"
-                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_payment_title_subtotal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tv_payment_title_subtotal" />
@@ -68,11 +62,10 @@
                     android:id="@+id/tv_payment_title_total_service"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
-                    android:letterSpacing="0.015"
+                    android:layout_marginTop="8dp"
                     android:text="Biaya Layanan"
-                    android:textColor="@color/netral_900"
-                    android:textSize="16sp"
+                    style="@style/TextAppearance.App.Body1"
+                    android:textColor="@color/netral_500"
                     app:layout_constraintStart_toStartOf="@id/tv_payment_title_subtotal"
                     app:layout_constraintTop_toBottomOf="@id/tv_payment_value_subtotal" />
 
@@ -80,10 +73,8 @@
                     android:id="@+id/tv_payment_value_total_service"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:letterSpacing="0.015"
+                    style="@style/TextAppearance.App.Subtitle1"
                     android:text="0"
-                    android:textColor="@color/netral_900"
-                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_payment_title_total_service"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tv_payment_title_total_service"
@@ -94,18 +85,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@color/netral_100"
-                android:paddingHorizontal="20dp"
+                android:paddingHorizontal="12dp"
                 android:paddingVertical="17dp">
 
                 <TextView
                     android:id="@+id/tv_payment_title_choose_bank"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/lato_bold"
-                    android:letterSpacing="0.015"
+                    style="@style/TextAppearance.App.Subtitle1"
                     android:text="Pilih Bank"
-                    android:textColor="@color/netral_900"
-                    android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -113,12 +101,9 @@
                     android:id="@+id/tv_payment_subtitle_choose_bank"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/lato"
-                    android:letterSpacing="0.015"
-                    android:text="Pembayaran baru bisa dilakukan melalui transfer bank atau e-money"
-                    android:textColor="@color/netral_500"
-                    android:textSize="16sp"
                     android:layout_marginTop="4dp"
+                    style="@style/TextAppearance.App.Body2"
+                    android:text="Pembayaran baru bisa dilakukan melalui transfer bank atau e-money"
                     app:layout_constraintStart_toStartOf="@id/tv_payment_title_choose_bank"
                     app:layout_constraintTop_toBottomOf="@id/tv_payment_title_choose_bank" />
 
@@ -126,7 +111,7 @@
                     android:id="@+id/rv_payment_method"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="@id/tv_payment_subtitle_choose_bank"
                     app:layout_constraintTop_toBottomOf="@id/tv_payment_subtitle_choose_bank" />
 

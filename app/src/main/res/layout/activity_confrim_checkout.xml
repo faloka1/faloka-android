@@ -32,11 +32,8 @@
                     android:id="@+id/tv_payment_title_summary_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/lato_bold"
-                    android:letterSpacing="0.015"
-                    android:text="Batas Akhir Pembayaran"
-                    android:textColor="@color/netral_900"
-                    android:textSize="18sp"
+                    style="@style/TextAppearance.App.Subtitle1"
+                    android:text="Detail Pembayaran"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -49,47 +46,29 @@
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="17dp">
 
-                <TextView
-                    android:id="@+id/tv_payment_title_choose_bank"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/lato_bold"
-                    android:letterSpacing="0.015"
-                    android:text="Detail Pembayaran"
-                    android:textColor="@color/netral_900"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
                 <LinearLayout
                     android:id="@+id/confirm_payment_method"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:orientation="vertical"
-                    app:layout_constraintStart_toStartOf="@id/tv_payment_title_choose_bank"
-                    app:layout_constraintTop_toBottomOf="@id/tv_payment_title_choose_bank">
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
                         android:id="@+id/tv_confirm_title_method_payment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/khula"
-                        android:letterSpacing="0.025"
-                        android:text="Metode Pembayaran"
+                        style="@style/TextAppearance.App.Body1"
                         android:textColor="@color/netral_500"
-                        android:textSize="14sp"
+                        android:text="Metode Pembayaran"
                         />
+
                     <TextView
                         android:id="@+id/tv_confirm_value_method_payment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/khula_semibold"
-                        android:letterSpacing="0.025"
-                        android:text="BNI"
-                        android:textColor="@color/netral_900"
-                        android:textSize="14sp"
-                        />
+                        style="@style/TextAppearance.App.Subtitle1"
+                        android:text="BNI" />
 
                 </LinearLayout>
 
@@ -106,21 +85,16 @@
                         android:id="@+id/tv_confirm_title_payment_code"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/khula"
-                        android:letterSpacing="0.025"
-                        android:text="Rekening Pembayaran"
+                        style="@style/TextAppearance.App.Body1"
                         android:textColor="@color/netral_500"
-                        android:textSize="14sp"
+                        android:text="Rekening Pembayaran"
                         />
                     <TextView
                         android:id="@+id/tv_confirm_value_payment_code"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/khula_semibold"
-                        android:letterSpacing="0.025"
+                        style="@style/TextAppearance.App.Subtitle1"
                         android:text="27172817827 (Ela)"
-                        android:textColor="@color/netral_900"
-                        android:textSize="14sp"
                         />
 
                 </LinearLayout>
@@ -138,21 +112,16 @@
                         android:id="@+id/tv_confirm_title_total_payment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/khula"
-                        android:letterSpacing="0.025"
-                        android:text="Total Pembayaran"
+                        style="@style/TextAppearance.App.Body1"
                         android:textColor="@color/netral_500"
-                        android:textSize="14sp" />
+                        android:text="Total Pembayaran"/>
 
                     <TextView
                         android:id="@+id/tv_confirm_value_total_payment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/khula_semibold"
-                        android:letterSpacing="0.025"
-                        android:text="Rp 92.000"
-                        android:textColor="@color/netral_900"
-                        android:textSize="14sp" />
+                        style="@style/TextAppearance.App.Subtitle1"
+                        android:text="Rp 92.000" />
 
                 </LinearLayout>
 
@@ -164,37 +133,13 @@
                     android:fontFamily="@font/lato_bold"
                     android:letterSpacing="0.025"
                     android:text="Detail"
-                    android:textColor="@color/secondary_light"
+                    android:textColor="@color/secondary_dark"
                     android:textSize="14sp"
+                    style="@style/TextButton"
                     app:layout_constraintBottom_toBottomOf="@+id/confirm_total_payment"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/confirm_total_payment"></Button>
 
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:background="@color/netral_100"
-                android:paddingHorizontal="20dp"
-                android:paddingVertical="17dp">
-
-                <Button
-                    android:id="@+id/btn_how_to_pay"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/netral_100"
-                    android:fontFamily="@font/lato_bold"
-                    android:letterSpacing="0.125"
-                    android:text="Lihat Cara Pembayaran"
-                    android:textColor="@color/secondary_light"
-                    android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                </Button>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -210,11 +155,8 @@
                     android:id="@+id/btn_upload"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/primary_light"
-                    android:fontFamily="@font/khula_semibold"
-                    android:letterSpacing="0.125"
+                    style="@style/ButtonPrimary"
                     android:text="Upload Pembayaran"
-                    android:textColor="@color/netral_100"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -226,11 +168,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:backgroundTint="@color/netral_100"
-                    android:fontFamily="@font/khula_semibold"
-                    android:letterSpacing="0.125"
+                    style="@style/ButtonSecondary"
                     android:text="Cek Status Pesanan"
-                    android:textColor="@color/netral_900"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/btn_upload">
@@ -242,11 +181,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
+                    style="@style/TextButton"
                     android:backgroundTint="@color/netral_100"
                     android:fontFamily="@font/lato_bold"
                     android:letterSpacing="0.125"
                     android:text="Belanja lagi"
-                    android:textColor="@color/secondary_light"
+                    android:textColor="@color/secondary_dark"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

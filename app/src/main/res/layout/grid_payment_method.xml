@@ -26,12 +26,9 @@
                 android:id="@+id/tv_bank_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/khula"
-                android:letterSpacing="0.015"
+                style="@style/TextAppearance.App.Subtitle2"
                 android:layout_marginStart="9dp"
-                android:text="Bank BRI"
-                android:textColor="@color/netral_900"
-                android:textSize="16sp">
+                android:text="Bank BRI">
 
             </TextView>
         </LinearLayout>
@@ -48,22 +45,18 @@
                 android:id="@+id/tv_rekening_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/khula"
-                android:letterSpacing="0.015"
-                android:text="2118181818"
+                style="@style/TextAppearance.App.Body2"
                 android:textColor="@color/netral_500"
-                android:textSize="16sp"></TextView>
+                android:text="2118181818"></TextView>
 
             <TextView
                 android:id="@+id/tv_rekening_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:fontFamily="@font/khula"
-                android:letterSpacing="0.015"
-                android:text=" (Ela) "
+                style="@style/TextAppearance.App.Body2"
                 android:textColor="@color/netral_500"
-                android:textSize="16sp"></TextView>
+                android:text=" (Ela) "></TextView>
 
 
         </LinearLayout>

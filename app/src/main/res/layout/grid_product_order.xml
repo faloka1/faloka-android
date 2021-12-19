@@ -8,9 +8,10 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="105dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/round_corner_subcategory"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,10 +46,9 @@
                     android:id="@+id/tv_order_product_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/lato"
+                    style="@style/TextAppearance.App.Body1"
+                    android:textColor="@color/netral_600"
                     android:text="-"
-                    android:textColor="@color/netral_900"
-                    android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"></TextView>
 
@@ -56,7 +56,7 @@
                     android:id="@+id/tv_order_product_size"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="4dp"
                     android:orientation="horizontal"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_order_product_name">
@@ -64,19 +64,16 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/lato"
                         android:text="Ukuran : "
                         android:textColor="@color/netral_500"
-                        android:textSize="14sp" />
+                        style="@style/TextAppearance.App.Body2"/>
 
                     <TextView
                         android:id="@+id/tv_order_product_size_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/lato_bold"
-                        android:text="-"
-                        android:textColor="@color/netral_900"
-                        android:textSize="14sp" />
+                        style="@style/TextAppearance.App.Subtitle2"
+                        android:text="-" />
 
                 </LinearLayout>
 
@@ -84,11 +81,9 @@
                     android:id="@+id/tv_order_product_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:fontFamily="@font/lato_bold"
                     android:text="Rp.-"
-                    android:textColor="@color/netral_900"
-                    android:textSize="16sp"
+                    android:layout_marginTop="6dp"
+                    style="@style/TextAppearance.App.Subtitle1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_order_product_size"></TextView>
 
@@ -96,7 +91,8 @@
                     android:id="@+id/tv_checkout_product_qty"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/lato_bold"
+                    style="@style/TextAppearance.App.Body2"
+                    android:textColor="@color/netral_500"
                     android:text="0x"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_order_product_price"
                     app:layout_constraintEnd_toEndOf="parent"
