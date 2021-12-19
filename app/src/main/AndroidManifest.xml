@@ -85,9 +85,6 @@
             android:screenOrientation="portrait"
             android:exported="true" />
         <activity
-            android:name=".Checkout.checkoutCobaCoba"
-            android:exported="true" />
-        <activity
             android:name=".Product.ProductListActivity"
             android:screenOrientation="portrait"
             android:exported="true"

@@ -185,15 +185,21 @@ public class ConfirmCheckoutActivity extends AppCompatActivity implements View.O
         if (requestCode == PICK_IMAGE && resultCode == RESULT_OK) {
             if(data != null) {
                 uri = data.getData();
-                System.out.println(uri);
                 confirmUpload(uri);
             }
             else {
-                Toast.makeText(getApplicationContext(), "GAGAL UPLOAD", Toast.LENGTH_SHORT).show();
+                Snackbar snackbar = Snackbar.make(binding.coordinatorLayoutTopConfirmCheckout, "Gagal upload bukti pembayaran", Snackbar.LENGTH_LONG);
+                snackbar.setAction("OK", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
+                snackbar.setActionTextColor(getResources().getColor(R.color.primary_dark));
+                snackbar.setTextColor(getResources().getColor(R.color.primary_dark));
+                snackbar.setBackgroundTint(getResources().getColor(R.color.semantic_error));
+                snackbar.show();
             }
-        }
-        else {
-            Toast.makeText(getApplicationContext(), "GAGAL TERIMA DATA", Toast.LENGTH_SHORT).show();
         }
     }
 
