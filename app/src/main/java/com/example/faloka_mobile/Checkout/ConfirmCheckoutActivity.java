@@ -89,7 +89,6 @@ public class ConfirmCheckoutActivity extends AppCompatActivity implements View.O
 //        binding.tvConfirmValueTotalPayment.setText(getFormatRupiah(order.getTotalOrder()));
         binding.tvConfirmValueTotalPayment.setText(getFormatRupiah(total));
         binding.btnDetail.setOnClickListener(this);
-        binding.btnHowToPay.setOnClickListener(this);
         binding.btnUpload.setOnClickListener(this);
         binding.btnShopping.setOnClickListener(this);
         binding.btnProfile.setOnClickListener(this);
@@ -111,21 +110,6 @@ public class ConfirmCheckoutActivity extends AppCompatActivity implements View.O
 //            bundle.putParcelable(OrderUser.EXTRA_ORDER_USER, orderUser);
             intent.putExtra("DATA_ORDER", bundle);
             startActivity(intent);
-        }
-        else if(view.findViewById(R.id.btn_how_to_pay) == binding.btnHowToPay){
-            final Dialog dialog = new Dialog(this);
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setCancelable(true);
-            dialog.setContentView(R.layout.layout_how_to_pay);
-
-            final TextView tvPembayaran = dialog.findViewById(R.id.how_to_pay_title);
-            Button button = dialog.findViewById(R.id.btn_how_to_pay_close);
-
-            button.setOnClickListener((v)->{
-                dialog.dismiss();
-            });
-            dialog.show();
-
         }
         else if(view.findViewById(R.id.btn_shopping) == binding.btnShopping){
             Intent intent = new Intent(this, MainActivity.class);

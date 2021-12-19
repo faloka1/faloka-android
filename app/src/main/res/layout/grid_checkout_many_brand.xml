@@ -9,12 +9,12 @@
     android:background="@drawable/round_corner_white">
 
     <TextView
-        android:paddingHorizontal="12dp"
+        android:paddingHorizontal="16dp"
         android:id="@+id/tv_checkout_brand_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="24dp"
         style="@style/TextAppearance.App.Headline6"
         android:text="Brand"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +24,7 @@
         android:id="@+id/linearLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="8dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_svg_carbon_delivery"
             android:drawablePadding="8dp"
-            style="@style/TextAppearance.App.Subtitle2"
+            style="@style/TextAppearance.App.Subtitle1"
             android:textColor="@color/secondary_dark"
             android:gravity="center"
             android:text="Pilih ekspedisimu dulu"
@@ -73,17 +73,11 @@
                 android:id="@+id/tv_checkout_delivery_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/lato_bold"
-                android:letterSpacing="0.015"
                 android:text="Rp.0"
-                android:textColor="@color/netral_900"
-                android:textSize="16sp"
+                style="@style/TextAppearance.App.Subtitle1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

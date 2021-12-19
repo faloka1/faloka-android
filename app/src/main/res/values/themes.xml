@@ -21,5 +21,6 @@
         <!-- Customize your theme here. -->
         <item name="textAppearanceButton">@style/TextAppearance.App.Button</item>
         <item name="chipStyle">@style/App.Chip</item>
+        <item name="checkboxStyle">@style/Widget.App.Checkbox</item>
     </style>
 </resources>
