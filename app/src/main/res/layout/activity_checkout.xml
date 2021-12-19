@@ -20,6 +20,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:titleTextColor="@color/primary_dark" />
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/coordinator_layout_top_checkout"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/transparent"
+        tools:ignore="MissingConstraints">
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"

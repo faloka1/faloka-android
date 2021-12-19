@@ -2,6 +2,7 @@ package com.example.faloka_mobile.Checkout;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -49,7 +50,6 @@ public class ConfirmCheckoutActivity extends AppCompatActivity implements View.O
 
     ActivityConfrimCheckoutBinding binding;
     Order order;
-//    OrderUser orderUser;
     Bundle bundle;
     private Uri uri;
 
@@ -60,33 +60,32 @@ public class ConfirmCheckoutActivity extends AppCompatActivity implements View.O
         setContentView(binding.getRoot());
 
         order = new Order();
-//        orderUser = new OrderUser();
         bundle = new Bundle();
 
-        if(getIntent() != null){
+        if(getIntent().getBundleExtra("DATA_ORDER") != null){
             bundle = getIntent().getBundleExtra("DATA_ORDER");
             order = bundle.getParcelable(Order.EXTRA_ORDER);
-//            orderUser = bundle.getParcelable(OrderUser.EXTRA_ORDER_USER);
+            Snackbar snackbar = Snackbar.make(binding.coordinatorLayoutTopConfirmCheckout, "Pesanan kamu berhasil, silahkan lengkapi pembayaran", Snackbar.LENGTH_LONG);
+            snackbar.setAction("OK", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+            snackbar.setActionTextColor(getResources().getColor(R.color.primary_dark));
+            snackbar.setTextColor(getResources().getColor(R.color.primary_dark));
+            snackbar.setBackgroundTint(getResources().getColor(R.color.semantic_success));
+            snackbar.show();
+        }
+        if(getIntent().getBundleExtra("DATA_ORDER_ACCOUNT") != null){
+            bundle = getIntent().getBundleExtra("DATA_ORDER_ACCOUNT");
+            order = bundle.getParcelable(Order.EXTRA_ORDER);
         }
 
-//        Bundle bundle = getIntent().getParcelableExtra("DATA_CHECKOUT");
-//        PaymentMethod paymentMethod = bundle.getParcelable("PAYMENT_METHOD");
-//        String total = bundle.getString("TOTAL_PRICE");
-
-//        binding.tvConfirmValueMethodPayment.setText(paymentMethod.getBank());
-//        binding.tvConfirmValuePaymentCode.setText(paymentMethod.getRekeningNumber()
-//                + " (" + paymentMethod.getRekeningName() + ")");
-//        binding.tvConfirmValueTotalPayment.setText(total);
-
-//        binding.tvConfirmValueMethodPayment.setText(order.getPayment().getPaymentName());
-//        binding.tvConfirmValuePaymentCode.setText(order.getPayment().getAccountNumber()
-//                + " (" + order.getPayment().getAccountName() + ")");
-//        binding.tvConfirmValueTotalPayment.setText(getFormatRupiah(order.getTotalOrder()));
         binding.tvConfirmValueMethodPayment.setText(order.getPayment().getPaymentName());
         binding.tvConfirmValuePaymentCode.setText(order.getPayment().getAccountNumber()
                 + " (" + order.getPayment().getAccountName() + ")");
         int total = PaymentFragment.getTotal(order.getCartBrandList()) + 2000;
-//        binding.tvConfirmValueTotalPayment.setText(getFormatRupiah(order.getTotalOrder()));
         binding.tvConfirmValueTotalPayment.setText(getFormatRupiah(total));
         binding.btnDetail.setOnClickListener(this);
         binding.btnHowToPay.setOnClickListener(this);
@@ -108,7 +107,6 @@ public class ConfirmCheckoutActivity extends AppCompatActivity implements View.O
             Intent intent = new Intent(this, DetailOrderActivity.class);
             Bundle bundle = new Bundle();
             bundle.putParcelable(Order.EXTRA_ORDER, order);
-//            bundle.putParcelable(OrderUser.EXTRA_ORDER_USER, orderUser);
             intent.putExtra("DATA_ORDER", bundle);
             startActivity(intent);
         }
@@ -240,9 +238,6 @@ public class ConfirmCheckoutActivity extends AppCompatActivity implements View.O
         order.setImagePaymentURL(paymentUploadResponse.getImagePaymentURL());
         Toast.makeText(getApplicationContext(), paymentUploadResponse.getMessage(), Toast.LENGTH_SHORT).show();
         binding.btnUpload.setVisibility(View.GONE);
-//        binding.btnUpload.setEnabled(false);
-//        binding.btnUpload.setBackgroundColor(getResources().getColor(R.color.white_faloka));
-//        binding.btnUpload.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.netral_100)));
     }
 
 
