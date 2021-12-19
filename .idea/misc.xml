@@ -77,7 +77,7 @@
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/activity_cart.xml" value="0.3333333333333333" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/activity_cart_empty.xml" value="0.22" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/activity_checkout.xml" value="0.15172101449275363" />
-        <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/activity_confrim_checkout.xml" value="0.6" />
+        <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/activity_confrim_checkout.xml" value="0.4142194744976816" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/activity_delivery_choose.xml" value="0.3333333333333333" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/activity_detail_order.xml" value="0.3333333333333333" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/activity_inpire_me_upload_inspire_me.xml" value="0.3333333333333333" />
@@ -107,7 +107,7 @@
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/fragment_wait_confirmation.xml" value="0.12409420289855072" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/grid_address.xml" value="0.14666666666666667" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/grid_cart_many_brand.xml" value="0.3333333333333333" />
-        <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/grid_cart_many_product.xml" value="0.3333333333333333" />
+        <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/grid_cart_many_product.xml" value="0.7333333333333334" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/grid_cart_product.xml" value="0.13994565217391305" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/grid_checkout_many_brand.xml" value="0.4761215629522431" />
         <entry key="..\:/AndroidStudioFile/faloka-android/app/src/main/res/layout/grid_courier.xml" value="0.15715579710144928" />
