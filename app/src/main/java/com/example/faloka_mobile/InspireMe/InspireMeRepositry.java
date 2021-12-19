@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -17,6 +19,8 @@ import com.example.faloka_mobile.Model.InspireMe;
 import com.example.faloka_mobile.Model.InspireMeResponse;
 import com.example.faloka_mobile.Model.Message;
 import com.example.faloka_mobile.Model.OrderResponseForInspireMe;
+import com.example.faloka_mobile.R;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,17 +103,48 @@ public class InspireMeRepositry {
             public void onResponse(Call<Message> call, Response<Message> response) {
                 if(response.isSuccessful()){
                     Message message = response.body();
-                    Toast.makeText(context, message.getMessage(), Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(context, MainActivity.class);
-                    intent.putExtra(InspireMeFragment.EXTRA_FRAGMENT_INSPO, InspireMeFragment.INDEX_FRAGMENT_ACCOUNT);
-                    ((Activity) context).startActivity(intent);
-                    ((Activity) context).finish();
+                        CoordinatorLayout coordinatorLayout = ((Activity) context).findViewById(R.id.coordinator_layout_top_upload_inspire);
+                        Snackbar snackbar = Snackbar.make(coordinatorLayout, "Berhasil upload outfit kamu", Snackbar.LENGTH_SHORT);
+                        snackbar.setAction("OK", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(context, MainActivity.class);
+                                intent.putExtra(InspireMeFragment.EXTRA_FRAGMENT_INSPO, InspireMeFragment.INDEX_FRAGMENT_ACCOUNT);
+                                ((Activity) context).startActivity(intent);
+                                ((Activity) context).finish();
+                            }
+                        });
+                        snackbar.setActionTextColor(((Activity) context).getResources().getColor(R.color.primary_dark));
+                        snackbar.setTextColor(((Activity) context).getResources().getColor(R.color.primary_dark));
+                        snackbar.setBackgroundTint(((Activity) context).getResources().getColor(R.color.semantic_success));
+                        snackbar.addCallback(new Snackbar.Callback(){
+                            @Override
+                            public void onDismissed(Snackbar transientBottomBar, int event) {
+                                Intent intent = new Intent(context, MainActivity.class);
+                                intent.putExtra(InspireMeFragment.EXTRA_FRAGMENT_INSPO, InspireMeFragment.INDEX_FRAGMENT_ACCOUNT);
+                                ((Activity) context).startActivity(intent);
+                                ((Activity) context).finish();
+                            }
+                        });
+                        snackbar.show();
+
                     Log.d("berhasil", response.message());
                     tokenManager.getLoadingDialog().dismissLoadingDialog();
                 }
                 else{
+                    CoordinatorLayout coordinatorLayout = ((Activity) context).findViewById(R.id.coordinator_layout_top_upload_inspire);
+                    Snackbar snackbar = Snackbar.make(coordinatorLayout, "Gagal upload outfit kamu, coba lagi", Snackbar.LENGTH_LONG);
+                    snackbar.setAction("OK", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+                    snackbar.setActionTextColor(((Activity) context).getResources().getColor(R.color.primary_dark));
+                    snackbar.setTextColor(((Activity) context).getResources().getColor(R.color.primary_dark));
+                    snackbar.setBackgroundTint(((Activity) context).getResources().getColor(R.color.semantic_error));
+                    snackbar.show();
                     Log.e("gagal upload", response.message());
-                    Toast.makeText(context, "GAGAL UPLOAD", Toast.LENGTH_SHORT).show();
                     tokenManager.getLoadingDialog().dismissLoadingDialog();
                 }
             }

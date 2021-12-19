@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.faloka_mobile.BaseFragment;
 import com.example.faloka_mobile.databinding.FragmentAccountBinding;
@@ -23,6 +24,7 @@ public class AccountFragment extends BaseFragment implements DrawerOptionListene
     private AppCompatActivity activity;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private View view;
+    private AccountViewModel accountViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,7 +36,7 @@ public class AccountFragment extends BaseFragment implements DrawerOptionListene
                              Bundle savedInstanceState) {
         binding = FragmentAccountBinding.inflate(getLayoutInflater());
         activity = ((AppCompatActivity)getActivity());
-        AccountViewModel accountViewModel = new AccountViewModel(binding, activity, this::onOptionDrawer);
+        accountViewModel = new AccountViewModel(binding, activity, this::onOptionDrawer);
         view = binding.getRoot();
         return view;
     }
@@ -50,5 +52,14 @@ public class AccountFragment extends BaseFragment implements DrawerOptionListene
     @Override
     public void onOptionDrawer(ActionBarDrawerToggle actionBarDrawerToggle) {
         this.actionBarDrawerToggle  = actionBarDrawerToggle;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        accountViewModel.createTab(view);
+        accountViewModel.setToolbar();
+        accountViewModel.createDrawer(view);
+        accountViewModel.initStateUser();
     }
 }

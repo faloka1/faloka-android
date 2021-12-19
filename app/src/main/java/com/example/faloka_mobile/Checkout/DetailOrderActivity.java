@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -144,6 +145,12 @@ public class DetailOrderActivity extends AppCompatActivity {
                         builder.setMessage("Bukti pembayaran kamu");
 
                         ImageView imageView = new ImageView(view.getContext());
+
+                        CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(imageView.getContext());
+                        circularProgressDrawable.setStrokeWidth(5f);
+                        circularProgressDrawable.setCenterRadius(30f);
+                        circularProgressDrawable.start();
+
                         Glide.with(view.getContext())
                                 .load(ApiConfig.BASE_IMAGE_URL + order.getImagePaymentURL())
                                 .apply(new RequestOptions().override(500, 500))

@@ -12,6 +12,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/coordinator_layout_top_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/transparent"
+            tools:ignore="MissingConstraints"></androidx.coordinatorlayout.widget.CoordinatorLayout>
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
