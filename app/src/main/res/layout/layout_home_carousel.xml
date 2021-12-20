@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.synnapps.carouselview.CarouselView
+        android:id="@+id/home_carousel"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:fillColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:pageColor="@color/primary_dark"
+        app:radius="6dp"
+        app:slideInterval="3000"
+        app:strokeColor="#323232"
+        app:strokeWidth="1dp"
+        tools:ignore="MissingClass">
+
+
+
+    </com.synnapps.carouselview.CarouselView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

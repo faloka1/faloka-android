@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Cart.CartActivity">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/cart_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:background="@color/white"
+        app:title="Tas"
+        android:theme="@style/ThemeOverlay.AppCompat.Light"
+        style="@style/TextAppearance.App.Subtitle2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="@color/primary_dark" />
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/coordinator_layout_top_cart"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/transparent"
+        tools:ignore="MissingConstraints">
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:background="?attr/background"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/footer_cart_checkout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cart_toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:paddingVertical="12dp"
+                android:paddingHorizontal="12dp"
+                android:id="@+id/rl_cart_select_all"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+
+                <ImageButton
+                    android:id="@+id/btn_cart_delete_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="-6dp"
+                    android:layout_marginBottom="6dp"
+                    android:src="@drawable/ic_carbon_delete"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn_cart_mix_match"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/btn_cart_mix_match"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <Button
+                    android:id="@+id/btn_cart_mix_match"
+                    style="@style/ButtonPrimary2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="Mix Match"
+                    app:iconSize="20dp"
+                    app:iconTint="@android:color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_cart_delete_all"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <CheckBox
+                    android:id="@+id/cbx_select_all"
+                    style="@style/TextAppearance.App.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="-4dp"
+                    android:text="Pilih Semua"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.571" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:background="?attr/background"
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_cart_brand_product"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:paddingHorizontal="12dp"
+                android:layout_marginTop="6dp"
+                android:id="@+id/rl_cart_total"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/textView5"
+                    style="@style/TextAppearance.App.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="20dp"
+                    android:text="Subtotal"
+                    android:textColor="@color/netral_500" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    style="@style/TextAppearance.App.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/textView5"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Total produk"
+                    android:textColor="@color/netral_500" />
+
+                <TextView
+                    android:id="@+id/tv_cart_total_product"
+                    style="@style/TextAppearance.App.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/textView6"
+                    android:layout_alignBottom="@+id/textView6"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:text="Rp." />
+
+                <TextView
+                    android:id="@+id/tv_cart_sub_total"
+                    style="@style/TextAppearance.App.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/textView5"
+                    android:layout_alignBottom="@+id/textView5"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:text="Rp." />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:paddingHorizontal="12dp"
+                android:id="@+id/rl_like_product"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="14dp"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/textView9"
+                    style="@style/TextAppearance.App.Subtitle1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="20dp"
+                    android:text="Yang Mungkin Kamu Sukai" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_products_related"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView9"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="8dp" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+    <include
+        android:id="@+id/footer_cart_checkout"
+        layout="@layout/layout_footer_cart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"></include>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
