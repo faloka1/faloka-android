@@ -90,9 +90,6 @@ public class ProductListActivity extends BaseActivity {
         ArrayAdapter adapter = new ArrayAdapter(ProductListActivity.this,
                 R.layout.layout_popup_category,R.id.tv_element,subcategoryName);
 
-
-
-
         listPopupWindow.setAnchorView(button);
         listPopupWindow.setAdapter(adapter);
         listPopupWindow.setOnItemClickListener(new AdapterView.OnItemClickListener() {

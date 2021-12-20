@@ -33,26 +33,6 @@ public class ProductRepository {
         return INSTANCE;
     }
 
-//    public LiveData<List<Product>> getProductBySubcategory(String slugCategory, String slugSubCategory){
-//        MutableLiveData<List<Product>> productResult = new MutableLiveData<>();
-//        TokenManager tokenManager = TokenManager.getInstance(context.getSharedPreferences("Token",0));
-//        Call<List<Product>> callProduct;
-//        callProduct = ApiConfig.getApiService(tokenManager).
-//                getProductSubCategories(slugCategory, slugSubCategory);
-//        callProduct.enqueue(new Callback<List<Product>>() {
-//            @Override
-//            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-//                List<Product> respProduct = response.body();
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Product>> call, Throwable t) {
-//                Log.e("", t.getMessage());
-//            }
-//        });
-//        return productResult;
-//    }
-
     public static final void getProductBySlug(View view, String slug, ProductListener productListener){
         TokenManager tokenManager = TokenManager.getInstance(view.getContext().getSharedPreferences("Token",0));
         Call<Product> callProductSlug = ApiConfig.getApiService(tokenManager).getProductSlug(slug);

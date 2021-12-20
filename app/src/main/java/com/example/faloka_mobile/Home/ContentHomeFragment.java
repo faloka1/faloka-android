@@ -45,7 +45,6 @@ import retrofit2.Response;
 public class ContentHomeFragment extends Fragment {
 
     Category category;
-    Button btnLogout;
     View view;
 
     @Override
@@ -53,8 +52,6 @@ public class ContentHomeFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_content_home, container, false);
-        TokenManager tokenManager = TokenManager.getInstance(getContext().getSharedPreferences("Token",0));
-//        Toast.makeText(getContext(), tokenManager.getToken(), Toast.LENGTH_SHORT).show();
         Bundle bundle = getArguments();
         if(bundle != null) {
             category = bundle.getParcelable(Category.EXTRA_CATEGORY);
@@ -62,40 +59,6 @@ public class ContentHomeFragment extends Fragment {
         createHomeCarousel();
         createSubCategory();
         createStyleInspiration();
-        btnLogout = view.findViewById(R.id.logout);
-//        btnLogout.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                TokenManager tokenManager = TokenManager.getInstance(view.getContext().getSharedPreferences("Token",0));
-//
-//                Call<Message> callLogout = ApiConfig.getApiService(tokenManager).getLogoutMessage(tokenManager.getTypeToken()+" "+tokenManager.getToken());
-//
-//                callLogout.enqueue(new Callback<Message>() {
-//                    @Override
-//                    public void onResponse(Call<Message> call, Response<Message> response) {
-//                        if(response.isSuccessful()) {
-//                            Message logout = response.body();
-//                            tokenManager.deleteToken();
-//                            startActivity(new Intent(view.getContext(), LoginActivity.class));
-//                            Toast.makeText(view.getContext(), logout.getMessage(), Toast.LENGTH_SHORT).show();
-//                            getActivity().finish();
-//                        }
-//                        else {
-//                            Toast.makeText(view.getContext(), "Login dulu"+response.code(), Toast.LENGTH_SHORT).show();
-//                            tokenManager.deleteToken();
-//                            startActivity(new Intent(view.getContext(), LoginActivity.class));
-//                            getActivity().finish();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<Message> call, Throwable t) {
-//
-//                    }
-//                });
-//            }
-//        });
-        btnLogout.setVisibility(View.GONE);
 
         return view;
     }
@@ -110,12 +73,6 @@ public class ContentHomeFragment extends Fragment {
                 Glide.with(getContext())
                         .load(ApiConfig.BASE_IMAGE_URL  +category.getCarouselList().get(position).getImageURL())
                         .into(imageView);
-            }
-        });
-        homeCarousel.setImageClickListener(new ImageClickListener() {
-            @Override
-            public void onClick(int position) {
-//                Toast.makeText(getContext(), category.getImages().get(position).getName(), Toast.LENGTH_SHORT).show();
             }
         });
 

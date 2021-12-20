@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -30,6 +31,7 @@ import com.example.faloka_mobile.Model.Product;
 import com.example.faloka_mobile.Model.Variant;
 import com.example.faloka_mobile.R;
 import com.example.faloka_mobile.databinding.ActivityDetailOrderBinding;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -52,10 +54,15 @@ public class DetailOrderActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Detail Order");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        if(getIntent() != null){
+        if(getIntent().getBundleExtra("DATA_ORDER") != null){
             Bundle bundle = getIntent().getBundleExtra("DATA_ORDER");
             order = bundle.getParcelable(Order.EXTRA_ORDER);
         }
+        if(getIntent().getBundleExtra("DATA_ORDER_ACCOUNT") != null){
+            Bundle bundle = getIntent().getBundleExtra("DATA_ORDER_ACCOUNT");
+            order = bundle.getParcelable(Order.EXTRA_ORDER);
+        }
+
         setDetailPrice();
         setDetailProduct();
         setDetailExpedition();
@@ -138,6 +145,12 @@ public class DetailOrderActivity extends AppCompatActivity {
                         builder.setMessage("Bukti pembayaran kamu");
 
                         ImageView imageView = new ImageView(view.getContext());
+
+                        CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(imageView.getContext());
+                        circularProgressDrawable.setStrokeWidth(5f);
+                        circularProgressDrawable.setCenterRadius(30f);
+                        circularProgressDrawable.start();
+
                         Glide.with(view.getContext())
                                 .load(ApiConfig.BASE_IMAGE_URL + order.getImagePaymentURL())
                                 .apply(new RequestOptions().override(500, 500))

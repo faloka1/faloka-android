@@ -249,6 +249,7 @@ public class InpireMeUploadActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(InpireMeUploadActivity.this, InpireMeUploadActivity.class));
+                finish();
                 viewModel.getProductVariants().clear();
             }
         });

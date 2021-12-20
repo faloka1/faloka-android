@@ -10,8 +10,6 @@ public class CartBrand implements Parcelable {
     public static final String EXTRA_CART_BRAND = "EXTRA_CART_BRAND";
 
     private Brand brand;
-//    private List<Product> productList;
-//    private List<Integer> quantityList;
     private Courier courier;
     private CourierService courierService;
     private List<Cart> cartList;

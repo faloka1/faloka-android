@@ -24,60 +24,75 @@
             android:exported="true" />
         <activity
             android:name=".Search.SearchListProductActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".Search.SearchActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".InspireMe.InspireMeRelateProductListActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".InspireMe.InspireMeTagProductActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".InspireMe.InpireMeUploadActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".Cart.CartActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".Cart.CartEmptyActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".MixAndMatch.MixMatchActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".Checkout.DetailOrderActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".Checkout.ConfirmCheckoutActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".Checkout.DeliveryChooseActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".Checkout.ActionAddressActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".Checkout.CheckoutActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".Product.ProductDetailActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".Login.LoginActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".Register.RegisterActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:exported="true" />
-        <activity
-            android:name=".Checkout.checkoutCobaCoba"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".Product.ProductListActivity"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:label="Product List"
             android:parentActivityName=".MainActivity">
@@ -87,6 +102,7 @@
         </activity>
         <activity
             android:name=".SplashScreen"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

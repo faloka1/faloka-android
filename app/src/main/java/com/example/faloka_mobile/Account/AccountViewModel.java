@@ -30,7 +30,11 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AccountViewModel extends ViewModel implements UserProfileListener, OrderUserListener{
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class AccountViewModel extends ViewModel implements UserProfileListener{
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -56,31 +60,47 @@ public class AccountViewModel extends ViewModel implements UserProfileListener, 
         init();
     }
     public void init(){
-        setAccountMenu();
+        initTab();
+        setToolbar();
         createDrawer(view);
-        AccountRepository.setUserProfile(view, this::onUserProfile);
-//        AccountRepository.getOrders(view, this::onOrder);
-    }
-    private void setAccountMenu(){
-        ArrayList<String> names = new ArrayList<>();
-        names.add("Pesanan Saya");
-        names.add("Keranjang Saya");
-        names.add("Postingan Saya");
-        names.add("Keluar");
-        ArrayList<Integer> icons = new ArrayList<>();
-        icons.add(R.drawable.ic_carbon_delivery);
-        icons.add(R.drawable.ic_bx_bx_shopping_bag);
-        icons.add(R.drawable.ic_carbon_drop_photo);
-        icons.add(R.drawable.ic_ant_design_logout_outlined);
-        initStateUser(names, icons);
-        MenuAccountAdapter menuAdapter = new MenuAccountAdapter(names, icons);
-        RecyclerView menus = view.findViewById(R.id.rv_account_menu);
-        menus.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        menus.setAdapter(menuAdapter);
+        initStateUser();
     }
 
-    private void initStateUser(ArrayList<String> names, ArrayList<Integer> icons){
-        TokenManager tokenManager = TokenManager.getInstance(view.getContext().getSharedPreferences("Token",0));
+    public void setToolbar(){
+        activity.setSupportActionBar(binding.toolbar);
+        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        activity.getSupportActionBar().setTitle(" ");
+    }
+
+    public void initTab(){
+        tabLayout = view.findViewById(R.id.account_main_tab);
+        viewPager = view.findViewById(R.id.account_content_view_pager);
+
+        tabLayout.addTab(tabLayout.newTab().setText("Pesanan Saya"));
+        tabLayout.addTab(tabLayout.newTab().setText("Postingan"));
+
+        MyAdapter adapter = new MyAdapter(view.getContext(),activity.getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        createTab(view);
+    }
+
+    public void createTab(View view){
+        viewPager.setCurrentItem(0);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
 
         if(tokenManager.getToken() == null){
             names.add(0, "Masuk / Buat Akun");
@@ -90,7 +110,7 @@ public class AccountViewModel extends ViewModel implements UserProfileListener, 
         }
     }
 
-    private void createDrawer(View view){
+    public void createDrawer(View view){
         drawerLayout = view.findViewById(R.id.account_drawer);
         actionBarDrawerToggle = new ActionBarDrawerToggle(activity, drawerLayout, R.string.nav_open, R.string.nav_close);
         actionBarDrawerToggle.getDrawerArrowDrawable().setColor(activity.getResources().getColor(R.color.black_faloka));
@@ -103,19 +123,69 @@ public class AccountViewModel extends ViewModel implements UserProfileListener, 
     public void onUserProfile(User user) {
         binding.account.tvName.setText(user.getName());
     }
+          
+    public class MyAdapter extends FragmentStatePagerAdapter {
 
-    @Override
-    public void onOrder(List<OrderUser> orderUserList) {
-//        for (OrderUser orderUser : orderUserList){
-//            System.out.println(orderUser.getId());
-//
-//        }
-//        OrderProductAdapter orderProductAdapter = new OrderProductAdapter(orderUserList);
-//        binding.rvAddresses.setAdapter(addressAdapter);
-//        binding.rvAddresses.setLayoutManager(new LinearLayoutManager(getContext()));
-//        Toast.makeText(view.getContext(), "HMMMMMMMMMMM", Toast.LENGTH_SHORT).show();
+        private Context myContext;
+        int totalTabs;
+
+        public MyAdapter(Context context, FragmentManager fm, int totalTabs) {
+            super(fm);
+            myContext = context;
+            this.totalTabs = totalTabs;
+        }
+
+        // this is for fragment tabs
+        @Override
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 0:
+                    return new OrderFragment();
+                case 1:
+                    return new PostFragment();
+                default:
+                    return null;
+            }
+        }
+        @Override
+        public int getCount() {
+            return totalTabs;
+        }
     }
 
+    public void initStateUser(){
+        TokenManager tokenManager = TokenManager.getInstance(view.getContext().getSharedPreferences("Token",0));
+        View navViewHeaderView = binding.profileNavView.getHeaderView(0);
+        Button btnLogin = navViewHeaderView.findViewById(R.id.btn_profile_login);
+        Button btnRegister = navViewHeaderView.findViewById(R.id.btn_profile_register);
 
+        if(tokenManager.getToken() != null){
+            btnRegister.setVisibility(View.GONE);
+            btnLogin.setText("Logout");
+            btnLogin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AccountRepository.logoutUser(view.getContext());
+                }
+            });
+        }
+        else{
+            btnLogin.setText("Login");
+            btnRegister.setText("Register");
+            btnLogin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    activity.startActivity(new Intent(activity, LoginActivity.class));
+                }
+            });
+            btnRegister.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    activity.startActivity(new Intent(activity, RegisterActivity.class));
+                }
+            });
+        }
+        AccountRepository.setUserProfile(view, this::onUserProfile);
+    }
 
 }
