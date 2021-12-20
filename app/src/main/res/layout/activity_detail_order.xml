@@ -47,18 +47,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/netral_100"
-                android:paddingHorizontal="20dp"
+                android:paddingHorizontal="12dp"
                 android:paddingVertical="17dp">
 
                 <TextView
                     android:id="@+id/tv_delivery_title_summary_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/lato_bold"
-                    android:letterSpacing="0.015"
+                    style="@style/TextAppearance.App.Subtitle1"
                     android:text="Ringkasan Pembelian"
-                    android:textColor="@color/netral_900"
-                    android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -67,10 +64,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:letterSpacing="0.015"
+                    style="@style/TextAppearance.App.Body2"
+                    android:textColor="@color/netral_500"
                     android:text="Total Produk"
-                    android:textColor="@color/netral_900"
-                    android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="@id/tv_delivery_title_summary_price"
                     app:layout_constraintTop_toBottomOf="@id/tv_delivery_title_summary_price" />
 
@@ -78,10 +74,8 @@
                     android:id="@+id/tv_delivery_value_total_product_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:letterSpacing="0.015"
                     android:text="0"
-                    android:textColor="@color/netral_900"
-                    android:textSize="16sp"
+                    style="@style/TextAppearance.App.Body2"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_delivery_title_total_product_price"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tv_delivery_title_total_product_price" />
@@ -91,10 +85,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:letterSpacing="0.015"
+                    style="@style/TextAppearance.App.Body2"
+                    android:textColor="@color/netral_500"
                     android:text="Total Pengiriman"
-                    android:textColor="@color/netral_900"
-                    android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="@id/tv_delivery_title_total_product_price"
                     app:layout_constraintTop_toBottomOf="@id/tv_delivery_value_total_product_price" />
 
@@ -102,10 +95,8 @@
                     android:id="@+id/tv_delivery_value_total_delivery_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:letterSpacing="0.015"
+                    style="@style/TextAppearance.App.Body2"
                     android:text="0"
-                    android:textColor="@color/netral_900"
-                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_delivery_title_total_delivery_price"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tv_delivery_title_total_delivery_price"
@@ -116,10 +107,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:letterSpacing="0.015"
+                    style="@style/TextAppearance.App.Body2"
+                    android:textColor="@color/netral_500"
                     android:text="Biaya layanan"
-                    android:textColor="@color/netral_900"
-                    android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="@+id/tv_delivery_title_total_delivery_price"
                     app:layout_constraintTop_toBottomOf="@+id/tv_delivery_title_total_delivery_price" />
 
@@ -127,10 +117,8 @@
                     android:id="@+id/tv_order_detail_value_service_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:letterSpacing="0.015"
                     android:text="0"
-                    android:textColor="@color/netral_900"
-                    android:textSize="16sp"
+                    style="@style/TextAppearance.App.Body2"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_detail_order_title_service_price"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tv_detail_order_title_service_price"
@@ -141,11 +129,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:fontFamily="@font/lato_black"
-                    android:letterSpacing="0.015"
+                    style="@style/TextAppearance.App.Body2"
                     android:text="Total Pembelian"
-                    android:textColor="@color/netral_900"
-                    android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="@+id/tv_detail_order_title_service_price"
                     app:layout_constraintTop_toBottomOf="@+id/tv_detail_order_title_service_price" />
 
@@ -153,11 +138,9 @@
                     android:id="@+id/tv_order_detail_value_total_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/lato_bold"
-                    android:letterSpacing="0.015"
+                    style="@style/TextAppearance.App.Body2"
                     android:text="0"
                     android:textColor="#DB317A"
-                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_detail_order_title_total_price"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tv_detail_order_title_total_price"
@@ -167,10 +150,9 @@
                     android:id="@+id/btn_order_show_payment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/lato"
+                    android:layout_marginTop="12dp"
+                    style="@style/ButtonSecondary"
                     android:text="Lihat Bukti Bayar"
-                    android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="@+id/tv_order_detail_value_total_price"
                     app:layout_constraintTop_toBottomOf="@+id/tv_detail_order_title_total_price" />
 
@@ -181,37 +163,28 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@color/netral_100"
-                android:paddingHorizontal="20dp"
+                android:paddingHorizontal="12dp"
                 android:paddingVertical="17dp">
 
                 <Button
                     android:id="@+id/btn_detail_order_inspo_outfit"
-                    style="@style/ButtonSecondary"
+                    style="@style/TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
-                    android:text="Inspo outfit"
-                    android:textSize="12sp"
-                    app:icon="@drawable/ic_svg_inspire"
-                    app:iconSize="20dp"
-                    app:iconTint="@android:color/black"
+                    android:text="Buat inspo"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_detail_order_title_product"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tv_detail_order_title_product"
-                    app:strokeColor="@color/netral_900"
-                    app:strokeWidth="2dp" />
+                    app:layout_constraintTop_toTopOf="@+id/tv_detail_order_title_product" />
 
                 <TextView
                     android:id="@+id/tv_detail_order_title_product"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/lato_bold"
-                    android:letterSpacing="0.015"
+                    style="@style/TextAppearance.App.Subtitle1"
                     android:text="Barang Pembelian"
-                    android:textColor="@color/netral_900"
-                    android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -223,7 +196,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:background="@color/netral_100"
-                android:paddingHorizontal="20dp"
+                android:paddingHorizontal="12dp"
                 android:paddingVertical="17dp">
 
                 <androidx.recyclerview.widget.RecyclerView

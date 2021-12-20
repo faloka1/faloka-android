@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
+    android:layout_marginBottom="28dp"
     android:background="@drawable/card_border">
 
     <LinearLayout
@@ -17,7 +17,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:padding="8dp"
             android:scaleType="fitXY"
             android:src="@drawable/img_profile"></ImageView>
 
@@ -25,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingHorizontal="20dp"
+            android:paddingHorizontal="12dp"
             android:paddingVertical="16dp">
 
             <LinearLayout
@@ -49,24 +48,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:fontFamily="@font/lato_bold"
-                    android:letterSpacing="0.015"
-                    android:text="Kookie"
-                    android:textColor="@color/netral_900"
-                    android:textSize="16dp" />
+                    style="@style/TextAppearance.App.Subtitle1"
+                    android:gravity="center_vertical"
+                    android:text="Kookie" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/inspire_caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/khula"
-                android:letterSpacing="0.05"
-                android:lineHeight="20dp"
-                android:text="Miror selfie check! lagi seneng banget pakek baju ini"
-                android:textColor="@color/netral_600"
-                android:textSize="16dp" />
+                android:layout_marginTop="8dp"
+                style="@style/TextAppearance.App.Body1"
+                android:text="Miror selfie check! lagi seneng banget pakek baju ini" />
 
             <Button
                 android:id="@+id/inspire_button_relate_product"

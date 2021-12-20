@@ -39,9 +39,11 @@ public class AccountPostAdapter extends RecyclerView.Adapter<AccountPostAdapter.
     @Override
     public int getItemCount() {
         return inspireMeList.size();
+
+
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -51,6 +53,8 @@ public class AccountPostAdapter extends RecyclerView.Adapter<AccountPostAdapter.
             Glide.with(imageView).
                     load(ApiConfig.BASE_IMAGE_URL + inspireMe.getImageUrl())
                     .into(imageView);
+
+
         }
     }
 }

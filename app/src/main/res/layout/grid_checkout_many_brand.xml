@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="24dp"
-        style="@style/TextAppearance.App.Headline6"
+        style="@style/TextAppearance.App.Subtitle1"
         android:text="Brand"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -57,7 +57,7 @@
             android:drawablePadding="8dp"
             style="@style/TextAppearance.App.Subtitle1"
             android:textColor="@color/secondary_dark"
-            android:gravity="center"
+            android:gravity="center_vertical"
             android:text="Pilih ekspedisimu dulu"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

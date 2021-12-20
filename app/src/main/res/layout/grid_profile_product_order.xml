@@ -3,13 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_marginHorizontal="12dp"
+    android:layout_marginVertical="12dp"
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="48dp"
+        android:paddingHorizontal="12dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,11 +21,9 @@
             android:id="@+id/tv_product_order_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:fontFamily="@font/lato"
+            style="@style/TextAppearance.App.Body2"
+            android:textColor="@color/netral_500"
             android:text="Date"
-            android:textColor="@color/netral_600"
-            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageButton2"
             app:layout_constraintStart_toEndOf="@+id/imageButton2"
             app:layout_constraintTop_toTopOf="@+id/imageButton2" />
@@ -32,7 +32,6 @@
             android:id="@+id/imageButton2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="11dp"
             android:background="#00FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +42,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="125dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:background="@drawable/round_corner_subcategory"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,12 +51,14 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="16dp">
 
             <ImageView
                 android:id="@+id/img_product_order_product"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="8dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintStart_toStartOf="@+id/tv_product_order_brand"
@@ -68,12 +69,8 @@
                 android:id="@+id/tv_product_order_brand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/lato"
+                style="@style/TextAppearance.App.Subtitle1"
                 android:text="Brand"
-                android:textColor="@color/netral_600"
-                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -81,10 +78,9 @@
                 android:id="@+id/tv_product_order_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:fontFamily="@font/lato_bold"
+                android:layout_marginStart="16dp"
+                style="@style/TextAppearance.App.Body2"
                 android:text="None"
-                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/img_product_order_product"
                 app:layout_constraintStart_toEndOf="@+id/img_product_order_product"
                 app:layout_constraintTop_toTopOf="@+id/img_product_order_product" />
@@ -93,7 +89,6 @@
                 android:id="@+id/tv_product_order_another_product"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
                 android:fontFamily="@font/lato"
                 android:text="+0 outfit lagi"
                 android:textColor="@color/netral_500"
@@ -111,8 +106,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_product_order_another_brand"
         android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="2dp"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="12dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -122,11 +118,9 @@
             android:id="@+id/tv_product_order_another_brand"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:fontFamily="@font/lato"
-            android:text="+0 brand lagi"
+            style="@style/TextAppearance.App.Body2"
             android:textColor="@color/netral_500"
-            android:textSize="12sp"
+            android:text="+0 brand lagi"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -135,7 +129,6 @@
             android:id="@+id/ll_product_order_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
             android:background="#FFFFFF"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -149,14 +142,13 @@
                 android:layout_gravity="center"
                 android:layout_marginEnd="4dp"
                 android:layout_weight="1"
-                android:fontFamily="@font/lato"
                 android:text="Lihat Detail"
-                android:textSize="14sp" />
+                style="@style/TextAppearance.App.Body2"/>
 
             <ImageButton
                 android:id="@+id/imageButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:background="#00FFFFFF"
@@ -166,8 +158,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
-        android:layout_height="55dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="12dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -177,9 +171,8 @@
             android:id="@+id/textView13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
             android:layout_marginTop="4dp"
-            android:fontFamily="@font/lato_black"
+            style="@style/TextAppearance.App.Body2"
             android:text="Total Pembayaran"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -189,10 +182,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:fontFamily="@font/lato_bold"
+            style="@style/TextAppearance.App.Subtitle2"
             android:text="Rp."
             android:textColor="#DB317A"
-            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/textView13"
             app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
@@ -200,14 +192,8 @@
             android:id="@+id/btn_upload_payment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
-            android:fontFamily="@font/khula"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:text="Upload Bukti Pembayaran"
-            android:textAllCaps="false"
-            android:textColor="@color/white_faloka"
-            android:textSize="12sp"
+            android:text="Upload Bukti"
+            style="@style/ButtonPrimary"
             app:layout_constraintBottom_toBottomOf="@+id/tv_product_order_price"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView13" />
