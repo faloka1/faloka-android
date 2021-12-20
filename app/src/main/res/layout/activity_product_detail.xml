@@ -56,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="12dp"
                     android:layout_marginTop="22dp"
-                    android:text="Mix match outfit"
+                    android:text="Mix Match"
                     style="@style/ButtonPrimary2"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_detail_brand"
                     app:layout_constraintEnd_toEndOf="parent"

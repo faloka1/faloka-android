@@ -1,47 +1,41 @@
 package com.example.faloka_mobile.Account;
 
-import android.content.Context;
-import android.os.Bundle;
-
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.faloka_mobile.Account.OrderStatus.NotYetPaidFragment;
 import com.example.faloka_mobile.Account.OrderStatus.WaitConfirmationFragment;
 import com.example.faloka_mobile.R;
-import com.example.faloka_mobile.databinding.FragmentOrderBinding;
+import com.example.faloka_mobile.databinding.ActivityOrderBinding;
 import com.google.android.material.tabs.TabLayout;
 
-
-public class OrderFragment extends Fragment {
+public class OrderActivity extends AppCompatActivity {
 
     TabLayout tabLayout;
     ViewPager viewPager;
-
+    ActivityOrderBinding binding;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
+        binding = ActivityOrderBinding.inflate(getLayoutInflater());
         super.onCreate(savedInstanceState);
-
+        setContentView(binding.getRoot());
+        setToolbar();
+        createTab(binding.getRoot());
     }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_order, container, false);
-        createTab(view);
-
-        return view;
+    private void setToolbar(){
+        setSupportActionBar(binding.toolbar);
+        getSupportActionBar().setTitle("Pesanan Saya");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-
     private void createTab(View view){
         tabLayout = view.findViewById(R.id.order_tab);
         viewPager = view.findViewById(R.id.order_view_pager);
@@ -49,9 +43,10 @@ public class OrderFragment extends Fragment {
         tabLayout.addTab(tabLayout.newTab().setText("Belum dibayar"));
         tabLayout.addTab(tabLayout.newTab().setText("Tunggu Konfirmasi"));
 
-        tabLayout.setInlineLabel(false);
+        tabLayout.setInlineLabel(true);
 
-        final MyAdapter adapter = new MyAdapter(getContext(),getActivity().getSupportFragmentManager(), tabLayout.getTabCount());
+        final MyAdapter adapter = new MyAdapter(getApplicationContext(),
+                getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

@@ -88,6 +88,7 @@
                     android:layout_marginTop="8dp"
                     style="@style/TextAppearance.App.Body1"
                     android:text="Subtotal"
+                    android:textColor="@color/netral_500"
                     app:layout_constraintStart_toStartOf="@+id/tv_delivery_total_expedition"
                     app:layout_constraintTop_toBottomOf="@+id/tv_delivery_total_expedition" />
 
@@ -95,7 +96,7 @@
                     android:id="@+id/tv_delivery_subtotal_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/TextAppearance.App.Subtitle1"
+                    style="@style/TextAppearance.App.Body2"
                     android:text="Rp.0"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_delivery_subtotal_title"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -105,7 +106,7 @@
                     android:id="@+id/tv_delivery_total_product"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/TextAppearance.App.Body1"
+                    style="@style/TextAppearance.App.Body2"
                     android:text="Total produk"
                     android:textColor="@color/netral_500"
                     app:layout_constraintStart_toStartOf="parent"
@@ -116,7 +117,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    style="@style/TextAppearance.App.Body1"
+                    style="@style/TextAppearance.App.Body2"
                     android:textColor="@color/netral_500"
                     android:text="Total pengiriman"
                     app:layout_constraintStart_toStartOf="@+id/tv_delivery_total_product"
@@ -126,7 +127,7 @@
                     android:id="@+id/tv_delivery_total_expedition_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/TextAppearance.App.Subtitle1"
+                    style="@style/TextAppearance.App.Body2"
                     android:text="Rp.0"
 
                     app:layout_constraintBottom_toBottomOf="@+id/tv_delivery_total_expedition"
@@ -137,7 +138,7 @@
                     android:id="@+id/tv_delivery_total_product_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/TextAppearance.App.Subtitle1"
+                    style="@style/TextAppearance.App.Body2"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_delivery_total_product"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tv_delivery_total_product" />

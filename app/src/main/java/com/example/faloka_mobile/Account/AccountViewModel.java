@@ -4,24 +4,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.lifecycle.ViewModel;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.faloka_mobile.API.ApiConfig;
-import com.example.faloka_mobile.Adapter.OrderProductAdapter;
+import com.example.faloka_mobile.Adapter.MenuAccountAdapter;
 import com.example.faloka_mobile.Login.LoginActivity;
 import com.example.faloka_mobile.Login.TokenManager;
-import com.example.faloka_mobile.Model.Message;
 import com.example.faloka_mobile.Model.OrderUser;
 import com.example.faloka_mobile.Model.User;
 import com.example.faloka_mobile.R;
@@ -29,6 +27,7 @@ import com.example.faloka_mobile.Register.RegisterActivity;
 import com.example.faloka_mobile.databinding.FragmentAccountBinding;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -43,6 +42,8 @@ public class AccountViewModel extends ViewModel implements UserProfileListener{
     public ActionBarDrawerToggle actionBarDrawerToggle;
     public View view;
     private DrawerOptionListener drawerOptionListener;
+
+
 
     private FragmentAccountBinding binding;
     private AppCompatActivity activity;
@@ -101,8 +102,12 @@ public class AccountViewModel extends ViewModel implements UserProfileListener{
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
 
-            }
-        });
+        if(tokenManager.getToken() == null){
+            names.add(0, "Masuk / Buat Akun");
+            icons.add(0, R.drawable.ic_ant_design_login_outlined);
+            names.remove(names.size()-1);
+            icons.remove(icons.size()-1);
+        }
     }
 
     public void createDrawer(View view){
@@ -118,7 +123,7 @@ public class AccountViewModel extends ViewModel implements UserProfileListener{
     public void onUserProfile(User user) {
         binding.account.tvName.setText(user.getName());
     }
-
+          
     public class MyAdapter extends FragmentStatePagerAdapter {
 
         private Context myContext;

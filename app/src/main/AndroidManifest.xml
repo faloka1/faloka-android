@@ -17,6 +17,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Falokamobile">
         <activity
+            android:name=".Account.PostActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Account.OrderActivity"
+            android:exported="true" />
+        <activity
             android:name=".Search.SearchListProductActivity"
             android:screenOrientation="portrait"
             android:exported="true" />

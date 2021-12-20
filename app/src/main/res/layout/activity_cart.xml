@@ -69,11 +69,11 @@
 
                 <Button
                     android:id="@+id/btn_cart_mix_match"
-                    style="@style/ButtonSecondary"
+                    style="@style/ButtonPrimary2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    android:text="mix match"
+                    android:text="Mix Match"
                     app:iconSize="20dp"
                     app:iconTint="@android:color/black"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -118,33 +118,34 @@
                 android:layout_marginTop="6dp"
                 android:id="@+id/rl_cart_total"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="80dp"
                 android:background="@color/white">
 
                 <TextView
                     android:id="@+id/textView5"
-                    style="@style/TextAppearance.App.Body1"
+                    style="@style/TextAppearance.App.Body2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="20dp"
-                    android:text="Subtotal" />
+                    android:text="Subtotal"
+                    android:textColor="@color/netral_500" />
 
                 <TextView
                     android:id="@+id/textView6"
-                    style="@style/TextAppearance.App.Body1"
+                    style="@style/TextAppearance.App.Body2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_above="@+id/textView5"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="8dp"
                     android:text="Total produk"
                     android:textColor="@color/netral_500" />
 
                 <TextView
                     android:id="@+id/tv_cart_total_product"
-                    style="@style/TextAppearance.App.Subtitle1"
+                    style="@style/TextAppearance.App.Body2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@+id/textView6"
@@ -156,6 +157,7 @@
 
                 <TextView
                     android:id="@+id/tv_cart_sub_total"
+                    style="@style/TextAppearance.App.Body2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@+id/textView5"
@@ -163,7 +165,6 @@
                     android:layout_alignParentEnd="true"
                     android:layout_marginTop="0dp"
                     android:layout_marginBottom="0dp"
-                    style="@style/TextAppearance.App.Subtitle1"
                     android:text="Rp." />
             </RelativeLayout>
 

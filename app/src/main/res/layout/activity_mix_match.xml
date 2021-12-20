@@ -38,9 +38,8 @@
         android:layout_below="@+id/mix_match_toolbar"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="8dp"
+        android:layout_marginHorizontal="12dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="4dp"
         android:background="@drawable/mix_match_border">
 
@@ -73,9 +72,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="0dp">
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginBottom="0dp"
+        android:padding="4dp">
 
         <Button
             android:id="@+id/btn_mix_match_delete"

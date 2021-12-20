@@ -32,6 +32,13 @@
         <item name="android:letterSpacing">0.025</item>
         <item name="lineHeight">20dp</item>
     </style>
+    <style name="TextAppearance.App.Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="fontFamily">@font/khula</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:letterSpacing">0.025</item>
+        <item name="lineHeight">20dp</item>
+    </style>
     <style name="TextAppearance.App.Headline6" parent="TextAppearance.MaterialComponents.Headline6">
         <item name="fontFamily">@font/lato</item>
         <item name="android:textSize">20sp</item>
