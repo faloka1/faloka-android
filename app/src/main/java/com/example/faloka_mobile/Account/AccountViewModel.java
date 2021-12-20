@@ -35,7 +35,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AccountViewModel extends ViewModel implements UserProfileListener, OrderUserListener{
+public class AccountViewModel extends ViewModel implements UserProfileListener{
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -59,22 +59,19 @@ public class AccountViewModel extends ViewModel implements UserProfileListener, 
         init();
     }
     public void init(){
-        createTab(view);
+        initTab();
         setToolbar();
         createDrawer(view);
         initStateUser();
-        AccountRepository.setUserProfile(view, this::onUserProfile);
-//        AccountRepository.getOrders(view, this::onOrder);
     }
 
-    private void setToolbar(){
+    public void setToolbar(){
         activity.setSupportActionBar(binding.toolbar);
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         activity.getSupportActionBar().setTitle(" ");
     }
 
-    public  void createTab(View view){
-
+    public void initTab(){
         tabLayout = view.findViewById(R.id.account_main_tab);
         viewPager = view.findViewById(R.id.account_content_view_pager);
 
@@ -84,6 +81,11 @@ public class AccountViewModel extends ViewModel implements UserProfileListener, 
         MyAdapter adapter = new MyAdapter(view.getContext(),activity.getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        createTab(view);
+    }
+
+    public void createTab(View view){
         viewPager.setCurrentItem(0);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -103,7 +105,7 @@ public class AccountViewModel extends ViewModel implements UserProfileListener, 
         });
     }
 
-    private void createDrawer(View view){
+    public void createDrawer(View view){
         drawerLayout = view.findViewById(R.id.account_drawer);
         actionBarDrawerToggle = new ActionBarDrawerToggle(activity, drawerLayout, R.string.nav_open, R.string.nav_close);
         actionBarDrawerToggle.getDrawerArrowDrawable().setColor(activity.getResources().getColor(R.color.black_faloka));
@@ -115,18 +117,6 @@ public class AccountViewModel extends ViewModel implements UserProfileListener, 
     @Override
     public void onUserProfile(User user) {
         binding.account.tvName.setText(user.getName());
-    }
-
-    @Override
-    public void onOrder(List<OrderUser> orderUserList) {
-//        for (OrderUser orderUser : orderUserList){
-//            System.out.println(orderUser.getId());
-//
-//        }
-//        OrderProductAdapter orderProductAdapter = new OrderProductAdapter(orderUserList);
-//        binding.rvAddresses.setAdapter(addressAdapter);
-//        binding.rvAddresses.setLayoutManager(new LinearLayoutManager(getContext()));
-//        Toast.makeText(view.getContext(), "HMMMMMMMMMMM", Toast.LENGTH_SHORT).show();
     }
 
     public class MyAdapter extends FragmentStatePagerAdapter {
@@ -158,7 +148,7 @@ public class AccountViewModel extends ViewModel implements UserProfileListener, 
         }
     }
 
-    private void initStateUser(){
+    public void initStateUser(){
         TokenManager tokenManager = TokenManager.getInstance(view.getContext().getSharedPreferences("Token",0));
         View navViewHeaderView = binding.profileNavView.getHeaderView(0);
         Button btnLogin = navViewHeaderView.findViewById(R.id.btn_profile_login);
@@ -190,6 +180,7 @@ public class AccountViewModel extends ViewModel implements UserProfileListener, 
                 }
             });
         }
+        AccountRepository.setUserProfile(view, this::onUserProfile);
     }
 
 }

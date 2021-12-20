@@ -148,7 +148,8 @@ public class CartViewModel implements
     }
     public void emptyCart(boolean empty){
         if(empty){
-            view.getContext().startActivity(new Intent(activity,CartEmptyActivity.class));
+            activity.startActivity(new Intent(activity,CartEmptyActivity.class));
+            activity.finish();
         }
     }
 

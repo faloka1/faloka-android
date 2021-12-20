@@ -226,7 +226,17 @@ public class ConfirmCheckoutActivity extends AppCompatActivity implements View.O
     @Override
     public void onUpload(PaymentUploadResponse paymentUploadResponse) {
         order.setImagePaymentURL(paymentUploadResponse.getImagePaymentURL());
-        Toast.makeText(getApplicationContext(), paymentUploadResponse.getMessage(), Toast.LENGTH_SHORT).show();
+        Snackbar snackbar = Snackbar.make(binding.coordinatorLayoutTopConfirmCheckout, "Berhasil upload, silahkan tunggu konfirmasi", Snackbar.LENGTH_LONG);
+        snackbar.setAction("OK", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        snackbar.setActionTextColor(getResources().getColor(R.color.primary_dark));
+        snackbar.setTextColor(getResources().getColor(R.color.primary_dark));
+        snackbar.setBackgroundTint(getResources().getColor(R.color.semantic_success));
+        snackbar.show();
         binding.btnUpload.setVisibility(View.GONE);
     }
 

@@ -7,11 +7,13 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.faloka_mobile.API.ApiConfig;
 import com.example.faloka_mobile.Adapter.AddressAdapter;
 import com.example.faloka_mobile.Adapter.AddressAddAdapter;
+import com.example.faloka_mobile.InspireMe.InspireMeFragment;
 import com.example.faloka_mobile.Login.LoginActivity;
 import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.MainActivity;
@@ -27,6 +29,8 @@ import com.example.faloka_mobile.Model.OrderBrand;
 import com.example.faloka_mobile.Model.OrderDetail;
 import com.example.faloka_mobile.Model.OrderUser;
 import com.example.faloka_mobile.Model.User;
+import com.example.faloka_mobile.R;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,15 +51,30 @@ public class AccountRepository {
                     Message logout = response.body();
                     tokenManager.deleteToken();
 
-                    ((Activity)context).startActivity(new Intent(context, MainActivity.class));
-                    Toast.makeText(context, logout.getMessage(), Toast.LENGTH_SHORT).show();
-//                    ((Activity)context).finish();
+                    CoordinatorLayout coordinatorLayout = ((Activity) context).findViewById(R.id.coordinator_layout_top_account);
+                    Snackbar snackbar = Snackbar.make(coordinatorLayout, "Berhasil keluar", Snackbar.LENGTH_SHORT);
+                    snackbar.setAction("OK", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            ((Activity)context).startActivity(new Intent(context, MainActivity.class));
+                            ((Activity)context).finish();
+                        }
+                    });
+                    snackbar.setActionTextColor(((Activity) context).getResources().getColor(R.color.primary_dark));
+                    snackbar.setTextColor(((Activity) context).getResources().getColor(R.color.primary_dark));
+                    snackbar.setBackgroundTint(((Activity) context).getResources().getColor(R.color.semantic_success));
+                    snackbar.addCallback(new Snackbar.Callback(){
+                        @Override
+                        public void onDismissed(Snackbar transientBottomBar, int event) {
+                            ((Activity)context).startActivity(new Intent(context, MainActivity.class));
+                            ((Activity)context).finish();
+                        }
+                    });
+                    snackbar.show();
+
                 }
                 else {
                     tokenManager.deleteToken();
-//                    ((Activity)context).startActivity(new Intent(context, MainActivity.class));
-//                    Toast.makeText(context, "Session Expired", Toast.LENGTH_SHORT).show();
-//                    ((Activity)context).finish();
                 }
             }
 
@@ -77,9 +96,6 @@ public class AccountRepository {
                     User user = response.body();
                     userProfileListener.onUserProfile(user);
                 }
-                else {
-//                    Toast.makeText(view.getContext(), "FAIL", Toast.LENGTH_SHORT).show();
-                }
             }
 
             @Override
@@ -100,14 +116,10 @@ public class AccountRepository {
                     List<OrderUser> orderUserList = response.body();
                     orderUserListener.onOrder(orderUserList);
                 }
-                else {
-//                    Toast.makeText(view.getContext(), "FAIL RESPONSE", Toast.LENGTH_SHORT).show();
-                }
             }
 
             @Override
             public void onFailure(Call<List<OrderUser>> call, Throwable t) {
-//                Toast.makeText(view.getContext(), "FAIL API "+t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
