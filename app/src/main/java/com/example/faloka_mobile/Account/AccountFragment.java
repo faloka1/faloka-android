@@ -58,8 +58,8 @@ public class AccountFragment extends BaseFragment implements DrawerOptionListene
     public void onResume() {
         super.onResume();
         accountViewModel.createTab(view);
-        accountViewModel.setToolbar();
         accountViewModel.createDrawer(view);
+        accountViewModel.setToolbar();
         accountViewModel.initStateUser();
     }
 }
