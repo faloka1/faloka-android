@@ -21,7 +21,6 @@ import java.util.Locale;
 
 public class CheckoutProductAdapter extends RecyclerView.Adapter<CheckoutProductAdapter.CheckoutProductViewHolder>{
 
-//    List<Product> productList;
     List<Cart> cartList;
 
     public CheckoutProductAdapter(List<Cart> cartList){
@@ -37,7 +36,6 @@ public class CheckoutProductAdapter extends RecyclerView.Adapter<CheckoutProduct
 
     @Override
     public void onBindViewHolder(@NonNull CheckoutProductAdapter.CheckoutProductViewHolder holder, int position) {
-//        Product product = productList.get(position);
         Cart cart = cartList.get(position);
         Glide.with(holder.imageOrderProduct.getContext())
                 .load(ApiConfig.BASE_IMAGE_URL+cart.getVariant().getVariantImageList().get(0).getImageURL())

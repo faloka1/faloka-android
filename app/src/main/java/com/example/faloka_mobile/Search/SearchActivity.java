@@ -53,7 +53,6 @@ public class SearchActivity extends AppCompatActivity implements SearchProductLi
 
     private ActivitySearchBinding binding;
     private View view;
-    private boolean flagEmpty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -247,14 +246,6 @@ public class SearchActivity extends AppCompatActivity implements SearchProductLi
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        MenuItem menuItem = menu.findItem(R.id.top_menu_search);
-//        SearchView searchView = menuItem.getActionView().findViewById(R.id.cart_badge);
-//        switch (menuItem.getItemId()){
-//            case R.id.top_menu_search:
-//                Toast.makeText(view.getContext(), "BISA NIH", Toast.LENGTH_SHORT).show();
-//                break;
-//
-//        }
         return super.onPrepareOptionsMenu(menu);
     }
 

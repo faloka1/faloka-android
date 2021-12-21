@@ -74,7 +74,6 @@ public class CheckoutActivity extends AppCompatActivity implements StepViewSelec
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
         ft.add(R.id.frame_container_checkout, deliveryFragment);
-        ft.addToBackStack("HAHA");
         ft.commit();
 
     }

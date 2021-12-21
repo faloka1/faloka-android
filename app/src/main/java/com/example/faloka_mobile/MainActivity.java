@@ -6,17 +6,13 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.example.faloka_mobile.Account.AccountFragment;
 import com.example.faloka_mobile.Home.HomeFragment;
 import com.example.faloka_mobile.InspireMe.InspireMeFragment;
-import com.example.faloka_mobile.Login.LoginRepository;
 import com.example.faloka_mobile.MixAndMatch.MixMatchActivity;
 import com.example.faloka_mobile.Search.SearchActivity;
-import com.example.faloka_mobile.Search.SearchFragment;
 import com.example.faloka_mobile.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 

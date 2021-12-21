@@ -52,8 +52,12 @@ public class DetailOrderActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Detail Order");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        if(getIntent() != null){
+        if(getIntent().getBundleExtra("DATA_ORDER") != null){
             Bundle bundle = getIntent().getBundleExtra("DATA_ORDER");
+            order = bundle.getParcelable(Order.EXTRA_ORDER);
+        }
+        if(getIntent().getBundleExtra("DATA_ORDER_ACCOUNT") != null){
+            Bundle bundle = getIntent().getBundleExtra("DATA_ORDER_ACCOUNT");
             order = bundle.getParcelable(Order.EXTRA_ORDER);
         }
         setDetailPrice();

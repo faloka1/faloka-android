@@ -21,13 +21,14 @@ import com.example.faloka_mobile.Login.TokenManager;
 import com.example.faloka_mobile.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MenuAccountAdapter extends RecyclerView.Adapter<MenuAccountAdapter.MenuViewHolder> {
 
-    ArrayList<String> names;
-    ArrayList<Integer> icons;
+    List<String> names;
+    List<Integer> icons;
 
-    public MenuAccountAdapter(ArrayList<String> names, ArrayList<Integer> icons) {
+    public MenuAccountAdapter(List<String> names, List<Integer> icons) {
         this.names = names;
         this.icons = icons;
     }

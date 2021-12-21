@@ -30,9 +30,6 @@ public class CheckoutBrandAdapter extends RecyclerView.Adapter<CheckoutBrandAdap
     private Context context;
     private CheckoutBrandListener checkoutBrandListener;
     private boolean isOpenDialog = true;
-//    private static String courierName;
-//    private static Courier selectedCourier;
-//    private static CourierService selectedCourierService;
 
     public CheckoutBrandAdapter(List<CartBrand> cartBrandList){
         this.cartBrandList = cartBrandList;

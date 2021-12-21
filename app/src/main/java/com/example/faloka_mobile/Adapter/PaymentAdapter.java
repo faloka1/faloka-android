@@ -12,12 +12,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.faloka_mobile.Checkout.PaymentFragment;
-import com.example.faloka_mobile.Checkout.PaymentMethodSelectedListener;
 import com.example.faloka_mobile.Checkout.PaymentSelectedListener;
-import com.example.faloka_mobile.Model.Courier;
 import com.example.faloka_mobile.Model.Payment;
-import com.example.faloka_mobile.Model.PaymentMethod;
 import com.example.faloka_mobile.R;
 
 import java.util.List;

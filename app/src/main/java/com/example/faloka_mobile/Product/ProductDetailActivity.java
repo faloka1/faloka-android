@@ -42,7 +42,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProductDetailActivity extends BaseActivity implements CartAddItemListener, AuthFlagListener, ProductListener, CartItemListener {
+public class ProductDetailActivity extends BaseActivity implements CartAddItemListener, AuthFlagListener, CartItemListener {
 
     ActivityProductDetailBinding binding;
     Product product;
@@ -233,13 +233,6 @@ public class ProductDetailActivity extends BaseActivity implements CartAddItemLi
     public void onUnauthorized(boolean flag) {
         this.flagAuth = flag;
         super.onUnauthorized(flag);
-    }
-
-    @Override
-    public void onProductSlug(Product product) {
-//        Intent intent = new Intent(binding.getRoot().getContext(), MixMatchActivity.class);
-//        intent.putExtra(Product.EXTRA_PRODUCT, product);
-//        binding.getRoot().getContext().startActivity(intent);
     }
 
     @Override

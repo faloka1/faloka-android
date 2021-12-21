@@ -1,5 +1,6 @@
 package com.example.faloka_mobile.Checkout;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -16,18 +17,19 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.example.faloka_mobile.Model.Cost;
 import com.example.faloka_mobile.Model.Courier;
 import com.example.faloka_mobile.Model.CourierService;
 import com.example.faloka_mobile.R;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
 public class ChooseDeliveryDialog extends AppCompatDialogFragment implements CourierListener, CourierServiceListener{
-//    EditText test;
     DeliveryListener deliveryListener;
     RadioGroup radioGroupCourier;
     RadioGroup radioGroupCourierservice;
@@ -62,9 +64,6 @@ public class ChooseDeliveryDialog extends AppCompatDialogFragment implements Cou
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if(chooseCourier != null && chooseCourierService != null){
                             deliveryListener.onDelivery(chooseCourier, chooseCourierService);
-                        }
-                        else {
-                            Toast.makeText(view.getContext(), "Ekspedisi belum dipilih", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -130,7 +129,6 @@ public class ChooseDeliveryDialog extends AppCompatDialogFragment implements Cou
                     bundle.putParcelable(Courier.EXTRA_COURIER, courier);
                     bundle.putParcelable(CourierService.EXTRA_COURIER_SERVICE, courierService);
                     System.out.println(courierService.getName() +" "+(radioGroup.getCheckedRadioButtonId()));
-//                    deliveryListener.onDelivery(courier, courierService, null);
                     chooseCourier = courier;
                     chooseCourierService = courierService;
                 }

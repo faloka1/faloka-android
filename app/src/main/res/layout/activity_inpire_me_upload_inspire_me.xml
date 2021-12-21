@@ -27,9 +27,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:background="@android:color/transparent"
-        tools:ignore="MissingConstraints"></androidx.coordinatorlayout.widget.CoordinatorLayout>
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="56dp"></androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView3"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
