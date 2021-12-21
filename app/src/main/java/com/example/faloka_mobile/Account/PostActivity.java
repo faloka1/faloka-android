@@ -1,11 +1,13 @@
 package com.example.faloka_mobile.Account;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.example.faloka_mobile.Adapter.AccountPostAdapter;
 import com.example.faloka_mobile.InspireMe.InspireMeRepositry;
@@ -43,5 +45,16 @@ public class PostActivity extends AppCompatActivity {
             rv.setLayoutManager(new GridLayoutManager(getApplicationContext(),3,GridLayoutManager.VERTICAL,false));
             rv.setAdapter(adapter);
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()){
+            case android.R.id.home:
+                this.finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

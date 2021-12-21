@@ -201,7 +201,7 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
                                     public void onResponse(Call<OrderResponse> call, Response<OrderResponse> response) {
                                         if(response.isSuccessful()){
                                             OrderResponse orderResponse = response.body();
-                                            CartRepository.deleteAllCart(view);
+                                            deleteCartByID(view, order);
                                             Bundle bundlePayment = new Bundle();
                                             Intent intent = new Intent(getActivity(), ConfirmCheckoutActivity.class);
                                             order.setId(orderResponse.getOrderID());
@@ -240,6 +240,14 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
             }
         });
         setFooterPayment();
+    }
+
+    public static final void deleteCartByID(View view, Order order){
+        for(CartBrand cartBrand : order.getCartBrandList()){
+            for(Cart cart : cartBrand.getCartList()){
+                CartRepository.deleteCart(view, cart.getId());
+            }
+        }
     }
 
     private BodyCheckout getBodyCheckout(Order order){
