@@ -44,7 +44,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     @Override
     public void onBindViewHolder(@NonNull ProductAdapter.ProductViewHolder holder, int position) {
         Product product = productList.get(position);
-//        Toast.makeText(holder.itemView.getContext(), product.getProductImageURL(), Toast.LENGTH_SHORT).show();
         Glide.with(holder.img.getContext())
                 .load(ApiConfig.BASE_IMAGE_URL+product.getProductImageURL() )
                 .into(holder.img);

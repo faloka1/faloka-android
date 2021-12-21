@@ -74,7 +74,6 @@ public class CheckoutRepository {
                     PaymentUploadResponse paymentUploadResponse = response.body();
                     uploadFileListener.onUpload(paymentUploadResponse);
                     tokenManager.getLoadingDialog().dismissLoadingDialog();
-//                    Toast.makeText(view.getContext(), message.getMessage(), Toast.LENGTH_SHORT).show();
                 }
                 else {
                     tokenManager.getLoadingDialog().dismissLoadingDialog();
@@ -86,7 +85,6 @@ public class CheckoutRepository {
             public void onFailure(Call<PaymentUploadResponse> call, Throwable t) {
                 tokenManager.getLoadingDialog().dismissLoadingDialog();
                 Toast.makeText(view.getContext(), "FAIL API"+ call.toString(), Toast.LENGTH_SHORT).show();
-                System.out.println("FAIL API"+ call.toString()+" <> "+t.getMessage());
             }
         });
     }

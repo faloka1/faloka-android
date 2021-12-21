@@ -23,10 +23,7 @@ import java.util.regex.Pattern;
 public class LoginViewModel extends ViewModel {
 
     ActivityLoginBinding binding;
-//    private String email = null;
-//    private String password = null;
     private Login login;
-    public AuthListener authListener;
     public LoginValidListener loginValidListener;
 
     public LoginViewModel(ActivityLoginBinding binding, LoginValidListener loginValidListener){
@@ -39,15 +36,6 @@ public class LoginViewModel extends ViewModel {
         login.setPassword(binding.edtLogPassword.getText().toString().trim());
     }
 
-//    public boolean login(View view, Context context) {
-//        init();
-//        MutableLiveData<Boolean> validation = new MutableLiveData<>();
-//        if (!isValidEmail() | !isValidPassword()) {
-//            return false;
-//        }
-//        LoginRepository.userLogin(login,context);
-//        return true;
-//    }
     public void login(View view, Context context) {
         init();
         MutableLiveData<Boolean> validation = new MutableLiveData<>();

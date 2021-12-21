@@ -101,21 +101,10 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
                 Intent intent = new Intent(view.getContext(), DetailOrderActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(Order.EXTRA_ORDER, AccountRepository.getOrder(orderUser));
-                intent.putExtra("DATA_ORDER", bundle);
+                intent.putExtra("DATA_ORDER_ACCOUNT", bundle);
                 view.getContext().startActivity(intent);
             }
         });
-
-//        holder.imgBtnDetailOrder.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(view.getContext(), DetailOrderActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelable(OrderUser.EXTRA_ORDER_USER, orderUser);
-//                intent.putExtra("DATA_ORDER", bundle);
-//                view.getContext().startActivity(intent);
-//            }
-//        });
 
         holder.btnUploadPayment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,7 +112,7 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
                 Intent intent = new Intent(view.getContext(), ConfirmCheckoutActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(Order.EXTRA_ORDER, AccountRepository.getOrder(orderUser));
-                intent.putExtra("DATA_ORDER",bundle);
+                intent.putExtra("DATA_ORDER_ACCOUNT",bundle);
                 view.getContext().startActivity(intent);
             }
         });

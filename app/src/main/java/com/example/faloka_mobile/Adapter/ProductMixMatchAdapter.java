@@ -35,7 +35,6 @@ public class ProductMixMatchAdapter extends RecyclerView.Adapter<ProductMixMatch
     View view;
 
     public ProductMixMatchAdapter(List<ProductMixMatch> productMixMatchList, SelectedImageListener selectedImageListener, RemoveProductListener removeProductListener){
-//        this.productList = productList;
         this.productMixMatchList = productMixMatchList;
         this.selectedImageListener = selectedImageListener;
         this.removeProductListener = removeProductListener;
@@ -50,7 +49,6 @@ public class ProductMixMatchAdapter extends RecyclerView.Adapter<ProductMixMatch
 
     @Override
     public void onBindViewHolder(@NonNull ProductMixMatchAdapter.ProductMixMatchViewHolder holder, int position) {
-        //        Product product = productList.get(position);
         ProductMixMatch productMixMatch = productMixMatchList.get(position);
         holder.imgSelected.setVisibility(View.GONE);
         Glide.with(holder.imgMixMatchProduct.getContext())
@@ -66,7 +64,6 @@ public class ProductMixMatchAdapter extends RecyclerView.Adapter<ProductMixMatch
                     public void onResponse(Call<Product> call, Response<Product> response) {
                         if(response.isSuccessful()){
                             Product product = response.body();
-//                            Toast.makeText(view.getContext(), product.getProductImageURL(), Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(view.getContext(), ProductDetailActivity.class);
                             intent.putExtra(Product.EXTRA_PRODUCT, product);
                             view.getContext().startActivity(intent);
@@ -89,7 +86,6 @@ public class ProductMixMatchAdapter extends RecyclerView.Adapter<ProductMixMatch
             public void onClick(View view) {
                 toogle++;
                 if(toogle % 2 == 1){
-//                    Toast.makeText(view.getContext(), String.valueOf(toogle), Toast.LENGTH_SHORT).show();
                     holder.imgSelected.setVisibility(View.VISIBLE);
                     selectedImageListener.onSelected(productMixMatch);
                 }

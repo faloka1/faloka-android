@@ -46,7 +46,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PaymentFragment extends Fragment implements PaymentMethodSelectedListener, PaymentSelectedListener {
+public class PaymentFragment extends Fragment implements PaymentSelectedListener {
 
     public static final int PAYMENT_STEP = 1;
 
@@ -64,11 +64,8 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         order = new Order();
-//        orderUser = new OrderUser();
         if(getArguments() != null){
             order = getArguments().getParcelable(Order.EXTRA_ORDER);
-//            orderUser = getArguments().getParcelable(OrderUser.EXTRA_ORDER_USER);
-//            Toast.makeText(getContext(), "HAHA"+order.getCheckout().getTotalPrice(), Toast.LENGTH_SHORT).show();
         }
         CheckoutViewModelFactory factory = new CheckoutViewModelFactory(new CheckoutRepository(getActivity()));
         viewModel = new ViewModelProvider(getActivity(),factory).get(PaymentViewModel.class);
@@ -92,12 +89,6 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
         tvSubTotal.setText(getFormatRupiah(total));
     }
     private void setPaymentMethod(){
-//        viewModel.getPaymentMethod().observe(getActivity(),paymentMethods -> {
-//            RecyclerView rvPaymentMethod = view.findViewById(R.id.rv_payment_method);
-//            PaymentMethodAdapter paymentMethodAdapter = new PaymentMethodAdapter(paymentMethods,this::onPaymentMethodSelected);
-//            rvPaymentMethod.setLayoutManager(new LinearLayoutManager(getActivity()));
-//            rvPaymentMethod.setAdapter(paymentMethodAdapter);
-//        });
         TokenManager tokenManager = TokenManager.getInstance(getContext().getSharedPreferences("Token",0));
         Call<List<Payment>> callPayments = ApiConfig.getApiService(tokenManager).getPayments();
 
@@ -130,7 +121,6 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
 
         getTotal().observe(getActivity(),total->{
             tvTotalPrice.setText(getFormatRupiah(Integer.parseInt(total)));
-//            order.setTotalOrder(Integer.parseInt(total));
         });
     }
 
@@ -139,32 +129,6 @@ public class PaymentFragment extends Fragment implements PaymentMethodSelectedLi
         Locale localeID = new Locale("in", "ID");
         NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
         return  formatRupiah.format(tempPrice);
-    }
-
-    @Override
-    public void onPaymentMethodSelected(PaymentMethod paymentMethod) {
-        Button buttonNext = view.findViewById(R.id.btn_checkout_next);
-        buttonNext.setEnabled(true);
-        buttonNext.setTextColor(getResources().getColor(R.color.white));
-        buttonNext.setBackgroundColor(getActivity().getResources().getColor(R.color.netral_900));
-//        buttonNext.setBackgroundResource(R.color.netral_900);
-        buttonNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundlePayment = new Bundle();
-                Intent intent = new Intent(getActivity(), ConfirmCheckoutActivity.class);
-
-                getTotal().observe(getActivity(),total->{
-                    bundlePayment.putString("TOTAL_PRICE", total);
-                });
-
-                bundlePayment.putParcelable("PAYMENT_METHOD",paymentMethod);
-                intent.putExtra("DATA_CHECKOUT",bundlePayment);
-                startActivity(intent);
-                getActivity().finish();
-            }
-        });
-
     }
 
     @Override

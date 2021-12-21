@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -17,6 +19,8 @@ import com.example.faloka_mobile.Model.InspireMe;
 import com.example.faloka_mobile.Model.InspireMeResponse;
 import com.example.faloka_mobile.Model.Message;
 import com.example.faloka_mobile.Model.OrderResponseForInspireMe;
+import com.example.faloka_mobile.R;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,12 +103,35 @@ public class InspireMeRepositry {
             public void onResponse(Call<Message> call, Response<Message> response) {
                 if(response.isSuccessful()){
                     Message message = response.body();
-                    Toast.makeText(context, message.getMessage(), Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(context, MainActivity.class);
-                    intent.putExtra(InspireMeFragment.EXTRA_FRAGMENT_INSPO, InspireMeFragment.INDEX_FRAGMENT_ACCOUNT);
-                    ((Activity) context).startActivity(intent);
-                    ((Activity) context).finish();
-                    Log.d("berhasil", response.message());
+//                    Toast.makeText(context, message.getMessage(), Toast.LENGTH_SHORT).show();
+                    Activity activity = ((Activity) context);
+                    CoordinatorLayout coordinatorLayout = activity.findViewById(R.id.coordinator_layout_top_upload_inspire);
+                    Snackbar snackbar = Snackbar.make(coordinatorLayout, "Outfit berhasil di upload!", Snackbar.LENGTH_LONG);
+                    snackbar.setAction("OK", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(context, MainActivity.class);
+                            intent.putExtra(InspireMeFragment.EXTRA_FRAGMENT_INSPO, InspireMeFragment.INDEX_FRAGMENT_ACCOUNT);
+                            ((Activity) context).startActivity(intent);
+                            ((Activity) context).finish();
+                        }
+                    });
+                    snackbar.addCallback(new Snackbar.Callback(){
+                        @Override
+                        public void onDismissed(Snackbar transientBottomBar, int event) {
+                            super.onDismissed(transientBottomBar, event);
+                            Intent intent = new Intent(context, MainActivity.class);
+                            intent.putExtra(InspireMeFragment.EXTRA_FRAGMENT_INSPO, InspireMeFragment.INDEX_FRAGMENT_ACCOUNT);
+                            ((Activity) context).startActivity(intent);
+                            ((Activity) context).finish();
+                        }
+                    });
+                    snackbar.setActionTextColor(activity.getResources().getColor(R.color.primary_dark));
+                    snackbar.setTextColor(activity.getResources().getColor(R.color.primary_dark));
+                    snackbar.setBackgroundTint(activity.getResources().getColor(R.color.semantic_success));
+                    snackbar.show();
+
+
                     tokenManager.getLoadingDialog().dismissLoadingDialog();
                 }
                 else{
