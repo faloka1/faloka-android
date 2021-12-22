@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "347686449293",
+    "project_id": "faloka-d74b5",
+    "storage_bucket": "faloka-d74b5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:347686449293:android:b87d14b671af4ad11e72c4",
+        "android_client_info": {
+          "package_name": "com.faloka.faloka_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "347686449293-0tnbmu9te5tvf36onbviffu72gd2affr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZYlQ8X_C6m7OzheC5f_wmHWUo622l5xs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "347686449293-0tnbmu9te5tvf36onbviffu72gd2affr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
