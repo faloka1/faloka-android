@@ -6,6 +6,7 @@ import android.content.Context;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Patterns;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -44,6 +45,24 @@ public class LoginViewModel extends ViewModel {
         }
         LoginRepository.userLogin(login,context, loginValidListener);
     }
+
+    public void onKeyEnter(View view){
+        binding.edtLogPassword.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (i == KeyEvent.KEYCODE_ENTER)) {
+                    init();
+                    if (!isValidEmail() | !isValidPassword()) {
+                        return false;
+                    }
+                    LoginRepository.userLogin(login,view.getContext(), loginValidListener);
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
     private Boolean isValidEmail(){
         if(login.getEmail().isEmpty()){
             binding.edtLogEmail.setError("Email masih kosong");
