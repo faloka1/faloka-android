@@ -44,7 +44,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setPassword();
         binding.btnLogLogin.setOnClickListener(this);
         binding.tvLogRegister.setOnClickListener(this);
-
+        loginViewModel = new LoginViewModel(binding, this::onLogin);
+        loginViewModel.onKeyEnter(binding.getRoot());
     }
     public void setPassword(){
         TextInputLayout password = binding.layoutEdtRegPassword;
@@ -53,9 +54,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
         if(view.getId() == binding.btnLogLogin.getId()){
-            loginViewModel = new LoginViewModel(binding, this::onLogin);
             loginViewModel.login(view, view.getContext() );
-
         }
         else if(view.getId() == binding.tvLogRegister.getId()){
             Intent intent = new Intent(this, RegisterActivity.class);

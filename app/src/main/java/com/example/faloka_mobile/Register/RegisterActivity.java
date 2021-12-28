@@ -40,6 +40,12 @@ public class RegisterActivity extends AppCompatActivity implements RegisterListe
         String[] option = {"L", "P"};
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, R.layout.layout_option_regist_gender,option);
         binding.autoCompleteSpinnerGender.setAdapter(arrayAdapter);
+        binding.autoCompleteSpinnerGender.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), "AAHAH", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void setAfterError(){
