@@ -12,7 +12,7 @@
         />
     <item
         android:id="@+id/bottom_menu_inspire"
-        android:title="Inspo"
+        android:title="Ootd"
         android:icon="@drawable/ic_svg_inspire"
         />
     <item
